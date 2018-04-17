@@ -27,15 +27,13 @@ public class SyncServicesDetails {
 	PublicVariable PV;
     InternetConnection IC;
 	private Activity activity;
-	private String acceptcode;
 	private String WsResponse;
-	private String flag;
+	private String karbarCode;
 	private boolean CuShowDialog=true;
 	//Contractor
-	public SyncServicesDetails(Activity activity, String acceptcode,String flag) {
+	public SyncServicesDetails(Activity activity, String karbarCode) {
 		this.activity = activity;
-		this.acceptcode = acceptcode;
-		this.flag = flag;
+		this.karbarCode = karbarCode;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -198,8 +196,6 @@ public class SyncServicesDetails {
 			value=res[i].split(Pattern.quote("[Besparina##]"));
 			db.execSQL("INSERT INTO servicesdetails (code,servicename,type,name,Pic) VALUES('"+value[0] +"','"+value[1]+"','"+value[2]+"','"+value[3]+"','"+value[4]+"')");
 		}
-		if(this.flag.compareTo("0")==0)
-		{
 			db = dbh.getReadableDatabase();
 			String query = "SELECT * FROM Profile";
 			Cursor cursor=db.rawQuery(query,null);
@@ -211,31 +207,14 @@ public class SyncServicesDetails {
 			else {
 				phonenumber="0";
 			}
-			LoadActivity2(Info_Person.class, "phonenumber",phonenumber,"acceptcode",this.acceptcode);
-		}
-		else if (this.flag.compareTo("1")==0)
-		{
-			SyncGettUserCreditHistory syncGettUserCreditHistory =new SyncGettUserCreditHistory(this.activity,this.acceptcode,"0");
-			syncGettUserCreditHistory.AsyncExecute();
-			LoadActivity(MainMenu.class,"karbarCode",this.acceptcode);
-		}
+			LoadActivity(MainMenu.class,"karbarCode",this.karbarCode);
 		db.close();
     }
-	
 
 	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
 		Intent intent = new Intent(activity,Cls);
 		intent.putExtra(VariableName, VariableValue);
-
-		activity.startActivity(intent);
-	}
-	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
-	{
-		Intent intent = new Intent(activity,Cls);
-		intent.putExtra(VariableName, VariableValue);
-		intent.putExtra(VariableName2, VariableValue2);
-
 		activity.startActivity(intent);
 	}
 	

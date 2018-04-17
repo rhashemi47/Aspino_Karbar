@@ -35,9 +35,9 @@ public class About extends AppCompatActivity {
 //	private Button btnOrder;
 //	private Button btnAcceptOrder;
 //	private Button btncredite;
-	private GoogleMap map;
+//	private GoogleMap map;
 	private Typeface FontMitra;
-	private LatLng point;
+//	private LatLng point;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -148,17 +148,17 @@ protected void onCreate(Bundle savedInstanceState) {
 //			LoadActivity(Credit.class, "karbarCode", karbarCode);
 //		}
 //	});
-	((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
-		@Override
-
-		public void onMapReady(GoogleMap googleMap) {
-			map = googleMap;
-			point = new LatLng(0, 0);
-			map.addMarker(new MarkerOptions().position(point).title("آسپینو").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
-			map.getUiSettings().setZoomControlsEnabled(true);
-		}
-	});
+//	((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
+//		@Override
+//
+//		public void onMapReady(GoogleMap googleMap) {
+//			map = googleMap;
+//			point = new LatLng(0, 0);
+//			map.addMarker(new MarkerOptions().position(point).title("آسپینو").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//			map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
+//			map.getUiSettings().setZoomControlsEnabled(true);
+//		}
+//	});
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {

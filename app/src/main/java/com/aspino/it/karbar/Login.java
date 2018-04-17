@@ -30,19 +30,14 @@ import java.io.IOException;
 
 public class Login extends Activity {
 	private Button btnEnter;
-	private Button btnSignUp;
 	private EditText etPhoneNumber;
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
-	private ImageView imageView;
-	private Custom_ViewFlipper viewFlipper;
-	private GestureDetector mGestureDetector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-		viewFlipper = (Custom_ViewFlipper) findViewById(R.id.vf);
         Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remive page title
         dbh=new DatabaseHelper(getApplicationContext());
@@ -64,73 +59,13 @@ public class Login extends Activity {
 
    			throw sqle;
    		}
-   		//*****************************************************
-		db = dbh.getReadableDatabase();
-		Cursor coursors = db.rawQuery("SELECT * FROM Slider", null);
-		if (coursors.getCount() > 0) {
-			Bitmap bpm[] = new Bitmap[coursors.getCount()];
-			String link[] = new String[coursors.getCount()];
-			for (int j = 0; j < coursors.getCount(); j++) {
-
-				coursors.moveToNext();
-				viewFlipper.setVisibility(View.VISIBLE);
-				//slides.add();
-				bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
-				link[j] = coursors.getString(coursors.getColumnIndex("Link"));
-			}
-			db.close();
-			int i = 0;
-			while (i < bpm.length) {
-				imageView = new ImageView(getApplicationContext());
-				imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-				//ImageLoader.getInstance().displayImage(slides.get(i),imageView);
-				imageView.setImageBitmap(bpm[i]);
-				imageView.setTag(link[i]);
-				viewFlipper.addView(imageView);
-				i++;
-			}
-
-
-			Paint paint = new Paint();
-			paint.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
-			viewFlipper.setPaintCurrent(paint);
-			paint = new Paint();
-
-			paint.setColor(ContextCompat.getColor(this, android.R.color.white));
-			viewFlipper.setPaintNormal(paint);
-
-			viewFlipper.setRadius(10);
-			viewFlipper.setMargin(5);
-
-			Login.CustomGestureDetector customGestureDetector = new Login.CustomGestureDetector();
-			mGestureDetector = new GestureDetector(Login.this, customGestureDetector);
-
-			viewFlipper.setOnTouchListener(new View.OnTouchListener() {
-				@Override
-				public boolean onTouch(View view, MotionEvent motionEvent) {
-					mGestureDetector.onTouchEvent(motionEvent);
-					return true;
-				}
-			});
-		} else {
-			viewFlipper.setVisibility(View.GONE);
-		}
 		//*****************************************************
 		btnEnter=(Button)findViewById(R.id.btnEnter);
-		btnSignUp=(Button)findViewById(R.id.btnSignUp);
         etPhoneNumber=(EditText)findViewById(R.id.etPhoneNumber);
         //set font for element
         etPhoneNumber.setTypeface(FontMitra);
-		btnSignUp.setTypeface(FontMitra);
 		btnEnter.setTypeface(FontMitra);
 		btnEnter.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Toast.makeText(Login.this, "برای استفاده از امکانات آسپینو باید ثبت نام کنید", Toast.LENGTH_LONG).show();
-				LoadActivity(MainMenu.class,"karbarCode","0");
-			}
-		});
-		btnSignUp.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
@@ -158,28 +93,7 @@ public class Login extends Activity {
 			}
 		});
     }
-	class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
-		@Override
-		public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
-			// Swipe left (next)
-			if (e1.getX() > e2.getX()) {
-				viewFlipper.setInAnimation(Login.this, R.anim.left_in);
-				viewFlipper.setOutAnimation(Login.this, R.anim.left_out);
-
-				viewFlipper.showNext();
-			} else if (e1.getX() < e2.getX()) {
-				viewFlipper.setInAnimation(Login.this, R.anim.right_in);
-				viewFlipper.setOutAnimation(Login.this, R.anim.right_out);
-
-				viewFlipper.showPrevious();
-			}
-			viewFlipper.setInAnimation(Login.this, R.anim.left_in);
-			viewFlipper.setOutAnimation(Login.this, R.anim.left_out);
-
-			return super.onFling(e1, e2, velocityX, velocityY);
-		}
-	}
     public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);

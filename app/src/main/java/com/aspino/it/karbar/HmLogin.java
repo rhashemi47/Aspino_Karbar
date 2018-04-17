@@ -123,20 +123,20 @@ public class HmLogin {
 	            }
 	            else if(res[0].toString().compareTo("-2") == 0)//نیروی جدید می باشد و باید اطلاعات اولیه دریافت شود.
 	            {
-	            	if(check_load.compareTo("0")==0)
-					{
-						setloginDeactive();
-					}
-					else
-					{
+//	            	if(check_load.compareTo("0")==0)
+//					{
+//						setloginDeactive();
+//					}
+//					else
+//					{
 						InsertDataFromWsToDb(res);
-					}
+//					}
 
 	            }
 	            else if(res[0].toString().compareTo("-3") == 0)
 	            {
 	            	//به صفحه منو برده شود اما امکانات غیرفعال گردد.
-	            	setloginDeactive();
+	            	//setloginDeactive();
 	            }
 				else//;کاربر شناسایی شده و باید به روز رسانی اطلاعات انجام شود
 				{
@@ -219,8 +219,9 @@ public class HmLogin {
 	
 	public void InsertDataFromWsToDb(String[] AllRecord)
     {
-		SyncServices syncservices=new SyncServices(this.activity,this.acceptcode,"0");
-		syncservices.AsyncExecute();
+//		SyncServices syncservices=new SyncServices(this.activity,acceptcode);
+//		syncservices.AsyncExecute();
+		LoadActivity2(Info_Person.class, "phonenumber",phonenumber,"acceptcode",this.acceptcode);
     }
 	public void setlogin() 
 	{
@@ -252,7 +253,7 @@ public class HmLogin {
 		db.close();
 		SyncMessage syncMessage=new SyncMessage(this.activity, res[0].toString(),LastMessageCode);
 		syncMessage.AsyncExecute();
-		SyncServices syncservices=new SyncServices(this.activity,res[0].toString(),"1");
+		SyncServices syncservices=new SyncServices(this.activity,res[0].toString());
 		syncservices.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, res[0].toString());
 		syncProfile.AsyncExecute();
@@ -281,6 +282,13 @@ public class HmLogin {
 		Intent intent = new Intent(activity,Cls);
 		intent.putExtra(VariableName, VariableValue);
 
+		activity.startActivity(intent);
+	}
+	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
+	{
+		Intent intent = new Intent(activity,Cls);
+		intent.putExtra(VariableName, VariableValue);
+		intent.putExtra(VariableName2, VariableValue2);
 		activity.startActivity(intent);
 	}
 	

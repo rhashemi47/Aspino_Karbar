@@ -28,14 +28,12 @@ public class SyncServices {
 	private Activity activity;
 	private String karbarCode;
 	private String WsResponse;
-	private String flag;
 	//private String acceptcode; 
 	private boolean CuShowDialog=true;
 	//Contractor
-	public SyncServices(Activity activity, String karbarCode ,String flag) {
+	public SyncServices(Activity activity, String karbarCode) {
 		this.activity = activity;
 		this.karbarCode = karbarCode;
-		this.flag = flag;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -208,7 +206,7 @@ public class SyncServices {
 			db.execSQL("INSERT INTO services (code,servicename,Pic) VALUES('"+value[0] +"','"+value[1]+"','"+value[2]+"')");
 		}
 		db.close();
-		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,this.karbarCode,this.flag);
+		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,this.karbarCode);
 		syncservicesdetails.AsyncExecute();
 
     }

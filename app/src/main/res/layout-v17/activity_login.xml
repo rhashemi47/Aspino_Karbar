@@ -25,22 +25,7 @@
                 android:background="@drawable/logo"
                 android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/appbar"
-            android:id="@+id/LinearSlidShow"
-            android:layout_marginTop="30dp">
-            <com.aspino.it.karbar.Custom_ViewFlipper
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:inAnimation="@anim/right_in"
-                android:outAnimation="@anim/left_out"
-                android:flipInterval="5000"
-                android:autoStart="true"
-                android:id="@+id/vf">
-            </com.aspino.it.karbar.Custom_ViewFlipper>
-        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,6 +54,19 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
+
+            <!--<Button-->
+                <!--android:id="@+id/btnSignUp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/rounded_button"-->
+                <!--android:drawableRight="@drawable/singup"-->
+                <!--android:text="@string/SignUp"-->
+                <!--android:textSize="20sp" />-->
+
             <Button
                 android:id="@+id/btnEnter"
                 android:layout_width="wrap_content"
@@ -77,21 +75,10 @@
                 android:drawableRight="@drawable/signin"
                 android:text="@string/Login"
                 android:textSize="20sp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 android:layout_weight="1"/>
-            <Button
-                android:id="@+id/btnSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:drawableRight="@drawable/singup"
-                android:text="@string/SignUp"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                />
+
         </LinearLayout>
     </LinearLayout>
 

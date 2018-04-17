@@ -24,13 +24,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+//import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.OnMapReadyCallback;
+//import com.google.android.gms.maps.SupportMapFragment;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,9 +52,9 @@ public class Service_Request_Saved extends AppCompatActivity {
 //	private Button btnOrder;
 //	private Button btnAcceptOrder;
 //	private Button btncredite;
-	private GoogleMap map;
+//	private GoogleMap map;
 	private Typeface FontMitra;
-	private LatLng point;
+//	private LatLng point;
 	private TextView ContentShowJob;
 	private LinearLayout LinearIfoHamyar;
 	private ListView lvHamyar;
@@ -794,43 +794,43 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			lvHamyar.setAdapter(dataAdapter);
 		}
 		db.close();
-		((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {
-			@Override
-
-			public void onMapReady(GoogleMap googleMap) {
-				map = googleMap;
-				db=dbh.getReadableDatabase();
-				String query="SELECT OrdersService.*,address.* FROM OrdersService " +
-						"LEFT JOIN " +
-						"address ON " +
-						"address.code=OrdersService.AddressCode WHERE OrdersService.Code="+OrderCode;
-				Cursor coursors = db.rawQuery(query,null);
-				if(coursors.getCount()>0)
-				{
-					coursors.moveToNext();
-					String latStr=coursors.getString(coursors.getColumnIndex("Lat"));
-					String lonStr=coursors.getString(coursors.getColumnIndex("Lng"));
-
-					try
-					{
-						double lat=Double.parseDouble(latStr);
-						double lon=Double.parseDouble(lonStr);
-						point = new LatLng(lat, lon);
-					}
-					catch (Exception ex)
-					{
-						point= new LatLng(0, 0);
-					}
-				}
-				else {
-					point = new LatLng(0, 0);
-				}
-				db.close();
-				map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
-				map.getUiSettings().setZoomControlsEnabled(true);
-			}
-		});
+//		((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {
+//			@Override
+//
+//			public void onMapReady(GoogleMap googleMap) {
+//				map = googleMap;
+//				db=dbh.getReadableDatabase();
+//				String query="SELECT OrdersService.*,address.* FROM OrdersService " +
+//						"LEFT JOIN " +
+//						"address ON " +
+//						"address.code=OrdersService.AddressCode WHERE OrdersService.Code="+OrderCode;
+//				Cursor coursors = db.rawQuery(query,null);
+//				if(coursors.getCount()>0)
+//				{
+//					coursors.moveToNext();
+//					String latStr=coursors.getString(coursors.getColumnIndex("Lat"));
+//					String lonStr=coursors.getString(coursors.getColumnIndex("Lng"));
+//
+//					try
+//					{
+//						double lat=Double.parseDouble(latStr);
+//						double lon=Double.parseDouble(lonStr);
+//						point = new LatLng(lat, lon);
+//					}
+//					catch (Exception ex)
+//					{
+//						point= new LatLng(0, 0);
+//					}
+//				}
+//				else {
+//					point = new LatLng(0, 0);
+//				}
+//				db.close();
+//				map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//				map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
+//				map.getUiSettings().setZoomControlsEnabled(true);
+//			}
+//		});
 	}
 	public void dialContactPhone(String phoneNumber) {
 		//startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
