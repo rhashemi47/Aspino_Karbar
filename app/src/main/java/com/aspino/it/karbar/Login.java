@@ -100,54 +100,12 @@ public class Login extends Activity {
 		intent.putExtra(VariableName, VariableValue);
 		Login.this.startActivity(intent);
 	}
-	private void ExitApplication()
-	{
-		//Exit All Activity And Kill Application
-		AlertDialog.Builder alertbox = new AlertDialog.Builder(Login.this);
-		// set the message to display
-		alertbox.setMessage("آیا می خواهید از برنامه خارج شوید ؟");
-
-		// set a negative/no button and create a listener
-		alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
-			// do something when the button is clicked
-			public void onClick(DialogInterface arg0, int arg1) {
-				arg0.dismiss();
-			}
-		});
-
-		// set a positive/yes button and create a listener
-		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
-			// do something when the button is clicked
-			public void onClick(DialogInterface arg0, int arg1) {
-				//Declare Object From Get Internet Connection Status For Check Internet Status
-				System.exit(0);
-				arg0.dismiss();
-
-			}
-		});
-
-		alertbox.show();
-	}
-
 	@Override
 	public boolean onKeyDown( int keyCode, KeyEvent event )  {
-		if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-			ExitApplication();
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+			LoadActivity(Main_Activity.class,"karbarCode","0");
 		}
-		return super.onKeyDown( keyCode, event );
-	}
-
-	public Bitmap convertToBitmap(String base) {
-		Bitmap Bmp = null;
-		try {
-			byte[] decodedByte = Base64.decode(base, Base64.DEFAULT);
-			Bmp = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-//
-			return Bmp;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return Bmp;
-		}
+		return super.onKeyDown(keyCode, event);
 	}
 }
 

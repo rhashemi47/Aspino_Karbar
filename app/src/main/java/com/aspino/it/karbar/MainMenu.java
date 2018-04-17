@@ -72,7 +72,7 @@ public class MainMenu extends AppCompatActivity {
 //    private Button btnOrder;
 //    private Button btnAcceptOrder;
 //    private Button btncredite;
-    private Button btnServiceEmergency;
+//    private Button btnServiceEmergency;
     private Typeface faceh;
 //    ImageView imageView;
 //    Custom_ViewFlipper viewFlipper;
@@ -101,7 +101,7 @@ public class MainMenu extends AppCompatActivity {
 //        btnOrder = (Button) findViewById(R.id.btnOrderBottom);
 //        btnAcceptOrder = (Button) findViewById(R.id.btnAcceptOrderBottom);
 //        btncredite = (Button) findViewById(R.id.btncrediteBottom);
-        btnServiceEmergency = (Button) findViewById(R.id.btnServiceEmergency);
+//        btnServiceEmergency = (Button) findViewById(R.id.btnServiceEmergency);
 
 //        etSearch = (EditText) findViewById(R.id.etSearch);
 //        lstSearchDetailService = (ListView) findViewById(R.id.lstSearchDetailService);
@@ -212,13 +212,19 @@ public class MainMenu extends AppCompatActivity {
 //            }
 //        });
         //********************************************************************Start And Stop Service BackGround
-        if(karbarCode.compareTo("0")!=0) {
-            startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
-            startService(new Intent(getBaseContext(), ServiceGetLocation.class));
-            startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
-            startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
-            startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
-        }
+       try {
+           if (karbarCode.compareTo("0") != 0) {
+               startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+               startService(new Intent(getBaseContext(), ServiceGetLocation.class));
+               startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+               startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
+               startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+           }
+       }
+       catch (Exception ex)
+       {
+
+       }
         //**************************************************************************
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -441,7 +447,15 @@ public class MainMenu extends AppCompatActivity {
                 db.execSQL("DELETE FROM UpdateApp");
                 db.execSQL("DELETE FROM visit");
                 db.close();
-                System.exit(0);
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+                startMain.addCategory(Intent.CATEGORY_HOME);
+
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(startMain);
+
+                finish();
                 arg0.dismiss();
             }
         });
@@ -553,10 +567,10 @@ public class MainMenu extends AppCompatActivity {
                         //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
                         //new SecondaryDrawerItem().withName(R.string.Exit).withIcon(R.drawable.exit).withSelectable(false),
                         new SecondaryDrawerItem().withName(R.string.Logout).withIcon(R.drawable.logout).withSelectable(false)
-                ).addStickyDrawerItems(new PrimaryDrawerItem().withName(R.string.RelateUs).withSelectable(false).withEnabled(false),
-                        new PrimaryDrawerItem().withName(R.string.telegram).withIcon(R.drawable.telegram).withSelectable(false),
-                        new PrimaryDrawerItem().withName(R.string.instagram).withIcon(R.drawable.instagram).withSelectable(false))
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+//                ).addStickyDrawerItems(new PrimaryDrawerItem().withName(R.string.RelateUs).withSelectable(false).withEnabled(false),
+//                        new PrimaryDrawerItem().withName(R.string.telegram).withIcon(R.drawable.telegram).withSelectable(false),
+//                        new PrimaryDrawerItem().withName(R.string.instagram).withIcon(R.drawable.instagram).withSelectable(false))
+                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         switch (position) {
@@ -576,6 +590,9 @@ public class MainMenu extends AppCompatActivity {
                                     } else {
                                         LoadActivity(Profile.class, "karbarCode", karbarCode);
                                     }
+                                }
+                                else {
+                                    LoadActivity(Login.class,"karbarCode","0");
                                 }
                                 db.close();
                                 break;

@@ -34,29 +34,31 @@
                 android:layout_marginLeft="10dp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@+id/appbar"-->
+    <!--android:id="@+id/LinearSlidShow"-->
+    <!--android:layout_marginTop="30dp">-->
+    <!--<com.aspino.it.karbar.Custom_ViewFlipper-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="180dp"-->
+    <!--android:inAnimation="@anim/right_in"-->
+    <!--android:outAnimation="@anim/left_out"-->
+    <!--android:flipInterval="5000"-->
+    <!--android:autoStart="true"-->
+    <!--android:id="@+id/vf">-->
+    <!--</com.aspino.it.karbar.Custom_ViewFlipper>-->
+    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appbar"
-        android:id="@+id/LinearSlidShow">
-        <com.aspino.it.karbar.Custom_ViewFlipper
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:inAnimation="@anim/right_in"
-            android:outAnimation="@anim/left_out"
-            android:flipInterval="5000"
-            android:autoStart="true"
-            android:id="@+id/vf">
-        </com.aspino.it.karbar.Custom_ViewFlipper>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="340dp"
+        android:layout_height="match_parent"
         android:id="@+id/LinearServic"
-        android:layout_below="@+id/LinearSlidShow"
+        android:layout_below="@+id/appbar"
         android:foregroundGravity="center"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
         <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -92,38 +94,38 @@
                 android:id="@+id/GridViewServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"
+                android:numColumns="2"
                 android:background="@color/colorbuttonview">
             </GridView>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lstSearchDetailService">
-            </ListView>
+            <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/lstSearchDetailService">-->
+            <!--</ListView>-->
         </LinearLayout>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </FrameLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/LinearServic"
-        android:layout_margin="10dp">
-        <Button
-            android:id="@+id/btnServiceEmergency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/emergencyService"
-            android:background="@drawable/rounded_layout_job_title"
-            android:drawableRight="@drawable/emerjency"
-            android:layout_marginLeft="100dp"
-            android:layout_marginRight="100dp"/>
-    </LinearLayout>
+    <!--<FrameLayout-->
+    <!--android:id="@+id/frame"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content">-->
+    <!--</FrameLayout>-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@+id/LinearServic"-->
+    <!--android:layout_margin="10dp">-->
+    <!--<Button-->
+    <!--android:id="@+id/btnServiceEmergency"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/emergencyService"-->
+    <!--android:background="@drawable/rounded_layout_job_title"-->
+    <!--android:drawableRight="@drawable/emerjency"-->
+    <!--android:layout_marginLeft="100dp"-->
+    <!--android:layout_marginRight="100dp"/>-->
+    <!--</LinearLayout>-->
     <!--<LinearLayout-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="80dp"-->

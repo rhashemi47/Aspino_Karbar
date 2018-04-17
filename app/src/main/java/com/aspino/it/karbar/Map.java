@@ -45,9 +45,9 @@ public class Map extends AppCompatActivity {
     private Button btnSaveLocation;
     private EditText NameAddres;
     private EditText AddAddres;
-    public double lat;
-    private double lon;
-    private GoogleMap map;
+    public double lat=0;
+    private double lon=0;
+//    private GoogleMap map;
     private String backToActivity;
     private String codeService;
     private EditText etEmail;
@@ -146,48 +146,48 @@ public class Map extends AppCompatActivity {
             }
         });
         //*************************************************************************************************
-        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
-            @Override
-
-            public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
-
-                LatLng point;
-                lat=35.691063;
-                lon=51.407941;
-                point = new LatLng(lat, lon);
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
-                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
-                    lat = Double.parseDouble(latStr);
-                    lon = Double.parseDouble(lonStr);
-                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-                        point = new LatLng(lat, lon);
-                    }
-                }
-                db.close();
-                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
-
-
-                map.getUiSettings().setZoomControlsEnabled(true);
-                map.getUiSettings().setMyLocationButtonEnabled(true);
-                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        String str = latLng.toString();
-                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-                        map.clear();
-                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                        lat=latLng.latitude;
-                        lon=latLng.longitude;
-                    }
-                });
-            }
-        });
+//        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
+//            @Override
+//
+//            public void onMapReady(GoogleMap googleMap) {
+//                map = googleMap;
+//
+//                LatLng point;
+//                lat=35.691063;
+//                lon=51.407941;
+//                point = new LatLng(lat, lon);
+//                db = dbh.getReadableDatabase();
+//                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+//                if (coursors.getCount() > 0) {
+//                    coursors.moveToNext();
+//                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
+//                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
+//                    lat = Double.parseDouble(latStr);
+//                    lon = Double.parseDouble(lonStr);
+//                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+//                        point = new LatLng(lat, lon);
+//                    }
+//                }
+//                db.close();
+//                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
+//
+//
+//                map.getUiSettings().setZoomControlsEnabled(true);
+//                map.getUiSettings().setMyLocationButtonEnabled(true);
+//                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//                    @Override
+//                    public void onMapClick(LatLng latLng) {
+//                        String str = latLng.toString();
+//                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+//                        map.clear();
+//                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                        lat=latLng.latitude;
+//                        lon=latLng.longitude;
+//                    }
+//                });
+//            }
+//        });
         //******************************************************************************************************
         chbIsDefaultAddres.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

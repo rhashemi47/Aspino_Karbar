@@ -196,8 +196,16 @@ public class Profile extends Activity {
 
 			}
 		}
+		try
+		{
+			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
+		}
+		catch (Exception ex)
+		{
+			bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
+			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
+		}
 
-		imgUser.setImageBitmap(getRoundedRectBitmap(bmp,1000));
 		btnEditAdres=(Button)findViewById(R.id.btnEditAdres);
 		btnEditAdres.setOnClickListener(new View.OnClickListener() {
 			@Override
