@@ -90,6 +90,12 @@
             android:gravity="center"
             android:orientation="vertical"
             android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/TypeService"
+                android:textColor="#ffff"
+                android:background="@drawable/rounded_layout_job_body"/>
             <GridView
                 android:id="@+id/GridViewServices"
                 android:layout_width="match_parent"

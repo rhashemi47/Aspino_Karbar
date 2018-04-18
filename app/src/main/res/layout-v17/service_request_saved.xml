@@ -151,13 +151,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/btnEditOrder"
                     android:text="@string/EditOrder"
-                    android:layout_marginTop="5dp"
                     android:drawableLeft="@drawable/edit_order"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
@@ -171,7 +171,6 @@
                     android:drawableLeft="@drawable/refresh_order"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="5dp"/>
             </LinearLayout>
@@ -180,6 +179,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
                 <Button
                     android:layout_width="50dp"
@@ -189,7 +189,6 @@
                     android:drawableLeft="@drawable/call_hamyar"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
-                    android:layout_marginTop="5dp"
                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="5dp"/>
                 <Button

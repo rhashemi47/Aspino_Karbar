@@ -79,7 +79,10 @@
             android:name="com.aspino.it.karbar.List_Services"
             android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.Service_Request"
+            android:name="com.aspino.it.karbar.Service_Request1"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request2"
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Map"

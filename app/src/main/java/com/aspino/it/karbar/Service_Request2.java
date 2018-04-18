@@ -8,7 +8,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -27,33 +27,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-//import com.google.android.gms.maps.CameraUpdateFactory;
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.OnMapReadyCallback;
-//import com.google.android.gms.maps.SupportMapFragment;
-//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-//import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.MarkerOptions;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Service_Request extends AppCompatActivity {
+public class Service_Request2 extends AppCompatActivity {
 	private String karbarCode;
 	private String DetailCode;
 	private TextView tvTitleService;
-	private TextView tvTitleString;
-	private TextView tvTitleFromDate;
-	private TextView tvTitleToDate;
-	private TextView tvTitleFromTime;
-	private TextView tvTitleToTime;
 	private TextView tvTitleTypePeriodService;
 	private TextView tvTitleStatus;
 	private TextView tvTitleCountWoman;
@@ -68,18 +55,10 @@ public class Service_Request extends AppCompatActivity {
 	private TextView tvTitleTypeService;
 	private TextView tvTitleTypeCar;
 	private TextView tvLanguage;
-	private TextView tvTitleDescription;
-	private TextView tvTitleAddres;
 	//**************************************************************
-	private EditText etFromDate;
-	private EditText etToDate;
-	private EditText etFromTime;
-	private EditText etToTime;
 	private EditText etCountWoman;
 	private EditText etCountMan;
 	private EditText etDoesnotmatter;
-	private EditText etAddres;
-	private EditText etDescription;
 	private EditText etTitleLearning;
 	private EditText etFieldArtOther;
 	//**************************************************************
@@ -97,7 +76,8 @@ public class Service_Request extends AppCompatActivity {
 	//**************************************************************
 	private CheckBox chbDoesnotmatter;
 	//**************************************************************
-	private Button btnSave;
+	private ImageView imgBack;
+	private ImageView imgSave;
 	private LinearLayout LinearFromDate;
 	private LinearLayout LinearToDate;
 	private LinearLayout LinearFromTime;
@@ -122,7 +102,6 @@ public class Service_Request extends AppCompatActivity {
 	//**************************************************************
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
-//	private GoogleMap map;
 	private String typeForm;
 	private String CodeService;
 	///*************************************
@@ -174,13 +153,12 @@ public class Service_Request extends AppCompatActivity {
 	private RadioButton radioTeacherGenderButton;
 	private RadioButton radioCarWashTypeButton;
 	private RadioButton radiorgTypeCarButton;
-	private Spinner spAddress;
-//	private LatLng point;
-//	private Button btnOrder;
-//	private Button btnAcceptOrder;
-//	private Button btncredite;
 	private Button btnCansel;
-	private Typeface FontFace;
+	private String FromDate;
+	private String ToDate;
+	private String FromTime;
+	private String ToTime;
+
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -188,33 +166,19 @@ public class Service_Request extends AppCompatActivity {
 	@Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.service_request);
-	//***************************************************************
-		FontFace = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
-		int textSize=18;
-	//****************************************************************
+	setContentView(R.layout.service_request2);
 //		btnOrder=(Button)findViewById(R.id.btnOrderBottom);
 //		btnOrder.setTypeface(FontFace);
 //		btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //		btnAcceptOrder.setTypeface(FontFace);
 //		btncredite=(Button)findViewById(R.id.btncrediteBottom);
 //		btncredite.setTypeface(FontFace);
-		btnSave=(Button)findViewById(R.id.btnSave);
+		imgBack=(ImageView) findViewById(R.id.imgBack);
+		imgSave=(ImageView) findViewById(R.id.imgSave);
 		btnCansel=(Button)findViewById(R.id.btnCansel);
-		btnSave.setTypeface(FontFace);
-		btnCansel.setTypeface(FontFace);
-		btnSave.setTextSize(textSize);
-		btnCansel.setTextSize(textSize);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
-		tvTitleService.setTypeface(FontFace);
-		tvTitleService.setTextSize(textSize);
 		//**************************************************************************************
 		tvTitleService=(TextView)findViewById(R.id.tvTitleService);
-		tvTitleString=(TextView)findViewById(R.id.tvTitleString);
-		tvTitleFromDate=(TextView)findViewById(R.id.tvTitleFromDate);
-		tvTitleToDate=(TextView)findViewById(R.id.tvTitleToDate);
-		tvTitleFromTime=(TextView)findViewById(R.id.tvTitleFromTime);
-		tvTitleToTime=(TextView)findViewById(R.id.tvTitleToTime);
 		tvTitleTypePeriodService=(TextView)findViewById(R.id.tvTitleTypePeriodService);
 		tvTitleStatus=(TextView)findViewById(R.id.tvTitleStatus);
 		tvTitleCountWoman=(TextView)findViewById(R.id.tvTitleCountWoman);
@@ -229,90 +193,12 @@ protected void onCreate(Bundle savedInstanceState) {
 		tvTitleTypeService=(TextView)findViewById(R.id.tvTitleTypeService);
 		tvTitleTypeCar=(TextView)findViewById(R.id.tvTitleTypeCar);
 		tvLanguage=(TextView)findViewById(R.id.tvLanguage);
-		tvTitleDescription=(TextView)findViewById(R.id.tvTitleDescription);
-		tvTitleAddres=(TextView)findViewById(R.id.tvTitleAddres);
-		//**************************************************************************************
-		tvTitleService.setTypeface(FontFace);
-		tvTitleString.setTypeface(FontFace);
-		tvTitleFromDate.setTypeface(FontFace);
-		tvTitleToDate.setTypeface(FontFace);
-		tvTitleFromTime.setTypeface(FontFace);
-		tvTitleToTime.setTypeface(FontFace);
-		tvTitleTypePeriodService.setTypeface(FontFace);
-		tvTitleStatus.setTypeface(FontFace);
-		tvTitleCountWoman.setTypeface(FontFace);
-		tvTitleCountMan.setTypeface(FontFace);
-		tvTitleLearning.setTypeface(FontFace);
-		tvGraid.setTypeface(FontFace);
-		tvFieldEducation.setTypeface(FontFace);
-		tvFieldArt.setTypeface(FontFace);
-		tvTitleFieldArtOther.setTypeface(FontFace);
-		tvTitleGenderTeacher.setTypeface(FontFace);
-		tvTitleTypeService.setTypeface(FontFace);
-		tvTitleTypeCar.setTypeface(FontFace);
-		tvLanguage.setTypeface(FontFace);
-		tvTitleDescription.setTypeface(FontFace);
-		tvTitleAddres.setTypeface(FontFace);
-		//**************************************************************************************
-		tvTitleService.setTextSize(18);
-		tvTitleString.setTextSize(18);
-		tvTitleFromDate.setTextSize(18);
-		tvTitleToDate.setTextSize(18);
-		tvTitleFromTime.setTextSize(18);
-		tvTitleToTime.setTextSize(18);
-		tvTitleTypePeriodService.setTextSize(18);
-		tvTitleStatus.setTextSize(18);
-		tvTitleCountWoman.setTextSize(18);
-		tvTitleCountMan.setTextSize(18);
-		tvTitleLearning.setTextSize(18);
-		tvGraid.setTextSize(18);
-		tvFieldEducation.setTextSize(18);
-		tvFieldArt.setTextSize(18);
-		tvTitleFieldArtOther.setTextSize(18);
-		tvTitleGenderTeacher.setTextSize(18);
-		tvTitleTypeService.setTextSize(18);
-		tvTitleTypeCar.setTextSize(18);
-		tvLanguage.setTextSize(18);
-		tvTitleDescription.setTextSize(18);
-		tvTitleAddres.setTextSize(18);
-		//**************************************************************************************
-	  etFromDate=(EditText)findViewById(R.id.etFromDate);
-	  etToDate=(EditText)findViewById(R.id.etToDate);
-	  etFromTime=(EditText)findViewById(R.id.etFromTime);
-	  etToTime=(EditText)findViewById(R.id.etToTime);
 	  etCountWoman=(EditText)findViewById(R.id.etCountWoman);
 	  etCountMan=(EditText)findViewById(R.id.etCountMan);
 	  etDoesnotmatter=(EditText)findViewById(R.id.etDoesnotmatter);
-	  etAddres=(EditText)findViewById(R.id.etAddres);
-	  etDescription=(EditText)findViewById(R.id.etDescription);
 	  etTitleLearning=(EditText)findViewById(R.id.etTitleLearning);
 	  etFieldArtOther=(EditText)findViewById(R.id.etFieldArtOther);
-	  //*******************************************************************
-		etFromDate.setTypeface(FontFace);
-		etToDate.setTypeface(FontFace);
-		etFromTime.setTypeface(FontFace);
-		etToTime.setTypeface(FontFace);
-		etCountWoman.setTypeface(FontFace);
-		etCountMan.setTypeface(FontFace);
-		etDoesnotmatter.setTypeface(FontFace);
-		etAddres.setTypeface(FontFace);
-		etDescription.setTypeface(FontFace);
-		etTitleLearning.setTypeface(FontFace);
-		etFieldArtOther.setTypeface(FontFace);
-	//*************************************************************************
-		etFromDate.setTextSize(textSize);
-		etToDate.setTextSize(textSize);
-		etFromTime.setTextSize(textSize);
-		etToTime.setTextSize(textSize);
-		etCountWoman.setTextSize(textSize);
-		etCountMan.setTextSize(textSize);
-		etDoesnotmatter.setTextSize(textSize);
-		etAddres.setTextSize(textSize);
-		etDescription.setTextSize(textSize);
-		etTitleLearning.setTextSize(textSize);
-		etFieldArtOther.setTextSize(textSize);
 
-		//***********************************************************************
 	  spGraid=(Spinner)findViewById(R.id.spGraid);
 	  spFieldEducation=(Spinner)findViewById(R.id.spFieldEducation);
 	  spFieldArt=(Spinner)findViewById(R.id.spFieldArt);
@@ -325,10 +211,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	  rgTypeService=(RadioGroup)findViewById(R.id.rgTypeService);
 	  rgTypeCar=(RadioGroup)findViewById(R.id.rgTypeCar);
 	  chbDoesnotmatter=(CheckBox)findViewById(R.id.chbDoesnotmatter);
-	  LinearFromDate=(LinearLayout)findViewById(R.id.LinearFromDate);
-	  LinearToDate=(LinearLayout)findViewById(R.id.LinearToDate);
-	  LinearFromTime=(LinearLayout)findViewById(R.id.LinearFromTime);
-	  LinearToTime=(LinearLayout)findViewById(R.id.LinearToTime);
+
 	  LinearTypePeriodService=(LinearLayout)findViewById(R.id.LinearTypePeriodService);
 	  LinearStatus=(LinearLayout)findViewById(R.id.LinearStatus);
 	  LinearStatusCountWoman=(LinearLayout)findViewById(R.id.LinearStatusCountWoman);
@@ -344,13 +227,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	  LinearTypeService=(LinearLayout)findViewById(R.id.LinearTypeService);
 	  LinearTypeCar=(LinearLayout)findViewById(R.id.LinearTypeCar);
 	  LinearLanguage=(LinearLayout)findViewById(R.id.LinearLanguage);
-	  LinearAddres=(LinearLayout)findViewById(R.id.LinearAddres);
-	  LinearDescription=(LinearLayout)findViewById(R.id.LinearDescription);
+
 
 		//*********************************************************
-		chbDoesnotmatter.setTypeface(FontFace);
-		chbDoesnotmatter.setTextSize(textSize);
-		//***********************************************************************
 		rdbDaily=(RadioButton)findViewById(R.id.rdbDaily);
 		rdbWeekly=(RadioButton)findViewById(R.id.rdbWeekly);
 		rdbMiddle_of_the_week=(RadioButton)findViewById(R.id.rdbMiddle_of_the_week);
@@ -368,38 +247,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		rdbShasi=(RadioButton)findViewById(R.id.rdbShasi);
 		rdbVan=(RadioButton)findViewById(R.id.rdbVan);
 		//***********************************************************************
-		rdbDaily.setTypeface(FontFace);
-		rdbWeekly.setTypeface(FontFace);
-		rdbMiddle_of_the_week.setTypeface(FontFace);
-		rdbMonthly.setTypeface(FontFace);
-		rdbNormal.setTypeface(FontFace);
-		rdbEmergency.setTypeface(FontFace);
-		rdbMaleStudent.setTypeface(FontFace);
-		rdbFemaleStudent.setTypeface(FontFace);
-		rdbMaleTeacher.setTypeface(FontFace);
-		rdbFemaleTeacher.setTypeface(FontFace);
-		rdbDoesnotmatter.setTypeface(FontFace);
-		rdbRoshoie.setTypeface(FontFace);
-		rdbRoshoieAndToShoie.setTypeface(FontFace);
-		rdbSavari.setTypeface(FontFace);
-		rdbShasi.setTypeface(FontFace);
-		rdbVan.setTypeface(FontFace);
-		//***********************************************************************rdbDaily.setTypeface(FontFace);
-		rdbWeekly.setTextSize(textSize);
-		rdbMiddle_of_the_week.setTextSize(textSize);
-		rdbMonthly.setTextSize(textSize);
-		rdbNormal.setTextSize(textSize);
-		rdbEmergency.setTextSize(textSize);
-		rdbMaleStudent.setTextSize(textSize);
-		rdbFemaleStudent.setTextSize(textSize);
-		rdbMaleTeacher.setTextSize(textSize);
-		rdbFemaleTeacher.setTextSize(textSize);
-		rdbDoesnotmatter.setTextSize(textSize);
-		rdbRoshoie.setTextSize(textSize);
-		rdbRoshoieAndToShoie.setTextSize(textSize);
-		rdbSavari.setTextSize(textSize);
-		rdbShasi.setTextSize(textSize);
-		rdbVan.setTextSize(textSize);
 	dbh=new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -418,6 +265,80 @@ protected void onCreate(Bundle savedInstanceState) {
 	} catch (SQLException sqle) {
 
 		throw sqle;
+	}
+	try
+	{
+
+		FromDate = getIntent().getStringExtra("FromDate").toString();
+		String splitStr[]=FromDate.split("/");
+		StartYear =splitStr[0];
+		StartMonth =splitStr[1];
+		StartDay =splitStr[2];
+
+	}
+	catch (Exception ex)
+	{
+		FromDate="0";
+		StartYear ="0";
+		StartMonth ="0";
+		StartDay ="0";
+	}
+	try
+	{
+		ToDate = getIntent().getStringExtra("ToDate").toString();
+		String splitStr[]=ToDate.split("/");
+		EndYear =splitStr[0];
+		EndMonth =splitStr[1];
+		EndDay =splitStr[2];
+	}
+	catch (Exception ex)
+	{
+		ToDate="0";
+		EndYear ="0";
+		EndMonth ="0";
+		EndDay ="0";
+	}
+	try
+	{
+		FromTime = getIntent().getStringExtra("FromTime").toString();
+		String splitStr[]=FromTime.split(":");
+		StartHour =splitStr[0];
+		StartMinute =splitStr[1];
+	}
+	catch (Exception ex)
+	{
+		FromTime="0";
+		StartHour ="0";
+		StartMinute ="0";
+	}
+	try
+	{
+		ToTime = getIntent().getStringExtra("ToTime").toString();
+		String splitStr[]=ToTime.split(":");
+		EndHour =splitStr[0];
+		EndMinute =splitStr[1];
+	}
+	catch (Exception ex)
+	{
+		ToTime="0";
+		EndHour ="0";
+		EndMinute ="0";
+	}
+	try
+	{
+		Description = getIntent().getStringExtra("Description").toString();
+	}
+	catch (Exception ex)
+	{
+		Description="";
+	}
+	try
+	{
+		AddressCode = getIntent().getStringExtra("AddressCode").toString();
+	}
+	catch (Exception ex)
+	{
+		AddressCode="";
 	}
 	try
 	{
@@ -442,141 +363,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		db.close();
 	}
-	//*********************************************************************
-//		db=dbh.getReadableDatabase();
-//		Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//				"LEFT JOIN " +
-//				"Servicesdetails ON " +
-//				"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'", null);
-//		if (cursor2.getCount() > 0) {
-//			btnOrder.setText("درخواست ها: " + cursor2.getCount());
-//		}
-//		cursor2 = db.rawQuery("SELECT * FROM OrdersService WHERE Status in (1,2,6,7,12,13)", null);
-//		if (cursor2.getCount() > 0) {
-//			btnAcceptOrder.setText("پذیرفته شده ها: " + cursor2.getCount());
-//		}
-//		cursor2 = db.rawQuery("SELECT * FROM AmountCredit", null);
-//		if (cursor2.getCount() > 0) {
-//			cursor2.moveToNext();
-//			try {
-//				String splitStr[]=cursor2.getString(cursor2.getColumnIndex("Amount")).toString().split("\\.");
-//				if(splitStr[1].compareTo("00")==0)
-//				{
-//					btncredite.setText("اعتبار: " +splitStr[0]);
-//				}
-//				else
-//				{
-//					btncredite.setText("اعتبار: " + cursor2.getString(cursor2.getColumnIndex("Amount")));
-//				}
-//
-//			} catch (Exception ex) {
-//				btncredite.setText("اعتبار: " + "0");
-//			}
-//		}
-//		db.close();
-//		btnOrder.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				String QueryCustom;
-//				QueryCustom="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//						"LEFT JOIN " +
-//						"Servicesdetails ON " +
-//						"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'";
-//				LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
-//			}
-//		});
-//		btnAcceptOrder.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				String QueryCustom;
-//				QueryCustom="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//						"LEFT JOIN " +
-//						"Servicesdetails ON " +
-//						"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status in (1,2,6,7,12,13)";
-//				LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
-//			}
-//		});
-//		btncredite.setOnClickListener(new View.OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//
-//				LoadActivity(Credit.class, "karbarCode", karbarCode);
-//			}
-//		});
-		//**************************************************************
-	spAddress=(Spinner)findViewById(R.id.spAddress);
-	FillSpinner("address","Name",spAddress);
-	spAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-			db=dbh.getReadableDatabase();
-			Cursor cursor = db.rawQuery("SELECT * FROM address WHERE Name='"+spAddress.getItemAtPosition(position).toString()+"'",null);
-			if(cursor.getCount()>0)
-			{
-				cursor.moveToNext();
-				etAddres.setText(cursor.getString(cursor.getColumnIndex("AddressText")));
-				etAddres.setTag(cursor.getString(cursor.getColumnIndex("Code")));
-				String latStr=cursor.getString(cursor.getColumnIndex("Lat"));
-				String lonStr=cursor.getString(cursor.getColumnIndex("Lng"));
-//				double lat=Double.parseDouble(latStr);
-//				double lon=Double.parseDouble(lonStr);
-//				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-//					point = new LatLng(lat, lon);
-//
-//				}
-//				else
-//				{
-//					point = new LatLng(35.691063, 51.407941);
-//
-//				}
-//				map.clear();
-//				map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-//				map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
-			}
-			db.close();
-		}
-
-		@Override
-		public void onNothingSelected(AdapterView<?> parent) {
-
-		}
-	});
-
-	//**************************************************************************************
-//	((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {
-//		@Override
-//
-//		public void onMapReady(GoogleMap googleMap) {
-//			map = googleMap;
-//			db=dbh.getReadableDatabase();
-//			Cursor coursors = db.rawQuery("SELECT * FROM Profile",null);
-//			if(coursors.getCount()>0)
-//			{
-//				coursors.moveToNext();
-//				String latStr=coursors.getString(coursors.getColumnIndex("Lat"));
-//				String lonStr=coursors.getString(coursors.getColumnIndex("Lon"));
-//				double lat=Double.parseDouble(latStr);
-//				double lon=Double.parseDouble(lonStr);
-//				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-//					point = new LatLng(lat, lon);
-//				}
-//				else
-//					{
-//						point = new LatLng(35.691063, 51.407941);
-//					}
-//			}
-//			else {
-//				point = new LatLng(35.691063, 51.407941);
-//			}
-//			db.close();
-//
-//			map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-//			map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
-//
-//
-//			map.getUiSettings().setZoomControlsEnabled(true);
-//		}
-//	});
 
 //**************************************************************************************
 		db=dbh.getReadableDatabase();
@@ -644,70 +430,14 @@ protected void onCreate(Bundle savedInstanceState) {
 			}
 		}
 	});
-		btnSave.setOnClickListener(new View.OnClickListener() {
+		imgSave.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String ErrorStr="";
 				FemaleCount=etCountWoman.getText().toString();
 				HamyarCount=etDoesnotmatter.getText().toString();
 				MaleCount=etCountMan.getText().toString();
-				try {
-					if (etAddres.getTag().toString().length() <= 0) {
-						ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
-					} else {
-						AddressCode = etAddres.getTag().toString();
-					}
-				}
-				catch (Exception ex)
-				{
-					ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
-				}
-				if(etFromDate.length()==0)
-				{
-					ErrorStr+="تاریخ شروع را وارد نمایید"+"\n";
-				}
-				if(etToDate.length()==0)
-				{
-					ErrorStr+="تاریخ خاتمه را وارد نمایید"+"\n";
-				}
-				if(etFromTime.length()==0)
-				{
-					ErrorStr+="ساعت شروع را وارد نمایید"+"\n";
-				}
-				if(etToTime.length()==0)
-				{
-					ErrorStr+="ساعت خاتمه را وارد نمایید"+"\n";
-				}
-				if(etFromDate.getText().toString().compareTo(etToDate.getText().toString())>0)
-				{
-					ErrorStr+="تاریخ شروع نمی تواند بزرگتر از تاریخ خاتمه باشد."+"\n";
-				}
-				if(etFromDate.length()<8 && etFromDate.length()>10)
-				{
-					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
-				}
-				if(etToDate.length()<8 && etToDate.length()>10)
-				{
-					ErrorStr+="تاریخ خاتمه را صحیح وارد نمایید"+"\n";
-				}
-				if(etFromTime.length()<3 && etFromTime.length()>5)
-				{
-					ErrorStr+="زمان شروع را صحیح وارد نمایید"+"\n";
-				}
-				if(etToTime.length()<3 && etToTime.length()>5)
-				{
-					ErrorStr+="زمان خاتمه را صحیح وارد نمایید"+"\n";
-				}
-//				if(etFromTime.getText().toString().compareTo(etToTime.getText().toString())>0)
-//				{
-//					ErrorStr+="ساعت شروع نمی تواند بزرگتر از ساعت خاتمه باشد."+"\n";
-//				}
 
-//				if(AddressCode.length()!=10)
-//				{
-//					ErrorStr+="آدرس را وارد نمایید"+"\n";
-//				}
-				Description =etDescription.getText().toString();
 				//**************************************************************
 				int selectedId = rgStatus.getCheckedRadioButtonId();
 				// find the radiobutton by returned id
@@ -900,7 +630,7 @@ protected void onCreate(Bundle savedInstanceState) {
 				}
 				if(ErrorStr.length()==0)
 				{
-					SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request.this,
+					SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request2.this,
 							karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
 							StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
 							AddressCode, Description, IsEmergency, PeriodicServices, EducationGrade,
@@ -909,14 +639,21 @@ protected void onCreate(Bundle savedInstanceState) {
 				}
 				else
 				{
-						Toast.makeText(Service_Request.this, ErrorStr, Toast.LENGTH_SHORT).show();
+						Toast.makeText(Service_Request2.this, ErrorStr, Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
-		btnCansel.setOnClickListener(new View.OnClickListener() {
+		imgBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				LoadActivity2(List_ServiceDerails.class, "karbarCode", karbarCode,"codeService",CodeService);
+				LoadActivity2(Service_Request1.class,"karbarCode", karbarCode,
+						"DetailCode", DetailCode,
+						"FromDate", FromDate,
+						"ToDate", ToDate,
+						"FromTime",FromTime,
+						"ToTime", ToTime,
+						"Description", Description,
+						"AddressCode", AddressCode);
 			}
 		});
 		spFieldArt.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -934,207 +671,18 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			}
 		});
-		etFromDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus)
-				{
-					PersianCalendar now = new PersianCalendar();
-					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-							new DatePickerDialog.OnDateSetListener() {
-								@Override
-								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									etFromDate.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
-									StartYear=String.valueOf(year);
-									StartMonth=String.valueOf(monthOfYear+1);
-									StartDay=String.valueOf(dayOfMonth);
 
-								}
-							}, now.getPersianYear(),
-							now.getPersianMonth(),
-							now.getPersianDay());
-					datePickerDialog.setThemeDark(true);
-					datePickerDialog.show(getFragmentManager(), "tpd");
-				}
-			}
-		});
-		etFromDate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				PersianCalendar now = new PersianCalendar();
-				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-								etFromDate.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
-								StartYear=String.valueOf(year);
-								StartMonth=String.valueOf(monthOfYear+1);
-								StartDay=String.valueOf(dayOfMonth);
-
-							}
-						}, now.getPersianYear(),
-						now.getPersianMonth(),
-						now.getPersianDay());
-				datePickerDialog.setThemeDark(true);
-				datePickerDialog.show(getFragmentManager(), "tpd");
-
-			}
-		});
-		etToDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus) {
-					PersianCalendar now = new PersianCalendar();
-					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-							new DatePickerDialog.OnDateSetListener() {
-								@Override
-								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									etToDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-									EndYear = String.valueOf(year);
-									EndMonth = String.valueOf(monthOfYear + 1);
-									EndDay = String.valueOf(dayOfMonth);
-								}
-							}, now.getPersianYear(),
-							now.getPersianMonth(),
-							now.getPersianDay());
-					datePickerDialog.setThemeDark(true);
-					datePickerDialog.show(getFragmentManager(), "tpd");
-				}
-			}
-		});
-		etToDate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				PersianCalendar now = new PersianCalendar();
-				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-								etToDate.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
-								EndYear=String.valueOf(year);
-								EndMonth=String.valueOf(monthOfYear+1);
-								EndDay=String.valueOf(dayOfMonth);
-							}
-						}, now.getPersianYear(),
-						now.getPersianMonth(),
-						now.getPersianDay());
-				datePickerDialog.setThemeDark(true);
-				datePickerDialog.show(getFragmentManager(), "tpd");
-			}
-		});
-		etFromTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus) {
-					Calendar mcurrentTime = Calendar.getInstance();
-					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-					int minute = mcurrentTime.get(Calendar.MINUTE);
-
-					TimePickerDialog mTimePicker;
-					mTimePicker = new TimePickerDialog(Service_Request.this, new TimePickerDialog.OnTimeSetListener() {
-						@Override
-						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-							String AM_PM;
-							if (selectedHour >= 0 && selectedHour < 12) {
-								AM_PM = "AM";
-							} else {
-								AM_PM = "PM";
-							}
-							etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-							StartHour = String.valueOf(selectedHour);
-							StartMinute = String.valueOf(selectedMinute);
-						}
-					}, hour, minute, false);
-					mTimePicker.setTitle("Select Time");
-					mTimePicker.show();
-				}
-			}
-		});
-		etFromTime.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Calendar mcurrentTime = Calendar.getInstance();
-				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-				int minute = mcurrentTime.get(Calendar.MINUTE);
-
-				TimePickerDialog mTimePicker;
-				mTimePicker = new TimePickerDialog(Service_Request.this, new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-						String AM_PM;
-						if (selectedHour >=0 && selectedHour < 12){
-							AM_PM = "AM";
-						} else {
-							AM_PM = "PM";
-						}
-						etFromTime.setText(String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute));
-						StartHour=String.valueOf(selectedHour);
-						StartMinute=String.valueOf(selectedMinute);
-					}
-				}, hour, minute, false);
-				mTimePicker.setTitle("Select Time");
-				mTimePicker.show();
-			}
-		});
-		etToTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus) {
-					Calendar mcurrentTime = Calendar.getInstance();
-					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-					int minute = mcurrentTime.get(Calendar.MINUTE);
-
-					TimePickerDialog mTimePicker;
-					mTimePicker = new TimePickerDialog(Service_Request.this, new TimePickerDialog.OnTimeSetListener() {
-						@Override
-						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-							String AM_PM;
-							if (selectedHour >= 0 && selectedHour < 12) {
-								AM_PM = "AM";
-							} else {
-								AM_PM = "PM";
-							}
-							etToTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-							EndHour = String.valueOf(selectedHour);
-							EndMinute = String.valueOf(selectedMinute);
-						}
-					}, hour, minute, false);
-					mTimePicker.setTitle("Select Time");
-					mTimePicker.show();
-				}
-			}
-		});
-		etToTime.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Calendar mcurrentTime = Calendar.getInstance();
-				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-				int minute = mcurrentTime.get(Calendar.MINUTE);
-
-				TimePickerDialog mTimePicker;
-				mTimePicker = new TimePickerDialog(Service_Request.this, new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-						String AM_PM;
-						if (selectedHour >=0 && selectedHour < 12){
-							AM_PM = "AM";
-						} else {
-							AM_PM = "PM";
-						}
-						etToTime.setText(String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute));
-						EndHour=String.valueOf(selectedHour);
-						EndMinute=String.valueOf(selectedMinute);
-					}
-				}, hour, minute, false);
-				mTimePicker.setTitle("Select Time");
-				mTimePicker.show();
-			}
-		});
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-    	LoadActivity2(List_ServiceDerails.class, "karbarCode", karbarCode,"codeService",CodeService);
+    	LoadActivity2(Service_Request1.class,"karbarCode", karbarCode,
+				"codeService", CodeService, "FromDate", FromDate,
+				"ToDate", ToDate,
+				"FromTime",FromTime,
+				"ToTime", ToTime,
+				"Description", Description,
+				"AddressCode", AddressCode);
     }
 
     return super.onKeyDown( keyCode, event );
@@ -1143,33 +691,37 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
-		Service_Request.this.startActivity(intent);
+		Service_Request2.this.startActivity(intent);
 	}
-public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
-	{
-		Intent intent = new Intent(getApplicationContext(),Cls);
-		intent.putExtra(VariableName, VariableValue);
-		intent.putExtra(VariableName2, VariableValue2);
-		startActivity(intent);
+public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableValue1,
+						  String VariableName2, String VariableValue2,
+						  String VariableName3, String VariableValue3,
+						  String VariableName4, String VariableValue4,
+						  String VariableName5, String VariableValue5,
+						  String VariableName6, String VariableValue6,
+						  String VariableName7, String VariableValue7,
+						  String VariableName8, String VariableValue8)
+{
+	Intent intent = new Intent(getApplicationContext(),Cls);
+	intent.putExtra(VariableName1, VariableValue1);
+	intent.putExtra(VariableName2, VariableValue2);
+	intent.putExtra(VariableName3, VariableValue3);
+	intent.putExtra(VariableName4, VariableValue4);
+	intent.putExtra(VariableName5, VariableValue5);
+	intent.putExtra(VariableName6, VariableValue6);
+	intent.putExtra(VariableName7, VariableValue7);
+	intent.putExtra(VariableName8, VariableValue8);
+	Service_Request2.this.startActivity(intent);
 	}
 	public void form1()
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
-		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
 		//**********************************************
 		LinearTypePeriodService.setVisibility(View.VISIBLE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
 		//**********************************************
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
@@ -1187,21 +739,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.GONE);
 		LinearCountMan.setVisibility(View.GONE);
 		LinearCountDoenotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1219,21 +764,13 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1250,21 +787,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1281,21 +811,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.VISIBLE);
 		LinearGraid.setVisibility(View.VISIBLE);
 		FillSpinner("Grade","Title",spGraid);
@@ -1314,21 +837,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1345,21 +861,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.VISIBLE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1376,21 +885,15 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.VISIBLE);
 		LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);
@@ -1408,21 +911,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	{
 		etDoesnotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearFromDate.setVisibility(View.VISIBLE);
-		LinearToDate.setVisibility(View.VISIBLE);
-		//**********************************************
-		LinearFromTime.setVisibility(View.VISIBLE);
-		LinearToTime.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearTypePeriodService.setVisibility(View.GONE);
 		//**********************************************
 		LinearStatusCountWoman.setVisibility(View.GONE);
 		LinearCountMan.setVisibility(View.GONE);
 		LinearCountDoenotmatter.setVisibility(View.GONE);
 		//**********************************************
-		LinearAddres.setVisibility(View.VISIBLE);
-		LinearDescription.setVisibility(View.VISIBLE);
-		//**********************************************
+
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
 		LinearFieldEducation.setVisibility(View.GONE);

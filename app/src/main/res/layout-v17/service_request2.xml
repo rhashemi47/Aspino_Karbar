@@ -71,82 +71,6 @@
                 android:layout_margin="15dp"
                 android:background="@drawable/rounded_layout_select_job_body">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/LinearFromDate">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleFromDate"
-                        android:text="@string/FromDate"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etFromDate"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearToDate">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleToDate"
-                        android:text="@string/ToDate"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etToDate"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearFromTime">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleFromTime"
-                        android:text="@string/FromTime"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etFromTime"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearToTime">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleToTime"
-                        android:text="@string/ToTime"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etToTime"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -318,7 +242,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spGraid"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_button"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -336,7 +263,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spFieldEducation"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_button"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -354,7 +284,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spFieldArt"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_button"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -537,48 +470,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spLanguage"
-                        android:layout_weight="1"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearDescription">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleDescription"
-                        android:text="@string/Description"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:id="@+id/etDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
                         android:layout_weight="1"
-                        android:inputType="textMultiLine"
-                        android:textColor="#000000" />
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/rounded_button"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/LinearAddres">
-
-                    <TextView
-                        android:id="@+id/tvTitleAddres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Addres"
-                        android:textColor="#000000"/>
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spAddress"
-                        android:layout_weight="1">
-                    </Spinner>
-
+                    android:id="@+id/LinearAddresText">
                     <EditText
                         android:id="@+id/etAddres"
                         android:layout_width="wrap_content"
@@ -604,28 +506,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:layout_margin="10dp">
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnSave"
-                    android:text="@string/Save"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_button_save_request"
-                    android:drawableLeft="@drawable/save"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnCansel"
-                    android:text="@string/Cansel"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_button_save_request"
-                    android:drawableLeft="@drawable/cansel"/>
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgSave"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/forward"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgBack"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/back"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

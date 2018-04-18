@@ -19,14 +19,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -256,7 +248,7 @@ public class Map extends AppCompatActivity {
                 LoadActivity(Profile.class, "karbarCode", karbarCode);
             }else
             {
-                LoadActivity2(Service_Request.class, "karbarCode", karbarCode,"codeService",codeService);
+                LoadActivity2(Service_Request1.class, "karbarCode", karbarCode,"codeService",codeService);
             }
 
         }
