@@ -27,19 +27,19 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.aspino.it.karbar.Date.ChangeDate;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Service_Request2 extends AppCompatActivity {
-	private String karbarCode;
-	private String DetailCode;
 	private TextView tvTitleService;
 	private TextView tvTitleTypePeriodService;
 	private TextView tvTitleStatus;
@@ -56,11 +56,12 @@ public class Service_Request2 extends AppCompatActivity {
 	private TextView tvTitleTypeCar;
 	private TextView tvLanguage;
 	//**************************************************************
-	private EditText etCountWoman;
-	private EditText etCountMan;
+//	private EditText etCountWoman;
+//	private EditText etCountMan;
 	private EditText etDoesnotmatter;
 	private EditText etTitleLearning;
 	private EditText etFieldArtOther;
+	private EditText etCountTimeJob;
 	//**************************************************************
 	private Spinner spGraid;
 	private Spinner spFieldEducation;
@@ -74,19 +75,17 @@ public class Service_Request2 extends AppCompatActivity {
 	private RadioGroup rgTypeService;
 	private RadioGroup rgTypeCar;
 	//**************************************************************
-	private CheckBox chbDoesnotmatter;
+//	private CheckBox chbDoesnotmatter;
 	//**************************************************************
 	private ImageView imgBack;
 	private ImageView imgSave;
-	private LinearLayout LinearFromDate;
-	private LinearLayout LinearToDate;
-	private LinearLayout LinearFromTime;
-	private LinearLayout LinearToTime;
-	private LinearLayout LinearTypePeriodService;
-	private LinearLayout LinearStatus;
-	private LinearLayout LinearStatusCountWoman;
-	private LinearLayout LinearCountMan;
+//	private LinearLayout LinearTypePeriodService;
+	private LinearLayout LinearGenderExpert;
+	private LinearLayout LinearTitleGenderExpert;
+//	private LinearLayout LinearGenderExpertCountWoman;
+//	private LinearLayout LinearCountMan;
 	private LinearLayout LinearCountDoenotmatter;
+	private LinearLayout LinearTitleCountDoenotmatter;
 	private LinearLayout LinearLearning;
 	private LinearLayout LinearGraid;
 	private LinearLayout LinearFieldEducation;
@@ -97,8 +96,6 @@ public class Service_Request2 extends AppCompatActivity {
 	private LinearLayout LinearTypeService;
 	private LinearLayout LinearTypeCar;
 	private LinearLayout LinearLanguage;
-	private LinearLayout LinearAddres;
-	private LinearLayout LinearDescription;
 	//**************************************************************
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
@@ -120,7 +117,7 @@ public class Service_Request2 extends AppCompatActivity {
 	private String EndMinute ;
 	private String AddressCode ;
 	private String Description ;
-	private String IsEmergency ;
+//	private String IsEmergency ;
 	private String PeriodicServices ;
 	private String EducationGrade ;
 	private String FieldOfStudy ;
@@ -131,12 +128,30 @@ public class Service_Request2 extends AppCompatActivity {
 	private String CarWashType ;
 	private String CarType ;
 	private String Language ;
-	private RadioButton rdbDaily;
-	private RadioButton rdbWeekly;
-	private RadioButton rdbMiddle_of_the_week;
-	private RadioButton rdbMonthly;
-	private RadioButton rdbNormal;
-	private RadioButton rdbEmergency;
+	private String karbarCode;
+	private String DetailCode;
+	//************************************************************
+	private Button btnCansel;
+	private Button btnDesCountExpert;
+	private Button btnAddCountExpert;
+	private Button btnAddTimeJob;
+	private Button btnDesTimeJob;
+	//*************************************
+	private String FromDate;
+	private String ToDate;
+	private String FromTime;
+	private String ToTime;
+	//*********************************************
+	private CheckBox chbMale;
+	private CheckBox chbFemale;
+	private CheckBox chbMaleAndFemale;
+	//*********************************************
+//	private RadioButton rdbDaily;
+//	private RadioButton rdbWeekly;
+//	private RadioButton rdbMiddle_of_the_week;
+//	private RadioButton rdbMonthly;
+//	private RadioButton rdbNormal;
+//	private RadioButton rdbEmergency;
 	private RadioButton rdbMaleStudent;
 	private RadioButton rdbFemaleStudent;
 	private RadioButton rdbMaleTeacher;
@@ -153,11 +168,6 @@ public class Service_Request2 extends AppCompatActivity {
 	private RadioButton radioTeacherGenderButton;
 	private RadioButton radioCarWashTypeButton;
 	private RadioButton radiorgTypeCarButton;
-	private Button btnCansel;
-	private String FromDate;
-	private String ToDate;
-	private String FromTime;
-	private String ToTime;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -176,6 +186,10 @@ protected void onCreate(Bundle savedInstanceState) {
 		imgBack=(ImageView) findViewById(R.id.imgBack);
 		imgSave=(ImageView) findViewById(R.id.imgSave);
 		btnCansel=(Button)findViewById(R.id.btnCansel);
+		btnAddCountExpert=(Button)findViewById(R.id.btnAddCountExpert);
+		btnDesCountExpert=(Button)findViewById(R.id.btnDesCountExpert);
+		btnAddTimeJob=(Button)findViewById(R.id.btnAddTimeJob);
+		btnDesTimeJob=(Button)findViewById(R.id.btnDesTimeJob);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
 		//**************************************************************************************
 		tvTitleService=(TextView)findViewById(R.id.tvTitleService);
@@ -193,12 +207,17 @@ protected void onCreate(Bundle savedInstanceState) {
 		tvTitleTypeService=(TextView)findViewById(R.id.tvTitleTypeService);
 		tvTitleTypeCar=(TextView)findViewById(R.id.tvTitleTypeCar);
 		tvLanguage=(TextView)findViewById(R.id.tvLanguage);
-	  etCountWoman=(EditText)findViewById(R.id.etCountWoman);
-	  etCountMan=(EditText)findViewById(R.id.etCountMan);
+//	  etCountWoman=(EditText)findViewById(R.id.etCountWoman);
+//	  etCountMan=(EditText)findViewById(R.id.etCountMan);
 	  etDoesnotmatter=(EditText)findViewById(R.id.etDoesnotmatter);
 	  etTitleLearning=(EditText)findViewById(R.id.etTitleLearning);
 	  etFieldArtOther=(EditText)findViewById(R.id.etFieldArtOther);
-
+	  etCountTimeJob=(EditText)findViewById(R.id.etCountTimeJob);
+		//*************************************************************************
+		chbMale=(CheckBox) findViewById(R.id.chbMale);
+		chbFemale=(CheckBox)findViewById(R.id.chbFemale);
+		chbMaleAndFemale=(CheckBox)findViewById(R.id.chbMaleAndFemale);
+		//******************************************************************
 	  spGraid=(Spinner)findViewById(R.id.spGraid);
 	  spFieldEducation=(Spinner)findViewById(R.id.spFieldEducation);
 	  spFieldArt=(Spinner)findViewById(R.id.spFieldArt);
@@ -210,13 +229,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	  rgGenderTeacher=(RadioGroup)findViewById(R.id.rgGenderTeacher);
 	  rgTypeService=(RadioGroup)findViewById(R.id.rgTypeService);
 	  rgTypeCar=(RadioGroup)findViewById(R.id.rgTypeCar);
-	  chbDoesnotmatter=(CheckBox)findViewById(R.id.chbDoesnotmatter);
 
-	  LinearTypePeriodService=(LinearLayout)findViewById(R.id.LinearTypePeriodService);
-	  LinearStatus=(LinearLayout)findViewById(R.id.LinearStatus);
-	  LinearStatusCountWoman=(LinearLayout)findViewById(R.id.LinearStatusCountWoman);
-	  LinearCountMan=(LinearLayout)findViewById(R.id.LinearCountMan);
+//	  LinearTypePeriodService=(LinearLayout)findViewById(R.id.LinearTypePeriodService);
+	  LinearGenderExpert=(LinearLayout)findViewById(R.id.LinearGenderExpert);
+	  LinearTitleGenderExpert=(LinearLayout)findViewById(R.id.LinearTitleGenderExpert);
+	  //LinearGenderExpertCountWoman=(LinearLayout)findViewById(R.id.//LinearGenderExpertCountWoman);
+	  //LinearCountMan=(LinearLayout)findViewById(R.id.//LinearCountMan);
 	  LinearCountDoenotmatter=(LinearLayout)findViewById(R.id.LinearCountDoenotmatter);
+	  LinearTitleCountDoenotmatter=(LinearLayout)findViewById(R.id.LinearTitleCountDoenotmatter);
 	  LinearLearning=(LinearLayout)findViewById(R.id.LinearLearning);
 	  LinearGraid=(LinearLayout)findViewById(R.id.LinearGraid);
 	  LinearFieldEducation=(LinearLayout)findViewById(R.id.LinearFieldEducation);
@@ -230,12 +250,12 @@ protected void onCreate(Bundle savedInstanceState) {
 
 
 		//*********************************************************
-		rdbDaily=(RadioButton)findViewById(R.id.rdbDaily);
-		rdbWeekly=(RadioButton)findViewById(R.id.rdbWeekly);
-		rdbMiddle_of_the_week=(RadioButton)findViewById(R.id.rdbMiddle_of_the_week);
-		rdbMonthly=(RadioButton)findViewById(R.id.rdbMonthly);
-		rdbNormal=(RadioButton)findViewById(R.id.rdbNormal);
-		rdbEmergency=(RadioButton)findViewById(R.id.rdbEmergency);
+//		rdbDaily=(RadioButton)findViewById(R.id.rdbDaily);
+//		rdbWeekly=(RadioButton)findViewById(R.id.rdbWeekly);
+//		rdbMiddle_of_the_week=(RadioButton)findViewById(R.id.rdbMiddle_of_the_week);
+//		rdbMonthly=(RadioButton)findViewById(R.id.rdbMonthly);
+//		rdbNormal=(RadioButton)findViewById(R.id.rdbNormal);
+//		rdbEmergency=(RadioButton)findViewById(R.id.rdbEmergency);
 		rdbMaleStudent=(RadioButton)findViewById(R.id.rdbMaleStudent);
 		rdbFemaleStudent=(RadioButton)findViewById(R.id.rdbFemaleStudent);
 		rdbMaleTeacher=(RadioButton)findViewById(R.id.rdbMaleTeacher);
@@ -363,8 +383,93 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		db.close();
 	}
+//**************************************************************************************
+		btnAddCountExpert.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				count=Integer.parseInt(etDoesnotmatter.getText().toString())+1;
+				etDoesnotmatter.setText(String.valueOf(count));
+			}
+		});
+	btnDesCountExpert.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			int count;
+			if(Integer.parseInt(etDoesnotmatter.getText().toString())>0)
+			{
+				count = Integer.parseInt(etDoesnotmatter.getText().toString()) - 1;
+				etDoesnotmatter.setText(String.valueOf(count));
+			}
+		}
+	});
 
 //**************************************************************************************
+	btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				count=Integer.parseInt(etCountTimeJob.getText().toString())+1;
+				etCountTimeJob.setText(String.valueOf(count));
+			}
+		});
+	btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			int count;
+			if(Integer.parseInt(etCountTimeJob.getText().toString())>0)
+			{
+				count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
+				etCountTimeJob.setText(String.valueOf(count));
+			}
+		}
+	});
+
+//**************************************************************************************
+		chbMale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbMale.isChecked())
+				{
+					chbFemale.setChecked(false);
+					chbMaleAndFemale.setChecked(false);
+				}
+				else
+				{
+					chbMale.setChecked(true);
+				}
+			}
+		});		
+		chbFemale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbFemale.isChecked())
+				{
+					chbMale.setChecked(false);
+					chbMaleAndFemale.setChecked(false);
+				}
+				else
+				{
+					chbFemale.setChecked(true);
+				}
+			}
+		});
+		chbMaleAndFemale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbMaleAndFemale.isChecked())
+				{
+					chbMale.setChecked(false);
+					chbFemale.setChecked(false);
+				}
+				else
+				{
+					chbMaleAndFemale.setChecked(true);
+				}
+			}
+		});
+//**************************************************************************************
+
 		db=dbh.getReadableDatabase();
 		Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE code='"+DetailCode+"'",null);
 		if(coursors.getCount()>0){
@@ -412,67 +517,89 @@ protected void onCreate(Bundle savedInstanceState) {
 			form9();
 			break;
 	}
-	chbDoesnotmatter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-			if(isChecked)
-			{
-
-				LinearStatusCountWoman.setVisibility(View.GONE);
-				LinearCountMan.setVisibility(View.GONE);
-				etDoesnotmatter.setVisibility(View.VISIBLE);
-			}
-			else
-			{
-				LinearStatusCountWoman.setVisibility(View.VISIBLE);
-				LinearCountMan.setVisibility(View.VISIBLE);
-				etDoesnotmatter.setVisibility(View.GONE);
-			}
-		}
-	});
+//	chbDoesnotmatter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//		@Override
+//		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//			if(isChecked)
+//			{
+//
+//				//LinearGenderExpertCountWoman.setVisibility(View.GONE);
+//				//LinearCountMan.setVisibility(View.GONE);
+//				etDoesnotmatter.setVisibility(View.VISIBLE);
+//			}
+//			else
+//			{
+//				//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+//				//LinearCountMan.setVisibility(View.VISIBLE);
+//				etDoesnotmatter.setVisibility(View.VISIBLE);
+//			}
+//		}
+//	});
 		imgSave.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				String ErrorStr="";
-				FemaleCount=etCountWoman.getText().toString();
+//				FemaleCount=etCountWoman.getText().toString();
 				HamyarCount=etDoesnotmatter.getText().toString();
-				MaleCount=etCountMan.getText().toString();
-
-				//**************************************************************
-				int selectedId = rgStatus.getCheckedRadioButtonId();
-				// find the radiobutton by returned id
-				radioStatusButton = (RadioButton) findViewById(selectedId);
-				IsEmergency =radioStatusButton.getText().toString();
-				if(IsEmergency.compareTo("عادی")==0)
+//				MaleCount=etCountMan.getText().toString();
+				if(!chbMale.isChecked() && !chbFemale.isChecked() && !chbMaleAndFemale.isChecked())
 				{
-					IsEmergency="0";
+					ErrorStr+="جنسیت متخصص را انتخاب نمایید"+ "\n";
 				}
 				else
 				{
-					IsEmergency="1";
+					if(chbMale.isChecked()){
+						MaleCount=etDoesnotmatter.getText().toString();
+						FemaleCount="0";
+						HamyarCount="0";
+					}
+					if(chbFemale.isChecked()){
+						MaleCount="0";
+						FemaleCount=etDoesnotmatter.getText().toString();
+						HamyarCount="0";
+					}
+					if(chbMaleAndFemale.isChecked()){
+						MaleCount="0";
+						FemaleCount="0";
+						HamyarCount=etDoesnotmatter.getText().toString();
+					}
 				}
+				//**************************************************************
+				int selectedId ;
+//				selectedId = rgStatus.getCheckedRadioButtonId();
+				// find the radiobutton by returned id
+//				radioStatusButton = (RadioButton) findViewById(selectedId);
+//				IsEmergency =radioStatusButton.getText().toString();
+//				if(IsEmergency.compareTo("عادی")==0)
+//				{
+//					IsEmergency="0";
+//				}
+//				else
+//				{
+//					IsEmergency="1";
+//				}
 				//***************************************************************
 				
-				selectedId = rgTypePeriodService.getCheckedRadioButtonId();
+//				selectedId = rgTypePeriodService.getCheckedRadioButtonId();
 				// find the radiobutton by returned id
-				radioTypePeriodServiceButton = (RadioButton) findViewById(selectedId);
-				PeriodicServices =radioTypePeriodServiceButton.getText().toString();
-				if(PeriodicServices.compareTo("روزانه")==0)
-				{
-					PeriodicServices ="1";
-				}
-				else if(PeriodicServices.compareTo("هفته در میان")==0)
-				{
-					PeriodicServices ="2";
-				}
-				else if(PeriodicServices.compareTo("هفتگی")==0)
-				{
-					PeriodicServices ="3";
-				}
-				else
-				{
-					PeriodicServices ="4";
-				}
+//				radioTypePeriodServiceButton = (RadioButton) findViewById(selectedId);
+//				PeriodicServices =radioTypePeriodServiceButton.getText().toString();
+//				if(PeriodicServices.compareTo("روزانه")==0)
+//				{
+//					PeriodicServices ="1";
+//				}
+//				else if(PeriodicServices.compareTo("هفته در میان")==0)
+//				{
+//					PeriodicServices ="2";
+//				}
+//				else if(PeriodicServices.compareTo("هفتگی")==0)
+//				{
+//					PeriodicServices ="3";
+//				}
+//				else
+//				{
+//					PeriodicServices ="4";
+//				}
 				//***************************************************************
 
 				try
@@ -599,50 +726,59 @@ protected void onCreate(Bundle savedInstanceState) {
 				{
 					Language ="0";
 				}
-				if(LinearCountDoenotmatter.getVisibility()==View.VISIBLE ||
-						LinearCountMan.getVisibility()== View.VISIBLE ||
-						LinearStatusCountWoman.getVisibility()==View.VISIBLE) {
-					if (chbDoesnotmatter.isChecked()) {
-						MaleCount = "0";
-						FemaleCount = "0";
-						HamyarCount = etDoesnotmatter.getText().toString();
-						if (HamyarCount.length() == 0) {
+//				if(LinearCountDoenotmatter.getVisibility()==View.VISIBLE ||
+						//LinearCountMan.getVisibility()== View.VISIBLE ||
+						//LinearGenderExpertCountWoman.getVisibility()==View.VISIBLE) {
+				if (etDoesnotmatter.getText().toString().compareTo("0")==0 && LinearCountDoenotmatter.getVisibility()==View.VISIBLE) {
 
-							ErrorStr += "تعداد همیار را مشخص نمایید" + "\n";
-						}
-					} else {
-						HamyarCount = "0";
-						if (MaleCount.length() == 0) {
-							MaleCount = "0";
-						}
-						if (FemaleCount.length() == 0) {
-							FemaleCount = "0";
-						}
-						if (MaleCount.compareTo("0") == 0 && FemaleCount.compareTo("0") == 0) {
-							ErrorStr += "تعداد همیار مرد یا زن را مشخص نمایید" + "\n";
-						}
-					}
+							ErrorStr += "تعداد متخصص را مشخص نمایید" + "\n";
+
 				}
-				else {
-					MaleCount="0";
-					FemaleCount="0";
-					HamyarCount="0";
+				if (etCountTimeJob.getText().toString().compareTo("0")==0) {
+
+							ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
+
 				}
 				if(ErrorStr.length()==0)
-				{
-					SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request2.this,
-							karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
-							StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
-							AddressCode, Description, IsEmergency, PeriodicServices, EducationGrade,
-							FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language);
-					syncInsertUserServices.AsyncExecute();
-				}
-				else
-				{
-						Toast.makeText(Service_Request2.this, ErrorStr, Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+					{
+
+						if(StartYear.compareTo("0")!=0 && StartHour.compareTo("0")!=0)
+						{
+
+							String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/","-");
+							db=dbh.getReadableDatabase();
+							String query="SELECT DATETIME('"+DateGaregury + " " + FromTime+
+									":00'"+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
+							Cursor cursor=db.rawQuery(query,null);
+							if(cursor.getCount()>0)
+							{
+								cursor.moveToNext();
+								String DateFinal=cursor.getString(cursor.getColumnIndex("Date")).replace("-","/");
+								String SpaceSlit[]=DateFinal.split(" ");
+								SpaceSlit[0]=faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
+								String splitStrDate[]=SpaceSlit[0].split("/");
+								String splitStrTime[]=SpaceSlit[1].split(":");
+								EndYear =splitStrDate[0];
+								EndMonth =splitStrDate[1];
+								EndDay =splitStrDate[2];
+								EndHour =splitStrTime[0];
+								EndMinute =splitStrTime[1];
+							}
+							db.close();
+						}
+						SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request2.this,
+								karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
+								StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
+								AddressCode, Description, "0", "0", EducationGrade,
+								FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language);
+						syncInsertUserServices.AsyncExecute();
+					}
+					else
+					{
+							Toast.makeText(Service_Request2.this, ErrorStr, Toast.LENGTH_SHORT).show();
+					}
+		}
+	});
 		imgBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -677,7 +813,8 @@ protected void onCreate(Bundle savedInstanceState) {
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
     	LoadActivity2(Service_Request1.class,"karbarCode", karbarCode,
-				"codeService", CodeService, "FromDate", FromDate,
+				"DetailCode", DetailCode,
+				"FromDate", FromDate,
 				"ToDate", ToDate,
 				"FromTime",FromTime,
 				"ToTime", ToTime,
@@ -715,13 +852,14 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 	}
 	public void form1()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearTypePeriodService.setVisibility(View.VISIBLE);
+		//LinearTypePeriodService.setVisibility(View.VISIBLE);
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
@@ -733,18 +871,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.VISIBLE);
+		LinearTitleGenderExpert.setVisibility(View.VISIBLE);
 	}
 	public void form2()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		////LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.GONE);
-		LinearCountMan.setVisibility(View.GONE);
+		//LinearGenderExpertCountWoman.setVisibility(View.GONE);
+		//LinearCountMan.setVisibility(View.GONE);
 		LinearCountDoenotmatter.setVisibility(View.GONE);
+		LinearTitleCountDoenotmatter.setVisibility(View.GONE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.GONE);
@@ -757,19 +897,21 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 
 	public void form3()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 
 		LinearLearning.setVisibility(View.GONE);
 		LinearGraid.setVisibility(View.GONE);
@@ -781,18 +923,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.VISIBLE);
+		LinearTitleGenderExpert.setVisibility(View.VISIBLE);
 	}
 	public void form4()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.GONE);
@@ -805,18 +949,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.VISIBLE);
+		LinearTitleGenderExpert.setVisibility(View.VISIBLE);
 	}
 	public void form5()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.VISIBLE);
@@ -831,18 +977,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 	public void form6()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.GONE);
@@ -855,18 +1003,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.VISIBLE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 	public void form7()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.VISIBLE);
@@ -879,19 +1029,21 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 	public void form8()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.VISIBLE);
-		LinearCountMan.setVisibility(View.VISIBLE);
+		//LinearGenderExpertCountWoman.setVisibility(View.VISIBLE);
+		//LinearCountMan.setVisibility(View.VISIBLE);
 		LinearCountDoenotmatter.setVisibility(View.VISIBLE);
+		LinearTitleCountDoenotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.GONE);
@@ -905,18 +1057,20 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.GONE);
 		LinearTypeCar.setVisibility(View.GONE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 	public void form9()
 	{
-		etDoesnotmatter.setVisibility(View.GONE);
+		etDoesnotmatter.setVisibility(View.VISIBLE);
 		//**********************************************
 
-		LinearTypePeriodService.setVisibility(View.GONE);
+		//LinearTypePeriodService.setVisibility(View.GONE);;
 		//**********************************************
-		LinearStatusCountWoman.setVisibility(View.GONE);
-		LinearCountMan.setVisibility(View.GONE);
+		//LinearGenderExpertCountWoman.setVisibility(View.GONE);
+		//LinearCountMan.setVisibility(View.GONE);
 		LinearCountDoenotmatter.setVisibility(View.GONE);
+		LinearTitleCountDoenotmatter.setVisibility(View.GONE);
 		//**********************************************
 
 		LinearLearning.setVisibility(View.GONE);
@@ -929,7 +1083,8 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		LinearTypeService.setVisibility(View.VISIBLE);
 		LinearTypeCar.setVisibility(View.VISIBLE);
 		LinearLanguage.setVisibility(View.GONE);
-		LinearStatus.setVisibility(View.VISIBLE);
+		LinearGenderExpert.setVisibility(View.GONE);
+		LinearTitleGenderExpert.setVisibility(View.GONE);
 	}
 	public void FillSpinner(String tableName,String ColumnName,Spinner spinner){
 		List<String> labels = new ArrayList<String>();
@@ -965,5 +1120,18 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		};
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
+	}
+	public static String faToEn(String num) {
+		return num
+				.replace("۰", "0")
+				.replace("۱", "1")
+				.replace("۲", "2")
+				.replace("۳", "3")
+				.replace("۴", "4")
+				.replace("۵", "5")
+				.replace("۶", "6")
+				.replace("۷", "7")
+				.replace("۸", "8")
+				.replace("۹", "9");
 	}
 }

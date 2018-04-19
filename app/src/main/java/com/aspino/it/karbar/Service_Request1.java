@@ -52,9 +52,9 @@ public class Service_Request1 extends AppCompatActivity {
 	private TextView tvTitleService;
 	//**************************************************************
 	private EditText etFromDate;
-	private EditText etToDate;
+//	private EditText etToDate;
 	private EditText etFromTime;
-	private EditText etToTime;
+//	private EditText etToTime;
 	private EditText etAddres;
 	private EditText etDescription;
 	//**************************************************************
@@ -91,9 +91,9 @@ protected void onCreate(Bundle savedInstanceState) {
 
 		//**************************************************************************************
 		etFromDate = (EditText) findViewById(R.id.etFromDate);
-		etToDate = (EditText) findViewById(R.id.etToDate);
+//		etToDate = (EditText) findViewById(R.id.etToDate);
 		etFromTime = (EditText) findViewById(R.id.etFromTime);
-		etToTime = (EditText) findViewById(R.id.etToTime);
+//		etToTime = (EditText) findViewById(R.id.etToTime);
 		etAddres = (EditText) findViewById(R.id.etAddres);
 		etDescription = (EditText) findViewById(R.id.etDescription);
 		spAddress = (Spinner) findViewById(R.id.spAddress);
@@ -136,7 +136,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		try
 		{
-			etToDate.setText(getIntent().getStringExtra("ToDate").toString());
+//			etToDate.setText(getIntent().getStringExtra("ToDate").toString());
 			String splitStr[]=getIntent().getStringExtra("ToDate").toString().split("/");
 			EndYear =splitStr[0];
 			EndMonth =splitStr[1];
@@ -150,7 +150,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		try
 		{
-			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
+//			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
 			String splitStr[]=getIntent().getStringExtra("FromTime").toString().split(":");
 			StartHour =splitStr[0];
 			StartMinute =splitStr[1];
@@ -162,7 +162,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		try
 		{
-			etToTime.setText(getIntent().getStringExtra("ToTime").toString());
+//			etToTime.setText(getIntent().getStringExtra("ToTime").toString());
 			String splitStr[]=getIntent().getStringExtra("ToTime").toString().split(":");
 			EndHour =splitStr[0];
 			EndMinute =splitStr[1];
@@ -234,40 +234,40 @@ protected void onCreate(Bundle savedInstanceState) {
 				}
 				if(etFromDate.length()==0)
 				{
-					ErrorStr+="تاریخ شروع را وارد نمایید"+"\n";
+					ErrorStr+="تاریخ را وارد نمایید"+"\n";
 				}
-				if(etToDate.length()==0)
-				{
-					ErrorStr+="تاریخ خاتمه را وارد نمایید"+"\n";
-				}
+//				if(etToDate.length()==0)
+//				{
+//					ErrorStr+="تاریخ خاتمه را وارد نمایید"+"\n";
+//				}
 				if(etFromTime.length()==0)
 				{
-					ErrorStr+="ساعت شروع را وارد نمایید"+"\n";
+					ErrorStr+="ساعت را وارد نمایید"+"\n";
 				}
-				if(etToTime.length()==0)
-				{
-					ErrorStr+="ساعت خاتمه را وارد نمایید"+"\n";
-				}
-				if(etFromDate.getText().toString().compareTo(etToDate.getText().toString())>0)
-				{
-					ErrorStr+="تاریخ شروع نمی تواند بزرگتر از تاریخ خاتمه باشد."+"\n";
-				}
+//				if(etToTime.length()==0)
+//				{
+//					ErrorStr+="ساعت خاتمه را وارد نمایید"+"\n";
+//				}
+//				if(etFromDate.getText().toString().compareTo(etToDate.getText().toString())>0)
+//				{
+//					ErrorStr+="تاریخ شروع نمی تواند بزرگتر از تاریخ خاتمه باشد."+"\n";
+//				}
 				if(etFromDate.length()<8 && etFromDate.length()>10)
 				{
 					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
 				}
-				if(etToDate.length()<8 && etToDate.length()>10)
-				{
-					ErrorStr+="تاریخ خاتمه را صحیح وارد نمایید"+"\n";
-				}
-				if(etFromTime.length()<3 && etFromTime.length()>5)
-				{
-					ErrorStr+="زمان شروع را صحیح وارد نمایید"+"\n";
-				}
-				if(etToTime.length()<3 && etToTime.length()>5)
-				{
-					ErrorStr+="زمان خاتمه را صحیح وارد نمایید"+"\n";
-				}
+//				if(etToDate.length()<8 && etToDate.length()>10)
+//				{
+//					ErrorStr+="تاریخ خاتمه را صحیح وارد نمایید"+"\n";
+//				}
+//				if(etFromTime.length()<3 && etFromTime.length()>5)
+//				{
+//					ErrorStr+="زمان شروع را صحیح وارد نمایید"+"\n";
+//				}
+//				if(etToTime.length()<3 && etToTime.length()>5)
+//				{
+//					ErrorStr+="زمان خاتمه را صحیح وارد نمایید"+"\n";
+//				}
 //				if(etFromTime.getText().toString().compareTo(etToTime.getText().toString())>0)
 //				{
 //					ErrorStr+="ساعت شروع نمی تواند بزرگتر از ساعت خاتمه باشد."+"\n";
@@ -283,9 +283,9 @@ protected void onCreate(Bundle savedInstanceState) {
 					LoadActivity(Service_Request2.class, "karbarCode", karbarCode,
 							"DetailCode", DetailCode,
 							"FromDate", etFromDate.getText().toString(),
-							"ToDate", etToDate.getText().toString(),
+//							"ToDate", etToDate.getText().toString(),
 							"FromTime", etFromTime.getText().toString(),
-							"ToTime", etToTime.getText().toString(),
+//							"ToTime", etToTime.getText().toString(),
 							"Description", etDescription.getText().toString(),
 							"AddressCode", etAddres.getTag().toString()
 					);
@@ -302,16 +302,41 @@ protected void onCreate(Bundle savedInstanceState) {
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
 					PersianCalendar now = new PersianCalendar();
+
 					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
 							new DatePickerDialog.OnDateSetListener() {
 								@Override
 								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									etFromDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-
+									String Mon;
+									String DayStr;
+									if((monthOfYear+1)<10)
+									{
+										Mon="0"+String.valueOf(monthOfYear+1);
+									}
+									else
+									{
+										Mon=String.valueOf(monthOfYear+1);
+									}
+									if(dayOfMonth<10)
+									{
+										DayStr="0"+String.valueOf(dayOfMonth);
+									}
+									else
+									{
+										DayStr=String.valueOf(dayOfMonth);
+									}
+									etFromDate.setText(String.valueOf(year) + "/" + Mon + "/" + DayStr);
+//									db=dbh.getWritableDatabase();
+//									String query="UPDATE  DateTB SET Date = '" +String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"'";
+//									db.execSQL(query);
+//
+//									db.close();
+									GetTime();
 								}
 							}, now.getPersianYear(),
 							now.getPersianMonth(),
 							now.getPersianDay());
+
 					datePickerDialog.setThemeDark(true);
 					datePickerDialog.show(getFragmentManager(), "tpd");
 				}
@@ -326,7 +351,7 @@ protected void onCreate(Bundle savedInstanceState) {
 							@Override
 							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 								etFromDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-
+								GetTime();
 							}
 						}, now.getPersianYear(),
 						now.getPersianMonth(),
@@ -336,42 +361,42 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			}
 		});
-		etToDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					PersianCalendar now = new PersianCalendar();
-					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-							new DatePickerDialog.OnDateSetListener() {
-								@Override
-								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									etToDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-								}
-							}, now.getPersianYear(),
-							now.getPersianMonth(),
-							now.getPersianDay());
-					datePickerDialog.setThemeDark(true);
-					datePickerDialog.show(getFragmentManager(), "tpd");
-				}
-			}
-		});
-		etToDate.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				PersianCalendar now = new PersianCalendar();
-				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-								etToDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-							}
-						}, now.getPersianYear(),
-						now.getPersianMonth(),
-						now.getPersianDay());
-				datePickerDialog.setThemeDark(true);
-				datePickerDialog.show(getFragmentManager(), "tpd");
-			}
-		});
+//		etToDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//			@Override
+//			public void onFocusChange(View v, boolean hasFocus) {
+//				if (hasFocus) {
+//					PersianCalendar now = new PersianCalendar();
+//					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//							new DatePickerDialog.OnDateSetListener() {
+//								@Override
+//								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//									etToDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
+//								}
+//							}, now.getPersianYear(),
+//							now.getPersianMonth(),
+//							now.getPersianDay());
+//					datePickerDialog.setThemeDark(true);
+//					datePickerDialog.show(getFragmentManager(), "tpd");
+//				}
+//			}
+//		});
+//		etToDate.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				PersianCalendar now = new PersianCalendar();
+//				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//						new DatePickerDialog.OnDateSetListener() {
+//							@Override
+//							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//								etToDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
+//							}
+//						}, now.getPersianYear(),
+//						now.getPersianMonth(),
+//						now.getPersianDay());
+//				datePickerDialog.setThemeDark(true);
+//				datePickerDialog.show(getFragmentManager(), "tpd");
+//			}
+//		});
 		etFromTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -418,60 +443,60 @@ protected void onCreate(Bundle savedInstanceState) {
 						etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
 					}
 				}, hour, minute, false);
-				mTimePicker.setTitle("انتخاب زمان شروع");
+				mTimePicker.setTitle("انتخاب زمان");
 				mTimePicker.show();
 			}
 		});
-		etToTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					Calendar mcurrentTime = Calendar.getInstance();
-					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-					int minute = mcurrentTime.get(Calendar.MINUTE);
-
-					TimePickerDialog mTimePicker;
-					mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
-						@Override
-						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-							String AM_PM;
-							if (selectedHour >= 0 && selectedHour < 12) {
-								AM_PM = "AM";
-							} else {
-								AM_PM = "PM";
-							}
-							etToTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-						}
-					}, hour, minute, false);
-					mTimePicker.setTitle("انتخاب زمان خاتمه");
-					mTimePicker.show();
-				}
-			}
-		});
-		etToTime.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Calendar mcurrentTime = Calendar.getInstance();
-				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-				int minute = mcurrentTime.get(Calendar.MINUTE);
-
-				TimePickerDialog mTimePicker;
-				mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-						String AM_PM;
-						if (selectedHour >= 0 && selectedHour < 12) {
-							AM_PM = "AM";
-						} else {
-							AM_PM = "PM";
-						}
-						etToTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-					}
-				}, hour, minute, false);
-				mTimePicker.setTitle("انتخاب زمان خاتمه");
-				mTimePicker.show();
-			}
-		});
+//		etToTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//			@Override
+//			public void onFocusChange(View v, boolean hasFocus) {
+//				if (hasFocus) {
+//					Calendar mcurrentTime = Calendar.getInstance();
+//					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//					int minute = mcurrentTime.get(Calendar.MINUTE);
+//
+//					TimePickerDialog mTimePicker;
+//					mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
+//						@Override
+//						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+//							String AM_PM;
+//							if (selectedHour >= 0 && selectedHour < 12) {
+//								AM_PM = "AM";
+//							} else {
+//								AM_PM = "PM";
+//							}
+//							etToTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+//						}
+//					}, hour, minute, false);
+//					mTimePicker.setTitle("انتخاب زمان خاتمه");
+//					mTimePicker.show();
+//				}
+//			}
+//		});
+//		etToTime.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Calendar mcurrentTime = Calendar.getInstance();
+//				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//				int minute = mcurrentTime.get(Calendar.MINUTE);
+//
+//				TimePickerDialog mTimePicker;
+//				mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
+//					@Override
+//					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+//						String AM_PM;
+//						if (selectedHour >= 0 && selectedHour < 12) {
+//							AM_PM = "AM";
+//						} else {
+//							AM_PM = "PM";
+//						}
+//						etToTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+//					}
+//				}, hour, minute, false);
+//				mTimePicker.setTitle("انتخاب زمان خاتمه");
+//				mTimePicker.show();
+//			}
+//		});
 		FillSpinner("address", "Name", spAddress);
 		if(posisionID>0)
 		{
@@ -501,6 +526,7 @@ protected void onCreate(Bundle savedInstanceState) {
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
+
     	LoadActivity2(List_ServiceDerails.class, "karbarCode", karbarCode,"codeService",CodeService);
     }
 
@@ -509,9 +535,9 @@ public boolean onKeyDown( int keyCode, KeyEvent event )  {
 public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValue1,
 						 String VariableName2, String VariableValue2,
 						 String VariableName3, String VariableValue3,
-						 String VariableName4, String VariableValue4,
+//						 String VariableName4, String VariableValue4,
 						 String VariableName5, String VariableValue5,
-						 String VariableName6, String VariableValue6,
+//						 String VariableName6, String VariableValue6,
 						 String VariableName7, String VariableValue7,
 						 String VariableName8, String VariableValue8)
 	{
@@ -519,9 +545,9 @@ public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValu
 		intent.putExtra(VariableName1, VariableValue1);
 		intent.putExtra(VariableName2, VariableValue2);
 		intent.putExtra(VariableName3, VariableValue3);
-		intent.putExtra(VariableName4, VariableValue4);
+//		intent.putExtra(VariableName4, VariableValue4);
 		intent.putExtra(VariableName5, VariableValue5);
-		intent.putExtra(VariableName6, VariableValue6);
+//		intent.putExtra(VariableName6, VariableValue6);
 		intent.putExtra(VariableName7, VariableValue7);
 		intent.putExtra(VariableName8, VariableValue8);
 		Service_Request1.this.startActivity(intent);
@@ -571,5 +597,31 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		};
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
+	}
+	public void GetTime()
+	{
+		Calendar mcurrentTime = Calendar.getInstance();
+		int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+		int minute = mcurrentTime.get(Calendar.MINUTE);
+
+		TimePickerDialog mTimePicker;
+		mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
+			@Override
+			public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+				String AM_PM;
+				if (selectedHour >=0 && selectedHour < 12){
+					AM_PM = "AM";
+				} else {
+					AM_PM = "PM";
+				}
+//				db=dbh.getWritableDatabase();
+//				String query="UPDATE  DateTB SET Time = '" +String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute)+"'";
+//				db.execSQL(query);
+				etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+			}
+		}, hour, minute, false);
+		mTimePicker.setTitle("انتخاب زمان");
+		mTimePicker.show();
+
 	}
 }

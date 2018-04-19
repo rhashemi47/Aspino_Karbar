@@ -41,7 +41,7 @@
             android:id="@+id/listViewMessages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/rounded_listview_message">
+            android:background="@drawable/rounded_edittext">
         </ListView>
     </LinearLayout>
     <FrameLayout

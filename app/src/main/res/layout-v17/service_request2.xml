@@ -70,141 +70,263 @@
                 android:orientation="vertical"
                 android:layout_margin="15dp"
                 android:background="@drawable/rounded_layout_select_job_body">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearTypePeriodService">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleTypePeriodService"-->
+                        <!--android:text="@string/ServicePeriod"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<RadioGroup-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/rgTypePeriodService"-->
+                        <!--android:orientation="vertical">-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbDaily"-->
+                            <!--android:text="@string/Daily"-->
+                            <!--android:checked="true">-->
+                        <!--</RadioButton>-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbWeekly"-->
+                            <!--android:text="@string/Weekly">-->
+                        <!--</RadioButton>-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbMiddle_of_the_week"-->
+                            <!--android:text="@string/Middle_of_the_week">-->
+                        <!--</RadioButton>-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbMonthly"-->
+                            <!--android:text="@string/Monthly">-->
+                        <!--</RadioButton>-->
+                    <!--</RadioGroup>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearStatus">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleStatus"-->
+                        <!--android:text="@string/status"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<RadioGroup-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/rgStatus"-->
+                        <!--android:orientation="horizontal">-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbNormal"-->
+                            <!--android:text="@string/normal"-->
+                            <!--android:checked="true">-->
+                        <!--</RadioButton>-->
+                        <!--<RadioButton-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:id="@+id/rdbEmergency"-->
+                            <!--android:text="@string/emergency"-->
+                            <!--android:checked="true">-->
+                        <!--</RadioButton>-->
+                    <!--</RadioGroup>-->
+                <!--</LinearLayout>-->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearTypePeriodService">
+                    android:id="@+id/LinearTitleGenderExpert"
+                    android:background="@drawable/background_title">
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleTypePeriodService"
-                        android:text="@string/ServicePeriod"
-                        android:textColor="#000000"/>
-                    <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rgTypePeriodService"
-                        android:orientation="vertical">
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbDaily"
-                            android:text="@string/Daily"
-                            android:checked="true">
-                        </RadioButton>
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbWeekly"
-                            android:text="@string/Weekly">
-                        </RadioButton>
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbMiddle_of_the_week"
-                            android:text="@string/Middle_of_the_week">
-                        </RadioButton>
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbMonthly"
-                            android:text="@string/Monthly">
-                        </RadioButton>
-                    </RadioGroup>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearStatus">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleStatus"
-                        android:text="@string/status"
-                        android:textColor="#000000"/>
-                    <RadioGroup
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rgStatus"
-                        android:orientation="horizontal">
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbNormal"
-                            android:text="@string/normal"
-                            android:checked="true">
-                        </RadioButton>
-                        <RadioButton
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/rdbEmergency"
-                            android:text="@string/emergency"
-                            android:checked="true">
-                        </RadioButton>
-                    </RadioGroup>
+                        android:id="@+id/tvTitleGenderExpert"
+                        android:text="@string/GenderExpert"
+                        android:textColor="#fff"
+                        android:layout_weight="1"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearStatusCountWoman">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleCountWoman"
-                        android:text="@string/CountWoman"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etCountWoman"
-                        android:inputType="phone"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearCountMan">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleCountMan"
-                        android:text="@string/CountMan"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etCountMan"
-                        android:inputType="phone"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearCountDoenotmatter">
+                    android:id="@+id/LinearGenderExpert">
                     <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/chbDoesnotmatter"
-                        android:text="@string/Doesnotmatter"/>
+                        android:id="@+id/chbMale"
+                        android:drawableBottom="@drawable/man"
+                        android:layout_weight="1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/chbFemale"
+                        android:drawableBottom="@drawable/women"
+                        android:layout_weight="1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/chbMaleAndFemale"
+                        android:drawableBottom="@drawable/maleandfemale"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearStatusCountWoman">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleCountWoman"-->
+                        <!--android:text="@string/CountWoman"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/etCountWoman"-->
+                        <!--android:inputType="phone"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColor="#000000"/>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearCountMan">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleCountMan"-->
+                        <!--android:text="@string/CountMan"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/etCountMan"-->
+                        <!--android:inputType="phone"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColor="#000000"/>-->
+                <!--</LinearLayout>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/LinearTitleCountDoenotmatter"
+                    android:background="@drawable/background_title">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvDoesnotmatter"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:text="@string/CountExpert"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:id="@+id/LinearCountDoenotmatter">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnAddCountExpert"
+                        android:text="+"
+                        android:background="@drawable/rounded_button_counter_add"
+                        android:textSize="50px"/>
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/etDoesnotmatter"
+                        android:background="#848181"
                         android:inputType="phone"
-                        android:layout_weight="1"
+                        android:text="0"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:textColor="#000000"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnDesCountExpert"
+                        android:text="-"
+                        android:textColor="#fff"
+                        android:background="@drawable/rounded_button_counter_des"
+                        android:textSize="50px"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/background_title">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTimeJob"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#fff"
+                        android:text="@string/NeedTimeJob"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/LinearTimeJob"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnAddTimeJob"
+                        android:text="+"
+                        android:background="@drawable/rounded_button_counter_add"
+                        android:textSize="50px"/>
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etCountTimeJob"
+                        android:background="#848181"
+                        android:inputType="phone"
+                        android:text="8"
+                        android:enabled="false"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:id="@+id/btnDesTimeJob"
+                        android:text="-"
+                        android:textColor="#fff"
+                        android:background="@drawable/rounded_button_counter_des"
+                        android:textSize="50px"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -245,7 +367,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/rounded_button"/>
+
+                        android:background="@drawable/rounded_spinner"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -266,7 +389,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/rounded_button"/>
+
+                        android:background="@drawable/rounded_spinner"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -287,7 +411,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/rounded_button"/>
+
+                        android:background="@drawable/rounded_spinner"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -473,21 +598,8 @@
                         android:layout_weight="1"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/rounded_button"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearAddresText">
-                    <EditText
-                        android:id="@+id/etAddres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
-                        android:layout_weight="1"
-                        android:inputType="textMultiLine"
-                        android:textColor="#000000" />
+
+                        android:background="@drawable/rounded_spinner"/>
                 </LinearLayout>
                 <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
                     <!--android:id="@+id/map2"-->

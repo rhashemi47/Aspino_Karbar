@@ -629,8 +629,8 @@
 
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_button_save_request"
-                    android:drawableLeft="@drawable/save"/>
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#fff"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -639,8 +639,8 @@
                     android:layout_weight="1"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/rounded_button_save_request"
-                    android:drawableLeft="@drawable/cansel"/>
+                    android:background="@drawable/rounded_button"
+                    android:textColor="#fff"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

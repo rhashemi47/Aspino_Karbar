@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -76,11 +77,10 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	catch (Exception e)
 	{
-		Cursor coursors = db.rawQuery("SELECT * FROM login",null);
-		for(int i=0;i<coursors.getCount();i++){
-			coursors.moveToNext();
-
-			karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
+		Cursor cursor = db.rawQuery("SELECT * FROM login",null);
+		for(int i=0;i<cursor.getCount();i++){
+			cursor.moveToNext();
+			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
 	}
 	FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page

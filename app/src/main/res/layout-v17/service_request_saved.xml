@@ -128,10 +128,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btnCansel"
                     android:text="@string/Cansel"
-                    android:drawableLeft="@drawable/cansel_order"
+                    android:textColor="#fff"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
-                    android:layout_marginTop="5dp"
                    android:layout_marginRight="30dp"
                     android:layout_marginLeft="5dp"/>
                 <Button
@@ -139,10 +138,9 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btnshowFactor"
                     android:text="@string/showfactor"
-                    android:drawableLeft="@drawable/factor"
+                    android:textColor="#fff"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
-                    android:layout_marginTop="5dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="5dp"/>
             </LinearLayout>
@@ -158,35 +156,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btnEditOrder"
                     android:text="@string/EditOrder"
-                    android:drawableLeft="@drawable/edit_order"
-                    android:background="@drawable/rounded_button"
-                    android:layout_weight="1"
-                   android:layout_marginRight="30dp"
-                    android:layout_marginLeft="5dp"/>
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnRefreshOrder"
-                    android:text="@string/RefreshOrder"
-                    android:drawableLeft="@drawable/refresh_order"
-                    android:background="@drawable/rounded_button"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="5dp"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
-                <Button
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnCallHamyar"
-                    android:text="@string/CallHamyar"
-                    android:drawableLeft="@drawable/call_hamyar"
+                    android:textColor="#fff"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
                    android:layout_marginRight="30dp"
@@ -196,11 +166,40 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/btnCallSupporter"
                     android:text="@string/CallSupporter"
-                    android:drawableLeft="@drawable/call_hamyar"
+                    android:textColor="#fff"
                     android:background="@drawable/rounded_button"
                     android:layout_weight="1"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="5dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+                <!--<Button-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/btnCallHamyar"-->
+                    <!--android:text="@string/CallHamyar"-->
+                    <!--android:textColor="#fff"-->
+                    <!--android:background="@drawable/rounded_button"-->
+                    <!--android:layout_weight="1"-->
+                   <!--android:layout_marginRight="30dp"-->
+                    <!--android:layout_marginLeft="5dp"/>-->
+                <!--<Button-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/btnRefreshOrder"-->
+                <!--android:text="@string/RefreshOrder"-->
+                <!--android:textColor="#fff"-->
+                <!--android:background="@drawable/rounded_button"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="5dp"/>-->
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

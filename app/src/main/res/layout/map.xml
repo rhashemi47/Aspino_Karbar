@@ -117,6 +117,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/btnSaveLocation"
             android:text="@string/SaveLocation"
+            android:textColor="#fff"
             android:background="@drawable/rounded_button"
             android:layout_margin="10dp"/>
     </LinearLayout>

@@ -18,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -197,7 +198,7 @@ public class Map extends AppCompatActivity {
         btnSaveLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String CodeState,CodeCity;
+                String CodeState="",CodeCity="";
                 db=dbh.getWritableDatabase();
                 String StrnameAddress=NameAddres.getText().toString().trim();
                 String StrAddAddres=AddAddres.getText().toString().trim();
@@ -210,22 +211,33 @@ public class Map extends AppCompatActivity {
                 {
                     StrError="نامی دلخواه برای آدرس محل وارد نمایید."+"\n";
                 }
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='"+spState.getSelectedItem().toString()+"'", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    CodeState = coursors.getString(coursors.getColumnIndex("Code"));
+                try {
+                    db = dbh.getReadableDatabase();
+                    Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='" + spState.getSelectedItem().toString() + "'", null);
+                    if (coursors.getCount() > 0) {
+                        coursors.moveToNext();
+                        CodeState = coursors.getString(coursors.getColumnIndex("Code"));
+                    } else {
+                        CodeState = "";
+                    }
                 }
-                else{
-                    CodeState="";
+                catch (Exception ex)
+                {
+                    StrError="خطا در بارگزاری نام استانها";
+                    Toast.makeText(Map.this, "خطا در بارگزاری نام استانها", Toast.LENGTH_SHORT).show();
                 }
-                coursors = db.rawQuery("SELECT * FROM City WHERE Name='"+spCity.getSelectedItem().toString()+"'", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    CodeCity = coursors.getString(coursors.getColumnIndex("Code"));
+                try {
+                    Cursor coursors = db.rawQuery("SELECT * FROM City WHERE Name='" + spCity.getSelectedItem().toString() + "'", null);
+                    if (coursors.getCount() > 0) {
+                        coursors.moveToNext();
+                        CodeCity = coursors.getString(coursors.getColumnIndex("Code"));
+                    } else {
+                        CodeCity = "";
+                    }
                 }
-                else{
-                    CodeCity="";
+                catch (Exception ex){
+                    StrError="خطا در بارگزاری نام شهرستانها";
+                    Toast.makeText(Map.this, "خطا در بارگزاری نام شهرستانها", Toast.LENGTH_SHORT).show();
                 }
                 if(StrError.length()==0 || StrError.compareTo("")==0)
                 {
@@ -248,7 +260,7 @@ public class Map extends AppCompatActivity {
                 LoadActivity(Profile.class, "karbarCode", karbarCode);
             }else
             {
-                LoadActivity2(Service_Request1.class, "karbarCode", karbarCode,"codeService",codeService);
+                LoadActivity2(MainMenu.class, "karbarCode", karbarCode,"codeService",codeService);
             }
 
         }

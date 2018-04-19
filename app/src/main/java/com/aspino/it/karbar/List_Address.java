@@ -21,7 +21,8 @@
 
     public class List_Address extends Activity {
         private String karbarCode;
-
+        private String backToActivity;
+        private String codeService;
         private ListView lvAddress;
         private DatabaseHelper dbh;
         private SQLiteDatabase db;
@@ -60,6 +61,12 @@
 
                 throw sqle;
             }
+            try {
+                codeService = getIntent().getStringExtra("codeService").toString();
+            }
+            catch (Exception e) {
+                codeService = "";
+            }
         try
         {
             karbarCode = getIntent().getStringExtra("karbarCode").toString();
@@ -76,6 +83,12 @@
             }
             db.close();
         }
+            try {
+                backToActivity = getIntent().getStringExtra("nameActivity").toString();
+            }
+            catch (Exception e) {
+                backToActivity = "";
+            }
         db=dbh.getReadableDatabase();
         Cursor coursors = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
         if(coursors.getCount()>0)
@@ -162,7 +175,12 @@
     @Override
     public boolean onKeyDown( int keyCode, KeyEvent event )  {
         if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-            List_Address.this.LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+            if(backToActivity.compareTo("Profile")==0){
+                LoadActivity(Profile.class, "karbarCode", karbarCode);
+            }else
+            {
+                LoadActivity2(MainMenu.class, "karbarCode", karbarCode,"codeService",codeService);
+            }
         }
 
         return super.onKeyDown( keyCode, event );

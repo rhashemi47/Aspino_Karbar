@@ -16,8 +16,8 @@
     <string name="Yourcommitment">تعهدات شما</string>
     <string name="Ourcommitment">تعهدات ما</string>
     <string name="Messages">پیام ها</string>
-    <string name="GiftBank">بانک هدیه</string>
-    <string name="Contact">تماس با پشتیبانی</string>
+    <string name="Answer">سوالات متداول</string>
+    <string name="Contact">تماس باما</string>
     <string name="Help">راهنما</string>
     <string name="About">درباره ما</string>
     <string name="Exit">خروج از برنامه</string>
@@ -44,7 +44,8 @@
     <string name="titleToolsStep">لوازم مصرفی</string>
     <string name="Brand">برند</string>
     <string name="PriceTools">قیمت</string>
-    <string name="Credits">اعتبارات</string>
+    <string name="Credits">کیف پول</string>
+    <string name="CreditsGift">دریافت اعتبار هدیه</string>
     <string name="Delete">حذف</string>
     <string name="RefreshAcceptCode">دریافت مجدد کد تایید</string>
     <string name="TextAbout">شرکت تعاونی خدمات گستران برتر ایران، با هدف بهبود روند خدمات رسانی به هموطنان عزیز و با در نظر گرفتن تمامی نیاز ها و جنبه های کاری، زبده ترین تیم های تخصصی را گرد هم آورده تا ضمن ایجاد اشتغال و ساماندهی بازار کار، بتواند با کیفیت ترین خدمات را در کوتاه ترین زمان ممکن به مشترکین خود ارائه دهد. گروه خدماتی آسپینو با در اختیار داشتن نیروهای خلاق و مبتکر و کار شبانه روزی این سیستم هوشمند را طراحی و با افتخار در اختیار شما عزیزان قرارداده است. آسپینو افزون بر کاهش هدر روی زمان و دوباره کاری، هزینه های اضافی و غیر ضروری را از فرآیند سفارش مشتری حذف و همیاران قابل اعتماد خود را به چرخه انجام خدمات معرفی می‌نماید. </string>
@@ -94,7 +95,7 @@
     <string name="DutyItem">وظایف</string>
     <string name="RecentCredit">میزان اعتبار شما</string>
     <string name="IncreseCredit">افزایش اعتبار</string>
-    <string name="History">تاریخچه خدمات</string>
+    <string name="History">سفارشات درخواستی </string>
     <string name="RelateUs">به ما بپیوندید!</string>
     <string name="telegram">تلگرام</string>
     <string name="instagram">اینستاگرام</string>
@@ -113,13 +114,14 @@
     <string name="CountMan">تعداد مرد</string>
     <string name="Doesnotmatter">فرقی ندارد</string>
     <string name="Addres">آدرس</string>
+    <string name="AddresManagement">مدیریت آدرس ها</string>
     <string name="SaveLocation">ثبت آدرس</string>
     <string name="Search">جستجو</string>
     <string name="usercode">کد کاربری</string>
     <string name="state">استان</string>
     <string name="city">شهر</string>
     <string name="Email">ایمیل (اختیاری)</string>
-    <string name="Order">درخواست ها</string>
+    <string name="Order">پیگیری سفارشات</string>
     <string name="SeachService">جستجو سرویس</string>
     <string name="nameLocation">نام محل</string>
     <string name="IsDefaultAddress">آدرس بصورت پیش فرض در نظر گرفته شود</string>
@@ -155,8 +157,8 @@
     <string name="QuestionFactor">آیا فاکتور مورد تایید می باشد؟</string>
     <string name="Yes">بله</string>
     <string name="No">خیر</string>
-    <string name="Invite_friends">دعوت از دوستان</string>
-    <string name="TermsـandـConditions">قوانین و مقررات</string>
+    <string name="Invite_friends">معرفی به دوستان</string>
+    <string name="TermsـandـConditions">قوانین</string>
     <string name="emergencyService">درخواست اضطراری</string>
     <string name="AcceptOrder">پذیرفته شده ها</string>
     <string name="EditOrder">اصلاح درخواست</string>
@@ -177,5 +179,10 @@
     <string name="CodeDesired_service">شماره درخواست</string>
     <string name="SarviceOrder">ثبت سفارش</string>
     <string name="LoginOrSignUp">ورود/ثبت نام</string>
+    <string name="Date">تاریخ</string>
+    <string name="Time">زمان</string>
+    <string name="CountExpert">تعداد  متخصص</string>
+    <string name="GenderExpert">جنسیت متخصص</string>
+    <string name="NeedTimeJob">مدت زمان کار مورد نیاز</string>
 
 </resources>

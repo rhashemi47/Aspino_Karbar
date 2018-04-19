@@ -54,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button"
                 android:text="@string/SarviceOrder"
+                android:textColor="#fff"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:textSize="20sp"/>
