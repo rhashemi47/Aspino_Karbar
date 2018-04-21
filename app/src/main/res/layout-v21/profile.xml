@@ -20,7 +20,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/Profile"
-            app:titleTextColor="#000000"
+            app:titleTextColor="#fff"
             android:background="@drawable/background_title" />
     </android.support.design.widget.AppBarLayout>
 <ScrollView

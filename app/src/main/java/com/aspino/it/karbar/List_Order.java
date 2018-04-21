@@ -140,7 +140,7 @@
                         StrStatus="درحال پیگیری شکایت و یا رفع خسارت";
                         break;
                     case "8":
-                        StrStatus="رفع عیب و خسارت شده توسط همیار";
+                        StrStatus="رفع عیب و خسارت شده توسط متخصص";
                         break;
                     case "9":
                         StrStatus="پرداخت خسارت";
@@ -149,7 +149,7 @@
                         StrStatus="پرداخت جریمه";
                         break;
                     case "11":
-                        StrStatus="تسویه حساب با همیار";
+                        StrStatus="تسویه حساب با متخصص";
                         break;
                     case "12":
                         StrStatus="متوقف و تسویه شده";
@@ -160,9 +160,10 @@
                 }
                 map.put("name","شماره درخواست: "+coursors.getString(coursors.getColumnIndex("Code"))+"\n"+
                         "موضوع: "+coursors.getString(coursors.getColumnIndex("name"))+"\n"+
-                        "تاریخ شروع: "+StartDate+"\n"+"تاریخ پایان: "+EndDate+"\n"+
+                        "تاریخ شروع: "+StartDate+"\n"+
+//                        "تاریخ پایان: "+EndDate+"\n"+
                         "ساعت شروع: "+StartTime+"\n "+"ساعت پایان: "+EndTime+"\n"+
-                        "فوریت: "+((coursors.getString(coursors.getColumnIndex("IsEmergency")).compareTo("0")==1? "عادی":"فوری"))+"\n"+
+//                        "فوریت: "+((coursors.getString(coursors.getColumnIndex("IsEmergency")).compareTo("0")==1? "عادی":"فوری"))+"\n"+
                         "وضعیت: " + StrStatus);
                 map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
                 valuse.add(map);

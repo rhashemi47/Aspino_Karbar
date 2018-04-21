@@ -97,11 +97,11 @@
                 } catch (Exception ex) {
                     //todo
                 }
-                try {
-                    Content += "نام صاحبکار: " + coursors.getString(coursors.getColumnIndex("UserName")) + " " + coursors.getString(coursors.getColumnIndex("UserFamily")) + "\n";
-                } catch (Exception ex) {
-                    //todo
-                }
+//                try {
+//                    Content += "نام صاحبکار: " + coursors.getString(coursors.getColumnIndex("UserName")) + " " + coursors.getString(coursors.getColumnIndex("UserFamily")) + "\n";
+//                } catch (Exception ex) {
+//                    //todo
+//                }
                 try {
                     Content += "تاریخ شروع: " + coursors.getString(coursors.getColumnIndex("StartDate")) + "\n";
                 } catch (Exception ex) {
@@ -138,21 +138,21 @@
                 }
                 try {
                     if (coursors.getString(coursors.getColumnIndex("MaleCount")).toString().compareTo("0") != 0) {
-                        Content += "تعداد همیار مرد: " + coursors.getString(coursors.getColumnIndex("MaleCount")) + "\n";
+                        Content += "تعداد متخصص مرد: " + coursors.getString(coursors.getColumnIndex("MaleCount")) + "\n";
                     }
                 } catch (Exception ex) {
                     //todo
                 }
                 try {
                     if (coursors.getString(coursors.getColumnIndex("FemaleCount")).toString().compareTo("0") != 0) {
-                        Content += "تعداد همیار زن: " + coursors.getString(coursors.getColumnIndex("FemaleCount")) + "\n";
+                        Content += "تعداد متخصص زن: " + coursors.getString(coursors.getColumnIndex("FemaleCount")) + "\n";
                     }
                 } catch (Exception ex) {
                     //todo
                 }
                 try {
                     if (coursors.getString(coursors.getColumnIndex("HamyarCount")).toString().compareTo("0") != 0) {
-                        Content += "تعداد همیار: " + coursors.getString(coursors.getColumnIndex("HamyarCount")) + "\n";
+                        Content += "تعداد متخصص: " + coursors.getString(coursors.getColumnIndex("HamyarCount")) + "\n";
                     }
                 } catch (Exception ex) {
                     //todo
@@ -300,7 +300,7 @@
                         StrStatus="درحال پیگیری شکایت و یا رفع خسارت";
                         break;
                     case "8":
-                        StrStatus="رفع عیب و خسارت شده توسط همیار";
+                        StrStatus="رفع عیب و خسارت شده توسط متخصص";
                         break;
                     case "9":
                         StrStatus="پرداخت خسارت";
@@ -309,7 +309,7 @@
                         StrStatus="پرداخت جریمه";
                         break;
                     case "11":
-                        StrStatus="تسویه حساب با همیار";
+                        StrStatus="تسویه حساب با متخصص";
                         break;
                     case "12":
                         StrStatus="متوقف و تسویه شده";

@@ -277,7 +277,7 @@ public class SyncGetHeadPerFactor {
 				StrStatus="درحال پیگیری شکایت و یا رفع خسارت می باشد";
 				break;
 			case "8":
-				StrStatus=" توسط همیار رفع عیب و خسارت شده است";
+				StrStatus=" توسط متخصص رفع عیب و خسارت شده است";
 				break;
 			case "9":
 				StrStatus="پرداخت خسارت";
@@ -286,7 +286,7 @@ public class SyncGetHeadPerFactor {
 				StrStatus="پرداخت جریمه";
 				break;
 			case "11":
-				StrStatus="تسویه حساب با همیار";
+				StrStatus="تسویه حساب با متخصص";
 				break;
 			case "12":
 				StrStatus="متوقف و تسویه شده است";

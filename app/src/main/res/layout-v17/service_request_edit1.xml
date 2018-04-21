@@ -22,7 +22,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/service_request"
+            app:title="@string/EditOrder"
             app:titleTextColor="#ffff"
             android:background="@drawable/background_title"/>
     </android.support.design.widget.AppBarLayout>
@@ -90,23 +90,23 @@
                         android:textColor="#000000"/>
                 </LinearLayout>
                 <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:id="@+id/LinearToDate">-->
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/tvTitleToDate"-->
-                <!--android:text="@string/ToDate"-->
-                <!--android:textColor="#000000"/>-->
-                <!--<EditText-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/etToDate"-->
-                <!--android:layout_weight="1"-->
-                <!--android:textColor="#000000"/>-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearToDate">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleToDate"-->
+                        <!--android:text="@string/ToDate"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/etToDate"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColor="#000000"/>-->
                 <!--</LinearLayout>-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -128,23 +128,23 @@
                         android:textColor="#000000"/>
                 </LinearLayout>
                 <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:id="@+id/LinearToTime">-->
-                <!--<TextView-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/tvTitleToTime"-->
-                <!--android:text="@string/ToTime"-->
-                <!--android:textColor="#000000"/>-->
-                <!--<EditText-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:id="@+id/etToTime"-->
-                <!--android:layout_weight="1"-->
-                <!--android:textColor="#000000"/>-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearToTime">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleToTime"-->
+                        <!--android:text="@string/ToTime"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<EditText-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/etToTime"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColor="#000000"/>-->
                 <!--</LinearLayout>-->
 
                 <LinearLayout

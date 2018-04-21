@@ -291,13 +291,13 @@ protected void onCreate(Bundle savedInstanceState) {
 				String Check_Status=cursor.getString(cursor.getColumnIndex("Status"));
 				if(Check_Status.compareTo("0")==0)
 				{
-					LoadActivity2(Service_Request_Edit.class,"karbarCode",karbarCode,
+					LoadActivity2(Service_Request_Edit1.class,"karbarCode",karbarCode,
 							"DetailCode",cursor.getString(cursor.getColumnIndex("ServiceDetaileCode")),
 							"CodeOrderService",cursor.getString(cursor.getColumnIndex("Code")));
 				}
 				else
 				{
-					Toast.makeText(Service_Request_Saved.this, "این سرویس توسط همیار انتخاب شده است.", Toast.LENGTH_LONG).show();
+					Toast.makeText(Service_Request_Saved.this, "این سرویس توسط متخصص انتخاب شده است.", Toast.LENGTH_LONG).show();
 				}
 			}
 			db.close();
@@ -431,17 +431,17 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			{
 				//todo
 			}
-			try
-			{
-				if(cursor.getString(cursor.getColumnIndex("EndYear")).length()>0) {
-					Content += "تاریخ پایان: " + cursor.getString(cursor.getColumnIndex("EndYear")) + "/" +
-							cursor.getString(cursor.getColumnIndex("EndMonth")) + "/" + cursor.getString(cursor.getColumnIndex("EndDay")) + "\n";
-				}
-			}
-			catch (Exception ex)
-			{
-				//todo
-			}
+//			try
+//			{
+//				if(cursor.getString(cursor.getColumnIndex("EndYear")).length()>0) {
+//					Content += "تاریخ پایان: " + cursor.getString(cursor.getColumnIndex("EndYear")) + "/" +
+//							cursor.getString(cursor.getColumnIndex("EndMonth")) + "/" + cursor.getString(cursor.getColumnIndex("EndDay")) + "\n";
+//				}
+//			}
+//			catch (Exception ex)
+//			{
+//				//todo
+//			}
 			try
 			{
 				if(cursor.getString(cursor.getColumnIndex("StartHour")).length()>0) {
@@ -489,7 +489,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			try
 			{
 				if(cursor.getString(cursor.getColumnIndex("MaleCount")).toString().compareTo("0")!=0) {
-					Content += "تعداد همیار مرد: " + cursor.getString(cursor.getColumnIndex("MaleCount")) + "\n";
+					Content += "تعداد متخصص مرد: " + cursor.getString(cursor.getColumnIndex("MaleCount")) + "\n";
 				}
 			}
 			catch (Exception ex)
@@ -499,7 +499,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			try
 			{
 				if(cursor.getString(cursor.getColumnIndex("FemaleCount")).toString().compareTo("0")!=0) {
-					Content += "تعداد همیار زن: " + cursor.getString(cursor.getColumnIndex("FemaleCount")) + "\n";
+					Content += "تعداد متخصص زن: " + cursor.getString(cursor.getColumnIndex("FemaleCount")) + "\n";
 				}
 			}
 			catch (Exception ex)
@@ -509,7 +509,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			try
 			{
 				if(cursor.getString(cursor.getColumnIndex("HamyarCount")).toString().compareTo("0")!=0) {
-					Content += "تعداد همیار: " + cursor.getString(cursor.getColumnIndex("HamyarCount")) + "\n";
+					Content += "تعداد متخصص: " + cursor.getString(cursor.getColumnIndex("HamyarCount")) + "\n";
 				}
 			}
 			catch (Exception ex)
@@ -731,7 +731,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					btnCansel.setEnabled(false);
 					break;
 				case "8":
-					StrStatus="رفع عیب و خسارت شده توسط همیار";
+					StrStatus="رفع عیب و خسارت شده توسط متخصص";
 					btnCansel.setEnabled(false);
 					break;
 				case "9":
@@ -743,7 +743,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					btnCansel.setEnabled(false);
 					break;
 				case "11":
-					StrStatus="تسویه حساب با همیار";
+					StrStatus="تسویه حساب با متخصص";
 					btnCansel.setEnabled(false);
 					break;
 				case "12":

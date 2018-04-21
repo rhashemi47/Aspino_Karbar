@@ -706,6 +706,7 @@ public class MainMenu extends AppCompatActivity {
                                 db.close();
                                 break;
                             case 8:
+                                db=dbh.getReadableDatabase();
                                 c = db.rawQuery("SELECT * FROM login", null);
                                 if (c.getCount() > 0) {
                                     c.moveToNext();
@@ -742,7 +743,7 @@ public class MainMenu extends AppCompatActivity {
                                     QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
                                             "LEFT JOIN " +
                                             "Servicesdetails ON " +
-                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";
+                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status<>3";
                                     LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
                                 }
                                 break;

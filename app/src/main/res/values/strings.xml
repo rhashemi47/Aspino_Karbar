@@ -12,7 +12,7 @@
     <string name="education">تحصیلات</string>
     <string name="Expertise">تخصص ها</string>
     <string name="brithday">تاریخ تولد</string>
-    <string name="Profile">حساب کاربری</string>
+    <string name="Profile">اطلاعات کاربری</string>
     <string name="Yourcommitment">تعهدات شما</string>
     <string name="Ourcommitment">تعهدات ما</string>
     <string name="Messages">پیام ها</string>
@@ -159,5 +159,8 @@
     <string name="CountExpert">تعداد  متخصص</string>
     <string name="GenderExpert">جنسیت متخصص</string>
     <string name="NeedTimeJob">مدت زمان کار مورد نیاز</string>
+    <string name="ListAnswer">سوالات متداول</string>
+    <string name="NotAnswer">سوالی موجود نیست</string>
+    <string name="AddresSave">ثبت آدرس</string>
 
 </resources>

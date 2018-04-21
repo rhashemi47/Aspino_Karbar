@@ -17,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/ListMessagesRecive"
+            app:title="@string/ListAnswer"
             app:titleTextColor="#ffff"
             android:background="@drawable/background_title"/>
     </android.support.design.widget.AppBarLayout>
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvNotMessage"
-            android:text="@string/NotMessage"
+            android:text="@string/NotAnswer"
             android:textColor="#000000"/>
         <ListView
             android:id="@+id/listViewMessages"

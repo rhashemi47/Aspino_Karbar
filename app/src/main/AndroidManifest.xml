@@ -97,6 +97,12 @@
             android:name="com.aspino.it.karbar.Service_Request_Edit"
             android:noHistory="false"/>
         <activity
+            android:name="com.aspino.it.karbar.Service_Request_Edit1"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request_Edit2"
+            android:noHistory="false"/>
+        <activity
             android:name="com.aspino.it.karbar.ShowFactor"
             android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
