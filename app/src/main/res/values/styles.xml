@@ -24,6 +24,10 @@
     </style>
 
 
+    <style name="CustomSpinnerTheme" parent="android:Widget.Spinner">
+        <item name="android:drawableLeft">@drawable/spinner_arrow</item>
+    </style>
+
 
 
 

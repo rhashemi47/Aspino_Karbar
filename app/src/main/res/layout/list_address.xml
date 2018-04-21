@@ -28,7 +28,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="70dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/rounded_listview_message">
+        android:background="@drawable/rounded_layout_select_job_body">
     <ListView
         android:id="@+id/listViewAddress"
         android:layout_width="match_parent"

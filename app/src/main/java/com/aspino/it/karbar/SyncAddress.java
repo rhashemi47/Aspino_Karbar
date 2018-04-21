@@ -286,7 +286,7 @@ public class SyncAddress {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,pUserCode,"0");
+		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,pUserCode,"1");
 		syncGetUserAddress.AsyncExecute();
     }
 	

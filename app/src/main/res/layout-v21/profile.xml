@@ -20,7 +20,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/Profile"
-            app:titleTextColor="#000000"
+            app:titleTextColor="#fff"
             android:background="@drawable/background_title" />
     </android.support.design.widget.AppBarLayout>
 <ScrollView
@@ -161,8 +161,7 @@
                 android:background="@drawable/rounded_button"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:textColor="#000000"
-                android:drawableLeft="@drawable/add"/>
+                android:textColor="#fff"/>
             <Button
                 android:id="@+id/btnEditAdres"
                 android:layout_width="wrap_content"
@@ -170,9 +169,8 @@
                 android:text="@string/edit"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:drawableLeft="@drawable/edit_order"
                 android:background="@drawable/rounded_button"
-                android:textColor="#000000"/>
+                android:textColor="#fff"/>
         </LinearLayout>
 
         <LinearLayout
@@ -267,6 +265,6 @@
             android:text="@string/Save"
             android:textColor="#ffff"
             android:textSize="40px"
-            android:background="@drawable/rounded_button_save"/>
+            android:background="@drawable/rounded_button_bottom"/>
     </LinearLayout>
 </RelativeLayout>

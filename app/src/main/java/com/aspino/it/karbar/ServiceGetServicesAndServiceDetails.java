@@ -67,7 +67,7 @@ public class ServiceGetServicesAndServiceDetails extends Service {
                                     syncServicesForService.AsyncExecute();
                                 }
                             });
-                            Thread.sleep(6000); // every 12 hour
+                            Thread.sleep(43200); // every 12 hour
                         } catch (Exception e) {
                             // TODO: handle exception
                         }

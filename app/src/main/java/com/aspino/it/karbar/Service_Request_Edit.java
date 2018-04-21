@@ -894,7 +894,7 @@ protected void onCreate(Bundle savedInstanceState) {
 					if(HamyarCount.length()==0)
 					{
 
-						ErrorStr+="تعداد همیار را مشخص نمایید"+"\n";
+						ErrorStr+="تعداد متخصص را مشخص نمایید"+"\n";
 					}
 				}
 				else
@@ -910,7 +910,7 @@ protected void onCreate(Bundle savedInstanceState) {
 					}
 					if(MaleCount.compareTo("0")==0 && FemaleCount.compareTo("0")==0)
 					{
-						ErrorStr+="تعداد همیار مرد یا زن را مشخص نمایید"+"\n";
+						ErrorStr+="تعداد متخصص مرد یا زن را مشخص نمایید"+"\n";
 					}
 				}
 				if(ErrorStr.length()==0)

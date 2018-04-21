@@ -20,9 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -151,7 +149,28 @@ public class Main_Activity  extends AppCompatActivity{
         btnServiceOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+                try{
+                    if(karbarCode.compareTo("0")==0)
+                    {
+                        Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
+                }
+                db = dbh.getReadableDatabase();
+                Cursor coursors = db.rawQuery("SELECT * FROM services", null);
+                if (coursors.getCount() > 0) {
+                    LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+                    db.close();
+                }
+                else
+                {
+                    SyncServices syncServices=new SyncServices(Main_Activity.this,karbarCode);
+                    syncServices.AsyncExecute();
+                }
+
             }
         });
     }
@@ -214,7 +233,17 @@ public class Main_Activity  extends AppCompatActivity{
             // do something when the button is clicked
             public void onClick(DialogInterface arg0, int arg1) {
                 //Declare Object From Get Internet Connection Status For Check Internet Status
-                System.exit(0);
+                //System.exit(0);
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+                startMain.addCategory(Intent.CATEGORY_HOME);
+
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(startMain);
+
+                finish();
+
                 arg0.dismiss();
 
             }

@@ -131,18 +131,18 @@ public class Profile extends Activity {
 			}
 			db.close();
 		}
-		GPSTracker gps = new GPSTracker(Profile.this);
-
-		// check if GPS enabled
-		if (gps.canGetLocation()) {
-
-			//nothing
-		} else {
-			// can't get location
-			// GPS or Network is not enabled
-			// Ask user to enable GPS/network in settings
-			gps.showSettingsAlert();
-		}
+//		GPSTracker gps = new GPSTracker(Profile.this);
+//
+//		// check if GPS enabled
+//		if (gps.canGetLocation()) {
+//
+//			//nothing
+//		} else {
+//			// can't get location
+//			// GPS or Network is not enabled
+//			// Ask user to enable GPS/network in settings
+//			gps.showSettingsAlert();
+//		}
 
 		tvPhoneNumber.setText(phonenumber);
 		Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
@@ -196,13 +196,21 @@ public class Profile extends Activity {
 
 			}
 		}
+		try
+		{
+			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
+		}
+		catch (Exception ex)
+		{
+			bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
+			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
+		}
 
-		imgUser.setImageBitmap(getRoundedRectBitmap(bmp,1000));
 		btnEditAdres=(Button)findViewById(R.id.btnEditAdres);
 		btnEditAdres.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				LoadActivity(List_Address.class,"karbarCode",karbarCode);
+				LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","Profile");
 			}
 		});
 		btnAddAdres=(Button)findViewById(R.id.btnAddAdres);

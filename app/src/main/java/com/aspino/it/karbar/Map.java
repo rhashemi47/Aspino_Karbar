@@ -18,14 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
-
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,9 +38,9 @@ public class Map extends AppCompatActivity {
     private Button btnSaveLocation;
     private EditText NameAddres;
     private EditText AddAddres;
-    public double lat;
-    private double lon;
-    private GoogleMap map;
+    public double lat=0;
+    private double lon=0;
+//    private GoogleMap map;
     private String backToActivity;
     private String codeService;
     private EditText etEmail;
@@ -146,48 +139,48 @@ public class Map extends AppCompatActivity {
             }
         });
         //*************************************************************************************************
-        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
-            @Override
-
-            public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
-
-                LatLng point;
-                lat=35.691063;
-                lon=51.407941;
-                point = new LatLng(lat, lon);
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
-                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
-                    lat = Double.parseDouble(latStr);
-                    lon = Double.parseDouble(lonStr);
-                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-                        point = new LatLng(lat, lon);
-                    }
-                }
-                db.close();
-                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
-
-
-                map.getUiSettings().setZoomControlsEnabled(true);
-                map.getUiSettings().setMyLocationButtonEnabled(true);
-                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        String str = latLng.toString();
-                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-                        map.clear();
-                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                        lat=latLng.latitude;
-                        lon=latLng.longitude;
-                    }
-                });
-            }
-        });
+//        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
+//            @Override
+//
+//            public void onMapReady(GoogleMap googleMap) {
+//                map = googleMap;
+//
+//                LatLng point;
+//                lat=35.691063;
+//                lon=51.407941;
+//                point = new LatLng(lat, lon);
+//                db = dbh.getReadableDatabase();
+//                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+//                if (coursors.getCount() > 0) {
+//                    coursors.moveToNext();
+//                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
+//                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
+//                    lat = Double.parseDouble(latStr);
+//                    lon = Double.parseDouble(lonStr);
+//                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+//                        point = new LatLng(lat, lon);
+//                    }
+//                }
+//                db.close();
+//                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
+//
+//
+//                map.getUiSettings().setZoomControlsEnabled(true);
+//                map.getUiSettings().setMyLocationButtonEnabled(true);
+//                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//                    @Override
+//                    public void onMapClick(LatLng latLng) {
+//                        String str = latLng.toString();
+//                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+//                        map.clear();
+//                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                        lat=latLng.latitude;
+//                        lon=latLng.longitude;
+//                    }
+//                });
+//            }
+//        });
         //******************************************************************************************************
         chbIsDefaultAddres.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -205,7 +198,7 @@ public class Map extends AppCompatActivity {
         btnSaveLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String CodeState,CodeCity;
+                String CodeState="",CodeCity="";
                 db=dbh.getWritableDatabase();
                 String StrnameAddress=NameAddres.getText().toString().trim();
                 String StrAddAddres=AddAddres.getText().toString().trim();
@@ -218,22 +211,33 @@ public class Map extends AppCompatActivity {
                 {
                     StrError="نامی دلخواه برای آدرس محل وارد نمایید."+"\n";
                 }
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='"+spState.getSelectedItem().toString()+"'", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    CodeState = coursors.getString(coursors.getColumnIndex("Code"));
+                try {
+                    db = dbh.getReadableDatabase();
+                    Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='" + spState.getSelectedItem().toString() + "'", null);
+                    if (coursors.getCount() > 0) {
+                        coursors.moveToNext();
+                        CodeState = coursors.getString(coursors.getColumnIndex("Code"));
+                    } else {
+                        CodeState = "";
+                    }
                 }
-                else{
-                    CodeState="";
+                catch (Exception ex)
+                {
+                    StrError="خطا در بارگزاری نام استانها";
+                    Toast.makeText(Map.this, "خطا در بارگزاری نام استانها", Toast.LENGTH_SHORT).show();
                 }
-                coursors = db.rawQuery("SELECT * FROM City WHERE Name='"+spCity.getSelectedItem().toString()+"'", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    CodeCity = coursors.getString(coursors.getColumnIndex("Code"));
+                try {
+                    Cursor coursors = db.rawQuery("SELECT * FROM City WHERE Name='" + spCity.getSelectedItem().toString() + "'", null);
+                    if (coursors.getCount() > 0) {
+                        coursors.moveToNext();
+                        CodeCity = coursors.getString(coursors.getColumnIndex("Code"));
+                    } else {
+                        CodeCity = "";
+                    }
                 }
-                else{
-                    CodeCity="";
+                catch (Exception ex){
+                    StrError="خطا در بارگزاری نام شهرستانها";
+                    Toast.makeText(Map.this, "خطا در بارگزاری نام شهرستانها", Toast.LENGTH_SHORT).show();
                 }
                 if(StrError.length()==0 || StrError.compareTo("")==0)
                 {
@@ -256,7 +260,7 @@ public class Map extends AppCompatActivity {
                 LoadActivity(Profile.class, "karbarCode", karbarCode);
             }else
             {
-                LoadActivity2(Service_Request.class, "karbarCode", karbarCode,"codeService",codeService);
+                LoadActivity2(MainMenu.class, "karbarCode", karbarCode,"codeService",codeService);
             }
 
         }

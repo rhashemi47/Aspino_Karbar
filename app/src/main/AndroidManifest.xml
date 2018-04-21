@@ -14,7 +14,7 @@
             android:name="com.aspino.it.karbar.Main_Activity"
             android:label="@string/Logo_name"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:noHistory="true" >
+            android:noHistory="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,79 +23,88 @@
         </activity>
         <activity
             android:name="com.aspino.it.karbar.MainMenu"
-            android:noHistory="true" />
+            android:noHistory="false" />
         <activity
             android:name="com.aspino.it.karbar.Login"
-            android:noHistory="true" />
+            android:noHistory="false" />
         <activity
             android:name="com.aspino.it.karbar.Info_Person"
-            android:noHistory="true" />
+            android:noHistory="false" />
         <activity
             android:name="com.aspino.it.karbar.Accept_code"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Profile"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.About"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Contact"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.GiftBank"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Help"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_Messages"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.OurCommitment"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.YourCommitment"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.ShowMessage"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_Address"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.UpdateAddress"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Credit"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.History"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_ServiceDerails"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_Services"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.Service_Request"
-            android:noHistory="true"/>
+            android:name="com.aspino.it.karbar.Service_Request1"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request2"
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Map"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_Order"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Service_Request_Saved"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Service_Request_Edit"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request_Edit1"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request_Edit2"
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.ShowFactor"
-            android:noHistory="true"/>
+            android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
 
         </service>

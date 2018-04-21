@@ -134,7 +134,7 @@ public class AdapterServiceDetails extends BaseAdapter {
         public void onClick(View v) {
             String DetailCode="";
             DetailCode = ((TextView)v).getTag().toString();
-            Intent intent = new Intent(activity.getApplicationContext(),Service_Request.class);//Goto Page Form Order Service
+            Intent intent = new Intent(activity.getApplicationContext(),Service_Request1.class);//Goto Page Form Order Service
             intent.putExtra("karbarCode",karbarCode);
             intent.putExtra("DetailCode",DetailCode);
             activity.startActivity(intent);
@@ -145,7 +145,7 @@ public class AdapterServiceDetails extends BaseAdapter {
         public void onClick(View v) {
             String DetailCode="";
             DetailCode = ((ImageView)v).getTag().toString();
-            Intent intent = new Intent(activity.getApplicationContext(),Service_Request.class);//Goto Page Form Order Service
+            Intent intent = new Intent(activity.getApplicationContext(),Service_Request1.class);//Goto Page Form Order Service
             intent.putExtra("karbarCode",karbarCode);
             intent.putExtra("DetailCode",DetailCode);
             activity.startActivity(intent);

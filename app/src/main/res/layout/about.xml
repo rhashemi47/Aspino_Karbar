@@ -23,7 +23,7 @@
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/About"
             app:titleTextColor="#ffff"
-            android:background="@drawable/background_title" />
+            android:background="@drawable/bottom_nav_item_tint" />
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView

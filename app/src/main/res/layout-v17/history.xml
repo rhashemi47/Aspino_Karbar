@@ -19,7 +19,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:title="@string/History"
-            app:titleTextColor="#000000"
+            app:titleTextColor="#fff"
             android:background="@drawable/background_title"/>
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
@@ -44,7 +44,8 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:background="@drawable/rounded_layout_select_job_body">
 
         </ListView>
     </LinearLayout>
