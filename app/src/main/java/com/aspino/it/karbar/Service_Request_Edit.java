@@ -26,13 +26,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+//import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.OnMapReadyCallback;
+//import com.google.android.gms.maps.SupportMapFragment;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -117,7 +118,7 @@ public class Service_Request_Edit extends AppCompatActivity {
 	private LinearLayout LinearDescription;
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
-	GoogleMap map;
+//	GoogleMap map;
 	private String typeForm;
 	private String CodeService;
 	///*************************************
@@ -170,7 +171,7 @@ public class Service_Request_Edit extends AppCompatActivity {
 	private RadioButton rdbShasi;
 	private RadioButton rdbVan;
 	private Spinner spAddress;
-	private LatLng point;
+//	private LatLng point;
 //	private Button btnOrder;
 //	private Button btnAcceptOrder;
 //	private Button btncredite;
@@ -518,22 +519,22 @@ protected void onCreate(Bundle savedInstanceState) {
 				cursor.moveToNext();
 				etAddres.setText(cursor.getString(cursor.getColumnIndex("AddressText")));
 				etAddres.setTag(cursor.getString(cursor.getColumnIndex("Code")));
-				String latStr=cursor.getString(cursor.getColumnIndex("Lat"));
-				String lonStr=cursor.getString(cursor.getColumnIndex("Lng"));
-				double lat=Double.parseDouble(latStr);
-				double lon=Double.parseDouble(lonStr);
-				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-					point = new LatLng(lat, lon);
-
-				}
-				else
-				{
-					point = new LatLng(35.691063, 51.407941);
-
-				}
-				map.clear();
-				map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-				map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
+//				String latStr=cursor.getString(cursor.getColumnIndex("Lat"));
+//				String lonStr=cursor.getString(cursor.getColumnIndex("Lng"));
+//				double lat=Double.parseDouble(latStr);
+//				double lon=Double.parseDouble(lonStr);
+//				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+//					point = new LatLng(lat, lon);
+//
+//				}
+//				else
+//				{
+//					point = new LatLng(35.691063, 51.407941);
+//
+//				}
+//				map.clear();
+//				map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//				map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
 			}
 			db.close();
 		}
@@ -545,42 +546,42 @@ protected void onCreate(Bundle savedInstanceState) {
 	});
 
 	//**************************************************************************************
-	((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {
-		@Override
-
-		public void onMapReady(GoogleMap googleMap) {
-			map = googleMap;
-			db=dbh.getReadableDatabase();
-			String query="SELECT OrdersService.*,address.* FROM OrdersService " +
-					"LEFT JOIN " +
-					"address ON " +
-					"address.code=OrdersService.AddressCode WHERE OrdersService.Code="+CodeOrderService;
-			Cursor coursors = db.rawQuery(query,null);
-			if(coursors.getCount()>0)
-			{
-				coursors.moveToNext();
-				String latStr=coursors.getString(coursors.getColumnIndex("Lat"));
-				String lonStr=coursors.getString(coursors.getColumnIndex("Lng"));
-				double lat=Double.parseDouble(latStr);
-				double lon=Double.parseDouble(lonStr);
-				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-					point = new LatLng(lat, lon);
-				}
-				else
-				{
-					point = new LatLng(lat, lon);
-				}
-			}
-			else {
-				point = new LatLng(35.691063, 51.407941);
-			}
-
-			db.close();
-			map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
-			map.getUiSettings().setZoomControlsEnabled(true);
-		}
-	});
+//	((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {
+//		@Override
+//
+//		public void onMapReady(GoogleMap googleMap) {
+//			map = googleMap;
+//			db=dbh.getReadableDatabase();
+//			String query="SELECT OrdersService.*,address.* FROM OrdersService " +
+//					"LEFT JOIN " +
+//					"address ON " +
+//					"address.code=OrdersService.AddressCode WHERE OrdersService.Code="+CodeOrderService;
+//			Cursor coursors = db.rawQuery(query,null);
+//			if(coursors.getCount()>0)
+//			{
+//				coursors.moveToNext();
+//				String latStr=coursors.getString(coursors.getColumnIndex("Lat"));
+//				String lonStr=coursors.getString(coursors.getColumnIndex("Lng"));
+//				double lat=Double.parseDouble(latStr);
+//				double lon=Double.parseDouble(lonStr);
+//				if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+//					point = new LatLng(lat, lon);
+//				}
+//				else
+//				{
+//					point = new LatLng(lat, lon);
+//				}
+//			}
+//			else {
+//				point = new LatLng(35.691063, 51.407941);
+//			}
+//
+//			db.close();
+//			map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//			map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,17));
+//			map.getUiSettings().setZoomControlsEnabled(true);
+//		}
+//	});
 
 //**************************************************************************************
 		db=dbh.getReadableDatabase();

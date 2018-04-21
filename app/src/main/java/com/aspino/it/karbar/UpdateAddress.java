@@ -18,13 +18,13 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+//import com.google.android.gms.maps.CameraUpdateFactory;
+//import com.google.android.gms.maps.GoogleMap;
+//import com.google.android.gms.maps.OnMapReadyCallback;
+//import com.google.android.gms.maps.SupportMapFragment;
+//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+//import com.google.android.gms.maps.model.LatLng;
+//import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class UpdateAddress extends AppCompatActivity {
     private EditText AddAddres;
     public double lat;
     private double lon;
-    private GoogleMap map;
+//    private GoogleMap map;
     private String backToActivity;
     private String AddressCode;
     private EditText etEmail;
@@ -221,33 +221,33 @@ public class UpdateAddress extends AppCompatActivity {
         db.close();
         //*************************************************************************************************
 //*************************************************************************************************
-        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
-            @Override
-
-            public void onMapReady(GoogleMap googleMap) {
-                map = googleMap;
-
-                LatLng point;
-                point = new LatLng(lat, lon);
-                map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
-
-
-                map.getUiSettings().setZoomControlsEnabled(true);
-                map.getUiSettings().setMyLocationButtonEnabled(true);
-                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        String str = latLng.toString();
-                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-                        map.clear();
-                        map.addMarker(new MarkerOptions().position(latLng).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-                        lat=latLng.latitude;
-                        lon=latLng.longitude;
-                    }
-                });
-            }
-        });
+//        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
+//            @Override
+//
+//            public void onMapReady(GoogleMap googleMap) {
+//                map = googleMap;
+//
+//                LatLng point;
+//                point = new LatLng(lat, lon);
+//                map.addMarker(new MarkerOptions().position(point).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
+//
+//
+//                map.getUiSettings().setZoomControlsEnabled(true);
+//                map.getUiSettings().setMyLocationButtonEnabled(true);
+//                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//                    @Override
+//                    public void onMapClick(LatLng latLng) {
+//                        String str = latLng.toString();
+//                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+//                        map.clear();
+//                        map.addMarker(new MarkerOptions().position(latLng).title("آدرس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+//                        lat=latLng.latitude;
+//                        lon=latLng.longitude;
+//                    }
+//                });
+//            }
+//        });
         chbIsDefaultAddres.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

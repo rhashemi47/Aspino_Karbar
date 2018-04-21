@@ -35,6 +35,8 @@ public class InsertKarbar {
 	private String ReagentCode;
 	private boolean CuShowDialog=true;
 	private String[] res;
+	private String LastMessageCode;
+
 	//Contractor
 	public InsertKarbar(Activity activity, String phonenumber, String acceptcode, String Name, String Family,String ReagentCode) {
 		this.activity = activity;
@@ -267,9 +269,26 @@ public class InsertKarbar {
 				"','"+notext+
 				"','"+notext+
 				"','"+notext+"','"+notext+"','"+notext+"','"+notext+"','"+notext+"')");
+		Cursor cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
+		if(cursors.getCount()>0)
+		{
+			cursors.moveToNext();
+			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
+		}
 		db.close();
-
-		LoadActivity(MainMenu.class, "karbarCode",karbarCode);
+		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
+		syncMessage.AsyncExecute();
+		SyncServices syncservices=new SyncServices(this.activity,karbarCode);
+		syncservices.AsyncExecute();
+		SyncProfile syncProfile=new SyncProfile(this.activity, karbarCode);
+		syncProfile.AsyncExecute();
+		SyncState syncState=new SyncState(this.activity);
+		syncState.AsyncExecute();
+		SyncCity syncCity=new SyncCity(this.activity);
+		syncCity.AsyncExecute();
+		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,karbarCode,"0");
+		syncGetUserAddress.AsyncExecute();
+		//LoadActivity(MainMenu.class, "karbarCode",karbarCode);
     }
 	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{

@@ -58,13 +58,12 @@ import java.util.HashMap;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainMenu extends AppCompatActivity {
-    private String karbarCode;
+    private String karbarCode="0";
 
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
     private Drawer drawer = null;
     private String countMessage;
-    private android.support.v7.widget.GridLayout gridlayout;
     private GridView GridViewServices;
     private boolean IsActive = true;
     private ArrayList<HashMap<String, String>> valuse;
@@ -91,6 +90,13 @@ public class MainMenu extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
+        try {
+            karbarCode = getIntent().getStringExtra("karbarCode");
+        }
+        catch (Exception ex)
+        {
+            karbarCode="0";
+        }
         faceh = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
 //        btnOrder = (Button) findViewById(R.id.btnOrderBottom);
 //        btnAcceptOrder = (Button) findViewById(R.id.btnAcceptOrderBottom);
@@ -132,45 +138,6 @@ public class MainMenu extends AppCompatActivity {
 //            countOrder = String.valueOf(cursor.getCount());
 //        }
 //        db.close();
-        try {
-            karbarCode = getIntent().getStringExtra("karbarCode");
-
-            if (karbarCode == null) {
-
-                Cursor cursors = null;
-                db = dbh.getReadableDatabase();
-                cursors = db.rawQuery("SELECT * FROM login", null);
-                if (cursors.getCount() > 0) {
-                    cursors.moveToNext();
-                    String Result = cursors.getString(cursors.getColumnIndex("islogin"));
-                    if (Result.compareTo("0") == 0) {
-                        LoadActivity(Login.class, "karbarCode", "0");
-                    } else {
-                        karbarCode = cursors.getString(cursors.getColumnIndex("karbarCode"));
-
-                        db = dbh.getReadableDatabase();
-                        coursors = db.rawQuery("SELECT * FROM UpdateApp", null);
-                        if (coursors.getCount() > 0) {
-                            coursors.moveToNext();
-                            if (coursors.getString(coursors.getColumnIndex("Status")).compareTo("1") == 0) {
-                                String Query = "UPDATE UpdateApp SET Status='0'";
-                                db = dbh.getWritableDatabase();
-                                db.execSQL(Query);
-                            }
-                        }
-                    }
-                } else {
-                    LoadActivity(Login.class, "karbarCode", "0");
-                }
-            } else if (karbarCode.compareTo("0") == 0) {
-                IsActive = false;
-            }
-            db.close();
-
-
-        } catch (Exception e) {
-            throw new Error("Error Opne Activity");
-        }
         //***************************************************************************************************
 //        lstSearchDetailService.setVisibility(View.GONE);
         GridViewServices.setVisibility(View.VISIBLE);
@@ -245,13 +212,13 @@ public class MainMenu extends AppCompatActivity {
 //            }
 //        });
         //********************************************************************Start And Stop Service BackGround
-        startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
-        startService(new Intent(getBaseContext(), ServiceGetLocation.class));
-        startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
-        startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
-        startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
-        startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
-        startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+        if(karbarCode.compareTo("0")!=0) {
+            startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+            startService(new Intent(getBaseContext(), ServiceGetLocation.class));
+            startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+            startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
+            startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+        }
         //**************************************************************************
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -768,38 +735,11 @@ public class MainMenu extends AppCompatActivity {
                 .build();
     }
 
-    private void ExitApplication() {
-        //Exit All Activity And Kill Application
-        AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-        // set the message to display
-        alertbox.setMessage("آیا می خواهید از برنامه خارج شوید ؟");
-
-        // set a negative/no button and create a listener
-        alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
-            // do something when the button is clicked
-            public void onClick(DialogInterface arg0, int arg1) {
-                arg0.dismiss();
-            }
-        });
-
-        // set a positive/yes button and create a listener
-        alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
-            // do something when the button is clicked
-            public void onClick(DialogInterface arg0, int arg1) {
-                //Declare Object From Get Internet Connection Status For Check Internet Status
-                System.exit(0);
-                arg0.dismiss();
-
-            }
-        });
-
-        alertbox.show();
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            ExitApplication();
+            LoadActivity(Main_Activity.class,"karbarCode",karbarCode);
         }
 
         return super.onKeyDown(keyCode, event);

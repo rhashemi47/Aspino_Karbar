@@ -22,7 +22,7 @@
     <string name="About">درباره ما</string>
     <string name="Exit">خروج از برنامه</string>
     <string name="Logout">خروج از حساب کاربری</string>
-    <string name="Login">ورود</string>
+    <string name="Login">ورود به حساب کاربری</string>
     <string name="Job">لیست درخواست های رسیده</string>
     <string name="Duty">فرصت های شغلی امروز</string>
     <string name="Select">انتخاب</string>
@@ -175,5 +175,7 @@
     <string name="Register">فرم ثبت نام کاربر</string>
     <string name="InfoHamyar">مشخصات همیار</string>
     <string name="CodeDesired_service">شماره درخواست</string>
+    <string name="SarviceOrder">ثبت سفارش</string>
+    <string name="LoginOrSignUp">ورود/ثبت نام</string>
 
 </resources>

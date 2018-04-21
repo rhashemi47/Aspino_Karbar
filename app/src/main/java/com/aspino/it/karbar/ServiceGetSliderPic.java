@@ -70,12 +70,12 @@ public class ServiceGetSliderPic extends Service {
                                         coursors.moveToNext();
                                         karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
                                     }
-                                    if(karbarCode.compareTo("0")!=0) {
+                                    db.close();
 
                                         SyncSliderPic syncSliderPic=new SyncSliderPic(getApplicationContext(),karbarCode);
                                         syncSliderPic.AsyncExecute();
-                                    }
-                                    db.close();
+
+
 
                                 }
                             });
