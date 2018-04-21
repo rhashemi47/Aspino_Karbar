@@ -54,6 +54,7 @@ public class SyncInsertUserServices {
 	private String CarWashType ;
 	private String CarType ;
 	private String Language ;
+	private String DateDiff ;
 	//private String acceptcode;
 	private boolean CuShowDialog=true;
 	//Contractor
@@ -62,7 +63,7 @@ public class SyncInsertUserServices {
 								  String EndYear, String EndMonth, String EndDay, String EndHour, String EndMinute,
 								  String AddressCode, String Description, String IsEmergency, String PeriodicServices, String EducationGrade,
 								  String FieldOfStudy, String StudentGender, String TeacherGender, String EducationTitle, String ArtField, String CarWashType,
-								  String CarType, String Language) {
+								  String CarType, String Language, String DateDiff) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
 		this.ServiceDetaileCode = ServiceDetaileCode;
@@ -92,6 +93,7 @@ public class SyncInsertUserServices {
 		this.CarWashType = CarWashType;
 		this.CarType = CarType;
 		this.Language = Language;
+		this.DateDiff = DateDiff;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -544,7 +546,8 @@ public class SyncInsertUserServices {
 					"CarWashType,"+
 					"CarType,"+
 					"Language," +
-					"Status) VALUES('"+
+					"Status," +
+					"DateDiff) VALUES('" +
 							WsResponse+"','"+
 							pUserCode+"','"+
 							ServiceDetaileCode+"','"+
@@ -573,7 +576,8 @@ public class SyncInsertUserServices {
 							ArtField+"','"+
 							CarWashType+"','"+
 							CarType+"','"+
-							Language+"','0')");
+							Language+"','0','"+
+							DateDiff+"')");
 		db.close();
 		Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
 		LoadActivity(MainMenu.class, "karbarCode", pUserCode);

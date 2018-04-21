@@ -770,7 +770,7 @@ protected void onCreate(Bundle savedInstanceState) {
 								karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
 								StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
 								AddressCode, Description, "0", "0", EducationGrade,
-								FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language);
+								FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,etCountTimeJob.getText().toString());
 						syncInsertUserServices.AsyncExecute();
 					}
 					else

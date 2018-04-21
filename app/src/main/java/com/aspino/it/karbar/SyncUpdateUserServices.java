@@ -55,6 +55,7 @@ public class SyncUpdateUserServices {
 	private String CarType ;
 	private String UserServices ;
 	private String Language ;
+	private String DateDiff ;
 	//private String acceptcode;
 	private boolean CuShowDialog=true;
 	//Contractor
@@ -63,7 +64,7 @@ public class SyncUpdateUserServices {
                                   String EndYear, String EndMonth, String EndDay, String EndHour, String EndMinute,
                                   String AddressCode, String Description, String IsEmergency, String PeriodicServices, String EducationGrade,
                                   String FieldOfStudy, String StudentGender, String TeacherGender, String EducationTitle, String ArtField, String CarWashType,
-                                  String CarType, String Language) {
+                                  String CarType, String Language, String DateDiff) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
 		this.ServiceDetaileCode = ServiceDetaileCode;
@@ -94,6 +95,7 @@ public class SyncUpdateUserServices {
 		this.CarType = CarType;
 		this.Language = Language;
 		this.UserServices = UserServices;
+		this.DateDiff = DateDiff;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -586,7 +588,8 @@ public class SyncUpdateUserServices {
 				ArtField+"','"+
 				CarWashType+"','"+
 				CarType+"','"+
-				Language+"','0')");
+				Language+"','0','"+
+				DateDiff+"')");
 //		db.execSQL("UPDATE OrdersService SET "+
 //					"MaleCount='"+MaleCount+"',"+
 //					"FemaleCount='"+FemaleCount+"',"+

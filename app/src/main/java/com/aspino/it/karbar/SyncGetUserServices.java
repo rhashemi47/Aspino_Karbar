@@ -228,7 +228,8 @@ public class SyncGetUserServices {
 							"CarWashType," +
 							"CarType," +
 							"Language," +
-							"Status) VALUES('" +
+							"Status," +
+							"DateDiff) VALUES('" +
 							value[0] + "','" +
 							value[1] + "','" +
 							value[4] + "','" +
@@ -258,7 +259,8 @@ public class SyncGetUserServices {
 							value[29] + "','" +
 							value[30] + "','" +
 							value[31] + "','" +
-							value[32] + "')";
+							value[32] + "','" +
+							value[33] + "')";
 					db.execSQL(query);
 					db.close();
 					SyncGetUserServiceHamyar syncGetUserServiceHamyar=new SyncGetUserServiceHamyar(activity.getApplicationContext(),value[0]);

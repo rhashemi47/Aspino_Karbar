@@ -659,7 +659,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 							karbarCode,CodeService, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
 							StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
 							AddressCode, Description, "0", PeriodicServices, EducationGrade,
-							FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language);
+							FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,etCountTimeJob.getText().toString());
 					syncUpdateUserServices.AsyncExecute();
 				} else {
 					Toast.makeText(Service_Request_Edit2.this, ErrorStr, Toast.LENGTH_SHORT).show();
@@ -1052,9 +1052,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 				chbMaleAndFemale.setChecked(true);
 				etDoesnotmatter.setText(cursor.getString(cursor.getColumnIndex("HamyarCount")));
 			}
-			ToDate=cursor.getString(cursor.getColumnIndex("EndYear"))+"-"+cursor.getString(cursor.getColumnIndex("EndMonth"))+"-"+cursor.getString(cursor.getColumnIndex("EndDay"));
-			String DateGareguryFrom = faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/", "-");
-			String DateGareguryTo = faToEn(ChangeDate.changeFarsiToMiladi(ToDate)).replace("/", "-");
+			etCountTimeJob.setText(cursor.getString(cursor.getColumnIndex("DateDiff")));
 			//*********************Grade**********************************************
 			int lensp=spGraid.getCount();
 			int positionString=0;
