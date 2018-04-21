@@ -636,7 +636,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 					if (StartYear.compareTo("0") != 0 && StartHour.compareTo("0") != 0) {
 
 						String DateGaregury = faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/", "-");
-						db = dbh.getReadableDatabase();ghkghk
+						db = dbh.getReadableDatabase();
 						String query = "SELECT DATETIME('" + DateGaregury + " " + FromTime +
 								":00'" + ",'+" + etCountTimeJob.getText().toString() + " hours') as Date";
 						Cursor cursor = db.rawQuery(query, null);
@@ -1054,7 +1054,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 			}
 			ToDate=cursor.getString(cursor.getColumnIndex("EndYear"))+"-"+cursor.getString(cursor.getColumnIndex("EndMonth"))+"-"+cursor.getString(cursor.getColumnIndex("EndDay"));
 			String DateGareguryFrom = faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/", "-");
-			String DateGareguryTo = faToEn(ChangeDate.changeFarsiToMiladi(ToDate)).replace("/", "-");dsgfsdg
+			String DateGareguryTo = faToEn(ChangeDate.changeFarsiToMiladi(ToDate)).replace("/", "-");
 			//*********************Grade**********************************************
 			int lensp=spGraid.getCount();
 			int positionString=0;
