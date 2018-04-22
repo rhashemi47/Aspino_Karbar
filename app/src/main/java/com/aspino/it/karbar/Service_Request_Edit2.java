@@ -1052,7 +1052,9 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 				chbMaleAndFemale.setChecked(true);
 				etDoesnotmatter.setText(cursor.getString(cursor.getColumnIndex("HamyarCount")));
 			}
-			etCountTimeJob.setText(cursor.getString(cursor.getColumnIndex("DateDiff")));
+//			ToDate=cursor.getString(cursor.getColumnIndex("EndYear"))+"-"+cursor.getString(cursor.getColumnIndex("EndMonth"))+"-"+cursor.getString(cursor.getColumnIndex("EndDay"));
+//			String DateGareguryFrom = faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/", "-");
+//			String DateGareguryTo = faToEn(ChangeDate.changeFarsiToMiladi(ToDate)).replace("/", "-");
 			//*********************Grade**********************************************
 			int lensp=spGraid.getCount();
 			int positionString=0;
