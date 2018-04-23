@@ -54,7 +54,6 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 	private EditText etDoesnotmatter;
 	private EditText etTitleLearning;
 	private EditText etFieldArtOther;
-	private EditText etCountTimeJob;
 	//**************************************************************
 	private Spinner spGraid;
 	private Spinner spFieldEducation;
@@ -122,12 +121,11 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 	private String Language;
 	private String karbarCode;
 	private String DetailCode;
+	private String TimeDiff;
 	//************************************************************
 	private Button btnCansel;
 	private Button btnDesCountExpert;
 	private Button btnAddCountExpert;
-	private Button btnAddTimeJob;
-	private Button btnDesTimeJob;
 	//*************************************
 	private String FromDate;
 	private String ToDate;
@@ -182,8 +180,6 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 		btnCansel = (Button) findViewById(R.id.btnCansel);
 		btnAddCountExpert = (Button) findViewById(R.id.btnAddCountExpert);
 		btnDesCountExpert = (Button) findViewById(R.id.btnDesCountExpert);
-		btnAddTimeJob = (Button) findViewById(R.id.btnAddTimeJob);
-		btnDesTimeJob = (Button) findViewById(R.id.btnDesTimeJob);
 		tvTitleService = (TextView) findViewById(R.id.tvTitleService);
 		//**************************************************************************************
 		tvTitleService = (TextView) findViewById(R.id.tvTitleService);
@@ -206,7 +202,6 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 		etDoesnotmatter = (EditText) findViewById(R.id.etDoesnotmatter);
 		etTitleLearning = (EditText) findViewById(R.id.etTitleLearning);
 		etFieldArtOther = (EditText) findViewById(R.id.etFieldArtOther);
-		etCountTimeJob = (EditText) findViewById(R.id.etCountTimeJob);
 		//*************************************************************************
 		chbMale = (CheckBox) findViewById(R.id.chbMale);
 		chbFemale = (CheckBox) findViewById(R.id.chbFemale);
@@ -261,6 +256,14 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 
 			throw new Error("Unable to create database");
 
+		}
+		try
+		{
+			TimeDiff = getIntent().getStringExtra("TimeDiff").toString();
+		}
+		catch (Exception ex)
+		{
+			TimeDiff="0";
 		}
 
 		try {
@@ -372,27 +375,6 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 			}
 		});
 
-//**************************************************************************************
-		btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int count;
-				count = Integer.parseInt(etCountTimeJob.getText().toString()) + 1;
-				etCountTimeJob.setText(String.valueOf(count));
-			}
-		});
-		btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int count;
-				if (Integer.parseInt(etCountTimeJob.getText().toString()) > 0) {
-					count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
-					etCountTimeJob.setText(String.valueOf(count));
-				}
-			}
-		});
-
-//**************************************************************************************
 		chbMale.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -626,40 +608,14 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 					ErrorStr += "تعداد متخصص را مشخص نمایید" + "\n";
 
 				}
-				if (etCountTimeJob.getText().toString().compareTo("0") == 0) {
-
-					ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
-
-				}
 				if (ErrorStr.length() == 0) {
 
-					if (StartYear.compareTo("0") != 0 && StartHour.compareTo("0") != 0) {
 
-						String DateGaregury = faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/", "-");
-						db = dbh.getReadableDatabase();
-						String query = "SELECT DATETIME('" + DateGaregury + " " + FromTime +
-								":00'" + ",'+" + etCountTimeJob.getText().toString() + " hours') as Date";
-						Cursor cursor = db.rawQuery(query, null);
-						if (cursor.getCount() > 0) {
-							cursor.moveToNext();
-							String DateFinal = cursor.getString(cursor.getColumnIndex("Date")).replace("-", "/");
-							String SpaceSlit[] = DateFinal.split(" ");
-							SpaceSlit[0] = faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
-							String splitStrDate[] = SpaceSlit[0].split("/");
-							String splitStrTime[] = SpaceSlit[1].split(":");
-							EndYear = splitStrDate[0];
-							EndMonth = splitStrDate[1];
-							EndDay = splitStrDate[2];
-							EndHour = splitStrTime[0];
-							EndMinute = splitStrTime[1];
-						}
-						db.close();
-					}
 					SyncUpdateUserServices syncUpdateUserServices = new SyncUpdateUserServices(Service_Request_Edit2.this,
-							karbarCode,CodeService, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
+							karbarCode,CodeOrderService, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
 							StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
-							AddressCode, Description, "0", PeriodicServices, EducationGrade,
-							FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,etCountTimeJob.getText().toString());
+							AddressCode, Description, "0", "0", EducationGrade,
+							FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,TimeDiff);
 					syncUpdateUserServices.AsyncExecute();
 				} else {
 					Toast.makeText(Service_Request_Edit2.this, ErrorStr, Toast.LENGTH_SHORT).show();
@@ -675,7 +631,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 						"ToDate", ToDate,
 						"FromTime", FromTime,
 						"ToTime", ToTime,
-						"CodeOrderService",CodeService,
+						"CodeOrderService",CodeOrderService,
 						"Description", Description,
 						"AddressCode", AddressCode);
 			}
@@ -700,13 +656,13 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			LoadActivity2(Service_Request1.class, "karbarCode", karbarCode,
+			LoadActivity2(Service_Request_Edit1.class, "karbarCode", karbarCode,
 					"DetailCode", DetailCode,
 					"FromDate", FromDate,
 					"ToDate", ToDate,
 					"FromTime", FromTime,
 					"ToTime", ToTime,
-					"CodeOrderService",CodeService,
+					"CodeOrderService",CodeOrderService,
 					"Description", Description,
 					"AddressCode", AddressCode);
 		}
@@ -1013,19 +969,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 		spinner.setAdapter(dataAdapter);
 	}
 
-	public static String faToEn(String num) {
-		return num
-				.replace("۰", "0")
-				.replace("۱", "1")
-				.replace("۲", "2")
-				.replace("۳", "3")
-				.replace("۴", "4")
-				.replace("۵", "5")
-				.replace("۶", "6")
-				.replace("۷", "7")
-				.replace("۸", "8")
-				.replace("۹", "9");
-	}
+
 
 	public void FillForm()
 	{

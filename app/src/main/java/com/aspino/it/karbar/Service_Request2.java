@@ -61,7 +61,6 @@ public class Service_Request2 extends AppCompatActivity {
 	private EditText etDoesnotmatter;
 	private EditText etTitleLearning;
 	private EditText etFieldArtOther;
-	private EditText etCountTimeJob;
 	//**************************************************************
 	private Spinner spGraid;
 	private Spinner spFieldEducation;
@@ -134,8 +133,6 @@ public class Service_Request2 extends AppCompatActivity {
 	private Button btnCansel;
 	private Button btnDesCountExpert;
 	private Button btnAddCountExpert;
-	private Button btnAddTimeJob;
-	private Button btnDesTimeJob;
 	//*************************************
 	private String FromDate;
 	private String ToDate;
@@ -168,6 +165,7 @@ public class Service_Request2 extends AppCompatActivity {
 	private RadioButton radioTeacherGenderButton;
 	private RadioButton radioCarWashTypeButton;
 	private RadioButton radiorgTypeCarButton;
+	private String TimeDiff;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -188,8 +186,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		btnCansel=(Button)findViewById(R.id.btnCansel);
 		btnAddCountExpert=(Button)findViewById(R.id.btnAddCountExpert);
 		btnDesCountExpert=(Button)findViewById(R.id.btnDesCountExpert);
-		btnAddTimeJob=(Button)findViewById(R.id.btnAddTimeJob);
-		btnDesTimeJob=(Button)findViewById(R.id.btnDesTimeJob);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
 		//**************************************************************************************
 		tvTitleService=(TextView)findViewById(R.id.tvTitleService);
@@ -212,7 +208,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	  etDoesnotmatter=(EditText)findViewById(R.id.etDoesnotmatter);
 	  etTitleLearning=(EditText)findViewById(R.id.etTitleLearning);
 	  etFieldArtOther=(EditText)findViewById(R.id.etFieldArtOther);
-	  etCountTimeJob=(EditText)findViewById(R.id.etCountTimeJob);
+
 		//*************************************************************************
 		chbMale=(CheckBox) findViewById(R.id.chbMale);
 		chbFemale=(CheckBox)findViewById(R.id.chbFemale);
@@ -354,6 +350,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	try
 	{
+		TimeDiff = getIntent().getStringExtra("TimeDiff").toString();
+	}
+	catch (Exception ex)
+	{
+		TimeDiff="0";
+	}
+	try
+	{
 		AddressCode = getIntent().getStringExtra("AddressCode").toString();
 	}
 	catch (Exception ex)
@@ -404,28 +408,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	});
 
-//**************************************************************************************
-	btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				int count;
-				count=Integer.parseInt(etCountTimeJob.getText().toString())+1;
-				etCountTimeJob.setText(String.valueOf(count));
-			}
-		});
-	btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			int count;
-			if(Integer.parseInt(etCountTimeJob.getText().toString())>0)
-			{
-				count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
-				etCountTimeJob.setText(String.valueOf(count));
-			}
-		}
-	});
 
-//**************************************************************************************
 		chbMale.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -734,43 +717,16 @@ protected void onCreate(Bundle savedInstanceState) {
 							ErrorStr += "تعداد متخصص را مشخص نمایید" + "\n";
 
 				}
-				if (etCountTimeJob.getText().toString().compareTo("0")==0) {
 
-							ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
-
-				}
 				if(ErrorStr.length()==0)
 					{
 
-						if(StartYear.compareTo("0")!=0 && StartHour.compareTo("0")!=0)
-						{
 
-							String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(FromDate)).replace("/","-");
-							db=dbh.getReadableDatabase();
-							String query="SELECT DATETIME('"+DateGaregury + " " + FromTime+
-									":00'"+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
-							Cursor cursor=db.rawQuery(query,null);
-							if(cursor.getCount()>0)
-							{
-								cursor.moveToNext();
-								String DateFinal=cursor.getString(cursor.getColumnIndex("Date")).replace("-","/");
-								String SpaceSlit[]=DateFinal.split(" ");
-								SpaceSlit[0]=faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
-								String splitStrDate[]=SpaceSlit[0].split("/");
-								String splitStrTime[]=SpaceSlit[1].split(":");
-								EndYear =splitStrDate[0];
-								EndMonth =splitStrDate[1];
-								EndDay =splitStrDate[2];
-								EndHour =splitStrTime[0];
-								EndMinute =splitStrTime[1];
-							}
-							db.close();
-						}
 						SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request2.this,
 								karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
 								StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
 								AddressCode, Description, "0", "0", EducationGrade,
-								FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,etCountTimeJob.getText().toString());
+								FieldOfStudy, StudentGender, TeacherGender, EducationTitle, ArtField, CarWashType, CarType, Language,TimeDiff);
 						syncInsertUserServices.AsyncExecute();
 					}
 					else
@@ -789,6 +745,7 @@ protected void onCreate(Bundle savedInstanceState) {
 						"FromTime",FromTime,
 						"ToTime", ToTime,
 						"Description", Description,
+						"TimeDiff", TimeDiff,
 						"AddressCode", AddressCode);
 			}
 		});
@@ -819,6 +776,7 @@ public boolean onKeyDown( int keyCode, KeyEvent event )  {
 				"FromTime",FromTime,
 				"ToTime", ToTime,
 				"Description", Description,
+				"TimeDiff", TimeDiff,
 				"AddressCode", AddressCode);
     }
 
@@ -837,7 +795,8 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 						  String VariableName5, String VariableValue5,
 						  String VariableName6, String VariableValue6,
 						  String VariableName7, String VariableValue7,
-						  String VariableName8, String VariableValue8)
+						  String VariableName8, String VariableValue8,
+						  String VariableName9, String VariableValue9)
 {
 	Intent intent = new Intent(getApplicationContext(),Cls);
 	intent.putExtra(VariableName1, VariableValue1);
@@ -848,6 +807,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 	intent.putExtra(VariableName6, VariableValue6);
 	intent.putExtra(VariableName7, VariableValue7);
 	intent.putExtra(VariableName8, VariableValue8);
+	intent.putExtra(VariableName9, VariableValue9);
 	Service_Request2.this.startActivity(intent);
 	}
 	public void form1()
@@ -1121,17 +1081,5 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinner.setAdapter(dataAdapter);
 	}
-	public static String faToEn(String num) {
-		return num
-				.replace("۰", "0")
-				.replace("۱", "1")
-				.replace("۲", "2")
-				.replace("۳", "3")
-				.replace("۴", "4")
-				.replace("۵", "5")
-				.replace("۶", "6")
-				.replace("۷", "7")
-				.replace("۸", "8")
-				.replace("۹", "9");
-	}
+
 }

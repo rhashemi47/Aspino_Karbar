@@ -529,7 +529,7 @@ public class SyncUpdateUserServices {
     {
 		db=dbh.getWritableDatabase();
 		db.execSQL("DELETE FROM OrdersService WHERE Code='" + UserServices + "'");
-		db.execSQL("INSERT INTO OrdersService ("+
+		String query="INSERT INTO OrdersService ("+
 				"Code,"+
 				"pUserCode,"+
 				"ServiceDetaileCode,"+
@@ -559,7 +559,8 @@ public class SyncUpdateUserServices {
 				"CarWashType,"+
 				"CarType,"+
 				"Language," +
-				"Status) VALUES('"+
+				"Status," +
+				"DateDiff) VALUES('"+
 				UserServices+"','"+
 				pUserCode+"','"+
 				ServiceDetaileCode+"','"+
@@ -589,7 +590,8 @@ public class SyncUpdateUserServices {
 				CarWashType+"','"+
 				CarType+"','"+
 				Language+"','0','"+
-				DateDiff+"')");
+				DateDiff+"')";
+		db.execSQL(query);
 //		db.execSQL("UPDATE OrdersService SET "+
 //					"MaleCount='"+MaleCount+"',"+
 //					"FemaleCount='"+FemaleCount+"',"+

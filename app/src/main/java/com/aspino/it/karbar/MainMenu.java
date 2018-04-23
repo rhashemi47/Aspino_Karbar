@@ -629,7 +629,43 @@ public class MainMenu extends AppCompatActivity {
                                 }
                                 break;
                             case 3:
-                                LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                                AlertDialog.Builder alertbox1 = new AlertDialog.Builder(MainMenu.this);
+                                // set the message to display
+                                alertbox1.setMessage("مدیریت آدرس ها");
+
+                                // set a negative/no button and create a listener
+                                alertbox1.setPositiveButton("ثبت آدرس", new DialogInterface.OnClickListener() {
+                                    // do something when the button is clicked
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        db = dbh.getReadableDatabase();
+                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+                                        if (c.getCount() > 0) {
+                                            c.moveToNext();
+                                            LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                                        }
+                                        db.close();
+                                        arg0.dismiss();
+                                    }
+                                });
+
+                                // set a positive/yes button and create a listener
+                                alertbox1.setNegativeButton("لیست آدرس های ثبت شده", new DialogInterface.OnClickListener() {
+                                    // do something when the button is clicked
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        //Declare Object From Get Internet Connection Status For Check Internet Status
+                                        db = dbh.getReadableDatabase();
+                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+                                        if (c.getCount() > 0) {
+                                            c.moveToNext();
+                                            LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                                        }
+                                        db.close();
+                                        arg0.dismiss();
+
+                                    }
+                                });
+                                alertbox1.show();
+                                db.close();
                                 break;
                             case 4:
                                 db = dbh.getReadableDatabase();

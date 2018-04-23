@@ -106,7 +106,7 @@
                 map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
                 valuse.add(map);
             }
-            AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode);
+            AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode,backToActivity);
             lvAddress.setAdapter(dataAdapter);
         }
             db.close();

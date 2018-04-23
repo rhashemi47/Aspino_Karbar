@@ -96,6 +96,12 @@ public class UpdateAddress extends AppCompatActivity {
             throw new Error("Unable to create database");
 
         }
+        try {
+            backToActivity = getIntent().getStringExtra("nameActivity").toString();
+        }
+        catch (Exception e) {
+            backToActivity = "";
+        }
 
         try {
 
@@ -265,12 +271,15 @@ public class UpdateAddress extends AppCompatActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown( int keyCode, KeyEvent event ) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if (backToActivity.compareTo("Profile") == 0) {
                 LoadActivity(Profile.class, "karbarCode", karbarCode);
+            } else {
+                LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+            }
         }
-
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown( keyCode, event );
     }
 
     public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue) {

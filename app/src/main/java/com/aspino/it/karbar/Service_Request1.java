@@ -35,6 +35,7 @@ import android.widget.Toast;
 //import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 //import com.google.android.gms.maps.model.LatLng;
 //import com.google.android.gms.maps.model.MarkerOptions;
+import com.aspino.it.karbar.Date.ChangeDate;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -50,6 +51,8 @@ public class Service_Request1 extends AppCompatActivity {
 	private String karbarCode;
 	private String DetailCode;
 	private TextView tvTitleService;
+	private Button btnAddTimeJob;
+	private Button btnDesTimeJob;
 	//**************************************************************
 	private EditText etFromDate;
 //	private EditText etToDate;
@@ -57,6 +60,7 @@ public class Service_Request1 extends AppCompatActivity {
 //	private EditText etToTime;
 	private EditText etAddres;
 	private EditText etDescription;
+	private EditText etCountTimeJob;
 	//**************************************************************
 	private ImageView imgForward;
 	//**************************************************************
@@ -78,6 +82,9 @@ public class Service_Request1 extends AppCompatActivity {
 	private String Description ;
 	private Spinner spAddress ;
 	private int posisionID=-1 ;
+	private String ToDate;
+	private String ToTime;
+
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -98,7 +105,9 @@ protected void onCreate(Bundle savedInstanceState) {
 		etDescription = (EditText) findViewById(R.id.etDescription);
 		spAddress = (Spinner) findViewById(R.id.spAddress);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
-
+		etCountTimeJob=(EditText)findViewById(R.id.etCountTimeJob);
+		btnAddTimeJob=(Button)findViewById(R.id.btnAddTimeJob);
+		btnDesTimeJob=(Button)findViewById(R.id.btnDesTimeJob);
 		dbh = new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -150,7 +159,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		try
 		{
-//			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
+			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
 			String splitStr[]=getIntent().getStringExtra("FromTime").toString().split(":");
 			StartHour =splitStr[0];
 			StartMinute =splitStr[1];
@@ -179,6 +188,14 @@ protected void onCreate(Bundle savedInstanceState) {
 		catch (Exception ex)
 		{
 			Description="";
+		}
+		try
+		{
+			etCountTimeJob.setText(getIntent().getStringExtra("TimeDiff").toString());
+		}
+		catch (Exception ex)
+		{
+			etCountTimeJob.setText("0");
 		}
 		try
 		{
@@ -256,6 +273,11 @@ protected void onCreate(Bundle savedInstanceState) {
 				{
 					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
 				}
+				if (etCountTimeJob.getText().toString().compareTo("0")==0) {
+
+					ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
+
+				}
 //				if(etToDate.length()<8 && etToDate.length()>10)
 //				{
 //					ErrorStr+="تاریخ خاتمه را صحیح وارد نمایید"+"\n";
@@ -280,13 +302,48 @@ protected void onCreate(Bundle savedInstanceState) {
 				Description =etDescription.getText().toString();
 				if(ErrorStr.length()==0)
 				{
+					if(etFromDate.getText().toString().compareTo("0")!=0 && etFromTime.getText().toString().compareTo("0")!=0)
+					{
+
+						String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(etFromDate.getText().toString())).replace("/","-");
+						String strHour,strMin;
+						int intHour,intMin;
+						String sp[]=etFromTime.getText().toString().split(":");
+						strHour=sp[0];
+						strMin=sp[1];
+						intHour=Integer.parseInt(strHour);
+						intMin=Integer.parseInt(strMin);
+						if(intHour<10)
+						{
+							strHour="0"+strHour;
+						}
+						if(intMin<10)
+						{
+							strMin="0"+strMin;
+						}
+						db=dbh.getReadableDatabase();
+						String query="SELECT DATETIME('"+DateGaregury + " " +strHour +":"+strMin+":00'"
+								+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
+						Cursor cursor=db.rawQuery(query,null);
+						if(cursor.getCount()>0)
+						{
+							cursor.moveToNext();
+							String DateFinal=cursor.getString(cursor.getColumnIndex("Date")).replace("-","/");
+							String SpaceSlit[]=DateFinal.split(" ");
+							SpaceSlit[0]=faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
+							ToDate=SpaceSlit[0];
+							ToTime=SpaceSlit[1];
+						}
+						db.close();
+					}
 					LoadActivity(Service_Request2.class, "karbarCode", karbarCode,
 							"DetailCode", DetailCode,
 							"FromDate", etFromDate.getText().toString(),
-//							"ToDate", etToDate.getText().toString(),
+							"ToDate", ToDate,
 							"FromTime", etFromTime.getText().toString(),
-//							"ToTime", etToTime.getText().toString(),
+							"ToTime", ToTime,
 							"Description", etDescription.getText().toString(),
+							"TimeDiff", etCountTimeJob.getText().toString(),
 							"AddressCode", etAddres.getTag().toString()
 					);
 				}
@@ -522,6 +579,28 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			}
 		});
+		//**************************************************************************************
+		btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				count=Integer.parseInt(etCountTimeJob.getText().toString())+1;
+				etCountTimeJob.setText(String.valueOf(count));
+			}
+		});
+		btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				if(Integer.parseInt(etCountTimeJob.getText().toString())>0)
+				{
+					count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
+					etCountTimeJob.setText(String.valueOf(count));
+				}
+			}
+		});
+
+//**************************************************************************************
 	}
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
@@ -535,21 +614,23 @@ public boolean onKeyDown( int keyCode, KeyEvent event )  {
 public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValue1,
 						 String VariableName2, String VariableValue2,
 						 String VariableName3, String VariableValue3,
-//						 String VariableName4, String VariableValue4,
+						 String VariableName4, String VariableValue4,
 						 String VariableName5, String VariableValue5,
-//						 String VariableName6, String VariableValue6,
+						 String VariableName6, String VariableValue6,
 						 String VariableName7, String VariableValue7,
-						 String VariableName8, String VariableValue8)
+						 String VariableName8, String VariableValue8,
+						 String VariableName9, String VariableValue9)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName1, VariableValue1);
 		intent.putExtra(VariableName2, VariableValue2);
 		intent.putExtra(VariableName3, VariableValue3);
-//		intent.putExtra(VariableName4, VariableValue4);
+		intent.putExtra(VariableName4, VariableValue4);
 		intent.putExtra(VariableName5, VariableValue5);
-//		intent.putExtra(VariableName6, VariableValue6);
+		intent.putExtra(VariableName6, VariableValue6);
 		intent.putExtra(VariableName7, VariableValue7);
 		intent.putExtra(VariableName8, VariableValue8);
+		intent.putExtra(VariableName9, VariableValue9);
 		Service_Request1.this.startActivity(intent);
 	}
 public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
@@ -562,7 +643,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 	public void FillSpinner(String tableName,String ColumnName,Spinner spinner){
 		List<String> labels = new ArrayList<String>();
 		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM " + tableName ;
+		String query="SELECT * FROM " + tableName +" WHERE Status='1' ORDER BY IsDefault DESC";
 		Cursor cursors = db.rawQuery(query,null);
 		String str;
 		for(int i=0;i<cursors.getCount();i++){
@@ -623,5 +704,18 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		mTimePicker.setTitle("انتخاب زمان");
 		mTimePicker.show();
 
+	}
+	public static String faToEn(String num) {
+		return num
+				.replace("۰", "0")
+				.replace("۱", "1")
+				.replace("۲", "2")
+				.replace("۳", "3")
+				.replace("۴", "4")
+				.replace("۵", "5")
+				.replace("۶", "6")
+				.replace("۷", "7")
+				.replace("۸", "8")
+				.replace("۹", "9");
 	}
 }

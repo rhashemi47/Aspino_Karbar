@@ -22,13 +22,15 @@ public class AdapterUpdateAddress extends BaseAdapter {
     private Activity activity;
 
     private String karbarCode;
+    private String backToActivity;
 
-    public AdapterUpdateAddress(Activity activity, ArrayList<HashMap<String, String>> list, String karbarCode) {
+    public AdapterUpdateAddress(Activity activity, ArrayList<HashMap<String, String>> list, String karbarCode, String backToActivity) {
         super();
         this.activity = activity;
         this.list = list;
 
         this.karbarCode = karbarCode;
+        this.backToActivity = backToActivity;
     }
 
     // @Override
@@ -85,6 +87,7 @@ public class AdapterUpdateAddress extends BaseAdapter {
 
             intent.putExtra("karbarCode",karbarCode);
             intent.putExtra("AddressCode",AddressCode);
+            intent.putExtra("backToActivity",backToActivity);
             activity.startActivity(intent);
         }
     };

@@ -161,18 +161,7 @@ public class InsertKarbar {
         }
         
     }
-	
-	String LastNewsId;
-	public void LoadMaxNewId()
-	{
-		db = dbh.getReadableDatabase();
-		Cursor cursors = db.rawQuery("select IFNULL(max(id),0)MID from news", null);
-		if(cursors.getCount() > 0)
-		{
-			cursors.moveToNext();
-			LastNewsId = cursors.getString(cursors.getColumnIndex("MID"));
-		}
-	}
+
 	
 	public void CallWsMethod(String METHOD_NAME) {
 	    //Create request
@@ -253,6 +242,7 @@ public class InsertKarbar {
     	String notext="";
 		db=dbh.getWritableDatabase();	
 		db.execSQL("DELETE FROM login");
+		db.execSQL("DELETE FROM Profile");
 		db.execSQL("INSERT INTO login (karbarCode,islogin,Phone,AcceptCode) VALUES('"+karbarCode+"','1','"+phonenumber+"','"+acceptcode+"')");
 		db.execSQL("INSERT INTO Profile " +
 				"(Code,Name,Fam,BthDate,ShSh,BirthplaceCode,Sader,StartDate,Address,Tel,Mobile,ReagentName,AccountNumber,HamyarNumber,IsEmrgency,Status) " +
@@ -269,6 +259,7 @@ public class InsertKarbar {
 				"','"+notext+
 				"','"+notext+
 				"','"+notext+"','"+notext+"','"+notext+"','"+notext+"','"+notext+"')");
+		db=dbh.getReadableDatabase();
 		Cursor cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
 		if(cursors.getCount()>0)
 		{

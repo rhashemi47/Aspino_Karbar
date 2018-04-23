@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.aspino.it.karbar.Date.ChangeDate;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -43,6 +45,8 @@ public class Service_Request_Edit1 extends AppCompatActivity {
 	private String karbarCode;
 	private String DetailCode;
 	private String CodeOrderService;
+	private String ToDate;
+	private String ToTime;
 	private TextView tvTitleService;
 	//**************************************************************
 	private EditText etFromDate;
@@ -51,6 +55,7 @@ public class Service_Request_Edit1 extends AppCompatActivity {
 //	private EditText etToTime;
 	private EditText etAddres;
 	private EditText etDescription;
+	private EditText etCountTimeJob;
 	//**************************************************************
 	private ImageView imgForward;
 	//**************************************************************
@@ -71,6 +76,8 @@ public class Service_Request_Edit1 extends AppCompatActivity {
 	private String AddressCode ;
 	private String Description ;
 	private Spinner spAddress ;
+	private Button btnAddTimeJob;
+	private Button btnDesTimeJob;
 	private int posisionID=-1 ;
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -92,7 +99,9 @@ protected void onCreate(Bundle savedInstanceState) {
 		etDescription = (EditText) findViewById(R.id.etDescription);
 		spAddress = (Spinner) findViewById(R.id.spAddress);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
-
+		etCountTimeJob = (EditText) findViewById(R.id.etCountTimeJob);
+		btnAddTimeJob = (Button) findViewById(R.id.btnAddTimeJob);
+		btnDesTimeJob = (Button) findViewById(R.id.btnDesTimeJob);
 		dbh = new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -260,16 +269,57 @@ protected void onCreate(Bundle savedInstanceState) {
 				{
 					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
 				}
+				if (etCountTimeJob.getText().toString().compareTo("0") == 0) {
+
+					ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
+
+				}
 				Description =etDescription.getText().toString();
 				if(ErrorStr.length()==0)
 				{
+					if(etFromDate.getText().toString().compareTo("0")!=0 && etFromTime.getText().toString().compareTo("0")!=0)
+					{
+
+						String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(etFromDate.getText().toString())).replace("/","-");
+						String strHour,strMin;
+						int intHour,intMin;
+						String sp[]=etFromTime.getText().toString().split(":");
+						strHour=sp[0];
+						strMin=sp[1];
+						intHour=Integer.parseInt(strHour);
+						intMin=Integer.parseInt(strMin);
+						if(intHour<10)
+						{
+							strHour="0"+strHour;
+						}
+						if(intMin<10)
+						{
+							strMin="0"+strMin;
+						}
+						db=dbh.getReadableDatabase();
+						String query="SELECT DATETIME('"+DateGaregury + " " +strHour +":"+strMin+":00'"
+								+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
+						Cursor cursor=db.rawQuery(query,null);
+						if(cursor.getCount()>0)
+						{
+							cursor.moveToNext();
+							String DateFinal=cursor.getString(cursor.getColumnIndex("Date")).replace("-","/");
+							String SpaceSlit[]=DateFinal.split(" ");
+							SpaceSlit[0]=faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
+							ToDate=SpaceSlit[0];
+							ToTime=SpaceSlit[1];
+						}
+						db.close();
+					}
 					LoadActivity(Service_Request_Edit2.class, "karbarCode", karbarCode,
-							"CodeOrderService", CodeOrderService,
-							"FromDate", etFromDate.getText().toString(),
 							"DetailCode", DetailCode,
+							"FromDate", etFromDate.getText().toString(),
+							"ToDate", ToDate,
 							"FromTime", etFromTime.getText().toString(),
-//							"ToTime", etToTime.getText().toString(),
+							"ToTime", ToTime,
 							"Description", etDescription.getText().toString(),
+							"TimeDiff", etCountTimeJob.getText().toString(),
+							"CodeOrderService", CodeOrderService,
 							"AddressCode", etAddres.getTag().toString()
 					);
 				}
@@ -391,6 +441,27 @@ protected void onCreate(Bundle savedInstanceState) {
 			}
 		});
 
+//**************************************************************************************
+		btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				count = Integer.parseInt(etCountTimeJob.getText().toString()) + 1;
+				etCountTimeJob.setText(String.valueOf(count));
+			}
+		});
+		btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				int count;
+				if (Integer.parseInt(etCountTimeJob.getText().toString()) > 0) {
+					count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
+					etCountTimeJob.setText(String.valueOf(count));
+				}
+			}
+		});
+
+//**************************************************************************************
 		FillSpinner("address", "Name", spAddress);
 		if(posisionID>0)
 		{
@@ -421,7 +492,7 @@ protected void onCreate(Bundle savedInstanceState) {
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
 
-    	LoadActivity2(List_ServiceDerails.class, "karbarCode", karbarCode,"codeService",CodeService);
+    	LoadActivity2(Service_Request_Saved.class, "karbarCode", karbarCode,"OrderCode",CodeOrderService);
     }
 
     return super.onKeyDown( keyCode, event );
@@ -431,9 +502,11 @@ public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValu
 						 String VariableName3, String VariableValue3,
 						 String VariableName4, String VariableValue4,
 						 String VariableName5, String VariableValue5,
-//						 String VariableName6, String VariableValue6,
+						 String VariableName6, String VariableValue6,
 						 String VariableName7, String VariableValue7,
-						 String VariableName8, String VariableValue8)
+						 String VariableName8, String VariableValue8,
+						 String VariableName9, String VariableValue9,
+						 String VariableName10, String VariableValue10)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName1, VariableValue1);
@@ -441,9 +514,11 @@ public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValu
 		intent.putExtra(VariableName3, VariableValue3);
 		intent.putExtra(VariableName4, VariableValue4);
 		intent.putExtra(VariableName5, VariableValue5);
-//		intent.putExtra(VariableName6, VariableValue6);
+		intent.putExtra(VariableName6, VariableValue6);
 		intent.putExtra(VariableName7, VariableValue7);
 		intent.putExtra(VariableName8, VariableValue8);
+		intent.putExtra(VariableName9, VariableValue9);
+		intent.putExtra(VariableName10, VariableValue10);
 		Service_Request_Edit1.this.startActivity(intent);
 	}
 public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
@@ -543,6 +618,9 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			if(cursor.getString(cursor.getColumnIndex("Description")).length()!=0) {
 				etDescription.setText(cursor.getString(cursor.getColumnIndex("Description")));
 			}
+			if(cursor.getString(cursor.getColumnIndex("DateDiff")).length()!=0) {
+				etCountTimeJob.setText(cursor.getString(cursor.getColumnIndex("DateDiff")));
+			}
 
 			//*********************Address**********************************************
 			int lensp;
@@ -574,5 +652,18 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			Toast.makeText(this, "سرویس پیدا نشد! ", Toast.LENGTH_LONG).show();
 		}
 		db.close();
+	}
+	public static String faToEn(String num) {
+		return num
+				.replace("۰", "0")
+				.replace("۱", "1")
+				.replace("۲", "2")
+				.replace("۳", "3")
+				.replace("۴", "4")
+				.replace("۵", "5")
+				.replace("۶", "6")
+				.replace("۷", "7")
+				.replace("۸", "8")
+				.replace("۹", "9");
 	}
 }
