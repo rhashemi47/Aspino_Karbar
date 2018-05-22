@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,14 +15,18 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Info_Person extends Activity {
 	private Button btnSendInfo;
 	private String phonenumber;
 	private String Acceptcode;
+	private String CityCodeLocation;
 	private EditText fname;
 	private EditText lname;
+	private EditText etBrithday;
 	private	DatabaseHelper dbh;
 	private SQLiteDatabase db;
 	private EditText etReagentCode;
@@ -33,8 +38,12 @@ public class Info_Person extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.info_personal);
-		super.onCreate(savedInstanceState);		
-		
+		super.onCreate(savedInstanceState);
+		etReagentCode=(EditText)findViewById(R.id.etReagentCodeInsertInfo);
+		fname=(EditText)findViewById(R.id.etFname);
+		lname=(EditText)findViewById(R.id.etLname);
+		etBrithday=(EditText)findViewById(R.id.etBrithday);
+		btnSendInfo=(Button)findViewById(R.id.btnSendInfo);
 		dbh=new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -80,10 +89,75 @@ public class Info_Person extends Activity {
         catch (Exception e) {
 			Acceptcode="0";
 		}
-		etReagentCode=(EditText)findViewById(R.id.etReagentCodeInsertInfo);
-		fname=(EditText)findViewById(R.id.etFname);
-		lname=(EditText)findViewById(R.id.etLname);
-		btnSendInfo=(Button)findViewById(R.id.btnSendInfo);
+		try
+        {
+			CityCodeLocation = getIntent().getStringExtra("CityCodeLocation").toString();
+        }
+        catch (Exception e) {
+			CityCodeLocation="مشهد";
+		}
+		etBrithday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				if(hasFocus) {
+					PersianDatePickerDialog picker = new PersianDatePickerDialog(Info_Person.this);
+					picker.setPositiveButtonString("تایید");
+					picker.setNegativeButton("انصراف");
+					picker.setTodayButton("امروز");
+					picker.setTodayButtonVisible(true);
+					//  picker.setInitDate(initDate);
+					picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+					picker.setMinYear(1300);
+					picker.setActionTextColor(Color.GRAY);
+					//picker.setTypeFace(FontMitra);
+					picker.setListener(new Listener() {
+
+						@Override
+						public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+							//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+							etBrithday.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
+						}
+
+						@Override
+						public void onDismissed() {
+
+						}
+					});
+					picker.show();
+				}
+
+			}
+		});
+		etBrithday.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PersianDatePickerDialog picker = new PersianDatePickerDialog(Info_Person.this);
+				picker.setPositiveButtonString("تایید");
+				picker.setNegativeButton("انصراف");
+
+				picker.setTodayButton("امروز");
+				picker.setTodayButtonVisible(true);
+				//  picker.setInitDate(initDate);
+				picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+				picker.setMinYear(1300);
+				picker.setActionTextColor(Color.GRAY);
+				//picker.setTypeFace(FontMitra);
+				picker.setListener(new Listener() {
+
+					@Override
+					public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+						//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+						etBrithday.setText(persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay());
+					}
+
+					@Override
+					public void onDismissed() {
+
+					}
+				});
+				picker.show();
+			}
+		});
 		btnSendInfo.setOnClickListener(new OnClickListener() {
 		public void onClick(View arg0) {
 			InternetConnection ic=new InternetConnection(getApplicationContext());
@@ -120,7 +194,7 @@ public class Info_Person extends Activity {
 		}
 		if(errorStr.compareTo("")==0)
 		{
-			InsertKarbar insertKarbar = new InsertKarbar(Info_Person.this, phonenumber, Acceptcode, fname.getText().toString(), lname.getText().toString(),ReagentCode);
+			InsertKarbar insertKarbar = new InsertKarbar(Info_Person.this, phonenumber, Acceptcode, fname.getText().toString(), lname.getText().toString(),ReagentCode,CityCodeLocation);
 			insertKarbar.AsyncExecute();
 		}
 		else

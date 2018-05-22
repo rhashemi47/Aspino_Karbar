@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class InsertKarbar {
 
@@ -36,15 +40,20 @@ public class InsertKarbar {
 	private boolean CuShowDialog=true;
 	private String[] res;
 	private String LastMessageCode;
+	private String CityCodeLocation;
+	private double lat;
+	private double lon;
+	private GPSTracker gps;
 
 	//Contractor
-	public InsertKarbar(Activity activity, String phonenumber, String acceptcode, String Name, String Family,String ReagentCode) {
+	public InsertKarbar(Activity activity, String phonenumber, String acceptcode, String Name, String Family,String ReagentCode,String CityCodeLocation) {
 		this.activity = activity;
 		this.phonenumber = phonenumber;		
 		this.acceptcode=acceptcode;
 		this.Name=Name;
 		this.Family=Family;
 		this.ReagentCode=ReagentCode;
+		this.CityCodeLocation=CityCodeLocation;
 
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
@@ -68,6 +77,14 @@ public class InsertKarbar {
 
    			throw sqle;
    		}
+		gps = new GPSTracker(this.activity.getApplicationContext());
+
+		// check if GPS enabled
+		if(gps.canGetLocation())
+		{
+			lat = gps.getLatitude();
+			lon = gps.getLongitude();
+		}
    		
 	}
 	
@@ -98,7 +115,8 @@ public class InsertKarbar {
 		
 		public AsyncCallWS(Activity activity) {
 		    this.activity = activity;
-		    this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+		    this.dialog = new ProgressDialog(activity);
+		    this.dialog.setCanceledOnTouchOutside(false);
 		}
 		
         @Override
@@ -269,22 +287,45 @@ public class InsertKarbar {
 		db.close();
 		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
 		syncMessage.AsyncExecute();
-		SyncServices syncservices=new SyncServices(this.activity,karbarCode);
-		syncservices.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, karbarCode);
 		syncProfile.AsyncExecute();
 		SyncState syncState=new SyncState(this.activity);
 		syncState.AsyncExecute();
-		SyncCity syncCity=new SyncCity(this.activity);
+		SyncCity syncCity=new SyncCity(this.activity,CityCodeLocation);
 		syncCity.AsyncExecute();
 		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,karbarCode,"0");
 		syncGetUserAddress.AsyncExecute();
-		//LoadActivity(MainMenu.class, "karbarCode",karbarCode);
     }
-	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
-	{
-		Intent intent = new Intent(activity,Cls);
-		intent.putExtra(VariableName, VariableValue);
-		activity.startActivity(intent);
-	}	
+private  String getStringLocation()
+{
+	Locale locale = new Locale("fa");
+
+	Geocoder geocoder = new Geocoder(this.activity.getApplicationContext(), locale);
+
+	List<Address> list;
+
+	try {
+		lat = gps.getLatitude();
+		lon = gps.getLongitude();
+		list = geocoder.getFromLocation(lat, lon, 2);
+
+		Address address = list.get(0);
+
+		if(address.getSubLocality()!=null)
+		{
+			return address.getLocality();
+		}
+		else {
+			return address.getThoroughfare();
+		}
+
+	} catch (IOException e) {
+		e.printStackTrace();
+		return "";
+	}
+
+	catch (Exception e){
+		return "";
+	}
+}
 }

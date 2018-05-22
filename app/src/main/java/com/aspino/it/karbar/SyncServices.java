@@ -26,13 +26,15 @@ public class SyncServices {
 	PublicVariable PV;
     InternetConnection IC;
 	private Activity activity;
+	private String CityCodeLocation;
 	private String karbarCode;
 	private String WsResponse;
 	//private String acceptcode; 
 	private boolean CuShowDialog=true;
 	//Contractor
-	public SyncServices(Activity activity, String karbarCode) {
+	public SyncServices(Activity activity, String karbarCode, String CityCodeLocation) {
 		this.activity = activity;
+		this.CityCodeLocation = CityCodeLocation;
 		this.karbarCode = karbarCode;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
@@ -145,20 +147,7 @@ public class SyncServices {
         }
         
     }
-	
-	String LastNewsId;
-	public void LoadMaxNewId()
-	{
-		db = dbh.getReadableDatabase();
-		Cursor cursors = db.rawQuery("select IFNULL(max(id),0)MID from news", null);
-		if(cursors.getCount() > 0)
-		{
-			cursors.moveToNext();
-			LastNewsId = cursors.getString(cursors.getColumnIndex("MID"));
-		}
-		db.close();
-	}
-	
+
 	public void CallWsMethod(String METHOD_NAME) {
 	    //Create request
 	    SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
@@ -170,7 +159,17 @@ public class SyncServices {
 	    //Set dataType
 	    VerifyCode.setType(String.class);
 	    //Add the property to request object
-	    request.addProperty(VerifyCode);	    
+	    request.addProperty(VerifyCode);
+	    //******************************************
+	    PropertyInfo CityCode = new PropertyInfo();
+	    //Set Name
+		CityCode.setName("CityCode");
+	    //Set Value
+		CityCode.setValue(CityCodeLocation);
+	    //Set dataType
+		CityCode.setType(String.class);
+	    //Add the property to request object
+	    request.addProperty(CityCode);
 	    //Create envelope
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
@@ -206,7 +205,7 @@ public class SyncServices {
 			db.execSQL("INSERT INTO services (code,servicename,Pic) VALUES('"+value[0] +"','"+value[1]+"','"+value[2]+"')");
 		}
 		db.close();
-		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,this.karbarCode);
+		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,karbarCode,CityCodeLocation);
 		syncservicesdetails.AsyncExecute();
 
     }

@@ -28,11 +28,13 @@ public class SyncServicesDetails {
     InternetConnection IC;
 	private Activity activity;
 	private String WsResponse;
+	private String CityCodeLocation;
 	private String karbarCode;
 	private boolean CuShowDialog=true;
 	//Contractor
-	public SyncServicesDetails(Activity activity, String karbarCode) {
+	public SyncServicesDetails(Activity activity, String karbarCode, String CityCodeLocation) {
 		this.activity = activity;
+		this.CityCodeLocation = CityCodeLocation;
 		this.karbarCode = karbarCode;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
@@ -160,7 +162,17 @@ public class SyncServicesDetails {
 	    //Set dataType
 	    VerifyCode.setType(String.class);
 	    //Add the property to request object
-	    request.addProperty(VerifyCode);	    
+	    request.addProperty(VerifyCode);
+	    //*******************************************
+	    PropertyInfo CityCode = new PropertyInfo();
+	    //Set Name
+		CityCode.setName("CityCode");
+	    //Set Value
+		CityCode.setValue(CityCodeLocation);
+	    //Set dataType
+		CityCode.setType(String.class);
+	    //Add the property to request object
+	    request.addProperty(CityCode);
 	    //Create envelope
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
@@ -207,7 +219,7 @@ public class SyncServicesDetails {
 			else {
 				phonenumber="0";
 			}
-			LoadActivity(MainMenu.class,"karbarCode",this.karbarCode);
+			LoadActivity(MainMenu.class,"karbarCode",karbarCode);
 		db.close();
     }
 

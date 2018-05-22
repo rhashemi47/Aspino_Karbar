@@ -2,6 +2,7 @@ package com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -26,13 +27,15 @@ public class SyncCity {
 	private Activity activity;
 	private String karbarCode;
 	private String WsResponse;
+	private String CityCodeLocation;
 	private String flag;
 	//private String acceptcode;
 	private boolean CuShowDialog=false;
 	//Contractor
-	public SyncCity(Activity activity) {
+	public SyncCity(Activity activity,String CityCodeLocation) {
 		this.activity = activity;
 		this.karbarCode = karbarCode;
+		this.CityCodeLocation = CityCodeLocation;
 		this.flag = flag;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
@@ -85,7 +88,7 @@ public class SyncCity {
 
 		public AsyncCallWS(Activity activity) {
 		    this.activity = activity;
-		    this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+		    this.dialog = new ProgressDialog(activity);
 		    this.dialog.setCanceledOnTouchOutside(false);
 		}
 
@@ -193,6 +196,18 @@ public class SyncCity {
 		for(int i=0;i<res.length;i++){
 			value=res[i].split("##");
 			db.execSQL("INSERT INTO City (Code,ParentCode,Name) VALUES('"+value[0] +"','"+value[1] +"','"+value[2]+"')");
+		}
+		db=dbh.getReadableDatabase();
+		Cursor cursor=db.rawQuery("SELECT * FROM City WHERE Name='"+CityCodeLocation+"'",null);
+		if(cursor.getCount()>0)
+		{
+			cursor.moveToNext();
+			SyncServices syncservices=new SyncServices(this.activity,karbarCode,cursor.getString(cursor.getColumnIndex("Code")));
+			syncservices.AsyncExecute();
+		}
+		else
+		{
+			Toast.makeText(this.activity,"امکان ثبت سرویس در موقیت مکانی شما وجود ندارد",Toast.LENGTH_LONG).show();
 		}
 		db.close();
     }

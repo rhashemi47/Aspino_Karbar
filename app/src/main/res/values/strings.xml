@@ -162,5 +162,13 @@
     <string name="ListAnswer">سوالات متداول</string>
     <string name="NotAnswer">سوالی موجود نیست</string>
     <string name="AddresSave">ثبت آدرس</string>
+    <string name="NumberShenasname">شماره شناسنامه</string>
+    <string name="CodeMelli">کد ملی</string>
+    <string name="Mobile">شماره همراه</string>
+    <string name="NumberPhone">شماره ثابت</string>
+    <string name="Gender">جنسیت</string>
+    <string name="man">مرد</string>
+    <string name="woman">زن</string>
+    <string name="RealOrLegal">حقیقی/حقوقی</string>
 
 </resources>

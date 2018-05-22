@@ -3,6 +3,7 @@ package com.aspino.it.karbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -37,12 +39,15 @@ public class Main_Activity  extends AppCompatActivity{
     private ImageView imageView;
     private Custom_ViewFlipper viewFlipper;
     private GestureDetector mGestureDetector;
+    private GPSTracker gps;
+    private  static final int RequestPermissionCode  = 1 ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         tvSignUp=(TextView)findViewById(R.id.tvSignUp);
         btnServiceOrder=(Button) findViewById(R.id.btnServiceOrder);
         viewFlipper=(Custom_ViewFlipper) findViewById(R.id.vf);
+
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 
@@ -82,6 +87,31 @@ public class Main_Activity  extends AppCompatActivity{
 
         } catch (Exception e) {
            // throw new Error("Error Opne Activity");
+        }
+        gps = new GPSTracker(Main_Activity.this);
+        if (ActivityCompat.checkSelfPermission(Main_Activity.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(Main_Activity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(Main_Activity.this,new String[]{
+                    android.Manifest.permission.ACCESS_FINE_LOCATION}, RequestPermissionCode);
+
+
+        }
+        else {
+
+            // check if GPS enabled
+            if (gps.canGetLocation()) {
+
+                //nothing
+            } else {
+                // can't get location
+                // GPS or Network is not enabled
+                // Ask user to enable GPS/network in settings
+                gps.showSettingsAlert();
+            }
+
         }
 
         //***********************Start Service***************************************
@@ -142,7 +172,29 @@ public class Main_Activity  extends AppCompatActivity{
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoadActivity(Login.class,"karbarCode","0");
+                if (ActivityCompat.checkSelfPermission(Main_Activity.this,
+                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        &&
+                        ActivityCompat.checkSelfPermission(Main_Activity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(Main_Activity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, RequestPermissionCode);
+
+                }
+                else
+                {
+                    gps = new GPSTracker(Main_Activity.this);
+                    // check if GPS enabled
+                    if (gps.canGetLocation()) {
+                        LoadActivity(Login.class, "karbarCode", "0");
+                    } else {
+                        // can't get location
+                        // GPS or Network is not enabled
+                        // Ask user to enable GPS/network in settings
+                        gps.showSettingsAlert();
+                    }
+
+
+                }
             }
         });
         //******************************************************************************
@@ -159,18 +211,18 @@ public class Main_Activity  extends AppCompatActivity{
                 {
                     Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
                 }
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM services", null);
-                if (coursors.getCount() > 0) {
-                    LoadActivity(MainMenu.class,"karbarCode",karbarCode);
-                    db.close();
-                }
-                else
-                {
-                    SyncServices syncServices=new SyncServices(Main_Activity.this,karbarCode);
-                    syncServices.AsyncExecute();
-                }
-
+//                db = dbh.getReadableDatabase();
+//                Cursor coursors = db.rawQuery("SELECT * FROM services", null);
+//                if (coursors.getCount() > 0) {
+//                    LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+//                    db.close();
+//                }
+//                else
+//                {
+//                    SyncServices syncServices=new SyncServices(Main_Activity.this,karbarCode);
+//                    syncServices.AsyncExecute();
+//                }
+                LoadActivity(MainMenu.class,"karbarCode",karbarCode);
             }
         });
     }

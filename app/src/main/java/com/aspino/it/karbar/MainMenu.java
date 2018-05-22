@@ -67,8 +67,8 @@ public class MainMenu extends AppCompatActivity {
     private GridView GridViewServices;
     private boolean IsActive = true;
     private ArrayList<HashMap<String, String>> valuse;
-//    private EditText etSearch;
-//    private ListView lstSearchDetailService;
+    private EditText etSearch;
+    private ListView lstSearchDetailService;
 //    private Button btnOrder;
 //    private Button btnAcceptOrder;
 //    private Button btncredite;
@@ -77,7 +77,7 @@ public class MainMenu extends AppCompatActivity {
 //    ImageView imageView;
 //    Custom_ViewFlipper viewFlipper;
 //    GestureDetector mGestureDetector;
-//    private String countOrder;
+    private String countOrder;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -103,8 +103,8 @@ public class MainMenu extends AppCompatActivity {
 //        btncredite = (Button) findViewById(R.id.btncrediteBottom);
 //        btnServiceEmergency = (Button) findViewById(R.id.btnServiceEmergency);
 
-//        etSearch = (EditText) findViewById(R.id.etSearch);
-//        lstSearchDetailService = (ListView) findViewById(R.id.lstSearchDetailService);
+        etSearch = (EditText) findViewById(R.id.etSearch);
+        lstSearchDetailService = (ListView) findViewById(R.id.lstSearchDetailService);
         GridViewServices = (GridView) findViewById(R.id.GridViewServices);
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(MainMenu.this));
         dbh = new DatabaseHelper(getApplicationContext());
@@ -132,14 +132,14 @@ public class MainMenu extends AppCompatActivity {
             countMessage = String.valueOf(coursors.getCount());
         }
         db.close();
-//        db = dbh.getReadableDatabase();
-//        final Cursor cursor = db.rawQuery("SELECT * FROM OrdersService WHERE Status ='1'", null);
-//        if (cursor.getCount() > 0) {
-//            countOrder = String.valueOf(cursor.getCount());
-//        }
-//        db.close();
-        //***************************************************************************************************
-//        lstSearchDetailService.setVisibility(View.GONE);
+        db = dbh.getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT * FROM OrdersService WHERE Status ='1'", null);
+        if (cursor.getCount() > 0) {
+            countOrder = String.valueOf(cursor.getCount());
+        }
+        db.close();
+//        ***************************************************************************************************
+        lstSearchDetailService.setVisibility(View.GONE);
         GridViewServices.setVisibility(View.VISIBLE);
         //Create Button For Services in Grid View
 
@@ -159,58 +159,58 @@ public class MainMenu extends AppCompatActivity {
             GridViewServices.setAdapter(adapterGridServices);
         }
         //*****************************************************************************************************
-//        etSearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                String strSeach;
-//                strSeach = s.toString().trim();
-//                if (strSeach.length() == 0) {
-//                    lstSearchDetailService.setVisibility(View.GONE);
-//                    GridViewServices.setVisibility(View.VISIBLE);
-//                    //Create Button For Services in Grid View
-//                    db = dbh.getReadableDatabase();
-//                    Cursor cursor = db.rawQuery("SELECT * FROM services", null);
-//                    valuse = new ArrayList<HashMap<String, String>>();
-//                    for (int x = 0; x < cursor.getCount(); x++) {
-//                        cursor.moveToNext();
-//                        HashMap<String, String> map = new HashMap<String, String>();
-//                        map.put("name", cursor.getString(cursor.getColumnIndex("servicename")));
-//                        map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
-//                        valuse.add(map);
-//                    }
-//                    db.close();
-//                    AdapterGridServices adapterGridServices = new AdapterGridServices(MainMenu.this, valuse, karbarCode);
-//                    GridViewServices.setAdapter(adapterGridServices);
-//                } else {
-//                    lstSearchDetailService.setVisibility(View.VISIBLE);
-//                    GridViewServices.setVisibility(View.GONE);
-//                    valuse = new ArrayList<HashMap<String, String>>();
-//                    //Create Button For Services in Grid View
-//                    db = dbh.getReadableDatabase();
-//                    Cursor cursor = db.rawQuery("SELECT * FROM servicesdetails WHERE name LIKE '%" + strSeach + "%'", null);
-//                    for (int x = 0; x < cursor.getCount(); x++) {
-//                        cursor.moveToNext();
-//                        HashMap<String, String> map = new HashMap<String, String>();
-//                        map.put("name", cursor.getString(cursor.getColumnIndex("name")));
-//                        map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
-//                        valuse.add(map);
-//                    }
-//                    db.close();
-//                    AdapterServiceDetails adapterServiceDetails = new AdapterServiceDetails(MainMenu.this, valuse, karbarCode);
-//                    lstSearchDetailService.setAdapter(adapterServiceDetails);
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String strSeach;
+                strSeach = s.toString().trim();
+                if (strSeach.length() == 0) {
+                    lstSearchDetailService.setVisibility(View.GONE);
+                    GridViewServices.setVisibility(View.VISIBLE);
+                    //Create Button For Services in Grid View
+                    db = dbh.getReadableDatabase();
+                    Cursor cursor = db.rawQuery("SELECT * FROM services", null);
+                    valuse = new ArrayList<HashMap<String, String>>();
+                    for (int x = 0; x < cursor.getCount(); x++) {
+                        cursor.moveToNext();
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("name", cursor.getString(cursor.getColumnIndex("servicename")));
+                        map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
+                        valuse.add(map);
+                    }
+                    db.close();
+                    AdapterGridServices adapterGridServices = new AdapterGridServices(MainMenu.this, valuse, karbarCode);
+                    GridViewServices.setAdapter(adapterGridServices);
+                } else {
+                    lstSearchDetailService.setVisibility(View.VISIBLE);
+                    GridViewServices.setVisibility(View.GONE);
+                    valuse = new ArrayList<HashMap<String, String>>();
+                    //Create Button For Services in Grid View
+                    db = dbh.getReadableDatabase();
+                    Cursor cursor = db.rawQuery("SELECT * FROM servicesdetails WHERE name LIKE '%" + strSeach + "%'", null);
+                    for (int x = 0; x < cursor.getCount(); x++) {
+                        cursor.moveToNext();
+                        HashMap<String, String> map = new HashMap<String, String>();
+                        map.put("name", cursor.getString(cursor.getColumnIndex("name")));
+                        map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
+                        valuse.add(map);
+                    }
+                    db.close();
+                    AdapterServiceDetails adapterServiceDetails = new AdapterServiceDetails(MainMenu.this, valuse, karbarCode);
+                    lstSearchDetailService.setAdapter(adapterServiceDetails);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         //********************************************************************Start And Stop Service BackGround
        try {
            if (karbarCode.compareTo("0") != 0) {
@@ -831,24 +831,24 @@ public class MainMenu extends AppCompatActivity {
         }
     }
 
-    public void dialContactPhone(String phoneNumber) {
-        //startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:" + phoneNumber));
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-
-
-        startActivity(callIntent);
-    }
+//    public void dialContactPhone(String phoneNumber) {
+//        //startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
+//        Intent callIntent = new Intent(Intent.ACTION_CALL);
+//        callIntent.setData(Uri.parse("tel:" + phoneNumber));
+//        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//
+//
+//        startActivity(callIntent);
+//    }
     void sharecode(String shareStr)
     {
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);

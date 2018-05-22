@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class HmLogin {
 
@@ -31,14 +35,19 @@ public class HmLogin {
 	private String check_load;
 	private String WsResponse;
 	private String LastMessageCode;
+	private String CityCodeLocation;
 	private boolean CuShowDialog=true;
 	private String[] res;
+	private double lat;
+	private double lang;
+
 	//Contractor
-	public HmLogin(Activity activity, String phonenumber, String acceptcode, String check_load) {
+	public HmLogin(Activity activity, String phonenumber, String acceptcode, String check_load, String CityCodeLocation) {
 		this.activity = activity;
 		this.phonenumber = phonenumber;		
 		this.acceptcode=acceptcode;
 		this.check_load=check_load;
+		this.CityCodeLocation=CityCodeLocation;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -83,7 +92,7 @@ public class HmLogin {
 			Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	//Async Method
 	private class AsyncCallWS extends AsyncTask<String, Void, String> {
 		private ProgressDialog dialog;
@@ -221,7 +230,7 @@ public class HmLogin {
     {
 //		SyncServices syncservices=new SyncServices(this.activity,acceptcode);
 //		syncservices.AsyncExecute();
-		LoadActivity2(Info_Person.class, "phonenumber",phonenumber,"acceptcode",this.acceptcode);
+		LoadActivity2(Info_Person.class, "phonenumber",phonenumber,"acceptcode",this.acceptcode,"CityCodeLocation",CityCodeLocation);
     }
 	public void setlogin() 
 	{
@@ -253,13 +262,13 @@ public class HmLogin {
 		db.close();
 		SyncMessage syncMessage=new SyncMessage(this.activity, res[0].toString(),LastMessageCode);
 		syncMessage.AsyncExecute();
-		SyncServices syncservices=new SyncServices(this.activity,res[0].toString());
-		syncservices.AsyncExecute();
+//		SyncServices syncservices=new SyncServices(this.activity,res[0].toString(),CityCodeLocation);
+//		syncservices.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, res[0].toString());
 		syncProfile.AsyncExecute();
 		SyncState syncState=new SyncState(this.activity);
 		syncState.AsyncExecute();
-		SyncCity syncCity=new SyncCity(this.activity);
+		SyncCity syncCity=new SyncCity(this.activity,CityCodeLocation);
 		syncCity.AsyncExecute();
 		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,res[0].toString(),"0");
 		syncGetUserAddress.AsyncExecute();
@@ -284,12 +293,12 @@ public class HmLogin {
 
 		activity.startActivity(intent);
 	}
-	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
+	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2, String VariableName3, String VariableValue3)
 	{
 		Intent intent = new Intent(activity,Cls);
 		intent.putExtra(VariableName, VariableValue);
 		intent.putExtra(VariableName2, VariableValue2);
+		intent.putExtra(VariableName3, VariableValue3);
 		activity.startActivity(intent);
 	}
-	
 }

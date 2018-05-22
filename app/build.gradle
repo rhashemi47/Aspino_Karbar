@@ -41,4 +41,6 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.android.support:gridlayout-v7:26.+'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.2'
+
 }
