@@ -170,5 +170,10 @@
     <string name="man">مرد</string>
     <string name="woman">زن</string>
     <string name="RealOrLegal">حقیقی/حقوقی</string>
+    <string name="Rating">ثبت امتیاز</string>
+    <string name="SendRate">ثبت امتیاز</string>
+    <string name="RefreshCode">ارسال مجدد کد فعالسازی</string>
+    <string name="content_page_changecurrency">پس از بررسی متخصص هزینه نهایی سفارش شما مبلغ زیر می باشد آیا مورد تایید شما هست؟</string>
+    <string name="change_currency">تغییر قیمت</string>
 
 </resources>
