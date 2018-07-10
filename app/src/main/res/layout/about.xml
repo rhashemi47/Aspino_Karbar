@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="@drawable/simpleback"
     android:layoutDirection="rtl">
 
     <android.support.design.widget.AppBarLayout
@@ -21,9 +21,17 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/About"
             app:titleTextColor="#ffff"
-            android:background="@drawable/bottom_nav_item_tint" />
+            android:background="#6831d5">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btnback"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"/>
+        </android.support.v7.widget.Toolbar>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
@@ -48,39 +56,89 @@
             android:layout_gravity="center"/>
             <TextView
                 android:id="@+id/tvTextAbout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:lineSpacingExtra="4dp"
-                android:text="@string/TextAbout"
+                android:text="@string/AboutUsHeadText"
                 android:textSize="18dp"
-                android:textColor="#000000" />
+                android:drawableRight="@drawable/aboutsmile"
+                android:textColor="#fff"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/tvTextAboutDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:lineSpacingExtra="4dp"
+                android:text="@string/AboutUsDescText"
+                android:textSize="18dp"
+                android:textColor="#fff"
+                android:textAlignment="gravity"
+                android:gravity="right"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
                 android:gravity="center">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/media"/>
+                    android:background="@drawable/telegicon"
+                    android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvTextTelegram"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/telegram"
+                        android:textSize="18dp"
+                        android:textColor="#fff"
+                        android:layout_marginRight="6dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/facebook"/>
+                    android:background="@drawable/webicon"
+                    android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvTextWebSite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/WebSite"
+                        android:textSize="18dp"
+                        android:textColor="#fff"
+                        android:layout_marginRight="0dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/instagram"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/in"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/telegram"/>
+                    android:background="@drawable/instaicon"
+                    android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/tvTextInsta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/instagram"
+                        android:textSize="18dp"
+                        android:textColor="#fff"
+                        android:layout_marginRight="0dp"/>
+                </LinearLayout>
             </LinearLayout>
             <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
                 <!--android:id="@+id/map3"-->

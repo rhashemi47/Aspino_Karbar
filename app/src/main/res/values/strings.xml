@@ -183,4 +183,7 @@
     <string name="Add_New_Address">ثبت آدرس جدید</string>
     <string name="Select_Hamyar">انتخاب متخصص</string>
     <string name="Cansel_Service">لغو درخواست</string>
+    <string name="AboutUsHeadText">آسپینو ، بازار خدمات آنلاین</string>
+    <string name="AboutUsDescText">سرما و گرما ، در هر فصل غافلگیرتان می کند ؟ مهمان دارید و خانه تان آماده نیست ؟ لباس های بی اتو تلنبار شده اند ؟ همه این نیاز ها به کنار نیاز به آرامش دارید ؟ ما متوجه نیاز شما شده ایم پلی ساخته ایم میان شما و سرویس کارانی خوش نام تا بتوانید با انتخابی آگاهانه خدمت مورد نظرتان را به سادگی و قیمتی به صرفه ، دریافت کنید</string>
+    <string name="WebSite">وب سایت</string>
 </resources>
