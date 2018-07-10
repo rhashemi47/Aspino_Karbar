@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#f2f2f2"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -38,11 +39,10 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="70dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
         <Button
@@ -58,12 +58,36 @@
             android:drawablePadding="-10dp"
             android:paddingRight="20dp"
             android:textSize="22sp"/>
-    <ListView
-        android:id="@+id/listViewAddress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:dividerHeight="5dp">
-    </ListView>
-    </LinearLayout>
-</RelativeLayout>
+        <ListView
+            android:id="@+id/listViewAddress"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:background="#ffffff"
+            android:dividerHeight="5dp">
+        </ListView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imgForward"
+                android:background="@drawable/forward"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"/>
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/imgback"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/back_active"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"/>
+        </LinearLayout>
+        </LinearLayout>
+</LinearLayout>

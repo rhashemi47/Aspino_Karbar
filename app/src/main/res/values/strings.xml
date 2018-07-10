@@ -98,7 +98,7 @@
     <string name="Email">ایمیل (اختیاری)</string>
     <string name="Order">پیگیری سفارشات</string>
     <string name="SeachService">جستجو سرویس</string>
-    <string name="nameLocation">نام محل</string>
+    <string name="nameLocation">محمدوده آدرس</string>
     <string name="IsDefaultAddress">آدرس بصورت پیش فرض در نظر گرفته شود</string>
     <string name="edit">ویرایش</string>
     <string name="EditLocation">ویرایش</string>
@@ -122,7 +122,7 @@
     <string name="Van">ون</string>
     <string name="Roshoie">روشویی</string>
     <string name="RoshoieAndToShoie">روشویی و توشویی</string>
-    <string name="TypeService">نوع سرویس</string>
+    <string name="TypeService">نوع خدمت</string>
     <string name="TypeCar">نوع ماشین</string>
     <string name="Language">زبان</string>
     <string name="ListOrder">سرویس های ثبت شده</string>
@@ -151,7 +151,7 @@
     <string name="ListGift">لیست هدایا</string>
     <string name="Register">فرم ثبت نام کاربر</string>
     <string name="InfoHamyar">مشخصات همیار</string>
-    <string name="CodeDesired_service">شماره درخواست</string>
+    <string name="CodeDesired_service">کد سفارش</string>
     <string name="SarviceOrder">ثبت سفارش</string>
     <string name="LoginOrSignUp">ورود/ثبت نام</string>
     <string name="Date">تاریخ</string>
@@ -181,4 +181,6 @@
     <string name="InDate">در تاریخ:</string>
     <string name="ServiDetaile">جزئیات سفارش</string>
     <string name="Add_New_Address">ثبت آدرس جدید</string>
+    <string name="Select_Hamyar">انتخاب متخصص</string>
+    <string name="Cansel_Service">لغو درخواست</string>
 </resources>
