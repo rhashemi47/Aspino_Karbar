@@ -175,5 +175,10 @@
     <string name="RefreshCode">ارسال مجدد کد فعالسازی</string>
     <string name="content_page_changecurrency">پس از بررسی متخصص هزینه نهایی سفارش شما مبلغ زیر می باشد آیا مورد تایید شما هست؟</string>
     <string name="change_currency">تغییر قیمت</string>
-
+    <string name="Previous_Customer_Reviews">نظرات مشتریان قبلی</string>
+    <string name="save_comment">نظر ثبت شده است</string>
+    <string name="by">توسط:</string>
+    <string name="InDate">در تاریخ:</string>
+    <string name="ServiDetaile">جزئیات سفارش</string>
+    <string name="Add_New_Address">ثبت آدرس جدید</string>
 </resources>
