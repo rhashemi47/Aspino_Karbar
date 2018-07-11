@@ -186,4 +186,7 @@
     <string name="AboutUsHeadText">آسپینو ، بازار خدمات آنلاین</string>
     <string name="AboutUsDescText">سرما و گرما ، در هر فصل غافلگیرتان می کند ؟ مهمان دارید و خانه تان آماده نیست ؟ لباس های بی اتو تلنبار شده اند ؟ همه این نیاز ها به کنار نیاز به آرامش دارید ؟ ما متوجه نیاز شما شده ایم پلی ساخته ایم میان شما و سرویس کارانی خوش نام تا بتوانید با انتخابی آگاهانه خدمت مورد نظرتان را به سادگی و قیمتی به صرفه ، دریافت کنید</string>
     <string name="WebSite">وب سایت</string>
+    <string name="ProfileEdit">ویرایش اطلاعات کاربری</string>
+    <string name="CallSupport">تماس با پشتیبانی</string>
+    <string name="ExitAccount">خروج از حساب کاربری</string>
 </resources>

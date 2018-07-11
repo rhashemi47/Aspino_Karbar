@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="#ffff"
+            android:background="#6831d5">
+            <TextView
+                android:id="@+id/tvTextAbout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="تغییر قیمت"
+                android:textSize="24dp"
+                android:textColor="#fff"
+                android:textAlignment="center"/>
+        </android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="مشتری گرامی"
+        android:gravity="right"
+        android:textSize="25sp"
+        android:textColor="#404040"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="پس از بررسی متخصص هزینه نهایی سفارش شما مبلغ زیر می باشد آیا مورد تایید شما هست؟"
+        android:gravity="right"
+        android:textSize="20sp"
+        android:textColor="#666666"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:layoutDirection="rtl"
+            android:id="@+id/etPrice"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/edittextround"
+            android:ems="2"
+            android:layout_marginTop="40dp"
+            android:textSize="30sp"
+            android:inputType="number"
+            android:textStyle="normal"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:textColor="#6a33d7"
+            android:gravity="center"
+            android:text="150,000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/btnChangePriceYes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="بله"
+            android:layout_weight="1"
+            android:background="@drawable/leftborder"
+            />
+        <Button
+            android:id="@+id/btnChangePriceNo"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="خیر"
+            android:layout_weight="1"
+            android:background="#fff"
+            />
+    </LinearLayout>
+</LinearLayout>
