@@ -68,7 +68,7 @@
     <string name="credite">اعتبار</string>
     <string name="home">خانه</string>
     <string name="DutyItem">وظایف</string>
-    <string name="RecentCredit">میزان اعتبار شما</string>
+    <string name="RecentCredit">اعتبار فعلی:</string>
     <string name="IncreseCredit">افزایش اعتبار</string>
     <string name="History">سفارشات درخواستی </string>
     <string name="RelateUs">به ما بپیوندید!</string>
@@ -185,4 +185,12 @@
     <string name="Cansel_Service">لغو درخواست</string>
     <string name="Detail_Hamyar">جزئیات متخصص</string>
     <string name="AcceptAndSelectHamyar">تایید و انتخاب متخصص</string>
+    <string name="CachFactor">پرداخت</string>
+    <string name="Discount">تخفیف</string>
+    <string name="FinalCurrency">هزینه نهایی</string>
+    <string name="Estimated_price">قیمت برآوردی</string>
+    <string name="FinalCurrency2">قیمت نهایی</string>
+    <string name="Survey">نظرسنجی</string>
+    <string name="bad">ضعیف</string>
+    <string name="best">عالی</string>
 </resources>
