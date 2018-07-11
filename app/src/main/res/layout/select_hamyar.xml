@@ -66,6 +66,7 @@
                     android:textColor="#fff"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:id="@+id/tvContentTypeService"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -89,6 +90,7 @@
                     android:textColor="#fff"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:id="@+id/tvContentCodeService"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -112,6 +114,7 @@
                     android:textColor="#fff"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:id="@+id/tvContentAddress"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -135,6 +138,7 @@
                     android:textColor="#fff"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:id="@+id/tvDateService"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -158,6 +162,7 @@
                     android:textColor="#fff"
                     android:layout_gravity="left"
                     android:gravity="left"
+                    android:id="@+id/tvTimeService"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -175,6 +180,7 @@
                     android:drawableLeft="@drawable/recycle"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
+                    android:id="@+id/tvCanselService"
                     android:background="@drawable/rounded_button_cansle"/>
             </LinearLayout>
         </LinearLayout>
@@ -209,6 +215,7 @@
             android:paddingRight="20dp"
             android:layout_marginBottom="10dp"
             android:textSize="22sp"
+            android:id="@+id/tvAcceptAndSelectHamyar"
             android:background="@drawable/rounded_button_add_address"/>
     </LinearLayout>
 </RelativeLayout>
