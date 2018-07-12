@@ -197,4 +197,10 @@
     <string name="Discount">تخفیف</string>
     <string name="FinalCurrency">مبلغ نهایی</string>
     <string name="CachFactor">پرداخت هزینه</string>
+    <string name="peigiri">پیگیری سفارشات</string>
+    <string name="Service_Run">درحال انجام</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="SearchService">جستجو خدمت مورد نظر</string>
 </resources>

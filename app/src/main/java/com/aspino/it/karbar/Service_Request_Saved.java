@@ -205,7 +205,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			AlertDialog.Builder alertbox = new AlertDialog.Builder(Service_Request_Saved.this);
 			//set view
 			alertbox.setView(promptsView);
-			final EditText descriptionCansel = (EditText) promptsView.findViewById(R.id.etCansel);
+//			final EditText descriptionCansel = (EditText) promptsView.findViewById(R.id.etCansel);
 			alertbox
 					.setCancelable(true)
 					.setPositiveButton("بله",
@@ -217,7 +217,7 @@ protected void onCreate(Bundle savedInstanceState) {
 									SyncCanselServices syncCanselServices=new SyncCanselServices(Service_Request_Saved.this,
 											karbarCode,
 											OrderCode,
-											descriptionCansel.getText().toString());
+											"");
 									syncCanselServices.AsyncExecute();
 								}
 							})

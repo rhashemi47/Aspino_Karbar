@@ -23,6 +23,7 @@ android {
 
 dependencies {
     //compile files('lib/ksoap2-android-assembly-2.5.8-jar-with-dependencies.jar')
+    implementation 'com.android.support:support-v4:26.0.0-beta1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     //implementation fileTree(dir: 'libs', include: ['*.jar'])
     //noinspection GradleCompatible

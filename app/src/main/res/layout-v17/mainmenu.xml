@@ -1,94 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     android:layoutDirection="rtl">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#8a5ce9"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/MainMenuTitle"
-            app:titleTextColor="#ffff"
-            app:titleTextAppearance="@style/TextAppearance.Medium"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:background="@drawable/background_title">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/logo"
-                android:layout_gravity="left"
-                android:layout_marginLeft="10dp"/>
+            app:layout_scrollFlags="scroll|enterAlways">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/MainMenuTitle"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:textSize="22sp"/>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@+id/appbar"-->
-        <!--android:id="@+id/LinearSlidShow"-->
-        <!--android:layout_marginTop="30dp">-->
-        <!--<com.aspino.it.karbar.Custom_ViewFlipper-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="180dp"-->
-            <!--android:inAnimation="@anim/right_in"-->
-            <!--android:outAnimation="@anim/left_out"-->
-            <!--android:flipInterval="5000"-->
-            <!--android:autoStart="true"-->
-            <!--android:id="@+id/vf">-->
-        <!--</com.aspino.it.karbar.Custom_ViewFlipper>-->
-    <!--</LinearLayout>-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:id="@+id/LinearServic"
-        android:layout_below="@+id/appbar"
-        android:foregroundGravity="center"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:id="@+id/LinearSlidShow"
+        android:background="#fff">
+        <com.aspino.it.karbar.Custom_ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/etSearch"
-                android:layout_weight="1"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="5dp"
-                android:paddingRight="10dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:hint="@string/Search"
-                android:drawableRight="@drawable/search"
-                android:background="@drawable/rounded_edittext"/>
+            android:layout_height="180dp"
+            android:inAnimation="@anim/right_in"
+            android:outAnimation="@anim/left_out"
+            android:flipInterval="5000"
+            android:autoStart="true"
+            android:id="@+id/vf">
+        </com.aspino.it.karbar.Custom_ViewFlipper>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="-70dp"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/top_main">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/call_to_supporter"/>
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/logo1"
+            android:layout_marginBottom="20dp"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/clock2"/>
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/etSearch"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="-45dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:hint="@string/SearchService"
+        android:drawableLeft="@drawable/search"
+        android:background="@drawable/rounded_edittext"/>
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/LinearServic"-->
+    <!--android:foregroundGravity="center"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_marginRight="5dp"-->
+    <!--android:layout_marginTop="-10dp"-->
+    <!--android:orientation="vertical">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_marginTop="-20dp"-->
+    <!--android:background="@drawable/rounded_edittext">-->
+    <!---->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
             <GridView
                 android:id="@+id/GridViewServices"
@@ -158,4 +179,4 @@
             <!--android:layout_weight="1"-->
             <!--android:drawableTop="@drawable/credit2"/>-->
     <!--</LinearLayout>-->
-</RelativeLayout>
+</LinearLayout>
