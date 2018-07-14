@@ -40,15 +40,15 @@ public class Profile extends Activity {
 	private Button btnEditAdres;
 	private String phonenumber;
 	private String ReagentCode="";
-	private TextView tvProfileRegentCode;
-	private TextView tvUserName;
-	private TextView tvUserFName;
-	private TextView tvUserCode;
-	private TextView tvTitleUserCode;
-	private TextView tvTitleName;
-	private TextView tvTitleFName;
-	private TextView TextViewAge;
-	private TextView tvTitleNumberPhone;
+//	private TextView tvProfileRegentCode;
+//	private TextView tvUserName;
+//	private TextView tvUserFName;
+//	private TextView tvUserCode;
+//	private TextView tvTitleUserCode;
+//	private TextView tvTitleName;
+//	private TextView tvTitleFName;
+//	private TextView TextViewAge;
+//	private TextView tvTitleNumberPhone;
 	private TextView tvTitleAdressAdd;
 	private TextView tvCodeMoaref;
 	private DatabaseHelper dbh;
@@ -82,18 +82,18 @@ public class Profile extends Activity {
 //		btncredite=(Button)findViewById(R.id.btncrediteBottom);
 		imgUser=(ImageView)findViewById(R.id.imgUser);
 		brithday=(EditText)findViewById(R.id.etBrithday);
-		tvProfileRegentCode=(TextView)findViewById(R.id.etReagentCodeProfile);
+//		tvProfileRegentCode=(TextView)findViewById(R.id.etReagentCodeProfile);
 		tvPhoneNumber=(TextView) findViewById(R.id.tvNumberPhone);
-		tvUserName=(TextView) findViewById(R.id.tvUserName);
-		tvUserFName=(TextView) findViewById(R.id.tvUserFName);
-		tvTitleUserCode=(TextView) findViewById(R.id.tvTitleUserCode);
-		tvTitleName=(TextView) findViewById(R.id.tvTitleName);
-		tvTitleFName=(TextView) findViewById(R.id.tvTitleFName);
-		TextViewAge=(TextView) findViewById(R.id.TextViewAge);
-		tvTitleNumberPhone=(TextView) findViewById(R.id.tvTitleNumberPhone);
-		tvTitleAdressAdd=(TextView) findViewById(R.id.tvTitleAdressAdd);
+//		tvUserName=(TextView) findViewById(R.id.tvUserName);
+//		tvUserFName=(TextView) findViewById(R.id.tvUserFName);
+//		tvTitleUserCode=(TextView) findViewById(R.id.tvTitleUserCode);
+//		tvTitleName=(TextView) findViewById(R.id.tvTitleName);
+//		tvTitleFName=(TextView) findViewById(R.id.tvTitleFName);
+//		TextViewAge=(TextView) findViewById(R.id.TextViewAge);
+//		tvTitleNumberPhone=(TextView) findViewById(R.id.tvTitleNumberPhone);
+//		tvTitleAdressAdd=(TextView) findViewById(R.id.tvTitleAdressAdd);
 		tvCodeMoaref=(TextView) findViewById(R.id.tvCodeMoaref);
-		tvUserCode=(TextView) findViewById(R.id.tvUserCode);
+//		tvUserCode=(TextView) findViewById(R.id.tvUserCode);
 		dbh=new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -138,31 +138,31 @@ public class Profile extends Activity {
 		tvPhoneNumber.setTextSize(18);
 		tvPhoneNumber.setTypeface(FontMitra);
 		tvPhoneNumber.setTextSize(18);
-		tvUserName.setTypeface(FontMitra);
-		tvUserName.setTextSize(18);
-		tvUserCode.setTypeface(FontMitra);
-		tvUserCode.setTextSize(18);
-		tvUserFName.setTypeface(FontMitra);
-		tvUserFName.setTextSize(18);
+//		tvUserName.setTypeface(FontMitra);
+//		tvUserName.setTextSize(18);
+//		tvUserCode.setTypeface(FontMitra);
+//		tvUserCode.setTextSize(18);
+//		tvUserFName.setTypeface(FontMitra);
+//		tvUserFName.setTextSize(18);
 		brithday.setTypeface(FontMitra);
 		brithday.setTextSize(18);
 		tvPhoneNumber.setTypeface(FontMitra);
 		tvPhoneNumber.setTextSize(18);
-		tvProfileRegentCode.setTypeface(FontMitra);
-		tvProfileRegentCode.setTextSize(18);
-		tvTitleUserCode.setTypeface(FontMitra);
-		tvTitleName.setTypeface(FontMitra);
-		tvTitleFName.setTypeface(FontMitra);
-		TextViewAge.setTypeface(FontMitra);
-		tvTitleNumberPhone.setTypeface(FontMitra);
+//		tvProfileRegentCode.setTypeface(FontMitra);
+//		tvProfileRegentCode.setTextSize(18);
+//		tvTitleUserCode.setTypeface(FontMitra);
+//		tvTitleName.setTypeface(FontMitra);
+//		tvTitleFName.setTypeface(FontMitra);
+//		TextViewAge.setTypeface(FontMitra);
+//		tvTitleNumberPhone.setTypeface(FontMitra);
 		tvTitleAdressAdd.setTypeface(FontMitra);
 		tvCodeMoaref.setTypeface(FontMitra);
 		//******************************************
-		tvTitleUserCode.setTextSize(18);
-		tvTitleName.setTextSize(18);
-		tvTitleFName.setTextSize(18);
-		TextViewAge.setTextSize(18);
-		tvTitleNumberPhone.setTextSize(18);
+//		tvTitleUserCode.setTextSize(18);
+//		tvTitleName.setTextSize(18);
+//		tvTitleFName.setTextSize(18);
+//		TextViewAge.setTextSize(18);
+//		tvTitleNumberPhone.setTextSize(18);
 		tvTitleAdressAdd.setTextSize(18);
 		tvCodeMoaref.setTextSize(18);
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
@@ -170,9 +170,9 @@ public class Profile extends Activity {
 		Cursor coursors = db.rawQuery("SELECT * FROM Profile",null);
 		for(int i=0;i<coursors.getCount();i++){
 			coursors.moveToNext();
-			tvUserCode.setText(coursors.getString(coursors.getColumnIndex("Code")));
-			tvUserName.setText(coursors.getString(coursors.getColumnIndex("Name")));
-			tvUserFName.setText(coursors.getString(coursors.getColumnIndex("Fam")));
+//			tvUserCode.setText(coursors.getString(coursors.getColumnIndex("Code")));
+//			tvUserName.setText(coursors.getString(coursors.getColumnIndex("Name")));
+//			tvUserFName.setText(coursors.getString(coursors.getColumnIndex("Fam")));
 			brithday.setText(coursors.getString(coursors.getColumnIndex("BthDate")));
 			try
 			{
@@ -195,90 +195,90 @@ public class Profile extends Activity {
 			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
 		}
 
-		btnEditAdres=(Button)findViewById(R.id.btnEditAdres);
-		btnEditAdres.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","Profile");
-			}
-		});
-		btnAddAdres=(Button)findViewById(R.id.btnAddAdres);
-		btnAddAdres.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","Profile");
-			}
-		});
-		btnSaveProfile=(Button)findViewById(R.id.btnSendProfile);
-		btnSaveProfile.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View arg0) {
-				InternetConnection ic=new InternetConnection(getApplicationContext());
-				if(ic.isConnectingToInternet())
-				{
-					if(ReagentCode.length()>0 && ReagentCode.length()<=5)
-					{
-						Toast.makeText(getApplicationContext(), "کد معرف به درستی وارد نشده!", Toast.LENGTH_LONG).show();
-					}
-					else
-					{
-						insertKarbar();
-					}
-				}
-				else
-				{
-					Toast.makeText(getApplicationContext(), "اتصال به شبکه را چک نمایید.", Toast.LENGTH_LONG).show();
-				}
-				db.close();
-			}
-		});
-
-		brithday.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-
-				PersianCalendar now = new PersianCalendar();
-				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-								brithday.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
-								yearStr=String.valueOf(year);
-								monStr=String.valueOf(monthOfYear+1);
-								dayStr=String.valueOf(dayOfMonth);
-							}
-						}, now.getPersianYear(),
-						now.getPersianMonth(),
-						now.getPersianDay());
-				datePickerDialog.setThemeDark(true);
-				datePickerDialog.show(getFragmentManager(), "tpd");
-
-			}
-
-		});
-		brithday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if(hasFocus)
-				{
-					PersianCalendar now = new PersianCalendar();
-					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-							new DatePickerDialog.OnDateSetListener() {
-								@Override
-								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									brithday.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
-									yearStr=String.valueOf(year);
-									monStr=String.valueOf(monthOfYear+1);
-									dayStr=String.valueOf(dayOfMonth);
-								}
-							}, now.getPersianYear(),
-							now.getPersianMonth(),
-							now.getPersianDay());
-					datePickerDialog.setThemeDark(true);
-					datePickerDialog.show(getFragmentManager(), "tpd");
-				}
-			}
-		});
+//		btnEditAdres=(Button)findViewById(R.id.btnEditAdres);
+//		btnEditAdres.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","Profile");
+//			}
+//		});
+//		btnAddAdres=(Button)findViewById(R.id.btnAddAdres);
+//		btnAddAdres.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//
+//				LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","Profile");
+//			}
+//		});
+//		btnSaveProfile=(Button)findViewById(R.id.btnSendProfile);
+//		btnSaveProfile.setOnClickListener(new View.OnClickListener() {
+//			public void onClick(View arg0) {
+//				InternetConnection ic=new InternetConnection(getApplicationContext());
+//				if(ic.isConnectingToInternet())
+//				{
+//					if(ReagentCode.length()>0 && ReagentCode.length()<=5)
+//					{
+//						Toast.makeText(getApplicationContext(), "کد معرف به درستی وارد نشده!", Toast.LENGTH_LONG).show();
+//					}
+//					else
+//					{
+//						insertKarbar();
+//					}
+//				}
+//				else
+//				{
+//					Toast.makeText(getApplicationContext(), "اتصال به شبکه را چک نمایید.", Toast.LENGTH_LONG).show();
+//				}
+//				db.close();
+//			}
+//		});
+//
+//		brithday.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//
+//				PersianCalendar now = new PersianCalendar();
+//				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//						new DatePickerDialog.OnDateSetListener() {
+//							@Override
+//							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//								brithday.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
+//								yearStr=String.valueOf(year);
+//								monStr=String.valueOf(monthOfYear+1);
+//								dayStr=String.valueOf(dayOfMonth);
+//							}
+//						}, now.getPersianYear(),
+//						now.getPersianMonth(),
+//						now.getPersianDay());
+//				datePickerDialog.setThemeDark(true);
+//				datePickerDialog.show(getFragmentManager(), "tpd");
+//
+//			}
+//
+//		});
+//		brithday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//			@Override
+//			public void onFocusChange(View v, boolean hasFocus) {
+//				if(hasFocus)
+//				{
+//					PersianCalendar now = new PersianCalendar();
+//					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//							new DatePickerDialog.OnDateSetListener() {
+//								@Override
+//								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//									brithday.setText(String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth));
+//									yearStr=String.valueOf(year);
+//									monStr=String.valueOf(monthOfYear+1);
+//									dayStr=String.valueOf(dayOfMonth);
+//								}
+//							}, now.getPersianYear(),
+//							now.getPersianMonth(),
+//							now.getPersianDay());
+//					datePickerDialog.setThemeDark(true);
+//					datePickerDialog.show(getFragmentManager(), "tpd");
+//				}
+//			}
+//		});
 //		db=dbh.getReadableDatabase();
 //		Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 //				"LEFT JOIN " +

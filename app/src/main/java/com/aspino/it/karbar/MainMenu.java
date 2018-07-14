@@ -1,6 +1,6 @@
 package com.aspino.it.karbar;
 
-import android.Manifest;
+import android.view.GestureDetector;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -69,14 +69,10 @@ public class MainMenu extends AppCompatActivity {
     private ArrayList<HashMap<String, String>> valuse;
     private EditText etSearch;
     private ListView lstSearchDetailService;
-//    private Button btnOrder;
-//    private Button btnAcceptOrder;
-//    private Button btncredite;
-//    private Button btnServiceEmergency;
     private Typeface faceh;
-//    ImageView imageView;
-//    Custom_ViewFlipper viewFlipper;
-//    GestureDetector mGestureDetector;
+    ImageView imageView;
+    Custom_ViewFlipper viewFlipper;
+    GestureDetector mGestureDetector;
     private String countOrder;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -90,22 +86,61 @@ public class MainMenu extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
+        dbh = new DatabaseHelper(getApplicationContext());
         try {
+
+            dbh.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try {
+
+            dbh.openDataBase();
+
+        } catch (SQLException sqle) {
+
+            throw sqle;
+        }
+        try
+        {
+
+            db = dbh.getReadableDatabase();
+            Cursor cursor= db.rawQuery("SELECT * FROM login", null);
+            if (cursor.getCount() > 0) {
+                cursor.moveToNext();
+                karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
+                db.close();
+            }
+            if(karbarCode.compareTo("0")==0)
+            {
+                LoadActivity(Login.class, "karbarCode", "0");
+            }
+
+        } catch (Exception e) {
+            // throw new Error("Error Opne Activity");
+        }
+        try
+        {
             karbarCode = getIntent().getStringExtra("karbarCode");
         }
         catch (Exception ex)
         {
             karbarCode="0";
         }
+        //***********************Start Service***************************************
+        startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
+        startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
+        //***************************************************************************
         faceh = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
-//        btnOrder = (Button) findViewById(R.id.btnOrderBottom);
-//        btnAcceptOrder = (Button) findViewById(R.id.btnAcceptOrderBottom);
-//        btncredite = (Button) findViewById(R.id.btncrediteBottom);
-//        btnServiceEmergency = (Button) findViewById(R.id.btnServiceEmergency);
 
         etSearch = (EditText) findViewById(R.id.etSearch);
         lstSearchDetailService = (ListView) findViewById(R.id.lstSearchDetailService);
         GridViewServices = (GridView) findViewById(R.id.GridViewServices);
+        viewFlipper=(Custom_ViewFlipper) findViewById(R.id.vf);
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(MainMenu.this));
         dbh = new DatabaseHelper(getApplicationContext());
         try {
@@ -228,56 +263,56 @@ public class MainMenu extends AppCompatActivity {
         //**************************************************************************
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-//        db = dbh.getReadableDatabase();
-//        coursors = db.rawQuery("SELECT * FROM Slider", null);
-//        if (coursors.getCount() > 0) {
-//            Bitmap bpm[] = new Bitmap[coursors.getCount()];
-//            String link[] = new String[coursors.getCount()];
-//            for (int j = 0; j < coursors.getCount(); j++) {
-//
-//                coursors.moveToNext();
-//                viewFlipper.setVisibility(View.VISIBLE);
-//                //slides.add();
-//                bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
-//                link[j] = coursors.getString(coursors.getColumnIndex("Link"));
-//            }
-//            db.close();
-//            int i = 0;
-//            while (i < bpm.length) {
-//                imageView = new ImageView(getApplicationContext());
-//                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-//                //ImageLoader.getInstance().displayImage(slides.get(i),imageView);
-//                imageView.setImageBitmap(bpm[i]);
-//                imageView.setTag(link[i]);
-//                viewFlipper.addView(imageView);
-//                i++;
-//            }
-//
-//
-//            Paint paint = new Paint();
-//            paint.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
-//            viewFlipper.setPaintCurrent(paint);
-//            paint = new Paint();
-//
-//            paint.setColor(ContextCompat.getColor(this, android.R.color.white));
-//            viewFlipper.setPaintNormal(paint);
-//
-//            viewFlipper.setRadius(10);
-//            viewFlipper.setMargin(5);
-//
-//            CustomGestureDetector customGestureDetector = new CustomGestureDetector();
-//            mGestureDetector = new GestureDetector(MainMenu.this, customGestureDetector);
-//
-//            viewFlipper.setOnTouchListener(new View.OnTouchListener() {
-//                @Override
-//                public boolean onTouch(View view, MotionEvent motionEvent) {
-//                    mGestureDetector.onTouchEvent(motionEvent);
-//                    return true;
-//                }
-//            });
-//        } else {
-//            viewFlipper.setVisibility(View.GONE);
-//        }
+        db = dbh.getReadableDatabase();
+        coursors = db.rawQuery("SELECT * FROM Slider", null);
+        if (coursors.getCount() > 0) {
+            Bitmap bpm[] = new Bitmap[coursors.getCount()];
+            String link[] = new String[coursors.getCount()];
+            for (int j = 0; j < coursors.getCount(); j++) {
+
+                coursors.moveToNext();
+                viewFlipper.setVisibility(View.VISIBLE);
+                //slides.add();
+                bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
+                link[j] = coursors.getString(coursors.getColumnIndex("Link"));
+            }
+            db.close();
+            int i = 0;
+            while (i < bpm.length) {
+                imageView = new ImageView(getApplicationContext());
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                //ImageLoader.getInstance().displayImage(slides.get(i),imageView);
+                imageView.setImageBitmap(bpm[i]);
+                imageView.setTag(link[i]);
+                viewFlipper.addView(imageView);
+                i++;
+            }
+
+
+            Paint paint = new Paint();
+            paint.setColor(ContextCompat.getColor(this, R.color.colorPrimary));
+            viewFlipper.setPaintCurrent(paint);
+            paint = new Paint();
+
+            paint.setColor(ContextCompat.getColor(this, android.R.color.white));
+            viewFlipper.setPaintNormal(paint);
+
+            viewFlipper.setRadius(10);
+            viewFlipper.setMargin(5);
+
+            CustomGestureDetector customGestureDetector = new CustomGestureDetector();
+            mGestureDetector = new GestureDetector(MainMenu.this, customGestureDetector);
+
+            viewFlipper.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    mGestureDetector.onTouchEvent(motionEvent);
+                    return true;
+                }
+            });
+        } else {
+            viewFlipper.setVisibility(View.VISIBLE);
+        }
 
 //*******************************************************************************************************************
 //        db = dbh.getReadableDatabase();
@@ -793,11 +828,32 @@ public class MainMenu extends AppCompatActivity {
                 .build();
     }
 
+    class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 
+            // Swipe left (next)
+            if (e1.getX() > e2.getX()) {
+                viewFlipper.setInAnimation(MainMenu.this, R.anim.left_in);
+                viewFlipper.setOutAnimation(MainMenu.this, R.anim.left_out);
+
+                viewFlipper.showNext();
+            } else if (e1.getX() < e2.getX()) {
+                viewFlipper.setInAnimation(MainMenu.this, R.anim.right_in);
+                viewFlipper.setOutAnimation(MainMenu.this, R.anim.right_out);
+
+                viewFlipper.showPrevious();
+            }
+            viewFlipper.setInAnimation(MainMenu.this, R.anim.left_in);
+            viewFlipper.setOutAnimation(MainMenu.this, R.anim.left_out);
+
+            return super.onFling(e1, e2, velocityX, velocityY);
+        }
+    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            LoadActivity(Main_Activity.class,"karbarCode",karbarCode);
+            ExitApplication();
         }
 
         return super.onKeyDown(keyCode, event);
@@ -858,4 +914,42 @@ public class MainMenu extends AppCompatActivity {
         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری با"));
     }
+    private void ExitApplication() {
+        //Exit All Activity And Kill Application
+        AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+        // set the message to display
+        alertbox.setMessage("آیا می خواهید از برنامه خارج شوید ؟");
+
+        // set a negative/no button and create a listener
+        alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+            // do something when the button is clicked
+            public void onClick(DialogInterface arg0, int arg1) {
+                arg0.dismiss();
+            }
+        });
+
+        // set a positive/yes button and create a listener
+        alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
+            // do something when the button is clicked
+            public void onClick(DialogInterface arg0, int arg1) {
+                //Declare Object From Get Internet Connection Status For Check Internet Status
+                //System.exit(0);
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+                startMain.addCategory(Intent.CATEGORY_HOME);
+
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(startMain);
+
+                finish();
+
+                arg0.dismiss();
+
+            }
+        });
+
+        alertbox.show();
+    }
+
 }

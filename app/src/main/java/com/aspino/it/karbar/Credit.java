@@ -28,10 +28,10 @@ public class Credit extends Activity {
 
 	private DatabaseHelper dbh;
 	private TextView txtContent;
-	private TextView tvRecentCreditsValue;
+//	private TextView tvRecentCreditsValue;
 	private SQLiteDatabase db;
-	private Button btnIncreseCredit;
-	private ListView lstHistoryCredit;
+//	private Button btnIncreseCredit;
+//	private ListView lstHistoryCredit;
 //	private Button btnOrder;
 //	private Button btnAcceptOrder;
 //	private Button btncredite;
@@ -82,14 +82,14 @@ protected void onCreate(Bundle savedInstanceState) {
 			karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 		}
 	}
-
-	btnIncreseCredit=(Button)findViewById(R.id.btnIncresCredit);
-	lstHistoryCredit=(ListView) findViewById(R.id.lstHistoryCredit);
+//
+//	btnIncreseCredit=(Button)findViewById(R.id.btnIncresCredit);
+//	lstHistoryCredit=(ListView) findViewById(R.id.lstHistoryCredit);
 	Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
 	txtContent=(TextView)findViewById(R.id.tvHistoryCredits);
 	txtContent.setTypeface(FontMitra);
-	tvRecentCreditsValue=(TextView)findViewById(R.id.tvRecentCreditsValue);
-	tvRecentCreditsValue.setTypeface(FontMitra);
+//	tvRecentCreditsValue=(TextView)findViewById(R.id.tvRecentCreditsValue);
+//	tvRecentCreditsValue.setTypeface(FontMitra);
 	String Query="UPDATE UpdateApp SET Status='1'";
 	db=dbh.getWritableDatabase();
 	db.execSQL(Query);
@@ -112,123 +112,64 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		else
 		{
-			lstHistoryCredit.setVisibility(View.GONE);
+//			lstHistoryCredit.setVisibility(View.GONE);
 		}
 		if(Content.compareTo("")==0){
-			tvRecentCreditsValue.setText("0"+" ریال");
+//			tvRecentCreditsValue.setText("0"+" ریال");
 		}
 		else {
-			tvRecentCreditsValue.setText(Content+" ریال");
+//			tvRecentCreditsValue.setText(Content+" ریال");
 		}
 	}
 	catch (Exception ex){
-		tvRecentCreditsValue.setText("0"+" ریال");
-		lstHistoryCredit.setVisibility(View.GONE);
+//		tvRecentCreditsValue.setText("0"+" ریال");
+//		lstHistoryCredit.setVisibility(View.GONE);
 	}
-	try
-	{
-		Cursor coursors = db.rawQuery("SELECT * FROM credits", null);
-		String Content="";
-		for (int i=0;i<coursors.getCount();i++) {
-			coursors.moveToNext();
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("name","مبلغ: " +coursors.getString(coursors.getColumnIndex("Price"))+ " ریال " +"\n"
-			+"عملیات: " + coursors.getString(coursors.getColumnIndex("TransactionType"))+ "\n"
-			+"نوع تراکنش: " + coursors.getString(coursors.getColumnIndex("PaymentMethod"))+ "\n"
-			+"تاریخ: " + coursors.getString(coursors.getColumnIndex("TransactionDate"))+ "\n"
-			+"شماره سند: " + coursors.getString(coursors.getColumnIndex("DocNumber"))+ "\n"
-			+"توضیحات: " + coursors.getString(coursors.getColumnIndex("Description")));
-			map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
-			valuse.add(map);
-		}
-		AdapterCredit dataAdapter=new AdapterCredit(Credit.this,valuse,karbarCode);
-		lstHistoryCredit.setAdapter(dataAdapter);
-		if(valuse.size()==0){
-			lstHistoryCredit.setVisibility(View.GONE);
-			txtContent.setVisibility(View.VISIBLE);
-			txtContent.setText("موردی جهت نمایش وجود ندارد");
-		}
-		else
-		{
-			lstHistoryCredit.setVisibility(View.VISIBLE);
-			txtContent.setVisibility(View.GONE);
-		}
-	}
-	catch (Exception ex){
-		lstHistoryCredit.setVisibility(View.GONE);
-		txtContent.setVisibility(View.VISIBLE);
-		tvRecentCreditsValue.setText("موردی جهت نمایش وجود ندارد");
-	}
-	btnIncreseCredit.setOnClickListener(new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if(etCurrencyInsertCredit.getText().length()>0) {
-				SyncInsertUserCredit syncInsertUserCredit = new SyncInsertUserCredit(Credit.this, etCurrencyInsertCredit.getText().toString(), karbarCode, "1", "10004", "تست");
-				syncInsertUserCredit.AsyncExecute();
-			}
-			else
-			{
-				Toast.makeText(Credit.this, "لطفا مبلغ مورد نظر خود را به ریال وارد نمایید", Toast.LENGTH_SHORT).show();
-			}
-		}
-	});
-//	db=dbh.getReadableDatabase();
-//	Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//			"LEFT JOIN " +
-//			"Servicesdetails ON " +
-//			"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'", null);
-//	if (cursor2.getCount() > 0) {
-//		btnOrder.setText("درخواست ها: " + cursor2.getCount());
+//	try
+//	{
+//		Cursor coursors = db.rawQuery("SELECT * FROM credits", null);
+//		String Content="";
+//		for (int i=0;i<coursors.getCount();i++) {
+//			coursors.moveToNext();
+//			HashMap<String, String> map = new HashMap<String, String>();
+//			map.put("name","مبلغ: " +coursors.getString(coursors.getColumnIndex("Price"))+ " ریال " +"\n"
+//			+"عملیات: " + coursors.getString(coursors.getColumnIndex("TransactionType"))+ "\n"
+//			+"نوع تراکنش: " + coursors.getString(coursors.getColumnIndex("PaymentMethod"))+ "\n"
+//			+"تاریخ: " + coursors.getString(coursors.getColumnIndex("TransactionDate"))+ "\n"
+//			+"شماره سند: " + coursors.getString(coursors.getColumnIndex("DocNumber"))+ "\n"
+//			+"توضیحات: " + coursors.getString(coursors.getColumnIndex("Description")));
+//			map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
+//			valuse.add(map);
+//		}
+//		AdapterCredit dataAdapter=new AdapterCredit(Credit.this,valuse,karbarCode);
+//		lstHistoryCredit.setAdapter(dataAdapter);
+//		if(valuse.size()==0){
+//			lstHistoryCredit.setVisibility(View.GONE);
+//			txtContent.setVisibility(View.VISIBLE);
+//			txtContent.setText("موردی جهت نمایش وجود ندارد");
+//		}
+//		else
+//		{
+//			lstHistoryCredit.setVisibility(View.VISIBLE);
+//			txtContent.setVisibility(View.GONE);
+//		}
 //	}
-//	cursor2 = db.rawQuery("SELECT * FROM OrdersService WHERE Status in (1,2,6,7,12,13)", null);
-//	if (cursor2.getCount() > 0) {
-//		btnAcceptOrder.setText("پذیرفته شده ها: " + cursor2.getCount());
+//	catch (Exception ex){
+//		lstHistoryCredit.setVisibility(View.GONE);
+//		txtContent.setVisibility(View.VISIBLE);
+//		tvRecentCreditsValue.setText("موردی جهت نمایش وجود ندارد");
 //	}
-//	cursor2 = db.rawQuery("SELECT * FROM AmountCredit", null);
-//	if (cursor2.getCount() > 0) {
-//		cursor2.moveToNext();
-//		try {
-//			String splitStr[]=cursor2.getString(cursor2.getColumnIndex("Amount")).toString().split("\\.");
-//			if(splitStr[1].compareTo("00")==0)
-//			{
-//				btncredite.setText("اعتبار: " +splitStr[0]);
+//	btnIncreseCredit.setOnClickListener(new View.OnClickListener() {
+//		@Override
+//		public void onClick(View v) {
+//			if(etCurrencyInsertCredit.getText().length()>0) {
+//				SyncInsertUserCredit syncInsertUserCredit = new SyncInsertUserCredit(Credit.this, etCurrencyInsertCredit.getText().toString(), karbarCode, "1", "10004", "تست");
+//				syncInsertUserCredit.AsyncExecute();
 //			}
 //			else
 //			{
-//				btncredite.setText("اعتبار: " + cursor2.getString(cursor2.getColumnIndex("Amount")));
+//				Toast.makeText(Credit.this, "لطفا مبلغ مورد نظر خود را به ریال وارد نمایید", Toast.LENGTH_SHORT).show();
 //			}
-//
-//		} catch (Exception ex) {
-//			btncredite.setText("اعتبار: " + "0");
-//		}
-//	}
-//	btnOrder.setOnClickListener(new View.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//			String QueryCustom;
-//			QueryCustom="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//					"LEFT JOIN " +
-//					"Servicesdetails ON " +
-//					"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'";
-//			LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
-//		}
-//	});
-//	btnAcceptOrder.setOnClickListener(new View.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//			String QueryCustom;
-//			QueryCustom="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-//					"LEFT JOIN " +
-//					"Servicesdetails ON " +
-//					"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status in (1,2,6,7,12,13)";
-//			LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
-//		}
-//	});
-//	btncredite.setOnClickListener(new View.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//
-//			LoadActivity(Credit.class, "karbarCode", karbarCode);
 //		}
 //	});
 }

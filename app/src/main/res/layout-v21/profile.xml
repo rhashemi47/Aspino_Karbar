@@ -62,6 +62,7 @@
                     android:layout_height="120dp"
                     android:src="@drawable/useravatar"
                     android:layout_gravity="center"
+                    android:id="@+id/imgUser"
                     android:background="@drawable/profilepicrounded"/>
 
                 <TextView

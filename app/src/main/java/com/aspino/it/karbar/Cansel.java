@@ -20,7 +20,7 @@ public class Cansel extends Activity {
 	private TextView txtContent;
 	private SQLiteDatabase db;
 	private TextView tvcansel;
-	private EditText etcansel;
+//	private EditText etcansel;
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -61,8 +61,8 @@ protected void onCreate(Bundle savedInstanceState) {
 	Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
 	tvcansel=(TextView)findViewById(R.id.tvTextCansel);
 	tvcansel.setTypeface(FontMitra);
-	etcansel=(EditText) findViewById(R.id.etCansel);
-	etcansel.setTypeface(FontMitra);
+//	etcansel=(EditText) findViewById(R.id.etCansel);
+//	etcansel.setTypeface(FontMitra);
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {

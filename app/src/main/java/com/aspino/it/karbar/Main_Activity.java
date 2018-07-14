@@ -34,7 +34,7 @@ public class Main_Activity  extends AppCompatActivity{
     private String karbarCode;
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
-    private TextView tvSignUp;
+//    private TextView tvSignUp;
     private Button btnServiceOrder;
     private ImageView imageView;
     private Custom_ViewFlipper viewFlipper;
@@ -43,8 +43,8 @@ public class Main_Activity  extends AppCompatActivity{
     private  static final int RequestPermissionCode  = 1 ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
-        tvSignUp=(TextView)findViewById(R.id.tvSignUp);
+        setContentView(R.layout.mainmenu);
+//        tvSignUp=(TextView)findViewById(R.id.tvSignUp);
         btnServiceOrder=(Button) findViewById(R.id.btnServiceOrder);
         viewFlipper=(Custom_ViewFlipper) findViewById(R.id.vf);
 
@@ -78,11 +78,11 @@ public class Main_Activity  extends AppCompatActivity{
                 }
                 if(karbarCode.compareTo("0")!=0)
                 {
-                    tvSignUp.setVisibility(View.GONE);
+//                    tvSignUp.setVisibility(View.GONE);
                 }
                 else
                 {
-                    tvSignUp.setVisibility(View.VISIBLE);
+//                    tvSignUp.setVisibility(View.VISIBLE);
                 }
 
         } catch (Exception e) {
@@ -169,48 +169,48 @@ public class Main_Activity  extends AppCompatActivity{
             viewFlipper.setVisibility(View.GONE);
         }
 
-        tvSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(Main_Activity.this,
-                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        &&
-                        ActivityCompat.checkSelfPermission(Main_Activity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(Main_Activity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, RequestPermissionCode);
-
-                }
-                else
-                {
-                    gps = new GPSTracker(Main_Activity.this);
-                    // check if GPS enabled
-                    if (gps.canGetLocation()) {
-                        LoadActivity(Login.class, "karbarCode", "0");
-                    } else {
-                        // can't get location
-                        // GPS or Network is not enabled
-                        // Ask user to enable GPS/network in settings
-                        gps.showSettingsAlert();
-                    }
-
-
-                }
-            }
-        });
+//        tvSignUp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (ActivityCompat.checkSelfPermission(Main_Activity.this,
+//                        android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+//                        &&
+//                        ActivityCompat.checkSelfPermission(Main_Activity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED) {
+//
+//                    ActivityCompat.requestPermissions(Main_Activity.this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, RequestPermissionCode);
+//
+//                }
+//                else
+//                {
+//                    gps = new GPSTracker(Main_Activity.this);
+//                    // check if GPS enabled
+//                    if (gps.canGetLocation()) {
+//                        LoadActivity(Login.class, "karbarCode", "0");
+//                    } else {
+//                        // can't get location
+//                        // GPS or Network is not enabled
+//                        // Ask user to enable GPS/network in settings
+//                        gps.showSettingsAlert();
+//                    }
+//
+//
+//                }
+//            }
+//        });
         //******************************************************************************
-        btnServiceOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try{
-                    if(karbarCode.compareTo("0")==0)
-                    {
-                        Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
-                }
+//        btnServiceOrder.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                try{
+//                    if(karbarCode.compareTo("0")==0)
+//                    {
+//                        Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
+//                    }
+//                }
+//                catch (Exception ex)
+//                {
+//                    Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
+//                }
 //                db = dbh.getReadableDatabase();
 //                Cursor coursors = db.rawQuery("SELECT * FROM services", null);
 //                if (coursors.getCount() > 0) {
@@ -222,9 +222,9 @@ public class Main_Activity  extends AppCompatActivity{
 //                    SyncServices syncServices=new SyncServices(Main_Activity.this,karbarCode);
 //                    syncServices.AsyncExecute();
 //                }
-                LoadActivity(MainMenu.class,"karbarCode",karbarCode);
-            }
-        });
+//                LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+//            }
+//        });
     }
     class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
                 @Override

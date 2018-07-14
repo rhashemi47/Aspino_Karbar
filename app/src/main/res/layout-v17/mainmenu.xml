@@ -11,7 +11,7 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#8a5ce9"
+        android:background="#7236ea"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -30,9 +30,8 @@
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/LinearSlidShow"
-        android:background="#fff">
+        android:layout_height="180dp"
+        android:id="@+id/LinearSlidShow">
         <com.aspino.it.karbar.Custom_ViewFlipper
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -121,7 +120,9 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lstSearchDetailService">
+                android:id="@+id/lstSearchDetailService"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
             </ListView>
         </LinearLayout>
     </LinearLayout>
@@ -179,4 +180,3 @@
             <!--android:layout_weight="1"-->
             <!--android:drawableTop="@drawable/credit2"/>-->
     <!--</LinearLayout>-->
-</LinearLayout>

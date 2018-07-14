@@ -90,7 +90,7 @@
     <string name="Doesnotmatter">فرقی ندارد</string>
     <string name="Addres">آدرس</string>
     <string name="AddresManagement">مدیریت آدرس ها</string>
-    <string name="SaveLocation">ثبت آدرس</string>
+    <string name="SaveLocation">ثبت و ذخیره آدرس</string>
     <string name="Search">جستجو</string>
     <string name="usercode">کد کاربری</string>
     <string name="state">استان</string>
@@ -98,7 +98,7 @@
     <string name="Email">ایمیل (اختیاری)</string>
     <string name="Order">پیگیری سفارشات</string>
     <string name="SeachService">جستجو سرویس</string>
-    <string name="nameLocation">محمدوده آدرس</string>
+    <string name="nameLocation">نام این آدرس</string>
     <string name="IsDefaultAddress">آدرس بصورت پیش فرض در نظر گرفته شود</string>
     <string name="edit">ویرایش</string>
     <string name="EditLocation">ویرایش</string>
@@ -203,4 +203,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="SearchService">جستجو خدمت مورد نظر</string>
+    <string name="DetailAddres">جزئیات آدرس جهت مسیریابی متخصص</string>
+    <string name="NewAddresSave">ثبت آدرس جدید</string>
 </resources>

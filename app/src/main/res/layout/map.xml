@@ -1,146 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layoutDirection="rtl"
-    android:background="@drawable/background">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    android:layoutDirection="rtl">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:paddingTop="@dimen/appbar_padding_top"-->
+        <!--android:background="#6831d4"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="@string/AddresSave"
-            app:titleTextColor="#ffff"
-            android:background="@drawable/background_title"/>
-    </android.support.design.widget.AppBarLayout>
-    <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--android:id="@+id/map3"-->
-        <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="230dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginTop="10dp"/>-->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+        </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
+    <!--</android.support.design.widget.AppBarLayout>-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="20dp"-->
+        <!--android:layout_below="@+id/appbar"-->
+        <!--android:background="@drawable/header_pages"-->
+        <!--android:id="@+id/LinearTitleBackGround"-->
+        <!--android:orientation="vertical">-->
+    <!--</LinearLayout>-->
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map3"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-        <TextView
-            android:id="@+id/tvState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/state" />
-        <Spinner
-            android:id="@+id/spState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        android:layout_height="match_parent"/>
+
+    <include layout="@layout/layout_with_toolbar" />
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
-        <TextView
-            android:id="@+id/tvCity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/city" />
-        <Spinner
-            android:id="@+id/spCity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/nameLocation"/>
-                <EditText
+            android:orientation="vertical"
+            android:background="#fff"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true">
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/NameAddres"/>
+                    android:id="@+id/LinearBottomSaveAddress"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/nameLocation"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/NameAddres"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/DetailAddres"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:id="@+id/AddAddres"
+                            android:layout_weight="1"/>
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btnSaveLocation"
+                            android:text="@string/SaveLocation"
+                            android:textColor="#fff"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@drawable/rounded_button_add_address"/>
+                    </LinearLayout>
+                </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/Addres"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:id="@+id/AddAddres"
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/chbIsDefaultAddres"
-            android:text="@string/IsDefaultAddress"/>
-    </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
-                <TextView
-                    android:id="@+id/tvTitleEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/Email" />
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:text=""
-                    android:layout_weight="1"/>
-            </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnSaveLocation"
-            android:text="@string/SaveLocation"
-            android:textColor="#fff"
-            android:background="@drawable/rounded_button"
-            android:layout_margin="10dp"/>
-    </LinearLayout>
-
-    </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</RelativeLayout>

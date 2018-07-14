@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme"
         android:name="com.aspino.it.karbar.FontMain">
         <activity
-            android:name="com.aspino.it.karbar.Main_Activity"
+            android:name="com.aspino.it.karbar.MainMenu"
             android:label="@string/Logo_name"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:noHistory="false" >
@@ -21,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.aspino.it.karbar.MainMenu"
-            android:noHistory="false" />
+        <!--<activity-->
+            <!--android:name="com.aspino.it.karbar.MainMenu"-->
+            <!--android:noHistory="false" />-->
         <activity
             android:name="com.aspino.it.karbar.Login"
             android:noHistory="false" />

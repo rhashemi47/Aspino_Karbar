@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:background="@drawable/header_pages">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/NewAddresSave"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18sp"
+                    android:textColor="#ffff"/>
+            </LinearLayout>
+</android.support.constraint.ConstraintLayout>

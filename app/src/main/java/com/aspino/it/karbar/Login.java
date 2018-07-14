@@ -115,7 +115,7 @@ public class Login extends Activity {
 	@Override
 	public boolean onKeyDown( int keyCode, KeyEvent event )  {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			LoadActivity(Main_Activity.class,"karbarCode","0");
+			LoadActivity(MainMenu.class,"karbarCode","0");
 		}
 		return super.onKeyDown(keyCode, event);
 	}
