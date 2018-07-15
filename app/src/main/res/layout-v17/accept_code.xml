@@ -69,6 +69,7 @@
                     android:textSize="20sp"
                     android:inputType="phone"
                     android:textStyle="normal"
+                    android:textAlignment="center"
                     android:layout_marginLeft="60dp"
                     android:layout_marginRight="60dp" />
                 <Button

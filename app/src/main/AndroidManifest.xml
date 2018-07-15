@@ -64,6 +64,9 @@
             android:name="com.aspino.it.karbar.List_Address"
             android:noHistory="false"/>
         <activity
+            android:name="com.aspino.it.karbar.Service_Request_SelectAddress"
+            android:noHistory="false"/>
+        <activity
             android:name="com.aspino.it.karbar.UpdateAddress"
             android:noHistory="false"/>
         <activity
@@ -128,7 +131,12 @@
         </service>
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDnC52D6OdJODkWQpG-7SXrqhZk4ZLRV9M" />
+            android:value="AIzaSyDzlg_PGiriwn7yipo2xDLeLwIJ8mD6EMs" />
+        <!--<meta-data-->
+
+
+        <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyAUYNvpBlo7k5pcrIs58syOpbINOGT43v8"/>-->
 
         <meta-data
             android:name="com.google.android.gms.version"

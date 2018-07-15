@@ -56,7 +56,7 @@ public class Service_Request1 extends AppCompatActivity {
 	//**************************************************************
 	private EditText etFromDate;
 //	private EditText etToDate;
-	private EditText etFromTime;
+//	private EditText etFromTime;
 //	private EditText etToTime;
 	private EditText etAddres;
 	private EditText etDescription;
@@ -80,10 +80,18 @@ public class Service_Request1 extends AppCompatActivity {
 	private String EndMinute ;
 	private String AddressCode ;
 	private String Description ;
-	private Spinner spAddress ;
+//	private Spinner spAddress ;
 	private int posisionID=-1 ;
 	private String ToDate;
 	private String ToTime;
+	//*********************************************
+	private CheckBox chbMale;
+	private CheckBox chbFemale;
+	private CheckBox chbMaleAndFemale;
+	private String MaleCount="0";
+	private String FemaleCount="0";
+	private String HamyarCount="0";
+	//*********************************************
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -99,15 +107,20 @@ protected void onCreate(Bundle savedInstanceState) {
 		//**************************************************************************************
 		etFromDate = (EditText) findViewById(R.id.etFromDate);
 //		etToDate = (EditText) findViewById(R.id.etToDate);
-		etFromTime = (EditText) findViewById(R.id.etFromTime);
+//		etFromTime = (EditText) findViewById(R.id.etFromTime);
 //		etToTime = (EditText) findViewById(R.id.etToTime);
 		etAddres = (EditText) findViewById(R.id.etAddres);
 		etDescription = (EditText) findViewById(R.id.etDescription);
-		spAddress = (Spinner) findViewById(R.id.spAddress);
+//		spAddress = (Spinner) findViewById(R.id.spAddress);
 		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
 		etCountTimeJob=(EditText)findViewById(R.id.etCountTimeJob);
 		btnAddTimeJob=(Button)findViewById(R.id.btnAddTimeJob);
 		btnDesTimeJob=(Button)findViewById(R.id.btnDesTimeJob);
+		//*************************************************************************
+		chbMale=(CheckBox) findViewById(R.id.chbMale);
+		chbFemale=(CheckBox)findViewById(R.id.chbFemale);
+		chbMaleAndFemale=(CheckBox)findViewById(R.id.chbMaleAndFemale);
+		//******************************************************************
 		dbh = new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -131,10 +144,14 @@ protected void onCreate(Bundle savedInstanceState) {
 		{
 
 			etFromDate.setText(getIntent().getStringExtra("FromDate").toString());
-			String splitStr[]=getIntent().getStringExtra("FromDate").toString().split("/");
-			StartYear =splitStr[0];
-			StartMonth =splitStr[1];
-			StartDay =splitStr[2];
+			String splitStr[]=getIntent().getStringExtra("FromDate").toString().split("-");
+			String splitDate[]=splitStr[0].toString().split("/");
+			String splitTime[]=splitStr[1].toString().split(":");
+			StartYear =splitDate[0];
+			StartMonth =splitDate[1];
+			StartDay =splitDate[2];
+			StartHour =splitTime[0];
+			StartMinute =splitTime[1];
 
 		}
 		catch (Exception ex)
@@ -157,18 +174,18 @@ protected void onCreate(Bundle savedInstanceState) {
 			EndMonth ="0";
 			EndDay ="0";
 		}
-		try
-		{
-			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
-			String splitStr[]=getIntent().getStringExtra("FromTime").toString().split(":");
-			StartHour =splitStr[0];
-			StartMinute =splitStr[1];
-		}
-		catch (Exception ex)
-		{
-			StartHour ="0";
-			StartMinute ="0";
-		}
+//		try
+//		{
+//			etFromTime.setText(getIntent().getStringExtra("FromTime").toString());
+//			String splitStr[]=getIntent().getStringExtra("FromTime").toString().split(":");
+//			StartHour =splitStr[0];
+//			StartMinute =splitStr[1];
+//		}
+//		catch (Exception ex)
+//		{
+//			StartHour ="0";
+//			StartMinute ="0";
+//		}
 		try
 		{
 //			etToTime.setText(getIntent().getStringExtra("ToTime").toString());
@@ -238,17 +255,17 @@ protected void onCreate(Bundle savedInstanceState) {
 			@Override
 			public void onClick(View v) {
 				String ErrorStr="";
-				try {
-					if (etAddres.getTag().toString().length() <= 0) {
-						ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
-					} else {
-						AddressCode = etAddres.getTag().toString();
-					}
-				}
-				catch (Exception ex)
-				{
-					ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
-				}
+//				try {
+//					if (etAddres.getTag().toString().length() <= 0) {
+//						ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
+//					} else {
+//						AddressCode = etAddres.getTag().toString();
+//					}
+//				}
+//				catch (Exception ex)
+//				{
+//					ErrorStr += "آدرس را در قسمت تنظیمات حساب کاربری وارد نمایید." + "\n";
+//				}
 				if(etFromDate.length()==0)
 				{
 					ErrorStr+="تاریخ را وارد نمایید"+"\n";
@@ -257,10 +274,10 @@ protected void onCreate(Bundle savedInstanceState) {
 //				{
 //					ErrorStr+="تاریخ خاتمه را وارد نمایید"+"\n";
 //				}
-				if(etFromTime.length()==0)
-				{
-					ErrorStr+="ساعت را وارد نمایید"+"\n";
-				}
+//				if(etFromTime.length()==0)
+//				{
+//					ErrorStr+="ساعت را وارد نمایید"+"\n";
+//				}
 //				if(etToTime.length()==0)
 //				{
 //					ErrorStr+="ساعت خاتمه را وارد نمایید"+"\n";
@@ -268,16 +285,16 @@ protected void onCreate(Bundle savedInstanceState) {
 //				if(etFromDate.getText().toString().compareTo(etToDate.getText().toString())>0)
 //				{
 //					ErrorStr+="تاریخ شروع نمی تواند بزرگتر از تاریخ خاتمه باشد."+"\n";
+////				}
+//				if(etFromDate.length()<8 && etFromDate.length()>10)
+//				{
+//					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
 //				}
-				if(etFromDate.length()<8 && etFromDate.length()>10)
-				{
-					ErrorStr+="تاریخ شروع را صحیح وارد نمایید"+"\n";
-				}
-				if (etCountTimeJob.getText().toString().compareTo("0")==0) {
-
-					ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
-
-				}
+//				if (etCountTimeJob.getText().toString().compareTo("0")==0) {
+//
+//					ErrorStr += "زمان مورد نیاز سرویس را مشخص نمایید" + "\n";
+//
+//				}
 //				if(etToDate.length()<8 && etToDate.length()>10)
 //				{
 //					ErrorStr+="تاریخ خاتمه را صحیح وارد نمایید"+"\n";
@@ -286,43 +303,43 @@ protected void onCreate(Bundle savedInstanceState) {
 //				{
 //					ErrorStr+="زمان شروع را صحیح وارد نمایید"+"\n";
 //				}
-//				if(etToTime.length()<3 && etToTime.length()>5)
-//				{
-//					ErrorStr+="زمان خاتمه را صحیح وارد نمایید"+"\n";
-//				}
-//				if(etFromTime.getText().toString().compareTo(etToTime.getText().toString())>0)
-//				{
-//					ErrorStr+="ساعت شروع نمی تواند بزرگتر از ساعت خاتمه باشد."+"\n";
-//				}
+				if(etCountTimeJob.getText().toString().compareTo("0")==0)
+				{
+					ErrorStr+="مدت زمان کار مورد نیاز را وارد نمایید"+"\n";
+				}
+				if(MaleCount.compareTo("0")==0 && FemaleCount.compareTo("0")==0 && HamyarCount.compareTo("0")==0)
+				{
+					ErrorStr+="جنسیت متخصص را وارد نمایید"+"\n";
+				}
 
-//				if(AddressCode.length()!=10)
-//				{
-//					ErrorStr+="آدرس را وارد نمایید"+"\n";
-//				}
 				Description =etDescription.getText().toString();
+				if(Description.length()==0)
+				{
+					ErrorStr+="توضیحات را وارد نمایید"+"\n";
+				}
+				String sp[]=etFromDate.getText().toString().split("-");
+				String spClock[]=null;
 				if(ErrorStr.length()==0)
 				{
-					if(etFromDate.getText().toString().compareTo("0")!=0 && etFromTime.getText().toString().compareTo("0")!=0)
+					if(etFromDate.getText().toString().compareTo("0")!=0)
 					{
 
-						String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(etFromDate.getText().toString())).replace("/","-");
-						String strHour,strMin;
+						String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(sp[0].toString().replace(" ",""))).replace("/","-");
+//						String strClock,strDate;
 						int intHour,intMin;
-						String sp[]=etFromTime.getText().toString().split(":");
-						strHour=sp[0];
-						strMin=sp[1];
-						intHour=Integer.parseInt(strHour);
-						intMin=Integer.parseInt(strMin);
+						spClock=sp[1].toString().split(":");
+						intHour=Integer.parseInt(spClock[0].replace(" ",""));
+						intMin=Integer.parseInt(spClock[1].replace(" ",""));
 						if(intHour<10)
 						{
-							strHour="0"+strHour;
+							spClock[0]="0"+spClock[0];
 						}
 						if(intMin<10)
 						{
-							strMin="0"+strMin;
+							spClock[1]="0"+spClock[1];
 						}
 						db=dbh.getReadableDatabase();
-						String query="SELECT DATETIME('"+DateGaregury + " " +strHour +":"+strMin+":00'"
+						String query="SELECT DATETIME('"+DateGaregury + " " +spClock[0] +":"+spClock[1]+":00'"
 								+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
 						Cursor cursor=db.rawQuery(query,null);
 						if(cursor.getCount()>0)
@@ -336,15 +353,17 @@ protected void onCreate(Bundle savedInstanceState) {
 						}
 						db.close();
 					}
-					LoadActivity(Service_Request2.class, "karbarCode", karbarCode,
+					LoadActivity(Service_Request_SelectAddress.class, "karbarCode", karbarCode,
 							"DetailCode", DetailCode,
 							"FromDate", etFromDate.getText().toString(),
 							"ToDate", ToDate,
-							"FromTime", etFromTime.getText().toString(),
+							"FromTime", spClock[0] +":"+spClock[1],
 							"ToTime", ToTime,
 							"Description", etDescription.getText().toString(),
 							"TimeDiff", etCountTimeJob.getText().toString(),
-							"AddressCode", etAddres.getTag().toString()
+							"MaleCount", MaleCount,
+							"FemaleCount", FemaleCount,
+							"HamyarCount", HamyarCount
 					);
 				}
 				else
@@ -418,6 +437,62 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			}
 		});
+		//******************************************************************
+		chbMale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbMale.isChecked())
+				{
+					chbFemale.setChecked(false);
+					chbMaleAndFemale.setChecked(false);
+					FemaleCount="0";
+					HamyarCount="0";
+					MaleCount="1";
+				}
+				else
+				{
+					chbMale.setChecked(true);
+					MaleCount="1";
+				}
+			}
+		});
+		chbFemale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbFemale.isChecked())
+				{
+					chbMale.setChecked(false);
+					chbMaleAndFemale.setChecked(false);
+					MaleCount="0";
+					HamyarCount="0";
+					FemaleCount="1";
+				}
+				else
+				{
+					chbFemale.setChecked(true);
+					FemaleCount="1";
+				}
+			}
+		});
+		chbMaleAndFemale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(chbMaleAndFemale.isChecked())
+				{
+					chbMale.setChecked(false);
+					chbFemale.setChecked(false);
+					MaleCount="0";
+					FemaleCount="0";
+					HamyarCount="1";
+				}
+				else
+				{
+					chbMaleAndFemale.setChecked(true);
+					HamyarCount="1";
+				}
+			}
+		});
+//**************************************************************************************
 //		etToDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //			@Override
 //			public void onFocusChange(View v, boolean hasFocus) {
@@ -454,56 +529,56 @@ protected void onCreate(Bundle savedInstanceState) {
 //				datePickerDialog.show(getFragmentManager(), "tpd");
 //			}
 //		});
-		etFromTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View v, boolean hasFocus) {
-				if (hasFocus) {
-					Calendar mcurrentTime = Calendar.getInstance();
-					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-					int minute = mcurrentTime.get(Calendar.MINUTE);
-
-					TimePickerDialog mTimePicker;
-					mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
-						@Override
-						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-							String AM_PM;
-							if (selectedHour >= 0 && selectedHour < 12) {
-								AM_PM = "AM";
-							} else {
-								AM_PM = "PM";
-							}
-							etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-						}
-					}, hour, minute, false);
-					mTimePicker.setTitle("انتخاب زمان شروع");
-					mTimePicker.show();
-				}
-			}
-		});
-		etFromTime.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Calendar mcurrentTime = Calendar.getInstance();
-				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-				int minute = mcurrentTime.get(Calendar.MINUTE);
-
-				TimePickerDialog mTimePicker;
-				mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
-					@Override
-					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-						String AM_PM;
-						if (selectedHour >= 0 && selectedHour < 12) {
-							AM_PM = "AM";
-						} else {
-							AM_PM = "PM";
-						}
-						etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
-					}
-				}, hour, minute, false);
-				mTimePicker.setTitle("انتخاب زمان");
-				mTimePicker.show();
-			}
-		});
+//		etFromTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//			@Override
+//			public void onFocusChange(View v, boolean hasFocus) {
+//				if (hasFocus) {
+//					Calendar mcurrentTime = Calendar.getInstance();
+//					final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//					int minute = mcurrentTime.get(Calendar.MINUTE);
+//
+//					TimePickerDialog mTimePicker;
+//					mTimePicker = new TimePickerDialog(Service_Request1.this,  TimePickerDialog.THEME_HOLO_LIGHT,new TimePickerDialog.OnTimeSetListener() {
+//						@Override
+//						public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+//							String AM_PM;
+//							if (selectedHour >= 0 && selectedHour < 12) {
+//								AM_PM = "AM";
+//							} else {
+//								AM_PM = "PM";
+//							}
+//							etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+//						}
+//					}, hour, minute, true);
+//					mTimePicker.setTitle("انتخاب زمان");
+//					mTimePicker.show();
+//				}
+//			}
+//		});
+//		etFromTime.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Calendar mcurrentTime = Calendar.getInstance();
+//				final int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+//				int minute = mcurrentTime.get(Calendar.MINUTE);
+//
+//				TimePickerDialog mTimePicker;
+//				mTimePicker = new TimePickerDialog(Service_Request1.this, TimePickerDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+//					@Override
+//					public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+//						String AM_PM;
+//						if (selectedHour >= 0 && selectedHour < 12) {
+//							AM_PM = "AM";
+//						} else {
+//							AM_PM = "PM";
+//						}
+//						etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+//					}
+//				}, hour, minute, true);
+//				mTimePicker.setTitle("انتخاب زمان");
+//				mTimePicker.show();
+//			}
+//		});
 //		etToTime.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //			@Override
 //			public void onFocusChange(View v, boolean hasFocus) {
@@ -554,31 +629,31 @@ protected void onCreate(Bundle savedInstanceState) {
 //				mTimePicker.show();
 //			}
 //		});
-		FillSpinner("address", "Name", spAddress);
-		if(posisionID>0)
-		{
-			spAddress.setSelection(posisionID);
-		}
+//		FillSpinner("address", "Name", spAddress);
+//		if(posisionID>0)
+//		{
+//			spAddress.setSelection(posisionID);
+//		}
 
-		spAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				db = dbh.getReadableDatabase();
-				Cursor cursor = db.rawQuery("SELECT * FROM address WHERE Name='" + spAddress.getItemAtPosition(position).toString() + "'", null);
-				if (cursor.getCount() > 0) {
-					cursor.moveToNext();
-					etAddres.setText(cursor.getString(cursor.getColumnIndex("AddressText")));
-					etAddres.setTag(cursor.getString(cursor.getColumnIndex("Code")));
-
-				}
-				db.close();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
+//		spAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//				db = dbh.getReadableDatabase();
+//				Cursor cursor = db.rawQuery("SELECT * FROM address WHERE Name='" + spAddress.getItemAtPosition(position).toString() + "'", null);
+//				if (cursor.getCount() > 0) {
+//					cursor.moveToNext();
+//					etAddres.setText(cursor.getString(cursor.getColumnIndex("AddressText")));
+//					etAddres.setTag(cursor.getString(cursor.getColumnIndex("Code")));
+//
+//				}
+//				db.close();
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//
+//			}
+//		});
 		//**************************************************************************************
 		btnAddTimeJob.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -619,7 +694,9 @@ public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValu
 						 String VariableName6, String VariableValue6,
 						 String VariableName7, String VariableValue7,
 						 String VariableName8, String VariableValue8,
-						 String VariableName9, String VariableValue9)
+						 String VariableName9, String VariableValue9,
+						 String VariableName10, String VariableValue10,
+						 String VariableName11, String VariableValue11)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName1, VariableValue1);
@@ -631,6 +708,8 @@ public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValu
 		intent.putExtra(VariableName7, VariableValue7);
 		intent.putExtra(VariableName8, VariableValue8);
 		intent.putExtra(VariableName9, VariableValue9);
+		intent.putExtra(VariableName10, VariableValue10);
+		intent.putExtra(VariableName11, VariableValue11);
 		Service_Request1.this.startActivity(intent);
 	}
 public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
@@ -640,45 +719,45 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		intent.putExtra(VariableName2, VariableValue2);
 		startActivity(intent);
 	}
-	public void FillSpinner(String tableName,String ColumnName,Spinner spinner){
-		List<String> labels = new ArrayList<String>();
-		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM " + tableName +" WHERE Status='1' ORDER BY IsDefault DESC";
-		Cursor cursors = db.rawQuery(query,null);
-		String str;
-		for(int i=0;i<cursors.getCount();i++){
-			cursors.moveToNext();
-			str=cursors.getString(cursors.getColumnIndex(ColumnName));
-			if(AddressCode.compareTo(cursors.getString(cursors.getColumnIndex("Code")))==0)
-			{
-				posisionID=i;
-			}
-			labels.add(str);
-		}
-		db.close();
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels){
-			public View getView(int position, View convertView, ViewGroup parent) {
-				View v = super.getView(position, convertView, parent);
-
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
-				((TextView) v).setTypeface(typeface);
-
-				return v;
-			}
-
-			public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
-				View v =super.getDropDownView(position, convertView, parent);
-
-
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
-				((TextView) v).setTypeface(typeface);
-
-				return v;
-			}
-		};
-		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner.setAdapter(dataAdapter);
-	}
+//	public void FillSpinner(String tableName,String ColumnName,Spinner spinner){
+//		List<String> labels = new ArrayList<String>();
+//		db=dbh.getReadableDatabase();
+//		String query="SELECT * FROM " + tableName +" WHERE Status='1' ORDER BY IsDefault DESC";
+//		Cursor cursors = db.rawQuery(query,null);
+//		String str;
+//		for(int i=0;i<cursors.getCount();i++){
+//			cursors.moveToNext();
+//			str=cursors.getString(cursors.getColumnIndex(ColumnName));
+//			if(AddressCode.compareTo(cursors.getString(cursors.getColumnIndex("Code")))==0)
+//			{
+//				posisionID=i;
+//			}
+//			labels.add(str);
+//		}
+//		db.close();
+//		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels){
+//			public View getView(int position, View convertView, ViewGroup parent) {
+//				View v = super.getView(position, convertView, parent);
+//
+//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
+//				((TextView) v).setTypeface(typeface);
+//
+//				return v;
+//			}
+//
+//			public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
+//				View v =super.getDropDownView(position, convertView, parent);
+//
+//
+//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
+//				((TextView) v).setTypeface(typeface);
+//
+//				return v;
+//			}
+//		};
+//		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//		spinner.setAdapter(dataAdapter);
+//	}
 	public void GetTime()
 	{
 		Calendar mcurrentTime = Calendar.getInstance();
@@ -686,7 +765,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		int minute = mcurrentTime.get(Calendar.MINUTE);
 
 		TimePickerDialog mTimePicker;
-		mTimePicker = new TimePickerDialog(Service_Request1.this, new TimePickerDialog.OnTimeSetListener() {
+		mTimePicker = new TimePickerDialog(Service_Request1.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
 				String AM_PM;
@@ -698,9 +777,10 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 //				db=dbh.getWritableDatabase();
 //				String query="UPDATE  DateTB SET Time = '" +String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute)+"'";
 //				db.execSQL(query);
-				etFromTime.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+				String DateStr =etFromDate.getText().toString();
+				etFromDate.setText(DateStr+" - "+String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
 			}
-		}, hour, minute, false);
+		}, hour, minute, true);
 		mTimePicker.setTitle("انتخاب زمان");
 		mTimePicker.show();
 

@@ -74,26 +74,105 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="15dp"
-                android:background="@drawable/rounded_layout_select_job_body">
+                android:layout_margin="15dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:id="@+id/LinearFromDate">
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/LinearTimeJob"
+                    android:background="@drawable/rounded_layout_select_job_body">
+                    <ImageView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:src="@drawable/clock3"
+                        android:layout_marginLeft="20dp"/>
+                    <Button
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/btnAddTimeJob"
+                        android:background="@drawable/plus"
+                        android:layout_gravity="center"/>
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etCountTimeJob"
+                        android:background="@drawable/rounded_edittext2"
+                        android:inputType="phone"
+                        android:text="3 ساعت"
+                        android:textSize="24sp"
+                        android:enabled="false"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textColor="#000000"/>
+                    <Button
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:id="@+id/btnDesTimeJob"
+                        android:background="@drawable/mines"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/LinearFromDate"
+                    android:background="@drawable/rounded_layout_select_job_body">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleFromDate"
-                        android:text="@string/Date"
+                        android:text="@string/DateAndTime"
                         android:textColor="#000000"/>
-                    <EditText
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/calender_and_clock"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etFromDate"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/rounded_edittext"
+                            android:textSize="24sp"
+                            android:textColor="#000000"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/LinearGenderExpert"
+                    android:background="@drawable/rounded_layout_select_job_body">
+                    <CheckBox
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/etFromDate"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
+                        android:id="@+id/chbMale"
+                        android:drawableBottom="@drawable/man"
+                        android:layout_weight="1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/chbFemale"
+                        android:drawableBottom="@drawable/women"
+                        android:layout_weight="1"/>
+                    <CheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/chbMaleAndFemale"
+                        android:drawableBottom="@drawable/maleandfemale"
+                        android:layout_weight="1"/>
+
                 </LinearLayout>
                 <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -114,72 +193,25 @@
                         <!--android:layout_weight="1"-->
                         <!--android:textColor="#000000"/>-->
                 <!--</LinearLayout>-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearFromTime">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTitleFromTime"
-                        android:text="@string/Time"
-                        android:textColor="#000000"/>
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etFromTime"
-                        android:layout_weight="1"
-                        android:textColor="#000000"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/background_title">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvTimeJob"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="#fff"
-                        android:text="@string/NeedTimeJob"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearTimeJob"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-                    <Button
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:id="@+id/btnAddTimeJob"
-                        android:background="@drawable/plus"/>
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/etCountTimeJob"
-                        android:background="@drawable/rounded_edittext2"
-                        android:inputType="phone"
-                        android:text="3 ساعت"
-                        android:textSize="24sp"
-                        android:enabled="false"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="#000000"/>
-                    <Button
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:id="@+id/btnDesTimeJob"
-                        android:background="@drawable/mines"/>
-                </LinearLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearFromTime">-->
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/tvTitleFromTime"-->
+                        <!--android:text="@string/Time"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<EditText-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/etFromTime"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:textColor="#000000"/>-->
+                <!--</LinearLayout>-->
                 <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="wrap_content"-->
@@ -200,62 +232,65 @@
                         <!--android:textColor="#000000"/>-->
                 <!--</LinearLayout>-->
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/LinearAddres">
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:id="@+id/LinearAddres">-->
 
-                    <TextView
-                        android:id="@+id/tvTitleAddres"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/Addres"
-                        android:textColor="#000000"/>
-                    <Spinner
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/spAddress"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/rounded_spinner">
-                    </Spinner>
-                </LinearLayout>
+                    <!--<TextView-->
+                        <!--android:id="@+id/tvTitleAddres"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="@string/Addres"-->
+                        <!--android:textColor="#000000"/>-->
+                    <!--<Spinner-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/spAddress"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:layout_marginLeft="10dp"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:background="@drawable/rounded_spinner">-->
+                    <!--</Spinner>-->
+                <!--</LinearLayout>-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:id="@+id/LinearAddresText">-->
+                    <!--<EditText-->
+                        <!--android:id="@+id/etAddres"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="70dp"-->
+                        <!--android:inputType="textMultiLine"-->
+                        <!--android:layout_margin="10dp"-->
+                        <!--android:enabled="false"-->
+                        <!--android:textColor="#000000" />-->
+                <!--</LinearLayout>-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:layout_marginTop="5dp"
-                    android:id="@+id/LinearAddresText">
-                    <EditText
-                        android:id="@+id/etAddres"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:inputType="textMultiLine"
-                        android:layout_margin="10dp"
-                        android:enabled="false"
-                        android:textColor="#000000" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
-                    android:id="@+id/LinearDescription">
+                    android:id="@+id/LinearDescription"
+                    android:background="@drawable/rounded_layout_select_job_body">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleDescription"
-                        android:text="@string/Description"
+                        android:text="@string/DescriptionCompletly"
                         android:textColor="#000000"/>
                     <EditText
                         android:id="@+id/etDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="70dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
+                        android:hint="@string/DescriptionForHamyar"
                         android:inputType="textMultiLine"
+                        android:background="@drawable/rounded_edittext"
                         android:textColor="#000000" />
                 </LinearLayout>
                 <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->

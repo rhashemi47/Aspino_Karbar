@@ -17,8 +17,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,25 +40,28 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 
 public class Map extends AppCompatActivity {
-    private String karbarCode;
-
-    private DatabaseHelper dbh;
-    private SQLiteDatabase db;
     private Button btnSaveLocation;
     private EditText NameAddres;
     private EditText AddAddres;
     public double lat=0;
     private double lon=0;
-//    private GoogleMap map;
+    private GoogleMap map;
     private String backToActivity;
     private String codeService;
-    private EditText etEmail;
-    private String IsDefault="0";
-    private CheckBox chbIsDefaultAddres;
-    private Spinner spState;
-    private Spinner spCity;
-    private List<String> labels_State = new ArrayList<String>();
-    private List<String> labels_City = new ArrayList<String>();
+    private DatabaseHelper dbh;
+    private SQLiteDatabase db;
+    private String Description ;
+    private String karbarCode;
+    private String DetailCode;
+    private String FromDate;
+    private String ToDate;
+    private String FromTime;
+    private String ToTime;
+    private String TimeDiff;
+    private String MaleCount;
+    private String FemaleCount;
+    private String HamyarCount;
+    private LinearLayout LinearBottomSaveAddress;
 
 
     @Override
@@ -61,31 +73,6 @@ public class Map extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.map);
-        etEmail=(EditText)findViewById(R.id.etEmail);
-        spState=(Spinner)findViewById(R.id.spState);
-        spCity=(Spinner)findViewById(R.id.spCity);
-        btnSaveLocation = (Button) findViewById(R.id.btnSaveLocation);
-        NameAddres=(EditText)findViewById(R.id.NameAddres);
-        AddAddres=(EditText)findViewById(R.id.AddAddres);
-        chbIsDefaultAddres=(CheckBox) findViewById(R.id.chbIsDefaultAddres);
-        try {
-            karbarCode = getIntent().getStringExtra("karbarCode").toString();
-        }
-        catch (Exception e) {
-            karbarCode = "";
-        }
-        try {
-            backToActivity = getIntent().getStringExtra("nameActivity").toString();
-        }
-        catch (Exception e) {
-            backToActivity = "";
-        }
-        try {
-            codeService = getIntent().getStringExtra("codeService").toString();
-        }
-        catch (Exception e) {
-            codeService = "";
-        }
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 
@@ -105,96 +92,168 @@ public class Map extends AppCompatActivity {
 
             throw sqle;
         }
-        //*************************************************************************************************
-        //Fill Spinner State
-        db=dbh.getReadableDatabase();
-        Cursor cursors = db.rawQuery("SELECT * FROM State ",null);
-        String str;
-        for(int i=0;i<cursors.getCount();i++){
-            cursors.moveToNext();
-            str=cursors.getString(cursors.getColumnIndex("Name"));
-            labels_State.add(str);
+        btnSaveLocation = (Button) findViewById(R.id.btnSaveLocation);
+        NameAddres=(EditText)findViewById(R.id.NameAddres);
+        AddAddres=(EditText)findViewById(R.id.AddAddres);
+        LinearBottomSaveAddress=(LinearLayout) findViewById(R.id.LinearBottomSaveAddress);
+        try
+        {
+
+            FromDate = getIntent().getStringExtra("FromDate").toString();
+
         }
-        db.close();
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels_State);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spState.setAdapter(dataAdapter);
-        spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        catch (Exception ex)
+        {
+            FromDate="0";
+        }
+        try
+        {
+            ToDate = getIntent().getStringExtra("ToDate").toString();
+        }
+        catch (Exception ex)
+        {
+            ToDate="0";
+        }
+        try
+        {
+            FromTime = getIntent().getStringExtra("FromTime").toString();
+        }
+        catch (Exception ex)
+        {
+            FromTime="0";
+        }
+        try
+        {
+            ToTime = getIntent().getStringExtra("ToTime").toString();
+        }
+        catch (Exception ex)
+        {
+            ToTime="0";
+        }
+        try
+        {
+            Description = getIntent().getStringExtra("Description").toString();
+        }
+        catch (Exception ex)
+        {
+            Description="";
+        }
+        try
+        {
+            TimeDiff = getIntent().getStringExtra("TimeDiff").toString();
+        }
+        catch (Exception ex)
+        {
+            TimeDiff="0";
+        }
+        try
+        {
+            DetailCode = getIntent().getStringExtra("DetailCode").toString();
+        }
+        catch (Exception ex)
+        {
+            DetailCode="0";
+        }
+        try
+        {
+            MaleCount = getIntent().getStringExtra("MaleCount").toString();
+        }
+        catch (Exception ex)
+        {
+            MaleCount="0";
+        }
+        try
+        {
+            FemaleCount = getIntent().getStringExtra("FemaleCount").toString();
+        }
+        catch (Exception ex)
+        {
+            FemaleCount="0";
+        }
+        try
+        {
+            HamyarCount = getIntent().getStringExtra("HamyarCount").toString();
+        }
+        catch (Exception ex)
+        {
+            HamyarCount="0";
+        }
+        try
+        {
+            karbarCode = getIntent().getStringExtra("karbarCode").toString();
+        }
+        catch (Exception e)
+        {
+            db=dbh.getReadableDatabase();
+            Cursor coursors = db.rawQuery("SELECT * FROM login",null);
+            for(int i=0;i<coursors.getCount();i++){
+                coursors.moveToNext();
+
+                karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
+            }
+            db.close();
+        }
+        try {
+            backToActivity = getIntent().getStringExtra("nameActivity").toString();
+        }
+        catch (Exception e) {
+            backToActivity = "";
+        }
+        try {
+            codeService = getIntent().getStringExtra("codeService").toString();
+        }
+        catch (Exception e) {
+            codeService = "";
+        }
+
+
+        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //Fill Spinner City
+
+            public void onMapReady(GoogleMap googleMap) {
+                map = googleMap;
+
+                LatLng point;
+                lat=35.691063;
+                lon=51.407941;
+                point = new LatLng(lat, lon);
                 db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='"+parent.getItemAtPosition(position).toString()+"'", null);
+                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
                 if (coursors.getCount() > 0) {
                     coursors.moveToNext();
-                    String Code=coursors.getString(coursors.getColumnIndex("Code"));
-                    FillSpinnerChild(Code);
+                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
+                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
+                    lat = Double.parseDouble(latStr);
+                    lon = Double.parseDouble(lonStr);
+                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+                        point = new LatLng(lat, lon);
+                    }
                 }
                 db.close();
-            }
+                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.pointer)));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
+                map.getUiSettings().setZoomControlsEnabled(true);
+                map.getUiSettings().setMyLocationButtonEnabled(true);
+                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        String str = latLng.toString();
+                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
+                        map.clear();
+                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.pointer)));
+                        lat=latLng.latitude;
+                        lon=latLng.longitude;
+                        if(LinearBottomSaveAddress.getVisibility()==View.GONE)
+                        {
+                            LinearBottomSaveAddress.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
             }
         });
-        //*************************************************************************************************
-//        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
-//            @Override
-//
-//            public void onMapReady(GoogleMap googleMap) {
-//                map = googleMap;
-//
-//                LatLng point;
-//                lat=35.691063;
-//                lon=51.407941;
-//                point = new LatLng(lat, lon);
-//                db = dbh.getReadableDatabase();
-//                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-//                if (coursors.getCount() > 0) {
-//                    coursors.moveToNext();
-//                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
-//                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
-//                    lat = Double.parseDouble(latStr);
-//                    lon = Double.parseDouble(lonStr);
-//                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-//                        point = new LatLng(lat, lon);
-//                    }
-//                }
-//                db.close();
-//                map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-//                map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
-//
-//
-//                map.getUiSettings().setZoomControlsEnabled(true);
-//                map.getUiSettings().setMyLocationButtonEnabled(true);
-//                map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//                    @Override
-//                    public void onMapClick(LatLng latLng) {
-//                        String str = latLng.toString();
-//                        //  Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
-//                        map.clear();
-//                        map.addMarker(new MarkerOptions().position(latLng).title("محل سرویس دهی").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-//                        lat=latLng.latitude;
-//                        lon=latLng.longitude;
-//                    }
-//                });
-//            }
-//        });
-        //******************************************************************************************************
-        chbIsDefaultAddres.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                {
-                    IsDefault="1";
-                }
-                else
-                {
-                    IsDefault="0";
-                }
-            }
-        });
+
         btnSaveLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,40 +270,13 @@ public class Map extends AppCompatActivity {
                 {
                     StrError="نامی دلخواه برای آدرس محل وارد نمایید."+"\n";
                 }
-                try {
-                    db = dbh.getReadableDatabase();
-                    Cursor coursors = db.rawQuery("SELECT * FROM State WHERE Name='" + spState.getSelectedItem().toString() + "'", null);
-                    if (coursors.getCount() > 0) {
-                        coursors.moveToNext();
-                        CodeState = coursors.getString(coursors.getColumnIndex("Code"));
-                    } else {
-                        CodeState = "";
-                    }
-                }
-                catch (Exception ex)
-                {
-                    StrError="خطا در بارگزاری نام استانها";
-                    Toast.makeText(Map.this, "خطا در بارگزاری نام استانها", Toast.LENGTH_SHORT).show();
-                }
-                try {
-                    Cursor coursors = db.rawQuery("SELECT * FROM City WHERE Name='" + spCity.getSelectedItem().toString() + "'", null);
-                    if (coursors.getCount() > 0) {
-                        coursors.moveToNext();
-                        CodeCity = coursors.getString(coursors.getColumnIndex("Code"));
-                    } else {
-                        CodeCity = "";
-                    }
-                }
-                catch (Exception ex){
-                    StrError="خطا در بارگزاری نام شهرستانها";
-                    Toast.makeText(Map.this, "خطا در بارگزاری نام شهرستانها", Toast.LENGTH_SHORT).show();
-                }
+
                 if(StrError.length()==0 || StrError.compareTo("")==0)
                 {
                     String latStr=Double.toString(lat);
                     String lonStr=Double.toString(lon);
 
-                    SyncAddress syncAddress=new SyncAddress(Map.this,karbarCode,IsDefault,StrnameAddress,CodeState,CodeCity,StrAddAddres,etEmail.getText().toString(),latStr,lonStr);
+                    SyncAddress syncAddress=new SyncAddress(Map.this,karbarCode,"0",StrnameAddress,"0","0",StrAddAddres,"0",latStr,lonStr);
                     syncAddress.AsyncExecute();
                 }
                 db.close();
@@ -256,8 +288,19 @@ public class Map extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if(backToActivity.compareTo("Profile")==0){
-                LoadActivity(Profile.class, "karbarCode", karbarCode);
+            if(backToActivity.compareTo("Service_Request_SelectAddress")==0){
+                LoadActivity(Service_Request_SelectAddress.class
+                , "karbarCode", karbarCode
+                ,"FromDate",FromDate
+                ,"FromTime",FromTime
+                ,"ToTime",ToTime
+                ,"Description",Description
+                ,"TimeDiff",TimeDiff
+                ,"DetailCode",DetailCode
+                ,"MaleCount",MaleCount
+                ,"FemaleCount",FemaleCount
+                ,"HamyarCount",HamyarCount
+                ,"ToDate",ToDate);
             }else
             {
                 LoadActivity2(MainMenu.class, "karbarCode", karbarCode,"codeService",codeService);
@@ -268,9 +311,31 @@ public class Map extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue) {
+    public void LoadActivity(Class<?> Cls
+            , String VariableName1, String VariableValue1
+            , String VariableName2, String VariableValue2
+            , String VariableName3, String VariableValue3
+            , String VariableName4, String VariableValue4
+            , String VariableName5, String VariableValue5
+            , String VariableName6, String VariableValue6
+            , String VariableName7, String VariableValue7
+            , String VariableName8, String VariableValue8
+            , String VariableName9, String VariableValue9
+            , String VariableName10, String VariableValue10
+            , String VariableName11, String VariableValue11)
+    {
         Intent intent = new Intent(getApplicationContext(), Cls);
-        intent.putExtra(VariableName, VariableValue);
+        intent.putExtra(VariableName1, VariableValue1);
+        intent.putExtra(VariableName2, VariableValue2);
+        intent.putExtra(VariableName3, VariableValue3);
+        intent.putExtra(VariableName4, VariableValue4);
+        intent.putExtra(VariableName5, VariableValue5);
+        intent.putExtra(VariableName6, VariableValue6);
+        intent.putExtra(VariableName7, VariableValue7);
+        intent.putExtra(VariableName8, VariableValue8);
+        intent.putExtra(VariableName9, VariableValue9);
+        intent.putExtra(VariableName10, VariableValue10);
+        intent.putExtra(VariableName11, VariableValue11);
         this.startActivity(intent);
     }
     public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2) {
@@ -279,21 +344,5 @@ public class Map extends AppCompatActivity {
         intent.putExtra(VariableName2, VariableValue2);
         this.startActivity(intent);
     }
-    private void FillSpinnerChild(String StateId) {
-        labels_City  = new ArrayList<String>();
-        db = dbh.getReadableDatabase();
-        Cursor coursors = db.rawQuery("SELECT * FROM City WHERE ParentCode='"+StateId+"'", null);
-        if (coursors.getCount() > 0) {
-            for (int i = 0; i < coursors.getCount(); i++) {
-                coursors.moveToNext();
-                labels_City.add(coursors.getString(coursors.getColumnIndex("Name")));
-            }
-        }
-        db.close();
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, labels_City);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spCity.setAdapter(dataAdapter);
-    }
-
 }
 
