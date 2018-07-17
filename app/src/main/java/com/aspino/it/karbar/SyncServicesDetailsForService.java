@@ -158,6 +158,15 @@ public class SyncServicesDetailsForService {
 	    //Add the property to request object
 	    request.addProperty(VerifyCode);	    
 	    //Create envelope
+		PropertyInfo CityCode = new PropertyInfo();
+		//Set Name
+		CityCode.setName("CityCode");
+		//Set Value
+		CityCode.setValue("2");
+		//Set dataType
+		CityCode.setType(String.class);
+		//Add the property to request object
+		request.addProperty(CityCode);
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
 	    envelope.dotNet = true;

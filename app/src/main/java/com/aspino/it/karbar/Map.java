@@ -2,12 +2,14 @@ package com.aspino.it.karbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -43,14 +45,14 @@ public class Map extends AppCompatActivity {
     private Button btnSaveLocation;
     private EditText NameAddres;
     private EditText AddAddres;
-    public double lat=0;
-    private double lon=0;
+    public double lat = 0;
+    private double lon = 0;
     private GoogleMap map;
     private String backToActivity;
     private String codeService;
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
-    private String Description ;
+    private String Description;
     private String karbarCode;
     private String DetailCode;
     private String FromDate;
@@ -62,6 +64,7 @@ public class Map extends AppCompatActivity {
     private String FemaleCount;
     private String HamyarCount;
     private LinearLayout LinearBottomSaveAddress;
+    private GPSTracker gps;
 
 
     @Override
@@ -93,126 +96,115 @@ public class Map extends AppCompatActivity {
             throw sqle;
         }
         btnSaveLocation = (Button) findViewById(R.id.btnSaveLocation);
-        NameAddres=(EditText)findViewById(R.id.NameAddres);
-        AddAddres=(EditText)findViewById(R.id.AddAddres);
-        LinearBottomSaveAddress=(LinearLayout) findViewById(R.id.LinearBottomSaveAddress);
-        try
-        {
+        NameAddres = (EditText) findViewById(R.id.NameAddres);
+        AddAddres = (EditText) findViewById(R.id.AddAddres);
+        LinearBottomSaveAddress = (LinearLayout) findViewById(R.id.LinearBottomSaveAddress);
+        try {
 
             FromDate = getIntent().getStringExtra("FromDate").toString();
 
+        } catch (Exception ex) {
+            FromDate = "0";
         }
-        catch (Exception ex)
-        {
-            FromDate="0";
-        }
-        try
-        {
+        try {
             ToDate = getIntent().getStringExtra("ToDate").toString();
+        } catch (Exception ex) {
+            ToDate = "0";
         }
-        catch (Exception ex)
-        {
-            ToDate="0";
-        }
-        try
-        {
+        try {
             FromTime = getIntent().getStringExtra("FromTime").toString();
+        } catch (Exception ex) {
+            FromTime = "0";
         }
-        catch (Exception ex)
-        {
-            FromTime="0";
-        }
-        try
-        {
+        try {
             ToTime = getIntent().getStringExtra("ToTime").toString();
+        } catch (Exception ex) {
+            ToTime = "0";
         }
-        catch (Exception ex)
-        {
-            ToTime="0";
-        }
-        try
-        {
+        try {
             Description = getIntent().getStringExtra("Description").toString();
+        } catch (Exception ex) {
+            Description = "";
         }
-        catch (Exception ex)
-        {
-            Description="";
-        }
-        try
-        {
+        try {
             TimeDiff = getIntent().getStringExtra("TimeDiff").toString();
+        } catch (Exception ex) {
+            TimeDiff = "0";
         }
-        catch (Exception ex)
-        {
-            TimeDiff="0";
-        }
-        try
-        {
+        try {
             DetailCode = getIntent().getStringExtra("DetailCode").toString();
+        } catch (Exception ex) {
+            DetailCode = "0";
         }
-        catch (Exception ex)
-        {
-            DetailCode="0";
-        }
-        try
-        {
+        try {
             MaleCount = getIntent().getStringExtra("MaleCount").toString();
+        } catch (Exception ex) {
+            MaleCount = "0";
         }
-        catch (Exception ex)
-        {
-            MaleCount="0";
-        }
-        try
-        {
+        try {
             FemaleCount = getIntent().getStringExtra("FemaleCount").toString();
+        } catch (Exception ex) {
+            FemaleCount = "0";
         }
-        catch (Exception ex)
-        {
-            FemaleCount="0";
-        }
-        try
-        {
+        try {
             HamyarCount = getIntent().getStringExtra("HamyarCount").toString();
+        } catch (Exception ex) {
+            HamyarCount = "0";
         }
-        catch (Exception ex)
-        {
-            HamyarCount="0";
-        }
-        try
-        {
+        try {
             karbarCode = getIntent().getStringExtra("karbarCode").toString();
-        }
-        catch (Exception e)
-        {
-            db=dbh.getReadableDatabase();
-            Cursor coursors = db.rawQuery("SELECT * FROM login",null);
-            for(int i=0;i<coursors.getCount();i++){
+        } catch (Exception e) {
+            db = dbh.getReadableDatabase();
+            Cursor coursors = db.rawQuery("SELECT * FROM login", null);
+            for (int i = 0; i < coursors.getCount(); i++) {
                 coursors.moveToNext();
 
-                karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
+                karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
             }
             db.close();
         }
         try {
             backToActivity = getIntent().getStringExtra("nameActivity").toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             backToActivity = "";
         }
         try {
             codeService = getIntent().getStringExtra("codeService").toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             codeService = "";
         }
 
+        gps = new GPSTracker(Map.this);
 
+        // check if GPS enabled
+        if (gps.canGetLocation()) {
+
+            //nothing
+        } else {
+            // can't get location
+            // GPS or Network is not enabled
+            // Ask user to enable GPS/network in settings
+            gps.showSettingsAlert();
+        }
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map3)).getMapAsync(new OnMapReadyCallback() {
             @Override
 
             public void onMapReady(GoogleMap googleMap) {
                 map = googleMap;
-
+                if (ActivityCompat.checkSelfPermission(Map.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(Map.this, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                map.setMyLocationEnabled(true);
                 LatLng point;
                 lat=35.691063;
                 lon=51.407941;
@@ -275,7 +267,6 @@ public class Map extends AppCompatActivity {
                 {
                     String latStr=Double.toString(lat);
                     String lonStr=Double.toString(lon);
-
                     SyncAddress syncAddress=new SyncAddress(Map.this,karbarCode,"0",StrnameAddress,"0","0",StrAddAddres,"0",latStr,lonStr);
                     syncAddress.AsyncExecute();
                 }

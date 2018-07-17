@@ -132,8 +132,8 @@
     <string name="QuestionFactor">آیا فاکتور مورد تایید می باشد؟</string>
     <string name="Yes">بله</string>
     <string name="No">خیر</string>
-    <string name="Invite_friends">معرفی به دوستان</string>
-    <string name="TermsـandـConditions">قوانین</string>
+    <string name="Invite_friends">اشتراک گذاری</string>
+    <string name="TermsـandـConditions">قوانین و مقررات</string>
     <string name="emergencyService">درخواست اضطراری</string>
     <string name="AcceptOrder">پذیرفته شده ها</string>
     <string name="EditOrder">اصلاح درخواست</string>
@@ -208,4 +208,8 @@
     <string name="DateAndTime">ساعت و تاریخ حضور متخصص</string>
     <string name="DescriptionCompletly">توضیحات تکمیلی</string>
     <string name="DescriptionForHamyar">هر چیزی که متخصص باید از اون اطلاع داشته باشد رو اینجا بنویسید</string>
+    <string name="SuccessfulService">سفارش شما با موفقیت ثبت شد</string>
+    <string name="MessageFindHamyar">در حال جستجوی بهترین متخصص برای درخواست شما هستیم لطفا تا ارسال پیشنهاد متخصصین شکیبا باشید</string>
+    <string name="CodeOrderService">کد سفارش:</string>
+    <string name="wallet">کیف پول</string>
 </resources>

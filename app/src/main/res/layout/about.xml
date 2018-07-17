@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        >
+        android:background="#6931d3"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,8 +21,7 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="#ffff"
-            android:background="#6831d5">
+            app:titleTextColor="#ffff">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,8 +29,6 @@
             android:layout_gravity="left"
             android:layout_marginLeft="10dp"/>
         </android.support.v7.widget.Toolbar>
-
-
     </android.support.design.widget.AppBarLayout>
 
     <ScrollView
@@ -46,41 +43,49 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:background="@drawable/rounded_layout_select_job_body">
+            android:orientation="vertical">
             <ImageView
             android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:background="@drawable/logo"
             android:layout_gravity="center"/>
-            <TextView
-                android:id="@+id/tvTextAbout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:lineSpacingExtra="4dp"
-                android:text="@string/AboutUsHeadText"
-                android:textSize="18dp"
-                android:drawableRight="@drawable/aboutsmile"
-                android:textColor="#fff"
-                android:textAlignment="center"/>
+                android:layout_gravity="center"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/aboutsmile"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:id="@+id/tvTextAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/AboutUsHeadText"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="18dp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvTextAboutDesc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
                 android:lineSpacingExtra="4dp"
                 android:text="@string/AboutUsDescText"
                 android:textSize="18dp"
                 android:textColor="#fff"
+                android:layout_marginTop="40dp"
                 android:textAlignment="gravity"
                 android:gravity="right"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
+                android:layout_marginTop="60dp"
                 android:layout_gravity="center"
                 android:gravity="center">
                 <LinearLayout
@@ -140,53 +145,6 @@
                         android:layout_marginRight="0dp"/>
                 </LinearLayout>
             </LinearLayout>
-            <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-                <!--android:id="@+id/map3"-->
-                <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="200dp"-->
-                <!--android:layout_marginLeft="10dp"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="35dp"/>-->
         </LinearLayout>
-
     </ScrollView>
-    <FrameLayout
-    android:id="@+id/frame"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    />
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_alignParentBottom="true">-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/Order"-->
-            <!--android:id="@+id/btnOrderBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/job2"/>-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/AcceptOrder"-->
-            <!--android:id="@+id/btnAcceptOrderBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/duty2"/>-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/Credits"-->
-            <!--android:id="@+id/btncrediteBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/credit2"/>-->
-    <!--</LinearLayout>-->
-</RelativeLayout>
+  </LinearLayout>

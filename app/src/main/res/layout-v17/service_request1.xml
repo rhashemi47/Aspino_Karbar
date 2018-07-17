@@ -43,8 +43,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
             <LinearLayout
@@ -52,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/LinearTitleService"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_layout_select_job_body">
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,45 +72,55 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="15dp">
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:id="@+id/LinearTimeJob"
                     android:background="@drawable/rounded_layout_select_job_body">
                     <ImageView
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:src="@drawable/clock3"
+                        android:layout_gravity="right"
                         android:layout_marginLeft="20dp"/>
-                    <Button
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:id="@+id/btnAddTimeJob"
-                        android:background="@drawable/plus"
-                        android:layout_gravity="center"/>
-                    <EditText
-                        android:layout_width="100dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/etCountTimeJob"
-                        android:background="@drawable/rounded_edittext2"
-                        android:inputType="phone"
-                        android:text="3 ساعت"
-                        android:textSize="24sp"
-                        android:enabled="false"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
                         android:layout_gravity="center"
-                        android:gravity="center"
-                        android:textColor="#000000"/>
-                    <Button
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:id="@+id/btnDesTimeJob"
-                        android:background="@drawable/mines"
-                        android:layout_gravity="center"/>
+                        android:gravity="center">
+                        <Button
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:id="@+id/btnAddTimeJob"
+                            android:background="@drawable/plus_add"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                        <EditText
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etCountTimeJob"
+                            android:background="@drawable/rounded_edittext2"
+                            android:inputType="phone"
+                            android:text="3 ساعت"
+                            android:textSize="24sp"
+                            android:enabled="false"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textColor="#000000"/>
+                        <Button
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:id="@+id/btnDesTimeJob"
+                            android:background="@drawable/mines"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,25 +162,75 @@
                     android:orientation="horizontal"
                     android:id="@+id/LinearGenderExpert"
                     android:background="@drawable/rounded_layout_select_job_body">
-                    <CheckBox
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/chbMale"
-                        android:drawableBottom="@drawable/man"
-                        android:layout_weight="1"/>
-                    <CheckBox
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/chbMale"
+                            android:textSize="6sp"
+                            android:drawableBottom="@drawable/man"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Male"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/chbFemale"
-                        android:drawableBottom="@drawable/women"
-                        android:layout_weight="1"/>
-                    <CheckBox
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/chbFemale"
+                            android:textSize="6sp"
+                            android:drawableBottom="@drawable/women"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Female"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/chbMaleAndFemale"
-                        android:drawableBottom="@drawable/maleandfemale"
-                        android:layout_weight="1"/>
-
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_weight="1">
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/chbMaleAndFemale"
+                            android:drawableBottom="@drawable/maleandfemale"
+                            android:textSize="6sp"
+                            android:layout_weight="1"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Doesnotmatter"
+                            android:textColor="#000000"
+                            android:textSize="18sp"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+                    </LinearLayout>
                 </LinearLayout>
                 <!--<LinearLayout-->
                     <!--android:layout_width="match_parent"-->
@@ -274,7 +332,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="2dp"
                     android:id="@+id/LinearDescription"
                     android:background="@drawable/rounded_layout_select_job_body">
                     <TextView
@@ -290,61 +348,25 @@
                         android:layout_weight="1"
                         android:hint="@string/DescriptionForHamyar"
                         android:inputType="textMultiLine"
+                        android:layout_gravity="right"
+                        android:gravity="right"
                         android:background="@drawable/rounded_edittext"
                         android:textColor="#000000" />
                 </LinearLayout>
-                <!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"-->
-                <!--android:id="@+id/map2"-->
-                <!--android:name="com.google.android.gms.maps.SupportMapFragment"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="180dp"-->
-                <!--android:layout_marginLeft="20dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--map:liteMode="true"-->
-                <!--map:uiZoomControls="false" />-->
-
             </LinearLayout>
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/imgForward"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:background="@drawable/forward"
-                android:layout_marginBottom="30dp"/>
         </LinearLayout>
     </ScrollView>
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="80dp"-->
-    <!--android:layout_alignParentBottom="true">-->
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/Order"-->
-    <!--android:id="@+id/btnOrderBottom"-->
-    <!--android:background="@drawable/rounded_button"-->
-    <!--android:textColor="#052d93"-->
-    <!--android:layout_weight="1"-->
-    <!--android:drawableTop="@drawable/job2"/>-->
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/AcceptOrder"-->
-    <!--android:id="@+id/btnAcceptOrderBottom"-->
-    <!--android:background="@drawable/rounded_button"-->
-    <!--android:textColor="#052d93"-->
-    <!--android:layout_weight="1"-->
-    <!--android:drawableTop="@drawable/duty2"/>-->
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/Credits"-->
-    <!--android:id="@+id/btncrediteBottom"-->
-    <!--android:background="@drawable/rounded_button"-->
-    <!--android:textColor="#052d93"-->
-    <!--android:layout_weight="1"-->
-    <!--android:drawableTop="@drawable/credit2"/>-->
-    <!--</LinearLayout>-->
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imgForward"
+            android:layout_gravity="center"
+            android:background="@drawable/forward"/>
+    </LinearLayout>
 </RelativeLayout>

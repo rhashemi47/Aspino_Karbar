@@ -85,7 +85,7 @@ protected void onCreate(Bundle savedInstanceState) {
 //
 //	btnIncreseCredit=(Button)findViewById(R.id.btnIncresCredit);
 //	lstHistoryCredit=(ListView) findViewById(R.id.lstHistoryCredit);
-	Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
+	Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 	txtContent=(TextView)findViewById(R.id.tvHistoryCredits);
 	txtContent.setTypeface(FontMitra);
 //	tvRecentCreditsValue=(TextView)findViewById(R.id.tvRecentCreditsValue);

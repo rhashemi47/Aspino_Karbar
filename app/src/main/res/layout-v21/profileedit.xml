@@ -18,12 +18,12 @@
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btnback"
-                android:layout_gravity="left"
-                android:layout_marginLeft="10dp"/>
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/btnback"-->
+                <!--android:layout_gravity="left"-->
+                <!--android:layout_marginLeft="10dp"/>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -43,9 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="180dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:background="@drawable/head_body_select_hamyar">
@@ -57,142 +58,139 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:src="@drawable/useravatar"
-                    android:layout_gravity="center"
-                    android:background="@drawable/profilepicrounded"/>
+                <!--<ImageView-->
+                    <!--android:layout_width="120dp"-->
+                    <!--android:layout_height="120dp"-->
+                    <!--android:src="@drawable/useravatar"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:background="@drawable/profilepicrounded"/>-->
 
                 <TextView
                     android:id="@+id/tvTextUserMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="09304752415"
                     android:textSize="22dp"
                     android:textColor="#fcff1c"
                     android:textAlignment="center"
                     android:layout_marginTop="15dp"/>
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="-15dp"
-                android:layout_gravity="right"
-                android:gravity="right">
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/changepic"
-                    android:layout_gravity="right"
-                    android:background="@drawable/changepic"
-                    android:layout_marginRight="45dp" />
-            </LinearLayout>
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical"-->
+                <!--android:layout_marginTop="-15dp"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:gravity="right">-->
+                <!--<ImageView-->
+                    <!--android:layout_width="50dp"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:src="@drawable/changepic"-->
+                    <!--android:layout_gravity="right"-->
+                    <!--android:background="@drawable/changepic"-->
+                    <!--android:layout_marginRight="45dp" />-->
+            <!--</LinearLayout>-->
         </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginTop="10dp">
-
-            <TextView
-            android:id="@+id/tvTextName"
+            android:gravity="center">
+            <EditText
+            android:id="@+id/etTextName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="هاشم"
-            android:textSize="22dp"
             android:textColor="#333333"
             android:gravity="right"
             android:textAlignment="gravity"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp" />
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#6a33d7"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
-
-            </view>
-
-
-
-            <TextView
-                android:id="@+id/tvTextFamily"
+            android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"/>
+            <EditText
+                android:id="@+id/etTextFamily"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="رمضانی"
-                android:textSize="22dp"
                 android:textColor="#333333"
                 android:gravity="right"
                 android:textAlignment="gravity"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#6a33d7"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp" />
+            <!--<view-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#6a33d7"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginLeft="10dp">-->
 
-            </view>
+            <!--</view>-->
 
-            <TextView
-                android:id="@+id/tvTextNationalCode"
+            <EditText
+                android:id="@+id/etTextNationalCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="کد ملی"
-                android:textSize="22dp"
+                android:hint="کد ملی"
                 android:textColor="#333333"
                 android:gravity="right"
                 android:textAlignment="gravity"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#6a33d7"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp" />
+            <!--<view-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#6a33d7"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginLeft="10dp">-->
 
-            </view>
+            <!--</view>-->
 
-            <TextView
-                android:id="@+id/tvTextEmail"
+            <EditText
+                android:id="@+id/etTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="پست الکترونیک"
-                android:textSize="22dp"
+                android:hint="پست الکترونیک"
                 android:textColor="#333333"
                 android:gravity="right"
                 android:textAlignment="gravity"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-            <view
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#6a33d7"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="10dp" />
+            <!--<view-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="#6a33d7"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginLeft="10dp">-->
 
-            </view>
+            <!--</view>-->
 
-            <TextView
-                android:id="@+id/tvTextBthDate"
+            <EditText
+                android:id="@+id/etTextBthDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="تاریخ تولد"
-                android:textSize="22dp"
+                android:hint="تاریخ تولد"
                 android:textColor="#333333"
                 android:gravity="right"
                 android:textAlignment="gravity"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp" />
-
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#6831d4"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            android:id="@+id/btnSaveEditProfile"
+            android:text="@string/Save"/>
+    </RelativeLayout>
 </LinearLayout>

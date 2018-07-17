@@ -205,7 +205,7 @@ public class SyncServices {
 			db.execSQL("INSERT INTO services (code,servicename,Pic) VALUES('"+value[0] +"','"+value[1]+"','"+value[2]+"')");
 		}
 		db.close();
-		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,karbarCode,CityCodeLocation);
+		SyncServicesDetails syncservicesdetails=new SyncServicesDetails(this.activity,karbarCode,"2");//todo
 		syncservicesdetails.AsyncExecute();
 
     }

@@ -26,7 +26,7 @@
         private ListView lvAddress;
         private DatabaseHelper dbh;
         private SQLiteDatabase db;
-//        private Button btnOrder;
+        private Button btnAdd_New_Address;
 //        private Button btnAcceptOrder;
 //        private Button btncredite;
         private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
@@ -38,7 +38,7 @@
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_address);
-//            btnOrder=(Button)findViewById(R.id.btnOrderBottom);
+            btnAdd_New_Address=(Button)findViewById(R.id.btnAdd_New_Address);
 //            btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //            btncredite=(Button)findViewById(R.id.btncrediteBottom);
             lvAddress=(ListView)findViewById(R.id.listViewAddress);
@@ -110,6 +110,12 @@
             lvAddress.setAdapter(dataAdapter);
         }
             db.close();
+            btnAdd_New_Address.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LoadActivity2(Map.class,"karbarCode", karbarCode,"nameActivity","List_Address");
+                }
+            });
         //**************************************************************************************************************
 //            db=dbh.getReadableDatabase();
 //            Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +

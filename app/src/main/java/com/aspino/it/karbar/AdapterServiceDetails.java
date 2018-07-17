@@ -67,7 +67,7 @@ public class AdapterServiceDetails extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
         if (convertView == null) {
-            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/BMitra.ttf");
+            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_visit, null);
             holder = new ViewHolder();
             holder.txtValues = (TextView) convertView.findViewById(R.id.txtContentVisit);
@@ -112,7 +112,7 @@ public class AdapterServiceDetails extends BaseAdapter {
             }
             else
             {
-                holder.imgValues.setImageResource(R.drawable.job);
+                holder.imgValues.setImageResource(R.drawable.empty_icon);
                 holder.txtValues.setTag(cursor.getString(cursor.getColumnIndex("code")));
                 holder.imgValues.setTag(cursor.getString(cursor.getColumnIndex("code")));
             }
@@ -120,7 +120,7 @@ public class AdapterServiceDetails extends BaseAdapter {
         }
         else
         {
-            holder.imgValues.setImageResource(R.drawable.job);
+            holder.imgValues.setImageResource(R.drawable.empty_icon);
         }
         holder.txtValues.setOnClickListener(TextViewItemOnclick);
         holder.imgValues.setOnClickListener(ImageViewItemOnclick);

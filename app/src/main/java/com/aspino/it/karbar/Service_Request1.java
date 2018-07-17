@@ -328,8 +328,10 @@ protected void onCreate(Bundle savedInstanceState) {
 //						String strClock,strDate;
 						int intHour,intMin;
 						spClock=sp[1].toString().split(":");
-						intHour=Integer.parseInt(spClock[0].replace(" ",""));
-						intMin=Integer.parseInt(spClock[1].replace(" ",""));
+						spClock[0]=spClock[0].replace(" ","");
+						spClock[1]=spClock[1].replace(" ","");
+						intHour=Integer.parseInt(spClock[0]);
+						intMin=Integer.parseInt(spClock[1]);
 						if(intHour<10)
 						{
 							spClock[0]="0"+spClock[0];
@@ -739,7 +741,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 //			public View getView(int position, View convertView, ViewGroup parent) {
 //				View v = super.getView(position, convertView, parent);
 //
-//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
+//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
 //				((TextView) v).setTypeface(typeface);
 //
 //				return v;
@@ -749,7 +751,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 //				View v =super.getDropDownView(position, convertView, parent);
 //
 //
-//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");
+//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
 //				((TextView) v).setTypeface(typeface);
 //
 //				return v;

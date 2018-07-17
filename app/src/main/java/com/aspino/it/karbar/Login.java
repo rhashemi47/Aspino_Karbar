@@ -1,6 +1,7 @@
 package com.aspino.it.karbar;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,19 +17,24 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class Login extends Activity {
 	private Button btnEnter;
 	private EditText etPhoneNumber;
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
-	private GPSTracker gps;
+	@Override
+	protected void attachBaseContext(Context newBase) {
+		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+	}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
+        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remive page title
         dbh=new DatabaseHelper(getApplicationContext());
 		try {
@@ -49,18 +55,7 @@ public class Login extends Activity {
 
    			throw sqle;
    		}
-		gps = new GPSTracker(Login.this);
 
-		// check if GPS enabled
-		if (gps.canGetLocation()) {
-
-			//nothing
-		} else {
-			// can't get location
-			// GPS or Network is not enabled
-			// Ask user to enable GPS/network in settings
-			gps.showSettingsAlert();
-		}
 		//*****************************************************
 		btnEnter=(Button)findViewById(R.id.btnEnter);
         etPhoneNumber=(EditText)findViewById(R.id.etPhoneNumber);
@@ -73,8 +68,6 @@ public class Login extends Activity {
 			public void onClick(View arg0) {
 				String Phone=etPhoneNumber.getText().toString();
 				if(Phone.compareTo("")!=0) {
-					if (gps.canGetLocation())
-					{
 						InternetConnection ic = new InternetConnection(getApplicationContext());
 						if (ic.isConnectingToInternet()) {
 							String query = null;
@@ -89,14 +82,6 @@ public class Login extends Activity {
 						{
 							Toast.makeText(getApplicationContext(), "اتصال به شبکه را چک نمایید.", Toast.LENGTH_LONG).show();
 						}
-					}
-					else
-						{
-						// can't get location
-						// GPS or Network is not enabled
-						// Ask user to enable GPS/network in settings
-						gps.showSettingsAlert();
-					}
 				}
 				else
 				{

@@ -1,20 +1,36 @@
 package com.aspino.it.karbar;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.Icon;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mikepenz.materialdrawer.Drawer;
+import com.yalantis.colormatchtabs.colormatchtabs.adapter.ColorTabAdapter;
+import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorMatchTabLayout;
+import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorTabView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -22,12 +38,13 @@ public class Paigiri extends AppCompatActivity {
 	private String karbarCode;
 
 	private DatabaseHelper dbh;
-	private TextView txtContent;
+//	private TextView txtContent;
 	private SQLiteDatabase db;
 	private Typeface FontMitra;
 	private ViewPagerAdapter viewPagerAdapter;
 	private ViewPager viewPager;
 	private TabLayout tabLayout;
+	private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -39,6 +56,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
 	viewPager=(ViewPager)findViewById(R.id.view_pager);
 	tabLayout=(TabLayout) findViewById(R.id.tab_layout);
+	//**********************************
+
+	//**********************************
 	dbh=new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -65,15 +85,17 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	catch (Exception e)
 	{
+		db=dbh.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM login",null);
 		for(int i=0;i<cursor.getCount();i++){
 			cursor.moveToNext();
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
 	}
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
-	txtContent=(TextView)findViewById(R.id.tvTextAbout);
-	txtContent.setTypeface(FontMitra);
+
+	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//	txtContent=(TextView)findViewById(R.id.tvTextAbout);
+//	txtContent.setTypeface(FontMitra);
 	//set fragment class and name in adapter
 	viewPagerAdapter.addFragment(new Fragment_Service_Run(),"درحال انجام");
 	viewPagerAdapter.addFragment(new Fragment_Service_Done(),"انجام شده");
@@ -82,6 +104,30 @@ protected void onCreate(Bundle savedInstanceState) {
 	viewPager.setAdapter(viewPagerAdapter);
 	//set tablayout to view pager for show diferent page cansel and done and run listView
 	tabLayout.setupWithViewPager(viewPager);
+	for (int i = 0; i < tabLayout.getTabCount(); i++) {
+		//noinspection ConstantConditions
+		TextView tv=(TextView) LayoutInflater.from(this).inflate(R.layout.item_tablayout,null);
+		tv.setTypeface(FontMitra);
+		tabLayout.getTabAt(i).setCustomView(tv);
+	}
+//	tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//		@Override
+//		public void onTabSelected(TabLayout.Tab tab) {
+//			tab.setCustomView()
+//		}
+//
+//		@Override
+//		public void onTabUnselected(TabLayout.Tab tab) {
+//
+//		}
+//
+//		@Override
+//		public void onTabReselected(TabLayout.Tab tab) {
+//
+//		}
+//	});
+
+
 
 }
 @Override

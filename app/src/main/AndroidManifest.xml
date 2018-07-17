@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aspino.it.karbar">
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/logo1"
         android:label="@string/Logo_name"
-        android:roundIcon="@drawable/logo"
+        android:roundIcon="@drawable/logo1"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.aspino.it.karbar.FontMain">
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
+        android:name="com.aspino.it.karbar.FontMain"
+        tools:replace="android:allowBackup,android:label">
         <activity
             android:name="com.aspino.it.karbar.MainMenu"
             android:label="@string/Logo_name"
@@ -107,6 +111,18 @@
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.ShowFactor"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Final_ShowCodeService"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Paigiri"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Pardakh_Factor_Sefaresh"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.ProfileEdit"
             android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
 

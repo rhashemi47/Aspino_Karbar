@@ -195,9 +195,16 @@ public class SyncSliderPic {
 		db=dbh.getWritableDatabase();
 		db.execSQL("DELETE FROM Slider");
 		for(int i=0;i<res.length;i++){
-			value=res[i].split(Pattern.quote("[Besparina##]"));
-			query="INSERT INTO Slider (Code,Pic) VALUES('"+value[0]+"','"+value[1]+"')";
-			db.execSQL(query);
+			try
+			{
+				value=res[i].split(Pattern.quote("[Besparina##]"));
+				query="INSERT INTO Slider (Code,Pic) VALUES('"+value[0]+"','"+value[1]+"')";
+				db.execSQL(query);
+			}catch (Exception ex)
+			{
+
+			}
+
 		}
 		db.close();
     }

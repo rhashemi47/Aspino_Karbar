@@ -8,23 +8,30 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:orientation="horizontal"
         android:background="@drawable/rounded_list_service">
         <ImageView
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:id="@+id/imgIcon"/>
+            android:id="@+id/imgIcon"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
         <TextView
             android:id="@+id/txtContentVisit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
+            android:textSize="22sp"
+            android:layout_gravity="center"
             android:layout_weight="1"/>
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:src="@drawable/left_arrwo2"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  res/drawable/rounded_edittext.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval" android:padding="10dp"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:shape="oval" android:padding="50dp">
 
     <solid android:color="#50585857"/>
     <corners

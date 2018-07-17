@@ -72,7 +72,7 @@
                 }
                 db.close();
             }
-        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
+        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
         txtContent=(TextView)findViewById(R.id.tvTextOurcommitment);
         txtContent.setTypeface(FontMitra);
             String Query="UPDATE UpdateApp SET Status='1'";

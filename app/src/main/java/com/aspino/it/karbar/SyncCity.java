@@ -202,14 +202,15 @@ public class SyncCity {
 		if(cursor.getCount()>0)
 		{
 			cursor.moveToNext();
-			SyncServices syncservices=new SyncServices(this.activity,karbarCode,cursor.getString(cursor.getColumnIndex("Code")));
-			syncservices.AsyncExecute();
+
 		}
-		else
+		/*else
 		{
 			Toast.makeText(this.activity,"امکان ثبت سرویس در موقیت مکانی شما وجود ندارد",Toast.LENGTH_LONG).show();
-		}
+		}*/
 		db.close();
+		SyncServices syncservices=new SyncServices(this.activity,karbarCode,"2");//cursor.getString(cursor.getColumnIndex("Code"))//todo
+		syncservices.AsyncExecute();
     }
 	
 }

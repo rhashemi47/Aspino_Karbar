@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -69,7 +70,6 @@
                     android:id="@+id/tvTextUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="هاشم رمضانی"
                     android:textSize="22dp"
                     android:textColor="#fff"
                     android:textAlignment="center"
@@ -79,11 +79,11 @@
                     android:id="@+id/tvTextUserMobile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="09304752415"
                     android:textSize="22dp"
                     android:textColor="#fcff1c"
                     android:textAlignment="center"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
 
             </LinearLayout>
         </LinearLayout>
@@ -103,18 +103,19 @@
             android:textSize="22dp"
             android:textColor="#333333"
             android:gravity="right"
-            android:drawableRight="@drawable/editicon"
+            android:drawableRight="@drawable/pen"
             android:textAlignment="gravity"
             android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
             android:layout_marginRight="10dp" />
-            <view
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#acacac"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
 
-            </view>
+            </View>
 
 
 
@@ -126,18 +127,19 @@
                 android:textSize="22dp"
                 android:textColor="#333333"
                 android:gravity="right"
-                android:drawableRight="@drawable/callicon"
+                android:drawableRight="@drawable/call2"
                 android:textAlignment="gravity"
                 android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
                 android:layout_marginRight="10dp" />
-            <view
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#acacac"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp">
 
-            </view>
+            </View>
 
             <TextView
                 android:id="@+id/tvTextExitAccount"
@@ -147,9 +149,10 @@
                 android:textSize="22dp"
                 android:textColor="#333333"
                 android:gravity="right"
-                android:drawableRight="@drawable/officon"
+                android:drawableRight="@drawable/exit"
                 android:textAlignment="gravity"
                 android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
                 android:layout_marginRight="10dp" />
 
         </LinearLayout>

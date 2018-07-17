@@ -83,7 +83,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
 	}
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
+	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 	txtContent=(TextView)findViewById(R.id.tvTextAbout);
 	txtContent.setTypeface(FontMitra);
 

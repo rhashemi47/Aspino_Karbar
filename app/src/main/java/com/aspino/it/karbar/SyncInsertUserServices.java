@@ -579,13 +579,27 @@ public class SyncInsertUserServices {
 							Language+"','0','"+
 							DateDiff+"')");
 		db.close();
-		Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
-		LoadActivity(MainMenu.class, "karbarCode", pUserCode);
+		//Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
+		String mergDateAndTime=StartYear+"/"+StartMonth+"/"+StartDay+" - "+StartHour+":"+StartMinute;
+		LoadActivity(Final_ShowCodeService.class, "karbarCode", pUserCode,
+				"CodeServiceFinal",WsResponse,
+				"NameOrder",ServiceDetaileCode,
+				"AddressFinalService",AddressCode,
+				"DateAndTimeFinalService",mergDateAndTime);
     }
-	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
+	public void LoadActivity(Class<?> Cls,
+							 String VariableName1, String VariableValue1,
+							 String VariableName2, String VariableValue2,
+							 String VariableName3, String VariableValue3,
+							 String VariableName4, String VariableValue4,
+							 String VariableName5, String VariableValue5)
 	{
 		Intent intent = new Intent(this.activity,Cls);
-		intent.putExtra(VariableName, VariableValue);
+		intent.putExtra(VariableName1, VariableValue1);
+		intent.putExtra(VariableName2, VariableValue2);
+		intent.putExtra(VariableName3, VariableValue3);
+		intent.putExtra(VariableName4, VariableValue4);
+		intent.putExtra(VariableName5, VariableValue5);
 		activity.startActivity(intent);
 	}
 

@@ -53,7 +53,7 @@
         android:gravity="center"
         android:layout_marginTop="-70dp">
         <ImageView
-            android:id="@+id/imageViewContactLogo"
+            android:id="@+id/imgHamyar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
@@ -65,7 +65,7 @@
         android:layout_marginTop="-80dp"
             android:layout_marginRight="30dp">
         <ImageView
-            android:id="@+id/imageCall"
+            android:id="@+id/imgCall"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -79,7 +79,7 @@
             android:layout_marginRight="30dp"
             android:layout_gravity="left">
         <ImageView
-            android:id="@+id/imageMessage"
+            android:id="@+id/imgMessage"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
@@ -216,6 +216,7 @@
                 android:textColor="#000"
                 android:layout_marginRight="10dp"
                 android:id="@+id/tvContentTypeService"
+                android:textSize="18sp"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
         <LinearLayout
@@ -399,7 +400,7 @@
             android:textColor="#fff"
             android:layout_marginBottom="5dp"
             android:textSize="18sp"
-            android:id="@+id/tvCachFactor"
+            android:id="@+id/btnCachFactor"
             android:background="@drawable/rounded_button_add_address"/>
     </LinearLayout>
 </RelativeLayout>

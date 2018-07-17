@@ -53,6 +53,7 @@ public class AdapterListViewPager extends BaseAdapter {
         TextView tvAddresService;
         TextView tvNameHamyar;
         LinearLayout LinearStatusService;
+        LinearLayout LinearMain;
     }
 
     // @Override
@@ -61,8 +62,8 @@ public class AdapterListViewPager extends BaseAdapter {
         ViewHolder holder;
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
-        if (convertView == null) {
-            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/BMitra.ttf");
+//        if (convertView == null) {
+            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_viewpager, null);
             holder = new ViewHolder();
             holder.tvTitleService = (TextView) convertView.findViewById(R.id.tvTitleService);
@@ -71,6 +72,7 @@ public class AdapterListViewPager extends BaseAdapter {
             holder.tvAddresService = (TextView) convertView.findViewById(R.id.tvAddresService);
             holder.tvNameHamyar = (TextView) convertView.findViewById(R.id.tvNameHamyar);
             holder.LinearStatusService = (LinearLayout) convertView.findViewById(R.id.LinearStatusService);
+            holder.LinearMain = (LinearLayout) convertView.findViewById(R.id.LinearMain);
             //********************************************
             holder.tvTitleService.setTypeface(faceh);
             holder.tvStatusService.setTypeface(faceh);
@@ -84,16 +86,16 @@ public class AdapterListViewPager extends BaseAdapter {
             holder.tvNameHamyar.setTextSize(18);
             holder.tvNameHamyar.setTextSize(18);
             convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
         String Code = map.get("Code");
         String TitleService = map.get("TitleService");
         String Status = map.get("Status");
         String DateAndTimeService = map.get("DateAndTimeService");
         String AddresService = map.get("AddresService");
         String NameHamyar = map.get("NameHamyar");
-        if(Status.compareTo("0")==0)
+        if(Status.compareTo("0")!=0)
         {
             holder.LinearStatusService.setBackgroundColor(Color.parseColor("#12b44f"));
             holder.tvStatusService.setText("تایید شده");
@@ -103,12 +105,12 @@ public class AdapterListViewPager extends BaseAdapter {
             holder.LinearStatusService.setBackgroundColor(Color.parseColor("#f0ba51"));
             holder.tvStatusService.setText("انتخاب متخصص");
         }
-        holder.LinearStatusService.setTag(Code);
+        holder.LinearMain.setTag(Code);
         holder.tvTitleService.setText(TitleService);
         holder.tvDateAndTimeService.setText(DateAndTimeService);
         holder.tvAddresService.setText(AddresService);
         holder.tvNameHamyar.setText(NameHamyar);
-        holder.LinearStatusService.setOnClickListener(TextViewItemOnclick);
+        holder.LinearMain.setOnClickListener(TextViewItemOnclick);
 
         return convertView;
     }
@@ -118,7 +120,7 @@ public class AdapterListViewPager extends BaseAdapter {
         @Override
         public void onClick(View v) {
             String code = ((LinearLayout)v).getTag().toString();
-            Intent intent = new Intent(activity.getApplicationContext(),ShowMessage.class);//todo pardakh_factor_sefaresh.xml
+            Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo pardakh_factor_sefaresh.xml
             intent.putExtra("Code",code);
             activity.startActivity(intent);
         }

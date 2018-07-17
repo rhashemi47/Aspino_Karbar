@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:paddingTop="@dimen/appbar_padding_top"
-        android:background="#6932d5"
+        android:background="@drawable/header_pages"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -22,17 +22,14 @@
                 android:layout_height="?attr/actionBarSize"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_gravity="center"
-
-                android:background="@drawable/header_pages">
-
+                android:layout_gravity="center">
                 <TextView
                     android:layout_width="389dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="30dp"
                     android:gravity="center"
-                    android:text="@string/NewAddresSave"
+                    android:text="@string/ServiDetailName"
                     android:textColor="#ffff"
                     android:textSize="18sp" />
             </LinearLayout>

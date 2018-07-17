@@ -124,7 +124,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	//**************************************************************************************
 
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
+	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 
 	btnCansel.setTypeface(FontMitra);
 	btnshowFactor.setTypeface(FontMitra);

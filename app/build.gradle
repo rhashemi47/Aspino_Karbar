@@ -43,5 +43,6 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:26.+'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'com.github.hamsaadev:Persian-Date-Picker-Dialog:V1.2'
+    compile 'com.github.Yalantis:ColorMatchTabsAndroid:v0.0.1'
 
 }

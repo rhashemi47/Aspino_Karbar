@@ -13,7 +13,7 @@ public class FontMain extends Application {
     public void onCreate() {
         super.onCreate();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("font/BMitra.ttf")
+                .setDefaultFontPath("font/Vazir.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

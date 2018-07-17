@@ -83,7 +83,8 @@ public class SyncServicesForService {
 		
 		public AsyncCallWS(Context activity) {
 		    this.activity = activity;
-		    this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+		    this.dialog = new ProgressDialog(activity);
+		    this.dialog.setCanceledOnTouchOutside(false);
 		}
 		
         @Override
@@ -157,6 +158,16 @@ public class SyncServicesForService {
 	    //Add the property to request object
 	    request.addProperty(VerifyCode);	    
 	    //Create envelope
+		//******************************************
+		PropertyInfo CityCode = new PropertyInfo();
+		//Set Name
+		CityCode.setName("CityCode");
+		//Set Value
+		CityCode.setValue("2");
+		//Set dataType
+		CityCode.setType(String.class);
+		//Add the property to request object
+		request.addProperty(CityCode);
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
 	    envelope.dotNet = true;

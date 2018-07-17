@@ -66,13 +66,13 @@ public class AdapterGridServices extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
         if (convertView == null) {
-            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/BMitra.ttf");
+            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
             convertView = inflater.inflate(R.layout.grid_view_services, null);
             holder = new ViewHolder();
             holder.txtValues = (TextView) convertView.findViewById(R.id.grid_item_label);
             holder.imgValues = (ImageView) convertView.findViewById(R.id.grid_item_image);
             holder.txtValues.setTypeface(faceh);
-            holder.txtValues.setTextSize(12);
+            holder.txtValues.setTextSize(14);
             convertView.setTag(holder);
         } else
         {

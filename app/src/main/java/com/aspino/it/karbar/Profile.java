@@ -1,8 +1,11 @@
 package com.aspino.it.karbar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,8 +18,10 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.v4.app.ActivityCompat;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,33 +40,16 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class Profile extends Activity {
 	private String karbarCode;
-	private Button btnSaveProfile;
-	private Button btnAddAdres;
-	private Button btnEditAdres;
-	private String phonenumber;
-	private String ReagentCode="";
-//	private TextView tvProfileRegentCode;
-//	private TextView tvUserName;
-//	private TextView tvUserFName;
-//	private TextView tvUserCode;
-//	private TextView tvTitleUserCode;
-//	private TextView tvTitleName;
-//	private TextView tvTitleFName;
-//	private TextView TextViewAge;
-//	private TextView tvTitleNumberPhone;
+	private TextView tvTextUserName;
+	private TextView tvTextUserMobile;
+	private TextView tvTextEditProfile;
+	private TextView tvTextCallSupport;
+	private TextView tvTextExitAccount;
 	private TextView tvTitleAdressAdd;
 	private TextView tvCodeMoaref;
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
-	private EditText brithday;
-	private String yearStr="";
-	private String monStr="";
-	private String dayStr="";
-	private TextView tvPhoneNumber;
 	private ImageView imgUser;
-//	private Button btnOrder;
-//	private Button btnAcceptOrder;
-//	private Button btncredite;
 	private int color;
 	private Paint paint;
 	private Rect rect;
@@ -77,23 +65,12 @@ public class Profile extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
-//		btnOrder=(Button)findViewById(R.id.btnOrderBottom);
-//		btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
-//		btncredite=(Button)findViewById(R.id.btncrediteBottom);
 		imgUser=(ImageView)findViewById(R.id.imgUser);
-		brithday=(EditText)findViewById(R.id.etBrithday);
-//		tvProfileRegentCode=(TextView)findViewById(R.id.etReagentCodeProfile);
-		tvPhoneNumber=(TextView) findViewById(R.id.tvNumberPhone);
-//		tvUserName=(TextView) findViewById(R.id.tvUserName);
-//		tvUserFName=(TextView) findViewById(R.id.tvUserFName);
-//		tvTitleUserCode=(TextView) findViewById(R.id.tvTitleUserCode);
-//		tvTitleName=(TextView) findViewById(R.id.tvTitleName);
-//		tvTitleFName=(TextView) findViewById(R.id.tvTitleFName);
-//		TextViewAge=(TextView) findViewById(R.id.TextViewAge);
-//		tvTitleNumberPhone=(TextView) findViewById(R.id.tvTitleNumberPhone);
-//		tvTitleAdressAdd=(TextView) findViewById(R.id.tvTitleAdressAdd);
-		tvCodeMoaref=(TextView) findViewById(R.id.tvCodeMoaref);
-//		tvUserCode=(TextView) findViewById(R.id.tvUserCode);
+		tvTextUserName=(TextView)findViewById(R.id.tvTextUserName);
+		tvTextUserMobile=(TextView)findViewById(R.id.tvTextUserMobile);
+		tvTextEditProfile=(TextView) findViewById(R.id.tvTextEditProfile);
+		tvTextCallSupport=(TextView) findViewById(R.id.tvTextCallSupport);
+		tvTextExitAccount=(TextView) findViewById(R.id.tvTextExitAccount);
 		dbh=new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -113,67 +90,22 @@ public class Profile extends Activity {
 
 			throw sqle;
 		}
-		try
-		{
-			karbarCode = getIntent().getStringExtra("karbarCode").toString();
-
-			phonenumber = getIntent().getStringExtra("guid").toString();
-		}
-		catch (Exception e)
-		{
 			db=dbh.getReadableDatabase();
 			Cursor coursors = db.rawQuery("SELECT * FROM login",null);
 			for(int i=0;i<coursors.getCount();i++){
 				coursors.moveToNext();
 
 				karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
-				phonenumber=coursors.getString(coursors.getColumnIndex("Phone"));
+				tvTextUserMobile.setText(coursors.getString(coursors.getColumnIndex("Phone")));
 			}
 			db.close();
-		}
 
-
-		tvPhoneNumber.setText(phonenumber);
-		Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/BMitra.ttf");//set font for page
-		tvPhoneNumber.setTextSize(18);
-		tvPhoneNumber.setTypeface(FontMitra);
-		tvPhoneNumber.setTextSize(18);
-//		tvUserName.setTypeface(FontMitra);
-//		tvUserName.setTextSize(18);
-//		tvUserCode.setTypeface(FontMitra);
-//		tvUserCode.setTextSize(18);
-//		tvUserFName.setTypeface(FontMitra);
-//		tvUserFName.setTextSize(18);
-		brithday.setTypeface(FontMitra);
-		brithday.setTextSize(18);
-		tvPhoneNumber.setTypeface(FontMitra);
-		tvPhoneNumber.setTextSize(18);
-//		tvProfileRegentCode.setTypeface(FontMitra);
-//		tvProfileRegentCode.setTextSize(18);
-//		tvTitleUserCode.setTypeface(FontMitra);
-//		tvTitleName.setTypeface(FontMitra);
-//		tvTitleFName.setTypeface(FontMitra);
-//		TextViewAge.setTypeface(FontMitra);
-//		tvTitleNumberPhone.setTypeface(FontMitra);
-		tvTitleAdressAdd.setTypeface(FontMitra);
-		tvCodeMoaref.setTypeface(FontMitra);
-		//******************************************
-//		tvTitleUserCode.setTextSize(18);
-//		tvTitleName.setTextSize(18);
-//		tvTitleFName.setTextSize(18);
-//		TextViewAge.setTextSize(18);
-//		tvTitleNumberPhone.setTextSize(18);
-		tvTitleAdressAdd.setTextSize(18);
-		tvCodeMoaref.setTextSize(18);
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
 		db=dbh.getReadableDatabase();
-		Cursor coursors = db.rawQuery("SELECT * FROM Profile",null);
+		coursors = db.rawQuery("SELECT * FROM Profile",null);
 		for(int i=0;i<coursors.getCount();i++){
 			coursors.moveToNext();
-//			tvUserCode.setText(coursors.getString(coursors.getColumnIndex("Code")));
-//			tvUserName.setText(coursors.getString(coursors.getColumnIndex("Name")));
-//			tvUserFName.setText(coursors.getString(coursors.getColumnIndex("Fam")));
-			brithday.setText(coursors.getString(coursors.getColumnIndex("BthDate")));
+			tvTextUserName.setText(coursors.getString(coursors.getColumnIndex("Name")) + " " + coursors.getString(coursors.getColumnIndex("Fam")));
 			try
 			{
 				if(coursors.getString(coursors.getColumnIndex("Pic")).length()>0) {
@@ -194,7 +126,31 @@ public class Profile extends Activity {
 			bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
 			imgUser.setImageBitmap(getRoundedRectBitmap(bmp, 1000));
 		}
-
+		tvTextEditProfile.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LoadActivity(ProfileEdit.class,"karbarCode",karbarCode);
+			}
+		});
+		tvTextCallSupport.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				db=dbh.getReadableDatabase();
+				Cursor cursor = db.rawQuery("SELECT * FROM Supportphone",null);
+				if(cursor.getCount()>0)
+				{
+					cursor.moveToNext();
+					dialContactPhone(cursor.getString(cursor.getColumnIndex("PhoneNumber")));
+				}
+				db.close();
+			}
+		});
+		tvTextExitAccount.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Logout();
+			}
+		});
 //		btnEditAdres=(Button)findViewById(R.id.btnEditAdres);
 //		btnEditAdres.setOnClickListener(new View.OnClickListener() {
 //			@Override
@@ -341,22 +297,92 @@ public class Profile extends Activity {
 //		});
 	}
 
-	public void insertKarbar() {
-		db=dbh.getReadableDatabase();
-		String errorStr="";
-		if(yearStr.compareTo("")==0 || monStr.compareTo("")==0 || dayStr.compareTo("")==0){
-			errorStr="لطفا تاریخ تولد را وارد نمایید\n";
+	public void dialContactPhone(String phoneNumber) {
+		//startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:" + phoneNumber));
+		if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+			// TODO: Consider calling
+			//    ActivityCompat#requestPermissions
+			// here to request the missing permissions, and then overriding
+			//   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+			//                                          int[] grantResults)
+			// to handle the case where the user grants the permission. See the documentation
+			// for ActivityCompat#requestPermissions for more details.
+			return;
 		}
-		if(errorStr.compareTo("")==0)
-		{
-			UpdateProfile updateProfile = new UpdateProfile(Profile.this, karbarCode, yearStr, monStr, dayStr,ReagentCode);
-			updateProfile.AsyncExecute();
-		}
-		else
-		{
-			Toast.makeText(Profile.this, errorStr, Toast.LENGTH_SHORT).show();
-		}
-		db.close();
+
+
+		startActivity(callIntent);
+	}
+	public void Logout() {
+		//Exit All Activity And Kill Application
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+		// set the message to display
+		alertbox.setMessage("آیا می خواهید از کاربری خارج شوید ؟");
+
+		// set a negative/no button and create a listener
+		alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+			}
+		});
+
+		// set a positive/yes button and create a listener
+		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				//Declare Object From Get Internet Connection Status For Check Internet Status
+				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
+				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
+				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+				stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+				db = dbh.getWritableDatabase();
+				db.execSQL("DELETE FROM address");
+				db.execSQL("DELETE FROM AmountCredit");
+				db.execSQL("DELETE FROM android_metadata");
+				db.execSQL("DELETE FROM Arts");
+				db.execSQL("DELETE FROM BsFaktorUserDetailes");
+				db.execSQL("DELETE FROM BsFaktorUsersHead");
+				db.execSQL("DELETE FROM City");
+				db.execSQL("DELETE FROM credits");
+				db.execSQL("DELETE FROM DateTB");
+				db.execSQL("DELETE FROM FieldofEducation");
+				db.execSQL("DELETE FROM Grade");
+				db.execSQL("DELETE FROM Hamyar");
+				db.execSQL("DELETE FROM InfoHamyar");
+				db.execSQL("DELETE FROM Language");
+				db.execSQL("DELETE FROM login");
+				db.execSQL("DELETE FROM messages");
+				db.execSQL("DELETE FROM OrdersService");
+				db.execSQL("DELETE FROM Profile");
+				db.execSQL("DELETE FROM services");
+				db.execSQL("DELETE FROM servicesdetails");
+				db.execSQL("DELETE FROM Slider");
+				db.execSQL("DELETE FROM sqlite_sequence");
+				db.execSQL("DELETE FROM State");
+				db.execSQL("DELETE FROM Supportphone");
+				db.execSQL("DELETE FROM Unit");
+				db.execSQL("DELETE FROM UpdateApp");
+				db.execSQL("DELETE FROM visit");
+				db.close();
+				Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+				startMain.addCategory(Intent.CATEGORY_HOME);
+
+				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+				startActivity(startMain);
+
+				finish();
+				arg0.dismiss();
+			}
+		});
+		alertbox.show();
 	}
 	@Override
 	public boolean onKeyDown( int keyCode, KeyEvent event )  {

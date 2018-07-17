@@ -131,7 +131,7 @@ public class Fragment_Service_Run extends Fragment {
             map.put("DateAndTimeService",StartDate + " ساعت " +StartTime);
             map.put("TitleService",coursors.getString(coursors.getColumnIndex("name")));
             map.put("AddresService",coursors.getString(coursors.getColumnIndex("AddressCode")));
-            map.put("NameHamyar",coursors.getString(coursors.getColumnIndex("NameHamyar")));
+//            map.put("NameHamyar",coursors.getString(coursors.getColumnIndex("NameHamyar")));
 
             valuse.add(map);
         }
