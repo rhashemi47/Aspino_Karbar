@@ -36,22 +36,23 @@
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:orientation="vertical"
         android:background="@drawable/header_pages">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/rounded_tab"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp">
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginBottom="30dp">
             <android.support.design.widget.TabLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tab_layout"
                 app:tabMode="fixed"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
                 app:tabTextColor="#fff"
                 app:tabSelectedTextColor="#6831d5"
                 app:tabIndicatorColor="#fff"
@@ -76,5 +77,5 @@
         android:layout_height="wrap_content"
         android:layoutDirection="rtl"
         android:paddingTop="40dp"
-        android:layout_marginTop="-40dp"/>
+        android:layout_marginTop="-10dp"/>
 </LinearLayout>

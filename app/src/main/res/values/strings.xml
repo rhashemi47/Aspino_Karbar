@@ -110,8 +110,8 @@
     <string name="Monthly">ماهانه</string>
     <string name="Graid">پایه تحصیلی</string>
     <string name="FieldEducation">رشته تحصیلی</string>
-    <string name="Male">مرد</string>
-    <string name="Female">زن</string>
+    <string name="Male">آقا</string>
+    <string name="Female">خانم</string>
     <string name="GenderStudent">جنسیت دانش آموز</string>
     <string name="GenderTeacher">جنیست معلم</string>
     <string name="TitleLearning">عنوان آموزش</string>

@@ -350,6 +350,11 @@
                         android:inputType="textMultiLine"
                         android:layout_gravity="right"
                         android:gravity="right"
+                        android:text="زتمتر"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
                         android:background="@drawable/rounded_edittext"
                         android:textColor="#000000" />
                 </LinearLayout>

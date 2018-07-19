@@ -5,38 +5,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="#ffffff"
     android:layoutDirection="rtl">
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/mdtp_transparent"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
-            <!--<TextView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="@string/MainMenuTitle"-->
-                <!--android:textColor="#fff"-->
-                <!--android:gravity="center"-->
-                <!--android:textSize="22sp"/>-->
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="210dp"
         android:layout_marginTop="-60dp"
         android:id="@+id/LinearSlidShow">
         <com.aspino.it.karbar.Custom_ViewFlipper
             android:layout_width="match_parent"
-            android:layout_height="185dp"
+            android:layout_height="210dp"
             android:inAnimation="@anim/right_in"
             android:outAnimation="@anim/left_out"
             android:flipInterval="5000"
@@ -46,8 +37,32 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginTop="-70dp"
+        android:layout_height="90dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/linear_search">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etSearch"
+            android:layout_marginTop="35dp"
+            android:paddingRight="10dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="15dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="2dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:hint="@string/SearchService"
+            android:drawableLeft="@drawable/search"
+            android:background="@drawable/rounded_edittext"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="-165dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="center"
@@ -59,18 +74,17 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-            android:id="@+id/LinearSupportContact"
-            android:layout_marginBottom="20dp">
+            android:id="@+id/LinearSupportContact">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/call_to_supporter"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/CallSupporter"
-                android:textColor="#fff"
-                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </LinearLayout>
@@ -81,7 +95,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/logo1"
-                android:layout_marginBottom="40dp"/>
+                android:layout_marginBottom="20dp"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -89,132 +103,44 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:id="@+id/LinearListOrder">
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:src="@drawable/clock2"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/Order"
-                android:textColor="#fff"
-                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
                 android:layout_gravity="center"
                 android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/etSearch"
-        android:layout_marginRight="65dp"
-        android:layout_marginLeft="65dp"
-        android:layout_marginTop="-55dp"
-        android:paddingRight="10dp"
-        android:paddingEnd="10dp"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="2dp"
-        android:hint="@string/SearchService"
-        android:drawableLeft="@drawable/search"
-        android:background="@drawable/rounded_edittext"/>
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:id="@+id/LinearServic"-->
-    <!--android:foregroundGravity="center"-->
-    <!--android:layout_marginLeft="5dp"-->
-    <!--android:layout_marginRight="5dp"-->
-    <!--android:layout_marginTop="-10dp"-->
-    <!--android:orientation="vertical">-->
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_marginTop="-20dp"-->
-    <!--android:background="@drawable/rounded_edittext">-->
-    <!---->
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="55dp"
+        android:layout_marginBottom="-30dp">
 
-        <!--</LinearLayout>-->
-        <LinearLayout
+        <GridView
+            android:id="@+id/GridViewServices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            android:background="@color/colorbuttonview">
+        </GridView>
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp">
-            <GridView
-                android:id="@+id/GridViewServices"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:numColumns="3"
-                android:background="@color/colorbuttonview">
-            </GridView>
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/lstSearchDetailService"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
-            </ListView>
-        </LinearLayout>
+            android:id="@+id/lstSearchDetailService"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+        </ListView>
     </LinearLayout>
+</LinearLayout>
 
-    <!--<FrameLayout-->
-        <!--android:id="@+id/frame"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
-    <!--</FrameLayout>-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_below="@+id/LinearServic"-->
-        <!--android:layout_margin="10dp">-->
-        <!--<Button-->
-            <!--android:id="@+id/btnServiceEmergency"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/emergencyService"-->
-            <!--android:background="@drawable/rounded_layout_job_title"-->
-            <!--android:drawableRight="@drawable/emerjency"-->
-            <!--android:layout_marginLeft="100dp"-->
-            <!--android:layout_marginRight="100dp"/>-->
-    <!--</LinearLayout>-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="80dp"-->
-        <!--android:layout_alignParentBottom="true">-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/Order"-->
-            <!--android:id="@+id/btnOrderBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/job2"/>-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/AcceptOrder"-->
-            <!--android:id="@+id/btnAcceptOrderBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/duty2"/>-->
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/Credits"-->
-            <!--android:id="@+id/btncrediteBottom"-->
-            <!--android:background="@drawable/rounded_button"-->
-            <!--android:textColor="#052d93"-->
-            <!--android:layout_weight="1"-->
-            <!--android:drawableTop="@drawable/credit2"/>-->
-    <!--</LinearLayout>-->
+
