@@ -212,4 +212,6 @@
     <string name="MessageFindHamyar">در حال جستجوی بهترین متخصص برای درخواست شما هستیم لطفا تا ارسال پیشنهاد متخصصین شکیبا باشید</string>
     <string name="CodeOrderService">کد سفارش:</string>
     <string name="wallet">کیف پول</string>
+    <string name="open">باز</string>
+    <string name="close">بسته</string>
 </resources>

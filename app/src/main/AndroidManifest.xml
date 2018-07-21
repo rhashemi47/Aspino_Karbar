@@ -16,8 +16,8 @@
         tools:replace="android:allowBackup,android:label">
         <activity
             android:name="com.aspino.it.karbar.MainMenu"
-            android:label="@string/Logo_name"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/Theme.Design.NoActionBar"
+            android:label=""
             android:noHistory="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

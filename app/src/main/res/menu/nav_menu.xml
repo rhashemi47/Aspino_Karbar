@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+       <item
+            android:title="@string/Profile"
+            android:icon="@drawable/profile"
+            android:id="@+id/profile" />
+        <item
+            android:title="@string/wallet"
+            android:icon="@drawable/wallet"
+            android:id="@+id/wallet" />
+        <item
+            android:title="@string/Order"
+            android:icon="@drawable/clock"
+            android:id="@+id/Order" />
+        <item
+            android:title="@string/AddresManagement"
+            android:icon="@drawable/manage_addres"
+            android:id="@+id/AddresManagement" />
+        <item
+            android:title="@string/Invite_friends"
+            android:icon="@drawable/share"
+            android:id="@+id/Invite_friends" />
+        <item
+            android:title="@string/About"
+            android:icon="@drawable/about"
+            android:id="@+id/About" />
+
+    <!--<item android:title="Other">-->
+
+        <!--<menu>-->
+
+            <!--<item-->
+                <!--android:title="Archive"-->
+                <!--android:icon="@drawable/archive"-->
+                <!--android:id="@+id/archive" />-->
+
+            <!--<item-->
+                <!--android:title="Add Account"-->
+                <!--android:icon="@drawable/add"-->
+                <!--android:id="@+id/add" />-->
+
+        <!--</menu>-->
+
+    <!--</item>-->
+
+</menu>

@@ -1,6 +1,11 @@
 package com.aspino.it.karbar;
 
 import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.GestureDetector;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,6 +36,7 @@ import android.util.Base64;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +65,7 @@ import java.util.HashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private String karbarCode="0";
 
     private DatabaseHelper dbh;
@@ -74,6 +80,9 @@ public class MainMenu extends AppCompatActivity {
     private LinearLayout LinearListOrder;
     private LinearLayout LinearSupportContact;
     private Typeface faceh;
+    private DrawerLayout mDrawer;
+    private NavigationView mNavi;
+    private Toolbar mtoolbar;
     ImageView imageView;
     Custom_ViewFlipper viewFlipper;
     GestureDetector mGestureDetector;
@@ -90,7 +99,18 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mainmenu);
+        setContentView(R.layout.slid_menu);
+        Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+        setSupportActionBar(mtoolbar);
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mNavi = (NavigationView) findViewById(R.id.navigation_view);
+        mNavi.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+
+        mDrawer.addDrawerListener(aToggle);
+        aToggle.syncState();
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 
@@ -290,7 +310,7 @@ public class MainMenu extends AppCompatActivity {
 
        }
         //**************************************************************************
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         db = dbh.getReadableDatabase();
         coursors = db.rawQuery("SELECT * FROM Slider", null);
         if (coursors.getCount() > 0) {
@@ -428,7 +448,7 @@ public class MainMenu extends AppCompatActivity {
 //            }
 //        });
         //****************************************************************************************
-        CreateMenu(toolbar);
+        //CreateMenu(toolbar);
         //***************************************************************************************************************************
     }
 
@@ -877,6 +897,39 @@ public class MainMenu extends AppCompatActivity {
                 .build();
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int mId = item.getItemId();
+
+        switch (mId) {
+
+            case R.id.profile:
+                Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.wallet:
+                Toast.makeText(this, "wallet", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.AddresManagement:
+                Toast.makeText(this, "AddresManagement", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.Invite_friends:
+                Toast.makeText(this, "Invite_friends", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.About:
+                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
+        mDrawer.closeDrawer(GravityCompat.START);
+        return true;
+
+    }
+
     class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -899,14 +952,14 @@ public class MainMenu extends AppCompatActivity {
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            ExitApplication();
-        }
-
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+//            ExitApplication();
+//        }
+//
+//        return super.onKeyDown(keyCode, event);
+//    }
 
     public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue) {
         Intent intent = new Intent(getApplicationContext(), Cls);
@@ -1017,5 +1070,19 @@ public class MainMenu extends AppCompatActivity {
 
 
         startActivity(callIntent);
+    }
+    @Override
+    public void onBackPressed() {
+
+        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+
+            mDrawer.closeDrawer(GravityCompat.START);
+
+        } else {
+
+            //super.onBackPressed();
+            ExitApplication();
+        }
+
     }
 }
