@@ -27,7 +27,7 @@ public class Final_ShowCodeService extends AppCompatActivity {
 	private TextView tvDateAndTimeFinalService;
 	private ImageView imgOK;
 	private SQLiteDatabase db;
-	private Typeface FontMitra;
+//	private Typeface FontMitra;
 	private String CodeServiceFinal;
 	private String NameOrder;
 	private String AddressFinalService;
@@ -111,17 +111,17 @@ protected void onCreate(Bundle savedInstanceState) {
 		DateAndTimeFinalService="0";
 	}
 
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 	tvCodeServiceFinal=(TextView)findViewById(R.id.tvCodeServiceFinal);
 	tvNameOrder=(TextView)findViewById(R.id.tvNameOrder);
 	tvAddressFinalService=(TextView)findViewById(R.id.tvAddressFinalService);
 	tvDateAndTimeFinalService=(TextView)findViewById(R.id.tvDateAndTimeFinalService);
 	imgOK=(ImageView) findViewById(R.id.imgOK);
-	//************************************************************************************
-	tvCodeServiceFinal.setTypeface(FontMitra);
-	tvNameOrder.setTypeface(FontMitra);
-	tvAddressFinalService.setTypeface(FontMitra);
-	tvDateAndTimeFinalService.setTypeface(FontMitra);
+//	//************************************************************************************
+//	tvCodeServiceFinal.setTypeface(FontMitra);
+//	tvNameOrder.setTypeface(FontMitra);
+//	tvAddressFinalService.setTypeface(FontMitra);
+//	tvDateAndTimeFinalService.setTypeface(FontMitra);
 	//************************************************************************************
 	db=dbh.getReadableDatabase();
 	Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE code='"+NameOrder+"'",null);

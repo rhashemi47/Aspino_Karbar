@@ -12,12 +12,11 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
-        android:name="com.aspino.it.karbar.FontMain"
+        android:name=".FontMain"
         tools:replace="android:allowBackup,android:label">
         <activity
             android:name="com.aspino.it.karbar.MainMenu"
-            android:theme="@style/Theme.Design.NoActionBar"
-            android:label=""
+            android:label="@string/Logo_name"
             android:noHistory="false" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

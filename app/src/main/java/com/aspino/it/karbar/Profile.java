@@ -17,7 +17,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Typeface;
+//import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 

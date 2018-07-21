@@ -203,7 +203,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 	public void prepareData()
 	{
 		String ContentStr="";
-		Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+		//Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 		db = dbh.getReadableDatabase();
 		String query="SELECT * FROM BsFaktorUsersHead WHERE Status='1' AND UserServiceCode="+OrderCode;
 		Cursor cursor = db.rawQuery(query,null);
@@ -235,7 +235,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			ContentStr += "توضیحات: " + cursor.getString(cursor.getColumnIndex("Description")) + "\n";
 			ContentStr += "جمع کل فاکتور: " + Total + "\n";
 			db.close();
-			ContentShowFactor.setTypeface(FontMitra);
+//			ContentShowFactor.setTypeface(FontMitra);
 			ContentShowFactor.setText(ContentStr);
 		}
 	}

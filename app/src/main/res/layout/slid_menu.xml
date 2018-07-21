@@ -11,20 +11,20 @@
     android:background="@color/mdtp_transparent"
     tools:openDrawer="start"
     >
-<include layout="@layout/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
-
+    <include layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/DrawerArrowStyle"/>
 
     <android.support.design.widget.NavigationView
-        android:layout_width="220dp"
+        android:layout_width="290dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layoutDirection="rtl"
-        android:fitsSystemWindows="true"
         android:id="@+id/navigation_view"
         android:background="@drawable/body_menu"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/nav_menu"/>
-
+        app:menu="@menu/nav_menu"
+        app:itemIconTint="@android:color/white"
+        app:itemTextColor="#000"/>
 </android.support.v4.widget.DrawerLayout>

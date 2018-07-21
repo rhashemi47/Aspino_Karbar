@@ -2,7 +2,7 @@ package com.aspino.it.karbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.graphics.Typeface;
+//import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +52,11 @@ public class AdapterCredit extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
         if (convertView == null) {
-            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
+//            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_credit, null);
             holder = new ViewHolder();
             holder.txtValues = (TextView) convertView.findViewById(R.id.txtContentCrdit);
-            holder.txtValues.setTypeface(faceh);
+//            holder.txtValues.setTypeface(faceh);
             holder.txtValues.setTextSize(18);
             convertView.setTag(holder);
         } else {

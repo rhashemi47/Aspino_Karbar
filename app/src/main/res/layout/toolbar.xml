@@ -13,9 +13,9 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/mdtp_transparent"
         android:id="@+id/m_toolbar"
+        app:title=""
         android:layout_alignParentTop="true"
         android:layout_below="@+id/mainmenu"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        style="DrawerArrowStyle"/>
-
+        app:theme="@style/DrawerArrowStyle"
+        style="@style/DrawerArrowStyle"/>
 </RelativeLayout>

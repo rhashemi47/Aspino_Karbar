@@ -30,34 +30,73 @@
                     android:text="@string/peigiri"
                     android:gravity="center"
                     android:textSize="18sp"
-                    android:titleTextColor="#000f"/>
+                    android:titleTextColor="#fff"/>
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:orientation="vertical"
         android:background="@drawable/header_pages">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_tab"
-            android:layout_marginRight="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="30dp">
-            <android.support.design.widget.TabLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="50dp"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginBottom="30dp"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center">-->
+            <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/tab_layout"
-                app:tabMode="fixed"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
-                app:tabTextColor="#fff"
-                app:tabSelectedTextColor="#6831d5"
-                app:tabIndicatorColor="#fff"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:stl_indicatorAlwaysInCenter="false"
+                app:stl_indicatorWithoutPadding="true"
+                app:stl_indicatorInFront="false"
+                app:stl_indicatorInterpolation="smart"
+                app:stl_indicatorGravity="center"
+                app:stl_indicatorColor="#fff"
+                app:stl_indicatorThickness="50dp"
+                app:stl_indicatorWidth="auto"
+                app:stl_indicatorCornerRadius="20dp"
+                app:stl_overlineColor="@color/mdtp_transparent"
+                app:stl_overlineThickness="0dp"
+                app:stl_underlineColor="@color/mdtp_transparent"
+                app:stl_underlineThickness="1dp"
+                app:stl_dividerColor="@color/mdtp_transparent"
+                app:stl_dividerThickness="1dp"
+                app:stl_defaultTabBackground="?attr/selectableItemBackground"
+                app:stl_defaultTabTextAllCaps="true"
+                app:stl_defaultTabTextColor="@color/selector_color"
+                app:stl_defaultTabTextSize="16sp"
+                app:stl_defaultTabTextHorizontalPadding="0dp"
+                app:stl_defaultTabTextMinWidth="0dp"
+                app:stl_distributeEvenly="true"
+                app:stl_clickable="true"
+                app:stl_titleOffset="0dp"
+                app:stl_drawDecorationAfterTab="false"
+                android:layout_gravity="center"
+                android:foregroundGravity="center"
+                android:background="@drawable/rounded_tab"
+                style="@style/TextAppearance.Medium"
+                app:stl_customTabTextLayoutId="@layout/custom_tab_with_typeface"
+                app:stl_customTabTextViewId="@id/custom_text"
+                />
+            <!--<android.support.design.widget.TabLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/tab_layout"-->
+                <!--app:tabMode="fixed"-->
+                <!--android:layout_marginRight="40dp"-->
+                <!--android:layout_marginLeft="40dp"-->
+                <!--app:tabTextColor="#fff"-->
+                <!--app:tabSelectedTextColor="#6831d5"-->
+                <!--app:tabIndicatorColor="#fff"-->
 
-                app:tabGravity="fill"/>
+                <!--app:tabGravity="fill"/>-->
 
             <!--<com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorMatchTabLayout-->
                 <!--android:id="@+id/tab_layout"-->
@@ -68,7 +107,7 @@
                 <!--android:layout_marginRight="20dp"-->
                 <!--android:layout_marginLeft="20dp"-->
                 <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />-->
-        </LinearLayout>
+        <!--</LinearLayout>-->
     </LinearLayout>
 
     <android.support.v4.view.ViewPager

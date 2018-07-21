@@ -21,12 +21,14 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
+//
+//import com.mikepenz.materialdrawer.Drawer;
+//import com.yalantis.colormatchtabs.colormatchtabs.adapter.ColorTabAdapter;
+//import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorMatchTabLayout;
+//import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorTabView;
 
-import com.mikepenz.materialdrawer.Drawer;
-import com.yalantis.colormatchtabs.colormatchtabs.adapter.ColorTabAdapter;
-import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorMatchTabLayout;
-import com.yalantis.colormatchtabs.colormatchtabs.colortabs.ColorTabView;
+import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class Paigiri extends AppCompatActivity {
 	private Typeface FontMitra;
 	private ViewPagerAdapter viewPagerAdapter;
 	private ViewPager viewPager;
-	private TabLayout tabLayout;
+	private SmartTabLayout tabLayout;
 	private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -55,7 +57,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	setContentView(R.layout.peigiri);
 	viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
 	viewPager=(ViewPager)findViewById(R.id.view_pager);
-	tabLayout=(TabLayout) findViewById(R.id.tab_layout);
+	tabLayout=(SmartTabLayout) findViewById(R.id.tab_layout);
 	//**********************************
 
 	//**********************************
@@ -93,7 +95,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	}
 
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+	FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
 //	txtContent=(TextView)findViewById(R.id.tvTextAbout);
 //	txtContent.setTypeface(FontMitra);
 	//set fragment class and name in adapter
@@ -103,17 +105,18 @@ protected void onCreate(Bundle savedInstanceState) {
 	//set adapter to view pager in class peigiri
 	viewPager.setAdapter(viewPagerAdapter);
 	//set tablayout to view pager for show diferent page cansel and done and run listView
-	tabLayout.setupWithViewPager(viewPager);
-	for (int i = 0; i < tabLayout.getTabCount(); i++) {
-		//noinspection ConstantConditions
-		TextView tv=(TextView) LayoutInflater.from(this).inflate(R.layout.item_tablayout,null);
-		tv.setTypeface(FontMitra);
-		tabLayout.getTabAt(i).setCustomView(tv);
-	}
+	tabLayout.setViewPager(viewPager);
+
+//	for (int i = 0; i < tabLayout.getTabCount(); i++) {
+//		//noinspection ConstantConditions
+//		TextView tv=(TextView) LayoutInflater.from(this).inflate(R.layout.item_tablayout,null);
+//		tv.setTypeface(FontMitra);
+//		tabLayout.getTabAt(i).setCustomView(tv);
+//	}
 //	tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 //		@Override
 //		public void onTabSelected(TabLayout.Tab tab) {
-//			tab.setCustomView()
+//			tab.setCustomView();
 //		}
 //
 //		@Override

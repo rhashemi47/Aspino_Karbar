@@ -72,13 +72,9 @@
                 }
                 db.close();
             }
-        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+        //Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
         txtContent=(TextView)findViewById(R.id.tvTextOurcommitment);
-        txtContent.setTypeface(FontMitra);
-            String Query="UPDATE UpdateApp SET Status='1'";
-            db=dbh.getWritableDatabase();
-            db.execSQL(Query);
-            db.close();
+//        txtContent.setTypeface(FontMitra);
 //            db=dbh.getReadableDatabase();
 //            Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 //                    "LEFT JOIN " +

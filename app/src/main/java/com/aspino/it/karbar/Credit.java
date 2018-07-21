@@ -85,9 +85,9 @@ protected void onCreate(Bundle savedInstanceState) {
 //
 //	btnIncreseCredit=(Button)findViewById(R.id.btnIncresCredit);
 //	lstHistoryCredit=(ListView) findViewById(R.id.lstHistoryCredit);
-	Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+	//Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 	txtContent=(TextView)findViewById(R.id.tvHistoryCredits);
-	txtContent.setTypeface(FontMitra);
+//	txtContent.setTypeface(FontMitra);
 //	tvRecentCreditsValue=(TextView)findViewById(R.id.tvRecentCreditsValue);
 //	tvRecentCreditsValue.setTypeface(FontMitra);
 	String Query="UPDATE UpdateApp SET Status='1'";

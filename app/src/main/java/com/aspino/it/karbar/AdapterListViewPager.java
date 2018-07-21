@@ -63,7 +63,7 @@ public class AdapterListViewPager extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
 //        if (convertView == null) {
-            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
+//            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_viewpager, null);
             holder = new ViewHolder();
             holder.tvTitleService = (TextView) convertView.findViewById(R.id.tvTitleService);
@@ -74,10 +74,10 @@ public class AdapterListViewPager extends BaseAdapter {
             holder.LinearStatusService = (LinearLayout) convertView.findViewById(R.id.LinearStatusService);
             holder.LinearMain = (LinearLayout) convertView.findViewById(R.id.LinearMain);
             //********************************************
-            holder.tvTitleService.setTypeface(faceh);
-            holder.tvStatusService.setTypeface(faceh);
-            holder.tvDateAndTimeService.setTypeface(faceh);
-            holder.tvAddresService.setTypeface(faceh);
+//            holder.tvTitleService.setTypeface(faceh);
+//            holder.tvStatusService.setTypeface(faceh);
+//            holder.tvDateAndTimeService.setTypeface(faceh);
+//            holder.tvAddresService.setTypeface(faceh);
             //********************************************
             holder.tvTitleService.setTextSize(18);
             holder.tvStatusService.setTextSize(18);

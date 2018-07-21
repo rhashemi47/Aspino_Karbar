@@ -130,7 +130,7 @@ public class Accept_code extends Activity {
 			lat = gps.getLatitude();
 			lon = gps.getLongitude();
 		}
-		Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//		//Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remive page title
 		acceptcode=(EditText)findViewById(R.id.etAcceptcode);
 		btnSendAcceptcode=(Button)findViewById(R.id.btnSendAcceptCode);
@@ -139,10 +139,10 @@ public class Accept_code extends Activity {
 		tvPhoneNumber=(TextView) findViewById(R.id.tvPhoneNumber);
 		tvPhoneNumber.setText(phonenumber + "ارسال خواهد شد");
 		//set font for element
-		acceptcode.setTypeface(FontMitra);
+//		acceptcode.setTypeface(FontMitra);
 		//Start Counter Second
 		startCountAnimation();
-		btnSendAcceptcode.setTypeface(FontMitra);        
+//		btnSendAcceptcode.setTypeface(FontMitra);
 		btnSendAcceptcode.setOnClickListener(new OnClickListener() {
 			
 			@Override

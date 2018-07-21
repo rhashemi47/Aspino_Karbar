@@ -34,7 +34,7 @@ public class Login extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//        //Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);//remive page title
         dbh=new DatabaseHelper(getApplicationContext());
 		try {
@@ -60,8 +60,8 @@ public class Login extends Activity {
 		btnEnter=(Button)findViewById(R.id.btnEnter);
         etPhoneNumber=(EditText)findViewById(R.id.etPhoneNumber);
         //set font for element
-        etPhoneNumber.setTypeface(FontMitra);
-		btnEnter.setTypeface(FontMitra);
+//        etPhoneNumber.setTypeface(FontMitra);
+//		btnEnter.setTypeface(FontMitra);
 		btnEnter.setOnClickListener(new OnClickListener() {
 
 			@Override

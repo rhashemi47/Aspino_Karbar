@@ -8,7 +8,7 @@
         <item
             android:title="@string/wallet"
             android:icon="@drawable/wallet"
-            android:id="@+id/wallet" />
+            android:id="@+id/wallet"/>
         <item
             android:title="@string/Order"
             android:icon="@drawable/clock"
@@ -25,23 +25,16 @@
             android:title="@string/About"
             android:icon="@drawable/about"
             android:id="@+id/About" />
-
     <!--<item android:title="Other">-->
-
         <!--<menu>-->
-
             <!--<item-->
                 <!--android:title="Archive"-->
                 <!--android:icon="@drawable/archive"-->
                 <!--android:id="@+id/archive" />-->
-
             <!--<item-->
                 <!--android:title="Add Account"-->
                 <!--android:icon="@drawable/add"-->
                 <!--android:id="@+id/add" />-->
-
         <!--</menu>-->
-
     <!--</item>-->
-
 </menu>

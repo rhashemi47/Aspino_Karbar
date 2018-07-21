@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
+//import android.graphics.Typeface;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
@@ -37,7 +37,7 @@ public class About extends AppCompatActivity {
 //	private Button btnAcceptOrder;
 //	private Button btncredite;
 //	private GoogleMap map;
-	private Typeface FontMitra;
+//	private Typeface FontMitra;
 //	private LatLng point;
 
 	@Override
@@ -83,9 +83,9 @@ protected void onCreate(Bundle savedInstanceState) {
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
 	}
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
 	txtContent=(TextView)findViewById(R.id.tvTextAbout);
-	txtContent.setTypeface(FontMitra);
+//	txtContent.setTypeface(FontMitra);
 
 }
 @Override

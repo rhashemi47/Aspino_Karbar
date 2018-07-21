@@ -45,6 +45,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -79,7 +80,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private ListView lstSearchDetailService;
     private LinearLayout LinearListOrder;
     private LinearLayout LinearSupportContact;
-    private Typeface faceh;
+//    private Typeface facehVazir;
+//    private Typeface facehVazir_Bold;
+//    private Typeface facehVazir_Light;
+//    private Typeface facehVazir_Medium;
+//    private Typeface facehVazir_Thin;
     private DrawerLayout mDrawer;
     private NavigationView mNavi;
     private Toolbar mtoolbar;
@@ -101,12 +106,14 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slid_menu);
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+        mtoolbar.setTitle("");
         setSupportActionBar(mtoolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mNavi = (NavigationView) findViewById(R.id.navigation_view);
         mNavi.setNavigationItemSelectedListener(this);
-
+        mNavi.setItemIconTintList(null);
         ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
 
         mDrawer.addDrawerListener(aToggle);
@@ -160,8 +167,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
         startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
         //***************************************************************************
-        faceh = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
-
+//        facehVazir = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
         etSearch = (EditText) findViewById(R.id.etSearch);
         lstSearchDetailService = (ListView) findViewById(R.id.lstSearchDetailService);
         LinearSupportContact = (LinearLayout) findViewById(R.id.LinearSupportContact);
@@ -629,7 +635,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         AccountHeader headerResult = new AccountHeaderBuilder()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.header_menu)
-                .addProfiles(new ProfileDrawerItem().withName(name + " " + family+"\n"+Mobile).withIcon(bmp)).withSelectionListEnabledForSingleProfile(false).withTypeface(faceh)
+                .addProfiles(new ProfileDrawerItem().withName(name + " " + family+"\n"+Mobile).withIcon(bmp)).withSelectionListEnabledForSingleProfile(false)
 //                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
 //                    @Override
 //                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
@@ -904,25 +910,78 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         switch (mId) {
 
             case R.id.profile:
-                Toast.makeText(this, "profile", Toast.LENGTH_SHORT).show();
+                db = dbh.getReadableDatabase();
+                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+                if (coursors.getCount() > 0) {
+                    coursors.moveToNext();
+                    String Status_check = coursors.getString(coursors.getColumnIndex("Status"));
+                    if (Status_check.compareTo("0") == 0) {
+                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+                        if (c.getCount() > 0) {
+                            c.moveToNext();
+                            SyncProfile profile = new SyncProfile(MainMenu.this, c.getString(c.getColumnIndex("karbarCode")));
+                            profile.AsyncExecute();
+                        }
+                    } else {
+                        LoadActivity(Profile.class, "karbarCode", karbarCode);
+                    }
+                }
+                else {
+                    LoadActivity(Login.class,"karbarCode","0");
+                }
+                db.close();
                 break;
 
             case R.id.wallet:
-                Toast.makeText(this, "wallet", Toast.LENGTH_SHORT).show();
+                db = dbh.getReadableDatabase();
+                Cursor c = db.rawQuery("SELECT * FROM login", null);
+                if (c.getCount() > 0) {
+                    c.moveToNext();
+                    LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+                }
+                else {
+                    LoadActivity(Login.class,"karbarCode","0");
+                }
+                db.close();
+                break;
+            case R.id.Order:
+                db = dbh.getReadableDatabase();
+                c = db.rawQuery("SELECT * FROM login", null);
+                if (c.getCount() > 0) {
+                    c.moveToNext();
+                    String QueryCustom;
+                    QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
+                            "LEFT JOIN " +
+                            "Servicesdetails ON " +
+                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";
+                    LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+                }
                 break;
 
             case R.id.AddresManagement:
-                Toast.makeText(this, "AddresManagement", Toast.LENGTH_SHORT).show();
+                db = dbh.getReadableDatabase();
+                c = db.rawQuery("SELECT * FROM login", null);
+                if (c.getCount() > 0) {
+                    c.moveToNext();
+                    LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                }
+                db.close();
                 break;
 
             case R.id.Invite_friends:
-                Toast.makeText(this, "Invite_friends", Toast.LENGTH_SHORT).show();
+                sharecode("0");
                 break;
 
             case R.id.About:
-                Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
-                break;
+                db = dbh.getReadableDatabase();
+                c = db.rawQuery("SELECT * FROM login", null);
+                if (c.getCount() > 0) {
+                    c.moveToNext();
 
+                    LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+                }
+                db.close();
+                break;
         }
 
         mDrawer.closeDrawer(GravityCompat.START);
