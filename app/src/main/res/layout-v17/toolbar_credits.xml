@@ -22,7 +22,7 @@
         app:theme="@style/DrawerArrowStyle"
         app:title="">
         <ImageView
-            android:id="@+id/btnBackToggle"
+            android:id="@+id/imgBackToggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"

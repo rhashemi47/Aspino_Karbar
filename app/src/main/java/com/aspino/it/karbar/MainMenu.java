@@ -100,8 +100,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_menu_mainmenu);
+        //****************************************************************
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
-        btnLogout = (Button) findViewById(R.id.btnLogout);
         mtoolbar.setTitle("");
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -109,12 +109,22 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mNavi = (NavigationView) findViewById(R.id.navigation_view);
+        View header_View= mNavi.getHeaderView(0);
+        btnLogout=(Button)header_View.findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Logout();
+            }
+        });
         mNavi.setNavigationItemSelectedListener(this);
         mNavi.setItemIconTintList(null);
+
         ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
 
         mDrawer.addDrawerListener(aToggle);
         aToggle.syncState();
+        //*****************************************************************
 //        btnLogout.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

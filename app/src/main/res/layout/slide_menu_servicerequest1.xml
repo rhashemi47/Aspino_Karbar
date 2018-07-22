@@ -10,10 +10,10 @@
     android:layout_gravity="right"
     android:background="@color/mdtp_transparent"
     tools:openDrawer="start">
-    <include layout="@layout/toolbar"
+    <include layout="@layout/toolbar_requestservice1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/DrawerArrowStyle"/>
+        style="@style/DrawerArrowStyle2"/>
 
     <android.support.design.widget.NavigationView
         android:layout_width="290dp"

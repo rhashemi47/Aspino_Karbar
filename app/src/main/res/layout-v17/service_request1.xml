@@ -9,29 +9,29 @@
     android:focusableInTouchMode="true"
     android:layoutDirection="rtl">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:background="#7236ea"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:paddingTop="@dimen/appbar_padding_top"-->
+        <!--android:background="#7236ea"-->
+        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/service_request"
-                android:textColor="#fff"
-                android:gravity="center"
-                android:textSize="22sp"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--app:layout_scrollFlags="scroll|enterAlways"-->
+            <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/service_request"-->
+                <!--android:textColor="#fff"-->
+                <!--android:gravity="center"-->
+                <!--android:textSize="22sp"/>-->
+        <!--</android.support.v7.widget.Toolbar>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <ScrollView
         android:id="@+id/ScrollLayout"
@@ -39,6 +39,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
         android:verticalScrollbarPosition="right"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -153,6 +154,7 @@
                             android:layout_marginLeft="10dp"
                             android:background="@drawable/rounded_edittext"
                             android:textSize="24sp"
+                            android:textDirection="rtl"
                             android:textColor="#000000"/>
                     </LinearLayout>
                 </LinearLayout>
@@ -174,6 +176,8 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/chbMale"
                             android:textSize="6sp"
+                            android:checked="true"
+                            android:button="@drawable/selector_checkbox"
                             android:drawableBottom="@drawable/man"
                             android:layout_weight="1"/>
                         <TextView
@@ -196,6 +200,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/chbFemale"
+                            android:button="@drawable/selector_checkbox"
                             android:textSize="6sp"
                             android:drawableBottom="@drawable/women"
                             android:layout_weight="1"/>
@@ -220,6 +225,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/chbMaleAndFemale"
                             android:drawableBottom="@drawable/maleandfemale"
+                            android:button="@drawable/selector_checkbox"
                             android:textSize="6sp"
                             android:layout_weight="1"/>
                         <TextView
@@ -350,7 +356,6 @@
                         android:inputType="textMultiLine"
                         android:layout_gravity="right"
                         android:gravity="right"
-                        android:text="زتمتر"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"

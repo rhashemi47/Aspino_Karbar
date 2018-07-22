@@ -3,22 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/about"
+    <include layout="@layout/service_request1"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:id="@+id/about">
     </include>
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#6931d3"
-        android:id="@+id/m_toolbar_about"
+        android:layout_height="100dp"
+        android:background="@drawable/header_pages"
+        android:id="@+id/m_toolbar"
         app:title=""
         android:layout_alignParentTop="true"
         android:layout_below="@+id/about"
-        app:theme="@style/DrawerArrowStyle"
-        style="@style/DrawerArrowStyle">
+        app:theme="@style/DrawerArrowStyle2"
+        style="@style/DrawerArrowStyle2">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,5 +26,13 @@
         android:layout_gravity="left"
         android:id="@+id/imgBackToggle"
         android:layout_marginLeft="10dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/service_request"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_marginRight="50dp"
+            android:textSize="22sp"/>
     </android.support.v7.widget.Toolbar>
 </RelativeLayout>

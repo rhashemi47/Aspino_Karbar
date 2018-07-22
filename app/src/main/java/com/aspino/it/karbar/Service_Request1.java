@@ -1,16 +1,28 @@
 package com.aspino.it.karbar;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -45,9 +57,11 @@ import java.util.Calendar;
 
 import java.util.List;
 
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Service_Request1 extends AppCompatActivity {
+public class Service_Request1 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private String karbarCode;
 	private String DetailCode;
 	private TextView tvTitleService;
@@ -92,15 +106,53 @@ public class Service_Request1 extends AppCompatActivity {
 	private String FemaleCount="0";
 	private String HamyarCount="0";
 	//*********************************************
+	private DrawerLayout mDrawer;
+	private NavigationView mNavi;
+	private Toolbar mtoolbar;
+	private Button btnLogout;
+	private ImageView imgBackToggle;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 	}
+	@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 	@Override
 protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.service_request1);
+		setContentView(R.layout.slide_menu_servicerequest1);
+		//****************************************************************
+		Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+
+		mtoolbar.setTitle("");
+		setSupportActionBar(mtoolbar);
+		mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+		mNavi = (NavigationView) findViewById(R.id.navigation_view);
+
+		View header_View= mNavi.getHeaderView(0);
+		imgBackToggle=(ImageView)findViewById(R.id.imgBackToggle);
+		imgBackToggle.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
+
+		btnLogout=(Button)header_View.findViewById(R.id.btnLogout);
+		btnLogout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Logout();
+			}
+		});
+		mNavi.setNavigationItemSelectedListener(this);
+		mNavi.setItemIconTintList(null);
+
+		ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+		mDrawer.addDrawerListener(aToggle);
+		aToggle.syncState();
+		//*****************************************************************
 		//****************************************************************
 		imgForward = (ImageView) findViewById(R.id.imgForward);
 
@@ -379,63 +431,146 @@ protected void onCreate(Bundle savedInstanceState) {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				if (hasFocus) {
-					PersianCalendar now = new PersianCalendar();
+					PersianDatePickerDialog picker = new PersianDatePickerDialog(Service_Request1.this);
+					picker.setPositiveButtonString("تایید");
+					picker.setNegativeButton("انصراف");
+					picker.setTodayButton("امروز");
+					picker.setTodayButtonVisible(true);
+					//  picker.setInitDate(initDate);
+					picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+					picker.setMinYear(1300);
+					picker.setActionTextColor(Color.GRAY);
+					//picker.setTypeFace(FontMitra);
+					picker.setListener(new Listener() {
 
-					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-							new DatePickerDialog.OnDateSetListener() {
-								@Override
-								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-									String Mon;
-									String DayStr;
-									if((monthOfYear+1)<10)
-									{
-										Mon="0"+String.valueOf(monthOfYear+1);
-									}
-									else
-									{
-										Mon=String.valueOf(monthOfYear+1);
-									}
-									if(dayOfMonth<10)
-									{
-										DayStr="0"+String.valueOf(dayOfMonth);
-									}
-									else
-									{
-										DayStr=String.valueOf(dayOfMonth);
-									}
-									etFromDate.setText(String.valueOf(year) + "/" + Mon + "/" + DayStr);
-//									db=dbh.getWritableDatabase();
-//									String query="UPDATE  DateTB SET Date = '" +String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"'";
-//									db.execSQL(query);
+						@Override
+						public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+							//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+							StartYear=String.valueOf(persianCalendar.getPersianYear());
+							if(persianCalendar.getPersianMonth()<10)
+							{
+								StartMonth="0"+String.valueOf(persianCalendar.getPersianMonth());
+							}
+							else
+							{
+								StartMonth=String.valueOf(persianCalendar.getPersianMonth());
+							}
+							if(persianCalendar.getPersianDay()<10)
+							{
+								StartDay="0"+String.valueOf(persianCalendar.getPersianDay());
+							}
+							else
+							{
+								StartDay=String.valueOf(persianCalendar.getPersianDay());
+							}
+
+							etFromDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
+							db=dbh.getWritableDatabase();
+							String query="UPDATE  DateTB SET Date = '" +StartYear+"/"+StartMonth+"/"+StartDay+"'";
+							db.execSQL(query);
+
+							db.close();
+							GetTime();
+						}
+
+						@Override
+						public void onDismissed() {
+
+						}
+					});
+					picker.show();
+//					PersianCalendar now = new PersianCalendar();
+
+//					DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
+//							new DatePickerDialog.OnDateSetListener() {
+//								@Override
+//								public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+//									String Mon;
+//									String DayStr;
+//									if((monthOfYear+1)<10)
+//									{
+//										Mon="0"+String.valueOf(monthOfYear+1);
+//									}
+//									else
+//									{
+//										Mon=String.valueOf(monthOfYear+1);
+//									}
+//									if(dayOfMonth<10)
+//									{
+//										DayStr="0"+String.valueOf(dayOfMonth);
+//									}
+//									else
+//									{
+//										DayStr=String.valueOf(dayOfMonth);
+//									}
+//									etFromDate.setText(String.valueOf(year) + "/" + Mon + "/" + DayStr);
+////									db=dbh.getWritableDatabase();
+////									String query="UPDATE  DateTB SET Date = '" +String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"'";
+////									db.execSQL(query);
+////
+////									db.close();
+//									GetTime();
+//								}
+//							}, now.getPersianYear(),
+//							now.getPersianMonth(),
+//							now.getPersianDay());
 //
-//									db.close();
-									GetTime();
-								}
-							}, now.getPersianYear(),
-							now.getPersianMonth(),
-							now.getPersianDay());
-
-					datePickerDialog.setThemeDark(true);
-					datePickerDialog.show(getFragmentManager(), "tpd");
+//					datePickerDialog.setThemeDark(true);
+//					datePickerDialog.show(getFragmentManager(), "tpd");
 				}
 			}
 		});
 		etFromDate.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				PersianCalendar now = new PersianCalendar();
-				DatePickerDialog datePickerDialog = DatePickerDialog.newInstance(
-						new DatePickerDialog.OnDateSetListener() {
-							@Override
-							public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-								etFromDate.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(dayOfMonth));
-								GetTime();
-							}
-						}, now.getPersianYear(),
-						now.getPersianMonth(),
-						now.getPersianDay());
-				datePickerDialog.setThemeDark(true);
-				datePickerDialog.show(getFragmentManager(), "tpd");
+				PersianDatePickerDialog picker = new PersianDatePickerDialog(Service_Request1.this);
+				picker.setPositiveButtonString("تایید");
+				picker.setNegativeButton("انصراف");
+				picker.setTodayButton("امروز");
+				picker.setTodayButtonVisible(true);
+				//  picker.setInitDate(initDate);
+				picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+				picker.setMinYear(1300);
+				picker.setActionTextColor(Color.GRAY);
+				//picker.setTypeFace(FontMitra);
+				picker.setListener(new Listener() {
+
+					@Override
+					public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+						//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+						StartYear=String.valueOf(persianCalendar.getPersianYear());
+						if(persianCalendar.getPersianMonth()<10)
+						{
+							StartMonth="0"+String.valueOf(persianCalendar.getPersianMonth());
+						}
+						else
+						{
+							StartMonth=String.valueOf(persianCalendar.getPersianMonth());
+						}
+						if(persianCalendar.getPersianDay()<10)
+						{
+							StartDay="0"+String.valueOf(persianCalendar.getPersianDay());
+						}
+						else
+						{
+							StartDay=String.valueOf(persianCalendar.getPersianDay());
+						}
+
+						etFromDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
+						db=dbh.getWritableDatabase();
+						String query="UPDATE  DateTB SET Date = '" +StartYear+"/"+StartMonth+"/"+StartDay+"'";
+						db.execSQL(query);
+
+						db.close();
+						GetTime();
+					}
+
+					@Override
+					public void onDismissed() {
+
+					}
+				});
+				picker.show();
 
 			}
 		});
@@ -767,6 +902,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		int minute = mcurrentTime.get(Calendar.MINUTE);
 
 		TimePickerDialog mTimePicker;
+
 		mTimePicker = new TimePickerDialog(Service_Request1.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
@@ -780,10 +916,11 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 //				String query="UPDATE  DateTB SET Time = '" +String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute)+"'";
 //				db.execSQL(query);
 				String DateStr =etFromDate.getText().toString();
-				etFromDate.setText(DateStr+" - "+String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute));
+				etFromDate.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute) + " - " + DateStr);
 			}
 		}, hour, minute, true);
 		mTimePicker.setTitle("انتخاب زمان");
+
 		mTimePicker.show();
 
 	}
@@ -799,5 +936,183 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				.replace("۷", "7")
 				.replace("۸", "8")
 				.replace("۹", "9");
+	}
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+		int mId = item.getItemId();
+
+		switch (mId) {
+
+			case R.id.profile:
+				db = dbh.getReadableDatabase();
+				Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+				if (coursors.getCount() > 0) {
+					coursors.moveToNext();
+					String Status_check = coursors.getString(coursors.getColumnIndex("Status"));
+					if (Status_check.compareTo("0") == 0) {
+						Cursor c = db.rawQuery("SELECT * FROM login", null);
+						if (c.getCount() > 0) {
+							c.moveToNext();
+							SyncProfile profile = new SyncProfile(Service_Request1.this, c.getString(c.getColumnIndex("karbarCode")));
+							profile.AsyncExecute();
+						}
+					} else {
+						LoadActivity2(Profile.class, "karbarCode", karbarCode,"","");
+					}
+				}
+				else {
+					LoadActivity2(Login.class,"karbarCode","0","","");
+				}
+				db.close();
+				break;
+
+			case R.id.wallet:
+				db = dbh.getReadableDatabase();
+				Cursor c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					LoadActivity2(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")),"","");
+				}
+				else {
+					LoadActivity2(Login.class,"karbarCode","0","","");
+				}
+				db.close();
+				break;
+			case R.id.Order:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					String QueryCustom;
+					QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
+							"LEFT JOIN " +
+							"Servicesdetails ON " +
+							"Servicesdetails.code=OrdersService.ServiceDetaileCode";
+					LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+				}
+				break;
+
+			case R.id.AddresManagement:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+				}
+				db.close();
+				break;
+
+			case R.id.Invite_friends:
+				sharecode("0");
+				break;
+
+			case R.id.About:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+
+					LoadActivity2(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")),"","");
+				}
+				db.close();
+				break;
+		}
+
+		mDrawer.closeDrawer(GravityCompat.START);
+		return true;
+
+	}
+	void sharecode(String shareStr)
+	{
+		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+		sharingIntent.setType("text/plain");
+		String shareBody = "آسپینو" + "\n"+"کد معرف: "+shareStr+"\n"+"آدرس سایت: " + PublicVariable.site;
+		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "عنوان");
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+		startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری با"));
+	}
+	@Override
+	public void onBackPressed() {
+
+		if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+
+			mDrawer.closeDrawer(GravityCompat.START);
+
+		} else {
+
+//			super.onBackPressed();
+			LoadActivity2(MainMenu.class, "karbarCode", karbarCode,"","");
+		}
+
+	}
+	public void Logout() {
+		//Exit All Activity And Kill Application
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+		// set the message to display
+		alertbox.setMessage("آیا می خواهید از کاربری خارج شوید ؟");
+
+		// set a negative/no button and create a listener
+		alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+			}
+		});
+
+		// set a positive/yes button and create a listener
+		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				//Declare Object From Get Internet Connection Status For Check Internet Status
+				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
+				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
+				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+				stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+				db = dbh.getWritableDatabase();
+				db.execSQL("DELETE FROM address");
+				db.execSQL("DELETE FROM AmountCredit");
+				db.execSQL("DELETE FROM android_metadata");
+				db.execSQL("DELETE FROM Arts");
+				db.execSQL("DELETE FROM BsFaktorUserDetailes");
+				db.execSQL("DELETE FROM BsFaktorUsersHead");
+				db.execSQL("DELETE FROM City");
+				db.execSQL("DELETE FROM credits");
+				db.execSQL("DELETE FROM DateTB");
+				db.execSQL("DELETE FROM FieldofEducation");
+				db.execSQL("DELETE FROM Grade");
+				db.execSQL("DELETE FROM Hamyar");
+				db.execSQL("DELETE FROM InfoHamyar");
+				db.execSQL("DELETE FROM Language");
+				db.execSQL("DELETE FROM login");
+				db.execSQL("DELETE FROM messages");
+				db.execSQL("DELETE FROM OrdersService");
+				db.execSQL("DELETE FROM Profile");
+				db.execSQL("DELETE FROM services");
+				db.execSQL("DELETE FROM servicesdetails");
+				db.execSQL("DELETE FROM Slider");
+				db.execSQL("DELETE FROM sqlite_sequence");
+				db.execSQL("DELETE FROM State");
+				db.execSQL("DELETE FROM Supportphone");
+				db.execSQL("DELETE FROM Unit");
+				db.execSQL("DELETE FROM UpdateApp");
+				db.execSQL("DELETE FROM visit");
+				db.close();
+				Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+				startMain.addCategory(Intent.CATEGORY_HOME);
+
+				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+				startActivity(startMain);
+
+				finish();
+				arg0.dismiss();
+			}
+		});
+		alertbox.show();
 	}
 }

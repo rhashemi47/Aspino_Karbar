@@ -4,14 +4,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 //import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,6 +24,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +56,7 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 	private NavigationView mNavi;
 	private Toolbar mtoolbar;
 	private Button btnLogout;
+	private ImageView imgBackToggle;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -61,24 +66,42 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.slide_menu_about);
-
-	btnLogout = (Button) findViewById(R.id.btnLogout);
 //	btnOrder=(Button)findViewById(R.id.btnOrderBottom);
 //	btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //	btncredite=(Button)findViewById(R.id.btncrediteBottom);
-	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+	//****************************************************************
+	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar_about);
+
+	mtoolbar.setTitle("");
 	setSupportActionBar(mtoolbar);
+	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	getSupportActionBar().setDisplayShowHomeEnabled(true);
-	getSupportActionBar().setHomeAsUpIndicator(R.drawable.btnback);
 	mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 	mNavi = (NavigationView) findViewById(R.id.navigation_view);
+	View header_View= mNavi.getHeaderView(0);
+	imgBackToggle=(ImageView)findViewById(R.id.imgBackToggle);
+	imgBackToggle.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			onBackPressed();
+		}
+	});
+	btnLogout=(Button)header_View.findViewById(R.id.btnLogout);
+	btnLogout.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Logout();
+		}
+	});
 	mNavi.setNavigationItemSelectedListener(this);
 	mNavi.setItemIconTintList(null);
+
 	ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
 
 	mDrawer.addDrawerListener(aToggle);
 	aToggle.syncState();
+	//*****************************************************************
 //	btnLogout.setOnClickListener(new View.OnClickListener() {
 //		@Override
 //		public void onClick(View view) {
@@ -122,14 +145,14 @@ protected void onCreate(Bundle savedInstanceState) {
 //	txtContent.setTypeface(FontMitra);
 
 }
-@Override
-public boolean onKeyDown( int keyCode, KeyEvent event )  {
-    if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-    	LoadActivity(MainMenu.class, "karbarCode", karbarCode);
-    }
-
-    return super.onKeyDown( keyCode, event );
-}
+//@Override
+//public boolean onKeyDown( int keyCode, KeyEvent event )  {
+//    if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
+//    	LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+//    }
+//
+//    return super.onKeyDown( keyCode, event );
+//}
 public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
@@ -145,7 +168,15 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 
 		this.startActivity(intent);
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.home:
+				onBackPressed();
+				break;
+		}
+		return  true;
+	}
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -250,7 +281,8 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 
 		} else {
 
-			super.onBackPressed();
+//			super.onBackPressed();
+			LoadActivity(MainMenu.class, "karbarCode", karbarCode);
 		}
 
 	}
