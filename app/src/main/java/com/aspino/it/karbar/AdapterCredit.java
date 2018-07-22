@@ -52,7 +52,7 @@ public class AdapterCredit extends BaseAdapter {
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
         if (convertView == null) {
-//            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/Vazir.ttf");
+//            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_credit, null);
             holder = new ViewHolder();
             holder.txtValues = (TextView) convertView.findViewById(R.id.txtContentCrdit);

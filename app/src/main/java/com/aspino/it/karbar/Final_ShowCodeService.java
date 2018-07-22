@@ -111,7 +111,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		DateAndTimeFinalService="0";
 	}
 
-//	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+//	FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
 	tvCodeServiceFinal=(TextView)findViewById(R.id.tvCodeServiceFinal);
 	tvNameOrder=(TextView)findViewById(R.id.tvNameOrder);
 	tvAddressFinalService=(TextView)findViewById(R.id.tvAddressFinalService);

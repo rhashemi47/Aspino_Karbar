@@ -42,7 +42,7 @@ public class Paigiri extends AppCompatActivity {
 	private DatabaseHelper dbh;
 //	private TextView txtContent;
 	private SQLiteDatabase db;
-	private Typeface FontMitra;
+//	private Typeface FontMitra;
 	private ViewPagerAdapter viewPagerAdapter;
 	private ViewPager viewPager;
 	private SmartTabLayout tabLayout;
@@ -95,7 +95,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 	}
 
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
+//	FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
 //	txtContent=(TextView)findViewById(R.id.tvTextAbout);
 //	txtContent.setTypeface(FontMitra);
 	//set fragment class and name in adapter

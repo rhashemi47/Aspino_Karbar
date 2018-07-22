@@ -75,6 +75,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:layout_marginRight="20dp"
+                        android:id="@+id/btnLogout"
                         android:background="@drawable/logout"/>
 
                 </LinearLayout>

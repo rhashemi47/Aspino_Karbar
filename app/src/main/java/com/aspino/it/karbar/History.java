@@ -75,7 +75,7 @@
                 }
                 db.close();
             }
-            //Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+            //Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
             tvHistory=(TextView)findViewById(R.id.tvHistory);
 //            tvHistory.setTypeface(FontMitra);
             tvHistory.setTextSize(24);

@@ -18,7 +18,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -124,7 +123,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	//**************************************************************************************
 
-	FontMitra = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");//set font for page
+	FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
 
 	btnCansel.setTypeface(FontMitra);
 	btnshowFactor.setTypeface(FontMitra);

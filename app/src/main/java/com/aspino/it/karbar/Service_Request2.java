@@ -1,6 +1,5 @@
 package com.aspino.it.karbar;
 
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,17 +22,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-import com.aspino.it.karbar.Date.ChangeDate;
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -1062,7 +1053,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View v = super.getView(position, convertView, parent);
 
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;
@@ -1072,7 +1063,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableVal
 				View v =super.getDropDownView(position, convertView, parent);
 
 
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;

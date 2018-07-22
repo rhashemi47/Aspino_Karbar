@@ -548,7 +548,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View v = super.getView(position, convertView, parent);
 
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;
@@ -558,7 +558,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				View v =super.getDropDownView(position, convertView, parent);
 
 
-				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;

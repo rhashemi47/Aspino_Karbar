@@ -24,8 +24,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.aspino.it.karbar.Date.ChangeDate;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -949,7 +947,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 			public View getView(int position, View convertView, ViewGroup parent) {
 				View v = super.getView(position, convertView, parent);
 
-				Typeface typeface = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;
@@ -959,7 +957,7 @@ public class Service_Request_Edit2 extends AppCompatActivity {
 				View v = super.getDropDownView(position, convertView, parent);
 
 
-				Typeface typeface = Typeface.createFromAsset(getAssets(), "font/Vazir.ttf");
+				Typeface typeface = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
 				((TextView) v).setTypeface(typeface);
 
 				return v;

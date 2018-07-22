@@ -20,7 +20,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,9 +32,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.view.GestureDetector;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,15 +42,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.holder.BadgeStyle;
-import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
@@ -80,6 +74,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private ListView lstSearchDetailService;
     private LinearLayout LinearListOrder;
     private LinearLayout LinearSupportContact;
+    private Button btnLogout;
 //    private Typeface facehVazir;
 //    private Typeface facehVazir_Bold;
 //    private Typeface facehVazir_Light;
@@ -104,11 +99,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slid_menu);
+        setContentView(R.layout.slide_menu_mainmenu);
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
         mtoolbar.setTitle("");
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.btnback);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mNavi = (NavigationView) findViewById(R.id.navigation_view);
@@ -118,6 +115,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         mDrawer.addDrawerListener(aToggle);
         aToggle.syncState();
+//        btnLogout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Logout();
+//            }
+//        });
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 
@@ -902,7 +905,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 })
                 .build();
     }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int mId = item.getItemId();
