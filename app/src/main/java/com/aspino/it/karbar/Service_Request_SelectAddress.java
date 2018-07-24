@@ -64,7 +64,7 @@ public class Service_Request_SelectAddress extends AppCompatActivity {
 	@Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.select_address);
+	setContentView(R.layout.slide_menu_select_address);
 
 		imgBack=(ImageView) findViewById(R.id.imgback);
 		imgSave=(ImageView) findViewById(R.id.imgForward);

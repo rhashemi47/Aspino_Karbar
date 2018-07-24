@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include layout="@layout/service_request1"
+    <include layout="@layout/select_address"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginTop="70dp"
@@ -34,12 +34,12 @@
                 android:layout_marginLeft="10dp"
                 android:paddingBottom="20dp">
                 <ImageView
-                android:id="@+id/imgClose"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="left"
+                    android:id="@+id/imgClose"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="left"
                     android:layout_marginTop="10dp"
-                android:background="@drawable/close" />
+                    android:background="@drawable/close" />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

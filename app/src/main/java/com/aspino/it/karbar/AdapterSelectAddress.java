@@ -18,6 +18,7 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @SuppressLint("NewApi")
 public class AdapterSelectAddress extends BaseAdapter {
@@ -59,6 +60,7 @@ public class AdapterSelectAddress extends BaseAdapter {
         TextView txtTitleAddress;
         TextView txtContentAddress;
         LinearLayout LinearAddress;
+        List<LinearLayout> view= new ArrayList<>();
     }
 
     // @Override
@@ -88,7 +90,7 @@ public class AdapterSelectAddress extends BaseAdapter {
         holder.txtContentAddress.setText(ContentAddress);
         holder.LinearAddress.setTag(code);
         holder.LinearAddress.setOnClickListener(ItemOnclick);
-
+        holder.view.add(holder.LinearAddress);
         return convertView;
     }
 
@@ -122,7 +124,21 @@ public class AdapterSelectAddress extends BaseAdapter {
             db=dbh.getWritableDatabase();
             db.execSQL("DELETE FROM address_select");
             db.execSQL(query);
-            holder.LinearAddress.setBackgroundColor(Color.parseColor("#9877ee"));
+            for(int i=0;i<holder.view.size();i++)
+            {
+                String tag1,tag2;
+                tag1=((LinearLayout)v).getTag().toString();
+                tag2=((LinearLayout)holder.view.get(i)).getTag().toString();
+                if(tag1.compareTo(tag2)==0)
+                {
+                    v.setBackgroundColor(Color.parseColor("#9877ee"));
+                }
+                else
+                {
+                    holder.view.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+                }
+            }
+
 //            Intent intent = new Intent(activity.getApplicationContext(),UpdateAddress.class);
 //
 //            intent.putExtra("karbarCode",karbarCode);

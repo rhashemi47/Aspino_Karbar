@@ -39,12 +39,10 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
         android:verticalScrollbarPosition="right"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,12 +57,14 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTitleString"
                     android:text="@string/Desired_service"
+                    android:textSize="18sp"
                     android:textColor="#000000"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tvTitleService"
                     android:layout_weight="1"
+                    android:textSize="18sp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:textColor="#000000"/>
@@ -75,58 +75,76 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_height="110dp"
+                    android:orientation="vertical"
                     android:layout_marginTop="2dp"
                     android:id="@+id/LinearTimeJob"
-                    android:background="@drawable/rounded_layout_select_job_body">
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/clock3"
+                    android:background="@drawable/rounded_layout_select_job_body"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ساعت و تاریخ حضور متخصص"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="20dp"/>
+                        android:textSize="18sp"
+                        android:textColor="#000"
+                        android:layout_marginTop="-5dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                        <Button
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:id="@+id/btnAddTimeJob"
-                            android:background="@drawable/plus_add"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
-                        <EditText
-                            android:layout_width="100dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp">
+                        <ImageView
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
+                            android:src="@drawable/clock3"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="20dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/etCountTimeJob"
-                            android:background="@drawable/rounded_edittext2"
-                            android:inputType="phone"
-                            android:text="3 ساعت"
-                            android:textSize="24sp"
-                            android:enabled="false"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            android:textColor="#000000"/>
-                        <Button
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:id="@+id/btnDesTimeJob"
-                            android:background="@drawable/mines"
-                            android:layout_gravity="center"/>
+                            android:gravity="center">
+                            <Button
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/btnAddTimeJob"
+                                android:background="@drawable/plus_add"
+                                android:layout_gravity="center"
+                                android:gravity="center"/>
+                            <EditText
+                                android:layout_width="130dp"
+                                android:layout_height="50dp"
+                                android:id="@+id/etCountTimeJob"
+                                android:background="@drawable/rounded_edittext2"
+                                android:inputType="phone"
+                                android:text="3 ساعت"
+                                android:textSize="24sp"
+                                android:enabled="false"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="#000000"/>
+                            <Button
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/btnDesTimeJob"
+                                android:background="@drawable/mines"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="110dp"
                     android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:id="@+id/LinearFromDate"
                     android:background="@drawable/rounded_layout_select_job_body">
 
@@ -135,18 +153,21 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleFromDate"
                         android:text="@string/DateAndTime"
+                        android:textSize="18sp"
+                        android:layout_gravity="right"
                         android:textColor="#000000"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="55dp"
+                            android:layout_height="55dp"
                             android:src="@drawable/calender_and_clock"/>
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="50dp"
                             android:id="@+id/etFromDate"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -160,7 +181,7 @@
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:orientation="horizontal"
                     android:id="@+id/LinearGenderExpert"
                     android:background="@drawable/rounded_layout_select_job_body">
@@ -172,8 +193,8 @@
                         android:gravity="center"
                         android:layout_weight="1">
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:id="@+id/chbMale"
                             android:textSize="6sp"
                             android:checked="true"
@@ -197,8 +218,8 @@
                         android:gravity="center"
                         android:layout_weight="1">
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
                             android:id="@+id/chbFemale"
                             android:button="@drawable/selector_checkbox"
                             android:textSize="6sp"
@@ -221,8 +242,8 @@
                         android:gravity="center"
                         android:layout_weight="1">
                         <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
                             android:id="@+id/chbMaleAndFemale"
                             android:drawableBottom="@drawable/maleandfemale"
                             android:button="@drawable/selector_checkbox"
@@ -346,37 +367,46 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleDescription"
                         android:text="@string/DescriptionCompletly"
+                        android:textSize="18sp"
                         android:textColor="#000000"/>
                     <EditText
                         android:id="@+id/etDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"
                         android:hint="@string/DescriptionForHamyar"
                         android:inputType="textMultiLine"
                         android:layout_gravity="right"
                         android:gravity="right"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:background="@drawable/rounded_edittext"
-                        android:textColor="#000000" />
+                        android:textColor="#000" />
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="30dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgForward"
+                    android:layout_gravity="center"
+                    android:background="@drawable/forward"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgBack"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/back_deactive"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imgForward"
-            android:layout_gravity="center"
-            android:background="@drawable/forward"/>
-    </LinearLayout>
 </RelativeLayout>

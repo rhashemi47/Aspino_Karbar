@@ -48,6 +48,7 @@ import android.widget.Toast;
 //import com.google.android.gms.maps.model.LatLng;
 //import com.google.android.gms.maps.model.MarkerOptions;
 import com.aspino.it.karbar.Date.ChangeDate;
+import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
 import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
 
@@ -60,6 +61,8 @@ import java.util.List;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static android.content.DialogInterface.*;
 
 public class Service_Request1 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private String karbarCode;
@@ -77,6 +80,7 @@ public class Service_Request1 extends AppCompatActivity implements NavigationVie
 	private EditText etCountTimeJob;
 	//**************************************************************
 	private ImageView imgForward;
+	private ImageView imgBack;
 	//**************************************************************
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
@@ -102,7 +106,7 @@ public class Service_Request1 extends AppCompatActivity implements NavigationVie
 	private CheckBox chbMale;
 	private CheckBox chbFemale;
 	private CheckBox chbMaleAndFemale;
-	private String MaleCount="0";
+	private String MaleCount="1";
 	private String FemaleCount="0";
 	private String HamyarCount="0";
 	//*********************************************
@@ -110,7 +114,7 @@ public class Service_Request1 extends AppCompatActivity implements NavigationVie
 	private NavigationView mNavi;
 	private Toolbar mtoolbar;
 	private Button btnLogout;
-	private ImageView imgBackToggle;
+	private ImageView imgClose;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -131,11 +135,11 @@ protected void onCreate(Bundle savedInstanceState) {
 		mNavi = (NavigationView) findViewById(R.id.navigation_view);
 
 		View header_View= mNavi.getHeaderView(0);
-		imgBackToggle=(ImageView)findViewById(R.id.imgBackToggle);
-		imgBackToggle.setOnClickListener(new View.OnClickListener() {
+		imgClose=(ImageView)findViewById(R.id.imgClose);
+		imgClose.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				onBackPressed();
+                onBackPressed();
 			}
 		});
 
@@ -155,6 +159,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		//*****************************************************************
 		//****************************************************************
 		imgForward = (ImageView) findViewById(R.id.imgForward);
+        imgBack = (ImageView) findViewById(R.id.imgBack);
 
 		//**************************************************************************************
 		etFromDate = (EditText) findViewById(R.id.etFromDate);
@@ -264,7 +269,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		}
 		catch (Exception ex)
 		{
-			etCountTimeJob.setText("0");
+			etCountTimeJob.setText("3 ساعت");
 		}
 		try
 		{
@@ -303,6 +308,12 @@ protected void onCreate(Bundle savedInstanceState) {
 			Toast.makeText(getBaseContext(), "نوع فرم ثبت نشده", Toast.LENGTH_LONG).show();
 		}
 		db.close();
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoadActivity2(List_ServiceDerails.class, "karbarCode", karbarCode,"codeService",CodeService);
+            }
+        });
 		imgForward.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -371,30 +382,32 @@ protected void onCreate(Bundle savedInstanceState) {
 				}
 				String sp[]=etFromDate.getText().toString().split("-");
 				String spClock[]=null;
+                String countTime="";
 				if(ErrorStr.length()==0)
 				{
 					if(etFromDate.getText().toString().compareTo("0")!=0)
 					{
 
-						String DateGaregury= faToEn(ChangeDate.changeFarsiToMiladi(sp[0].toString().replace(" ",""))).replace("/","-");
+						String DateGaregury=faToEn(ChangeDate.changeFarsiToMiladi(sp[1].toString().replace(" ",""))).replace("/","-");
 //						String strClock,strDate;
 						int intHour,intMin;
-						spClock=sp[1].toString().split(":");
+						spClock=sp[0].toString().split(":");
 						spClock[0]=spClock[0].replace(" ","");
 						spClock[1]=spClock[1].replace(" ","");
-						intHour=Integer.parseInt(spClock[0]);
-						intMin=Integer.parseInt(spClock[1]);
-						if(intHour<10)
-						{
-							spClock[0]="0"+spClock[0];
-						}
-						if(intMin<10)
-						{
-							spClock[1]="0"+spClock[1];
-						}
+//						intHour=Integer.parseInt(spClock[0]);
+//						intMin=Integer.parseInt(spClock[1]);
+//						if(intHour<10)
+//						{
+//							spClock[0]="0"+spClock[0];
+//						}
+//						if(intMin<10)
+//						{
+//							spClock[1]="0"+spClock[1];
+//						}
 						db=dbh.getReadableDatabase();
+						countTime=etCountTimeJob.getText().toString().replace(" ساعت","");
 						String query="SELECT DATETIME('"+DateGaregury + " " +spClock[0] +":"+spClock[1]+":00'"
-								+",'+"+etCountTimeJob.getText().toString()+" hours') as Date";
+								+",'+"+countTime+" hours') as Date";
 						Cursor cursor=db.rawQuery(query,null);
 						if(cursor.getCount()>0)
 						{
@@ -414,7 +427,7 @@ protected void onCreate(Bundle savedInstanceState) {
 							"FromTime", spClock[0] +":"+spClock[1],
 							"ToTime", ToTime,
 							"Description", etDescription.getText().toString(),
-							"TimeDiff", etCountTimeJob.getText().toString(),
+							"TimeDiff", countTime,
 							"MaleCount", MaleCount,
 							"FemaleCount", FemaleCount,
 							"HamyarCount", HamyarCount
@@ -796,18 +809,18 @@ protected void onCreate(Bundle savedInstanceState) {
 			@Override
 			public void onClick(View v) {
 				int count;
-				count=Integer.parseInt(etCountTimeJob.getText().toString())+1;
-				etCountTimeJob.setText(String.valueOf(count));
+				count=Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت",""))+1;
+				etCountTimeJob.setText(String.valueOf(count)+" ساعت");
 			}
 		});
 		btnDesTimeJob.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				int count;
-				if(Integer.parseInt(etCountTimeJob.getText().toString())>0)
+				if(Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت",""))>0)
 				{
-					count = Integer.parseInt(etCountTimeJob.getText().toString()) - 1;
-					etCountTimeJob.setText(String.valueOf(count));
+					count = Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت","")) - 1;
+					etCountTimeJob.setText(String.valueOf(count)+" ساعت");
 				}
 			}
 		});
@@ -856,71 +869,44 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		intent.putExtra(VariableName2, VariableValue2);
 		startActivity(intent);
 	}
-//	public void FillSpinner(String tableName,String ColumnName,Spinner spinner){
-//		List<String> labels = new ArrayList<String>();
-//		db=dbh.getReadableDatabase();
-//		String query="SELECT * FROM " + tableName +" WHERE Status='1' ORDER BY IsDefault DESC";
-//		Cursor cursors = db.rawQuery(query,null);
-//		String str;
-//		for(int i=0;i<cursors.getCount();i++){
-//			cursors.moveToNext();
-//			str=cursors.getString(cursors.getColumnIndex(ColumnName));
-//			if(AddressCode.compareTo(cursors.getString(cursors.getColumnIndex("Code")))==0)
-//			{
-//				posisionID=i;
-//			}
-//			labels.add(str);
-//		}
-//		db.close();
-//		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, labels){
-//			public View getView(int position, View convertView, ViewGroup parent) {
-//				View v = super.getView(position, convertView, parent);
-//
-//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
-//				((TextView) v).setTypeface(typeface);
-//
-//				return v;
-//			}
-//
-//			public View getDropDownView(int position,  View convertView,  ViewGroup parent) {
-//				View v =super.getDropDownView(position, convertView, parent);
-//
-//
-//				Typeface typeface=Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
-//				((TextView) v).setTypeface(typeface);
-//
-//				return v;
-//			}
-//		};
-//		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//		spinner.setAdapter(dataAdapter);
-//	}
 	public void GetTime()
 	{
-		Calendar mcurrentTime = Calendar.getInstance();
-		int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-		int minute = mcurrentTime.get(Calendar.MINUTE);
+		Calendar now = Calendar.getInstance();
+		MyTimePickerDialog mTimePicker = new MyTimePickerDialog(this, new MyTimePickerDialog.OnTimeSetListener() {
 
-		TimePickerDialog mTimePicker;
-
-		mTimePicker = new TimePickerDialog(Service_Request1.this,android.R.style.Theme_Holo_Light_Dialog_NoActionBar, new TimePickerDialog.OnTimeSetListener() {
 			@Override
-			public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-				String AM_PM;
-				if (selectedHour >=0 && selectedHour < 12){
-					AM_PM = "AM";
-				} else {
-					AM_PM = "PM";
-				}
-//				db=dbh.getWritableDatabase();
-//				String query="UPDATE  DateTB SET Time = '" +String.valueOf(selectedHour)+":"+String.valueOf(selectedMinute)+"'";
-//				db.execSQL(query);
+			public void onTimeSet(com.ikovac.timepickerwithseconds.TimePicker view, int hourOfDay, int minute, int seconds) {
+				// TODO Auto-generated method stub
+				/*time.setText(getString(R.string.time) + String.format("%02d", hourOfDay)+
+						":" + String.format("%02d", minute) +
+						":" + String.format("%02d", seconds));	*/
+				db=dbh.getWritableDatabase();
+				String query="UPDATE  DateTB SET Time = '" +String.valueOf(hourOfDay)+":"+String.valueOf(minute)+"'";
+				db.execSQL(query);
 				String DateStr =etFromDate.getText().toString();
-				etFromDate.setText(String.valueOf(selectedHour) + ":" + String.valueOf(selectedMinute) + " - " + DateStr);
+				String  hour,min;
+				if(hourOfDay<10)
+                {
+                    hour="0"+String.valueOf(hourOfDay);
+                }
+                else
+                {
+                    hour=String.valueOf(hourOfDay);
+                }
+				if(minute<10)
+                {
+                    min="0"+String.valueOf(minute);
+                }
+                else
+                {
+                    min=String.valueOf(minute);
+                }
+				etFromDate.setText(hour + ":" + min + " - " + DateStr);
 			}
-		}, hour, minute, true);
+		}, now.get(Calendar.HOUR_OF_DAY), now.get(Calendar.MINUTE), now.get(Calendar.SECOND), true);
 		mTimePicker.setTitle("انتخاب زمان");
-
+		mTimePicker.setButton(BUTTON_POSITIVE,"تایید",mTimePicker);
+		mTimePicker.setButton(BUTTON_NEGATIVE,"انصراف",mTimePicker);
 		mTimePicker.show();
 
 	}
@@ -1053,7 +1039,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		alertbox.setMessage("آیا می خواهید از کاربری خارج شوید ؟");
 
 		// set a negative/no button and create a listener
-		alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+		alertbox.setPositiveButton("خیر", new OnClickListener() {
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				arg0.dismiss();
@@ -1061,7 +1047,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		});
 
 		// set a positive/yes button and create a listener
-		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
+		alertbox.setNegativeButton("بله", new OnClickListener() {
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
