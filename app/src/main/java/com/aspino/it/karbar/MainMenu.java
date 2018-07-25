@@ -1,6 +1,9 @@
 package com.aspino.it.karbar;
 
+import android.*;
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -42,6 +45,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
@@ -62,7 +66,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private String karbarCode="0";
-
+    final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
     private Drawer drawer = null;
@@ -124,13 +128,6 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         mDrawer.addDrawerListener(aToggle);
         aToggle.syncState();
-        //*****************************************************************
-//        btnLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Logout();
-//            }
-//        });
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 
@@ -1125,33 +1122,46 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         alertbox.show();
     }
     public void dialContactPhone(String phoneNumber) {
-        //startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null)));
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+                ActivityCompat.requestPermissions(MainMenu.this, new String[]{Manifest.permission.CALL_PHONE},REQUEST_CODE_ASK_PERMISSIONS);
             return;
         }
-
-
         startActivity(callIntent);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    db = dbh.getReadableDatabase();
+                    Cursor cursorPhone = db.rawQuery("SELECT * FROM Supportphone", null);
+                    if (cursorPhone.getCount() > 0) {
+                        cursorPhone.moveToNext();
+                        dialContactPhone(cursorPhone.getString(cursorPhone.getColumnIndex("PhoneNumber")));
+                    }
+                    db.close();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(MainMenu.this, "مجوز تماس از طریق برنامه لغو شده برای بر قراری تماس از درون برنامه باید مجوز دسترسی تماس را فعال نمایید.", Toast.LENGTH_LONG)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
     @Override
     public void onBackPressed() {
 
-        if (mDrawer.isDrawerOpen(GravityCompat.START)) {
-
+        if (mDrawer.isDrawerOpen(GravityCompat.START))
+        {
             mDrawer.closeDrawer(GravityCompat.START);
-
-        } else {
-
-            //super.onBackPressed();
+        }
+        else
+        {
             ExitApplication();
         }
 

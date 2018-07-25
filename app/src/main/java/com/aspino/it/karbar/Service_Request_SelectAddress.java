@@ -97,8 +97,8 @@ protected void onCreate(Bundle savedInstanceState) {
 
 		FromDate = getIntent().getStringExtra("FromDate").toString();
 		String sp[]=FromDate.split("-");
-		String splitStrDate[]=sp[0].split("/");
-		StartYear =splitStrDate[0];
+		String splitStrDate[]=sp[1].split("/");
+		StartYear =splitStrDate[0].replace(" ","");
 		StartMonth =splitStrDate[1];
 		StartDay =splitStrDate[2];
 

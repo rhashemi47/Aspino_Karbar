@@ -10,7 +10,7 @@
     android:layout_gravity="right"
     android:background="@color/mdtp_transparent"
     tools:openDrawer="start" >
-    <include layout="@layout/toolbar_credits"
+    <include layout="@layout/toolbar_update_address"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/DrawerArrowStyle"/>

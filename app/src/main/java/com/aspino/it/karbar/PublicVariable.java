@@ -1,5 +1,10 @@
 package com.aspino.it.karbar;
 
+import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class PublicVariable {
 	
 	public static final String NAMESPACE = "http://tempuri.org/";
@@ -8,7 +13,7 @@ public class PublicVariable {
 	//public static final String URL = "http://aspino.org/WebERP/WebAspino/WebService/AspinoUserWSN.asmx";
 	public static final String site = "http://aspino.org";
 	public static final int PersonId = 0;
-	public static String GuidCode = null;
+	public static List<LinearLayout> view= new ArrayList<>();
 	public static final String FIELD_SPLITTER = "##";
 	public static final String RECORD_SPLITTER = "@@";
 	public static final String Recive_NumberPhone = "+9810005137017";

@@ -60,7 +60,6 @@ public class AdapterSelectAddress extends BaseAdapter {
         TextView txtTitleAddress;
         TextView txtContentAddress;
         LinearLayout LinearAddress;
-        List<LinearLayout> view= new ArrayList<>();
     }
 
     // @Override
@@ -90,7 +89,7 @@ public class AdapterSelectAddress extends BaseAdapter {
         holder.txtContentAddress.setText(ContentAddress);
         holder.LinearAddress.setTag(code);
         holder.LinearAddress.setOnClickListener(ItemOnclick);
-        holder.view.add(holder.LinearAddress);
+        PublicVariable.view.add(holder.LinearAddress);
         return convertView;
     }
 
@@ -124,18 +123,18 @@ public class AdapterSelectAddress extends BaseAdapter {
             db=dbh.getWritableDatabase();
             db.execSQL("DELETE FROM address_select");
             db.execSQL(query);
-            for(int i=0;i<holder.view.size();i++)
+            for(int i=0;i<PublicVariable.view.size();i++)
             {
                 String tag1,tag2;
                 tag1=((LinearLayout)v).getTag().toString();
-                tag2=((LinearLayout)holder.view.get(i)).getTag().toString();
+                tag2=((LinearLayout)PublicVariable.view.get(i)).getTag().toString();
                 if(tag1.compareTo(tag2)==0)
                 {
                     v.setBackgroundColor(Color.parseColor("#9877ee"));
                 }
                 else
                 {
-                    holder.view.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+                    PublicVariable.view.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
                 }
             }
 

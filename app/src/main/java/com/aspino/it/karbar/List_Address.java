@@ -37,7 +37,7 @@
         @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_address);
+        setContentView(R.layout.slide_menu_select_address);
             btnAdd_New_Address=(Button)findViewById(R.id.btnAdd_New_Address);
 //            btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //            btncredite=(Button)findViewById(R.id.btncrediteBottom);
@@ -89,26 +89,37 @@
             catch (Exception e) {
                 backToActivity = "";
             }
-        db=dbh.getReadableDatabase();
-        Cursor coursors = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
-        if(coursors.getCount()>0)
-        {
-            for(int i=0;i<coursors.getCount();i++){
-                coursors.moveToNext();
-                String Isdefault="";
-                if(coursors.getString(coursors.getColumnIndex("IsDefault")).compareTo("1")==0)
-                {
-                    Isdefault="\n"+"آدرس پیش فرض";
+//        db=dbh.getReadableDatabase();
+//        Cursor coursors = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
+//        if(coursors.getCount()>0)
+//        {
+//            for(int i=0;i<coursors.getCount();i++){
+//                coursors.moveToNext();
+//
+//                HashMap<String, String> map = new HashMap<String, String>();
+//                map.put("name","نام: "+coursors.getString(coursors.getColumnIndex("Name"))+"\n"
+//                        +"آدرس: "+coursors.getString(coursors.getColumnIndex("AddressText")));
+//                map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
+//                valuse.add(map);
+//            }
+//            AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode,backToActivity);
+//            lvAddress.setAdapter(dataAdapter);
+//        }
+            db=dbh.getReadableDatabase();
+            Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
+            if(cursorAddress.getCount()>0)
+            {
+                for(int i=0;i<cursorAddress.getCount();i++){
+                    cursorAddress.moveToNext();
+                    HashMap<String, String> map = new HashMap<String, String>();
+                    map.put("TitleAddress",cursorAddress.getString(cursorAddress.getColumnIndex("Name")));
+                    map.put("ContentAddress",cursorAddress.getString(cursorAddress.getColumnIndex("AddressText")));
+                    map.put("Code",cursorAddress.getString(cursorAddress.getColumnIndex("Code")));
+                    valuse.add(map);
                 }
-                HashMap<String, String> map = new HashMap<String, String>();
-                map.put("name","نام: "+coursors.getString(coursors.getColumnIndex("Name"))+"\n"
-                        +"آدرس: "+coursors.getString(coursors.getColumnIndex("AddressText"))+Isdefault);
-                map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
-                valuse.add(map);
+                AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse);
+                lvAddress.setAdapter(dataAdapter);
             }
-            AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode,backToActivity);
-            lvAddress.setAdapter(dataAdapter);
-        }
             db.close();
             btnAdd_New_Address.setOnClickListener(new View.OnClickListener() {
                 @Override
