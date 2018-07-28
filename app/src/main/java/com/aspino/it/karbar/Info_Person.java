@@ -29,7 +29,7 @@ public class Info_Person extends Activity {
 	private EditText etBrithday;
 	private	DatabaseHelper dbh;
 	private SQLiteDatabase db;
-	private EditText etReagentCode;
+//	private EditText etReagentCode;
 	private String ReagentCode="";
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -39,7 +39,7 @@ public class Info_Person extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.info_personal);
 		super.onCreate(savedInstanceState);
-		etReagentCode=(EditText)findViewById(R.id.etReagentCodeInsertInfo);
+//		etReagentCode=(EditText)findViewById(R.id.etReagentCodeInsertInfo);
 		fname=(EditText)findViewById(R.id.etFname);
 		lname=(EditText)findViewById(R.id.etLname);
 		etBrithday=(EditText)findViewById(R.id.etBrithday);
@@ -163,16 +163,16 @@ public class Info_Person extends Activity {
 			InternetConnection ic=new InternetConnection(getApplicationContext());
 			if(ic.isConnectingToInternet())
 			{
-				ReagentCode=etReagentCode.getText().toString().trim();
-				ReagentCode=ReagentCode.replace(" ","");
-				if(ReagentCode.length()>0 && ReagentCode.length()<=5)
-				{
-					Toast.makeText(getApplicationContext(), "کد معرف به درستی وارد نشده!", Toast.LENGTH_LONG).show();
-				}
-				else
-				{
+//				ReagentCode=etReagentCode.getText().toString().trim();
+//				ReagentCode=ReagentCode.replace(" ","");
+//				if(ReagentCode.length()>0 && ReagentCode.length()<=5)
+//				{
+//					Toast.makeText(getApplicationContext(), "کد معرف به درستی وارد نشده!", Toast.LENGTH_LONG).show();
+//				}
+//				else
+//				{
 					insertKarbar();
-				}
+//				}
 			}
 
 		}

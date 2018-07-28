@@ -67,21 +67,17 @@ public class AdapterUpdateAddress extends BaseAdapter {
 
         LayoutInflater inflater = activity.getLayoutInflater();
         HashMap<String, String> map = list.get(position);
-        if (convertView == null) {
 //            Typeface faceh = Typeface.createFromAsset(activity.getAssets(), "font/vazir.ttf");
             convertView = inflater.inflate(R.layout.list_item_address, null);
             holder = new ViewHolder();
             holder.LinearAddress = (LinearLayout) convertView.findViewById(R.id.LinearAddress);
             holder.txtTitleAddress = (TextView) convertView.findViewById(R.id.txtTitleAddress);
 //            holder.txtTitleAddress.setTypeface(faceh);
-            holder.txtTitleAddress.setTextSize(24);
+            holder.txtTitleAddress.setTextSize(16);
             holder.txtContentAddress = (TextView) convertView.findViewById(R.id.txtContentAddress);
 //            holder.txtContentAddress.setTypeface(faceh);
-            holder.txtContentAddress.setTextSize(24);
+            holder.txtContentAddress.setTextSize(16);
             convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
         String TitleAddress = map.get("TitleAddress");
         String ContentAddress = map.get("ContentAddress");
         String code = map.get("Code");

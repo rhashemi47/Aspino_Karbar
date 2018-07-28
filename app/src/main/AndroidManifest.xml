@@ -15,7 +15,7 @@
         android:name=".FontMain"
         tools:replace="android:allowBackup,android:label">
         <activity
-            android:name="com.aspino.it.karbar.MainMenu"
+            android:name="com.aspino.it.karbar.Splash"
             android:label="@string/Logo_name"
             android:noHistory="false" >
             <intent-filter>
@@ -24,9 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-            <!--android:name="com.aspino.it.karbar.MainMenu"-->
-            <!--android:noHistory="false" />-->
+        <activity
+            android:name="com.aspino.it.karbar.MainMenu"
+            android:noHistory="false" />
         <activity
             android:name="com.aspino.it.karbar.Login"
             android:noHistory="false" />
@@ -88,9 +88,6 @@
             android:name="com.aspino.it.karbar.Service_Request1"
             android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.Service_Request2"
-            android:noHistory="false"/>
-        <activity
             android:name="com.aspino.it.karbar.Map"
             android:noHistory="false"/>
         <activity
@@ -106,9 +103,6 @@
             android:name="com.aspino.it.karbar.Service_Request_Edit1"
             android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.Service_Request_Edit2"
-            android:noHistory="false"/>
-        <activity
             android:name="com.aspino.it.karbar.ShowFactor"
             android:noHistory="false"/>
         <activity
@@ -122,6 +116,9 @@
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.ProfileEdit"
+            android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Select_Hamyar"
             android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
 

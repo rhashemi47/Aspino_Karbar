@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="5dp"
+    android:id="@+id/LinearHamyar">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:numStars="5"
                 android:stepSize="1.0"
+                android:id="@+id/RatingHamyar"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="20dp"

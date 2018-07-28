@@ -8,7 +8,7 @@
     android:layoutDirection="rtl">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:orientation="horizontal"
         android:background="#acacac">
         <TextView
@@ -21,12 +21,13 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
+            android:paddingBottom="2dp"
+            />
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
         android:layout_marginTop="5dp">
         <ImageView

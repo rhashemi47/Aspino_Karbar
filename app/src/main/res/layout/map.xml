@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:background="#fff"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/LinearBottomSaveAddress"
             android:layout_alignParentBottom="true">
                 <LinearLayout

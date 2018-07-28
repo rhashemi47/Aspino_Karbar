@@ -21,9 +21,15 @@ import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,7 +44,7 @@ import java.io.IOException;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Profile extends Activity {
+public class Profile extends Activity implements NavigationView.OnNavigationItemSelectedListener{
 	private String karbarCode;
 	private TextView tvTextUserName;
 	private TextView tvTextUserMobile;
@@ -57,6 +63,12 @@ public class Profile extends Activity {
 	private Bitmap result;
 	private Canvas canvas;
 	private float roundPx;
+	private DrawerLayout mDrawer;
+	private ImageView imgMenu;
+	private NavigationView mNavi;
+	private Toolbar mtoolbar;
+	private Button btnLogout;
+	private ImageView imgBackToggle;
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -64,13 +76,54 @@ public class Profile extends Activity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile);
+        setContentView(R.layout.slide_menu_profile);
 		imgUser=(ImageView)findViewById(R.id.imgUser);
 		tvTextUserName=(TextView)findViewById(R.id.tvTextUserName);
 		tvTextUserMobile=(TextView)findViewById(R.id.tvTextUserMobile);
 		tvTextEditProfile=(TextView) findViewById(R.id.tvTextEditProfile);
 		tvTextCallSupport=(TextView) findViewById(R.id.tvTextCallSupport);
 		tvTextExitAccount=(TextView) findViewById(R.id.tvTextExitAccount);
+		//*****************************************************************
+		Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
+
+		mtoolbar.setTitle("");
+//		setSupportActionBar(mtoolbar);
+//		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+		mNavi = (NavigationView) findViewById(R.id.navigation_view);
+		View header_View= mNavi.getHeaderView(0);
+		imgBackToggle=(ImageView)findViewById(R.id.imgBackToggle);
+		imgBackToggle.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
+		btnLogout=(Button)header_View.findViewById(R.id.btnLogout);
+		btnLogout.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Logout();
+			}
+		});
+		mNavi.setNavigationItemSelectedListener(this);
+		mNavi.setItemIconTintList(null);
+
+		imgMenu=(ImageView)findViewById(R.id.imgMenu);
+		imgMenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mDrawer.openDrawer(GravityCompat.START);
+			}
+		});
+
+//        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+
+//        mDrawer.addDrawerListener(aToggle);
+//        aToggle.syncState();
+		//*****************************************************************
 		dbh=new DatabaseHelper(getApplicationContext());
 		try {
 
@@ -315,6 +368,176 @@ public class Profile extends Activity {
 
 		startActivity(callIntent);
 	}
+
+	@Override
+	public boolean onKeyDown( int keyCode, KeyEvent event )  {
+	    if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
+	    	Profile.this.LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+	    }
+
+	    return super.onKeyDown( keyCode, event );
+	}
+	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
+		{
+			Intent intent = new Intent(getApplicationContext(),Cls);
+			intent.putExtra(VariableName, VariableValue);
+
+			Profile.this.startActivity(intent);
+		}
+	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
+		{
+			Intent intent = new Intent(getApplicationContext(),Cls);
+			intent.putExtra(VariableName, VariableValue);
+			intent.putExtra(VariableName2, VariableValue2);
+
+			Profile.this.startActivity(intent);
+		}
+	public Bitmap convertToBitmap(String base){
+		Bitmap Bmp=null;
+		try
+		{
+			byte[] decodedByte = Base64.decode(base, Base64.DEFAULT);
+			Bmp = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//
+			return Bmp;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return Bmp;
+		}
+	}
+	public  Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels)
+	{
+		result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+		canvas = new Canvas(result);
+
+		color = 0xff424242;
+		paint = new Paint();
+		rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		rectF = new RectF(rect);
+		roundPx = pixels;
+
+		paint.setAntiAlias(true);
+		canvas.drawARGB(0, 0, 0, 0);
+		paint.setColor(color);
+		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+		canvas.drawBitmap(bitmap, rect, rect, paint);
+
+		return result;
+	}
+
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+		int mId = item.getItemId();
+
+		switch (mId) {
+
+			case R.id.profile:
+				db = dbh.getReadableDatabase();
+				Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+				if (coursors.getCount() > 0) {
+					coursors.moveToNext();
+					String Status_check = coursors.getString(coursors.getColumnIndex("Status"));
+					if (Status_check.compareTo("0") == 0) {
+						Cursor c = db.rawQuery("SELECT * FROM login", null);
+						if (c.getCount() > 0) {
+							c.moveToNext();
+							SyncProfile profile = new SyncProfile(Profile.this, c.getString(c.getColumnIndex("karbarCode")));
+							profile.AsyncExecute();
+						}
+					} else {
+						LoadActivity(Profile.class, "karbarCode", karbarCode);
+					}
+				}
+				else {
+					LoadActivity(Login.class,"karbarCode","0");
+				}
+				db.close();
+				break;
+
+			case R.id.wallet:
+				db = dbh.getReadableDatabase();
+				Cursor c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+				}
+				else {
+					LoadActivity(Login.class,"karbarCode","0");
+				}
+				db.close();
+				break;
+			case R.id.Order:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					String QueryCustom;
+					QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
+							"LEFT JOIN " +
+							"Servicesdetails ON " +
+							"Servicesdetails.code=OrdersService.ServiceDetaileCode";
+					LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+				}
+				break;
+
+			case R.id.AddresManagement:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+				}
+				db.close();
+				break;
+
+			case R.id.Invite_friends:
+				sharecode("0");
+				break;
+
+			case R.id.About:
+				db = dbh.getReadableDatabase();
+				c = db.rawQuery("SELECT * FROM login", null);
+				if (c.getCount() > 0) {
+					c.moveToNext();
+
+					LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+				}
+				db.close();
+				break;
+		}
+
+		mDrawer.closeDrawer(GravityCompat.START);
+		return true;
+
+	}
+	void sharecode(String shareStr)
+	{
+		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+		sharingIntent.setType("text/plain");
+		String shareBody = "آسپینو" + "\n"+"کد معرف: "+shareStr+"\n"+"آدرس سایت: " + PublicVariable.site;
+		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "عنوان");
+		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+		startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری با"));
+	}
+	@Override
+	public void onBackPressed() {
+
+		if (mDrawer.isDrawerOpen(GravityCompat.START)) {
+
+			mDrawer.closeDrawer(GravityCompat.START);
+
+		} else {
+
+//			super.onBackPressed();
+			LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+		}
+
+	}
 	public void Logout() {
 		//Exit All Activity And Kill Application
 		AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
@@ -383,65 +606,6 @@ public class Profile extends Activity {
 			}
 		});
 		alertbox.show();
-	}
-	@Override
-	public boolean onKeyDown( int keyCode, KeyEvent event )  {
-	    if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-	    	Profile.this.LoadActivity(MainMenu.class, "karbarCode", karbarCode);
-	    }
-
-	    return super.onKeyDown( keyCode, event );
-	}
-	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
-		{
-			Intent intent = new Intent(getApplicationContext(),Cls);
-			intent.putExtra(VariableName, VariableValue);
-
-			Profile.this.startActivity(intent);
-		}
-	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
-		{
-			Intent intent = new Intent(getApplicationContext(),Cls);
-			intent.putExtra(VariableName, VariableValue);
-			intent.putExtra(VariableName2, VariableValue2);
-
-			Profile.this.startActivity(intent);
-		}
-	public Bitmap convertToBitmap(String base){
-		Bitmap Bmp=null;
-		try
-		{
-			byte[] decodedByte = Base64.decode(base, Base64.DEFAULT);
-			Bmp = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
-//
-			return Bmp;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			return Bmp;
-		}
-	}
-	public  Bitmap getRoundedRectBitmap(Bitmap bitmap, int pixels)
-	{
-		result = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-		canvas = new Canvas(result);
-
-		color = 0xff424242;
-		paint = new Paint();
-		rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-		rectF = new RectF(rect);
-		roundPx = pixels;
-
-		paint.setAntiAlias(true);
-		canvas.drawARGB(0, 0, 0, 0);
-		paint.setColor(color);
-		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
-
-		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-		canvas.drawBitmap(bitmap, rect, rect, paint);
-
-		return result;
 	}
 }
 

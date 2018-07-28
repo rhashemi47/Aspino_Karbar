@@ -108,7 +108,8 @@
             android:gravity="right"
             android:textAlignment="gravity"
             android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:enabled="false"/>
             <EditText
                 android:id="@+id/etTextFamily"
                 android:layout_width="match_parent"
@@ -117,7 +118,8 @@
                 android:gravity="right"
                 android:textAlignment="gravity"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+               android:enabled="false"/>
             <!--<view-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="1dp"-->

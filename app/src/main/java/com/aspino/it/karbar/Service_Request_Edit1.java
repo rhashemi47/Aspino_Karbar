@@ -311,17 +311,17 @@ protected void onCreate(Bundle savedInstanceState) {
 						}
 						db.close();
 					}
-					LoadActivity(Service_Request_Edit2.class, "karbarCode", karbarCode,
-							"DetailCode", DetailCode,
-							"FromDate", etFromDate.getText().toString(),
-							"ToDate", ToDate,
-							"FromTime", etFromTime.getText().toString(),
-							"ToTime", ToTime,
-							"Description", etDescription.getText().toString(),
-							"TimeDiff", etCountTimeJob.getText().toString(),
-							"CodeOrderService", CodeOrderService,
-							"AddressCode", etAddres.getTag().toString()
-					);
+//					LoadActivity(Service_Request_Edit2.class, "karbarCode", karbarCode,
+//							"DetailCode", DetailCode,
+//							"FromDate", etFromDate.getText().toString(),
+//							"ToDate", ToDate,
+//							"FromTime", etFromTime.getText().toString(),
+//							"ToTime", ToTime,
+//							"Description", etDescription.getText().toString(),
+//							"TimeDiff", etCountTimeJob.getText().toString(),
+//							"CodeOrderService", CodeOrderService,
+//							"AddressCode", etAddres.getTag().toString()
+//					);
 				}
 				else
 				{

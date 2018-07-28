@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,27 +100,39 @@ public class AdapterListViewPager extends BaseAdapter {
         {
             holder.LinearStatusService.setBackgroundColor(Color.parseColor("#12b44f"));
             holder.tvStatusService.setText("تایید شده");
+            holder.LinearMain.setOnClickListener(ItemOnclickPardakht);
         }
         else
         {
             holder.LinearStatusService.setBackgroundColor(Color.parseColor("#f0ba51"));
             holder.tvStatusService.setText("انتخاب متخصص");
+            holder.LinearMain.setOnClickListener(ItemOnclickSelectHamyar);
         }
         holder.LinearMain.setTag(Code);
         holder.tvTitleService.setText(TitleService);
         holder.tvDateAndTimeService.setText(DateAndTimeService);
         holder.tvAddresService.setText(AddresService);
         holder.tvNameHamyar.setText(NameHamyar);
-        holder.LinearMain.setOnClickListener(TextViewItemOnclick);
 
         return convertView;
     }
 
 
-    private OnClickListener TextViewItemOnclick = new OnClickListener() {
+    private OnClickListener ItemOnclickSelectHamyar = new OnClickListener() {
         @Override
         public void onClick(View v) {
             String code = ((LinearLayout)v).getTag().toString();
+            Toast.makeText(activity.getApplicationContext(),"Select Hamyar",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo SelectHamyar
+            intent.putExtra("Code",code);
+            activity.startActivity(intent);
+        }
+    };
+    private OnClickListener ItemOnclickPardakht = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            String code = ((LinearLayout)v).getTag().toString();
+            Toast.makeText(activity.getApplicationContext(),"Pardakht Factor",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo pardakh_factor_sefaresh.xml
             intent.putExtra("Code",code);
             activity.startActivity(intent);

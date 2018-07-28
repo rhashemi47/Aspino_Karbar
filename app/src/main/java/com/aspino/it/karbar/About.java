@@ -57,6 +57,7 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 	private Toolbar mtoolbar;
 	private Button btnLogout;
 	private ImageView imgBackToggle;
+	private ImageView imgMenu;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -73,9 +74,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar_about);
 
 	mtoolbar.setTitle("");
-	setSupportActionBar(mtoolbar);
-	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-	getSupportActionBar().setDisplayShowHomeEnabled(true);
+//	setSupportActionBar(mtoolbar);
+//	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//	getSupportActionBar().setDisplayShowHomeEnabled(true);
 	mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 	mNavi = (NavigationView) findViewById(R.id.navigation_view);
@@ -97,10 +98,18 @@ protected void onCreate(Bundle savedInstanceState) {
 	mNavi.setNavigationItemSelectedListener(this);
 	mNavi.setItemIconTintList(null);
 
-	ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+	imgMenu=(ImageView)findViewById(R.id.imgMenu);
+	imgMenu.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			mDrawer.openDrawer(GravityCompat.START);
+		}
+	});
 
-	mDrawer.addDrawerListener(aToggle);
-	aToggle.syncState();
+//        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+
+//        mDrawer.addDrawerListener(aToggle);
+//        aToggle.syncState();
 	//*****************************************************************
 //	btnLogout.setOnClickListener(new View.OnClickListener() {
 //		@Override

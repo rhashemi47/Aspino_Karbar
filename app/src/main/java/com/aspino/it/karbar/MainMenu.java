@@ -79,6 +79,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private LinearLayout LinearListOrder;
     private LinearLayout LinearSupportContact;
     private Button btnLogout;
+    private ImageView imgMenu;
 //    private Typeface facehVazir;
 //    private Typeface facehVazir_Bold;
 //    private Typeface facehVazir_Light;
@@ -107,9 +108,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //****************************************************************
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
         mtoolbar.setTitle("");
-        setSupportActionBar(mtoolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.btnback);
+
+//        setSupportActionBar(mtoolbar);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//        getSupportActionBar().setHomeAsUpIndicator(R.drawable.btnback);
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         mNavi = (NavigationView) findViewById(R.id.navigation_view);
@@ -123,11 +125,18 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         });
         mNavi.setNavigationItemSelectedListener(this);
         mNavi.setItemIconTintList(null);
+        imgMenu=(ImageView)findViewById(R.id.imgMenu);
+        imgMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.openDrawer(GravityCompat.START);
+            }
+        });
 
-        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+//        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
 
-        mDrawer.addDrawerListener(aToggle);
-        aToggle.syncState();
+//        mDrawer.addDrawerListener(aToggle);
+//        aToggle.syncState();
         dbh = new DatabaseHelper(getApplicationContext());
         try {
 

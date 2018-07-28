@@ -12,13 +12,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="center"
-            android:background="#fff">
+            android:background="@drawable/rounded_head_final_service">
             <ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -31,7 +31,8 @@
                 android:lineSpacingExtra="4dp"
                 android:layout_gravity="center"
                 android:text="@string/SuccessfulService"
-                android:textSize="22dp"
+                android:textSize="18dp"
+                android:fontFamily="@font/vazir_bold"
                 android:textColor="#6a33d6"
                 android:textAlignment="center"
                 android:gravity="right"/>
@@ -40,15 +41,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/MessageFindHamyar"
-                android:textSize="16dp"
+                android:textSize="14dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/vazir"
                 android:textColor="#666666"
                 android:textAlignment="center"/>
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:background="#fff">
@@ -57,21 +61,23 @@
             android:layout_height="wrap_content"
             android:text="@string/CodeOrderService"
             android:textColor="#000"
+            android:fontFamily="@font/vazir_medium"
             android:layout_marginRight="10dp"
-            android:textSize="22sp"/>
+            android:textSize="18sp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:id="@+id/tvCodeServiceFinal"
+            android:fontFamily="@font/vazir_medium"
             android:layout_marginRight="10dp"
-            android:textSize="22sp"/>
+            android:textSize="18sp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="1dp"
         android:orientation="horizontal"
         android:background="#fff">
@@ -85,7 +91,8 @@
             android:id="@+id/tvNameOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/vazir"
             android:layout_marginRight="10dp"
             android:textColor="#666666"
             android:gravity="right"/>
@@ -93,8 +100,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:background="#fff">
         <ImageView
@@ -107,7 +114,8 @@
             android:id="@+id/tvAddressFinalService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/vazir"
             android:layout_marginRight="10dp"
             android:textColor="#666666"
             android:gravity="right"/>
@@ -115,8 +123,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:background="#fff">
         <ImageView
@@ -129,7 +137,8 @@
             android:id="@+id/tvDateAndTimeFinalService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="22dp"
+            android:textSize="16sp"
+            android:fontFamily="@font/vazir"
             android:layout_marginRight="10dp"
             android:textColor="#666666"
             android:gravity="right"/>
@@ -137,8 +146,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="center"

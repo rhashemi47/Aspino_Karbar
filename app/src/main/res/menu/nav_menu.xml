@@ -25,7 +25,7 @@
         <item
             android:title="@string/About"
             android:icon="@drawable/about"
-            android:id="@+id/About" />">-->
+            android:id="@+id/About" />
         <!--<menu>-->
             <!--<item-->
                 <!--android:title="Archive"-->

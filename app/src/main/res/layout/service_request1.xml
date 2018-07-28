@@ -96,7 +96,7 @@
                             android:layout_width="35dp"
                             android:layout_height="35dp"
                             android:id="@+id/btnAddTimeJob"
-                            android:background="@drawable/plus_add"
+                            android:background="@drawable/plus"
                             android:layout_gravity="center"
                             android:gravity="center"/>
                         <EditText

@@ -136,11 +136,13 @@ public class ProfileEdit extends Activity {
 			}
 			try
 			{
-				etTextBthDate.setText(coursors.getString(coursors.getColumnIndex("BthDate")));
+				if(coursors.getString(coursors.getColumnIndex("BthDate")).length()>=10) {
+					etTextBthDate.setText(coursors.getString(coursors.getColumnIndex("BthDate")));
+				}
 			}
 			catch (Exception ex)
 			{
-
+				etTextBthDate.setText("");
 			}
 //			try
 //			{
@@ -328,7 +330,7 @@ public class ProfileEdit extends Activity {
 	public void insertKarbar() {
 		db=dbh.getReadableDatabase();
 		String errorStr="";
-		if(etTextBthDate.getText().length()>0)
+		if(etTextBthDate.getText().length()>=10)
 		{
 			String sp[]=etTextBthDate.getText().toString().split("/");
 			yearStr=sp[0];
@@ -349,8 +351,11 @@ public class ProfileEdit extends Activity {
 				dayStr=sp[2];
 			}
 		}
-		if(yearStr.compareTo("")==0 || monStr.compareTo("")==0 || dayStr.compareTo("")==0){
-			errorStr="لطفا تاریخ تولد را وارد نمایید\n";
+		else
+		{
+			yearStr="";
+			monStr="";
+			dayStr="";
 		}
 		if(errorStr.compareTo("")==0)
 		{

@@ -19,12 +19,20 @@
         android:layout_below="@+id/about"
         app:theme="@style/DrawerArrowStyle"
         style="@style/DrawerArrowStyle">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btnback"
-        android:layout_gravity="left"
-        android:id="@+id/imgBackToggle"
-        android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/imgMenu"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/hamburger1" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btnback"
+                android:layout_gravity="left"
+                android:id="@+id/imgBackToggle"
+                android:layout_marginLeft="10dp"/>
     </android.support.v7.widget.Toolbar>
 </RelativeLayout>

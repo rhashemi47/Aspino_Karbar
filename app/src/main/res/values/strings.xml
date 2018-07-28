@@ -87,7 +87,7 @@
     <string name="emergency">فوری</string>
     <string name="CountWoman">تعداد زن</string>
     <string name="CountMan">تعداد مرد</string>
-    <string name="Doesnotmatter">فرقی ندارد</string>
+    <string name="Doesnotmatter">فرقی نمی کند</string>
     <string name="Addres">آدرس</string>
     <string name="AddresManagement">مدیریت آدرس ها</string>
     <string name="SaveLocation">ثبت و ذخیره آدرس</string>
@@ -215,4 +215,9 @@
     <string name="open">باز</string>
     <string name="close">بسته</string>
     <string name="detailorder">جزئیات سفارش</string>
+    <string name="DoSelect">انتخاب کنید</string>
+    <string name="SignUpInAspino">ثبت نام در آسپینو</string>
+    <string name="brithdayEkhtiari">تاریخ تولد (اختیاری)</string>
+    <string name="LinkUrl"><a href=" http://aspino.ir/">قوانین و مقررات</a>
+</string>
 </resources>

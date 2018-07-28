@@ -7,30 +7,6 @@
     android:background="@drawable/simpleback"
     android:layoutDirection="rtl">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:id="@+id/appbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingTop="@dimen/appbar_padding_top"-->
-        <!--android:background="#6931d3"-->
-        <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--app:layout_scrollFlags="scroll|enterAlways"-->
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-            <!--app:titleTextColor="#ffff">-->
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@drawable/btnback"-->
-            <!--android:layout_gravity="left"-->
-            <!--android:layout_marginLeft="10dp"/>-->
-        <!--</android.support.v7.widget.Toolbar>-->
-    <!--</android.support.design.widget.AppBarLayout>-->
-
     <ScrollView
         android:id="@+id/ScrollLayout"
         android:layout_width="match_parent"
@@ -46,17 +22,20 @@
             android:layout_marginRight="10dp"
             android:orientation="vertical">
             <ImageView
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="150dp"
-                android:layout_marginTop="10dp"
-            android:background="@drawable/logo"
-            android:layout_gravity="center"/>
+            android:layout_marginTop="10dp"
+            android:background="@drawable/logo_white"
+            android:layout_gravity="center"
+                android:textDirection="rtl"
+                android:layoutDirection="rtl"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginTop="10dp">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -82,9 +61,10 @@
                 android:text="@string/AboutUsDescText"
                 android:textSize="18dp"
                 android:textColor="#fff"
+                android:justificationMode="inter_word"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:textAlignment="gravity"
                 android:gravity="right"/>
             <LinearLayout
@@ -99,8 +79,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/telegicon"
                     android:layout_gravity="center"/>
                     <TextView
@@ -110,6 +90,7 @@
                         android:text="@string/telegram"
                         android:textSize="18dp"
                         android:textColor="#fff"
+                        android:layout_marginTop="5dp"
                         android:layout_marginRight="6dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -119,8 +100,8 @@
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/webicon"
                     android:layout_gravity="center"/>
                     <TextView
@@ -130,6 +111,7 @@
                         android:text="@string/WebSite"
                         android:textSize="18dp"
                         android:textColor="#fff"
+                        android:layout_marginTop="5dp"
                         android:layout_marginRight="0dp"/>
                 </LinearLayout>
                 <LinearLayout
@@ -137,8 +119,8 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/instaicon"
                     android:layout_gravity="center"/>
                     <TextView
@@ -148,6 +130,7 @@
                         android:text="@string/instagram"
                         android:textSize="18dp"
                         android:textColor="#fff"
+                        android:layout_marginTop="5dp"
                         android:layout_marginRight="0dp"/>
                 </LinearLayout>
             </LinearLayout>

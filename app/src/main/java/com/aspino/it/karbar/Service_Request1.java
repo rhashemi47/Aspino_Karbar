@@ -115,6 +115,7 @@ public class Service_Request1 extends AppCompatActivity implements NavigationVie
 	private Toolbar mtoolbar;
 	private Button btnLogout;
 	private ImageView imgClose;
+	private ImageView imgMenu;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -152,10 +153,16 @@ protected void onCreate(Bundle savedInstanceState) {
 		});
 		mNavi.setNavigationItemSelectedListener(this);
 		mNavi.setItemIconTintList(null);
-
-		ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
-		mDrawer.addDrawerListener(aToggle);
-		aToggle.syncState();
+		imgMenu=(ImageView)findViewById(R.id.imgMenu);
+		imgMenu.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				mDrawer.openDrawer(GravityCompat.START);
+			}
+		});
+//		ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
+//		mDrawer.addDrawerListener(aToggle);
+//		aToggle.syncState();
 		//*****************************************************************
 		//****************************************************************
 		imgForward = (ImageView) findViewById(R.id.imgForward);

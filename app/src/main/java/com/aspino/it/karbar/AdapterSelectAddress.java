@@ -74,10 +74,10 @@ public class AdapterSelectAddress extends BaseAdapter {
             holder.LinearAddress = (LinearLayout) convertView.findViewById(R.id.LinearAddress);
             holder.txtTitleAddress = (TextView) convertView.findViewById(R.id.txtTitleAddress);
 //            holder.txtTitleAddress.setTypeface(faceh);
-            holder.txtTitleAddress.setTextSize(24);
+            holder.txtTitleAddress.setTextSize(16);
             holder.txtContentAddress = (TextView) convertView.findViewById(R.id.txtContentAddress);
 //            holder.txtContentAddress.setTypeface(faceh);
-            holder.txtContentAddress.setTextSize(24);
+            holder.txtContentAddress.setTextSize(16);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();

@@ -37,7 +37,7 @@
         @Override
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.slide_menu_select_address);
+        setContentView(R.layout.slide_menu_listaddress);
             btnAdd_New_Address=(Button)findViewById(R.id.btnAdd_New_Address);
 //            btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //            btncredite=(Button)findViewById(R.id.btncrediteBottom);

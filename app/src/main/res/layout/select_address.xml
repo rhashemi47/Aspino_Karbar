@@ -8,13 +8,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical">
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="170dp"
             android:layout_height="40dp"
             android:id="@+id/btnAdd_New_Address"
             android:layout_marginBottom="10dp"
@@ -27,37 +27,39 @@
             android:layout_marginRight="10dp"
             android:drawablePadding="-10dp"
             android:paddingRight="20dp"
-            android:textSize="22sp"/>
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="لطفا یکی از آدرس های زیر را انتخاب نموده یا بر روی ثبت آدرس جدید کلیک نموده و آدرس خود را ثبت نمایید ."/>
         <ListView
             android:id="@+id/listViewAddress"
             android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
             android:layout_height="380dp"
             android:background="#ffffff"
             android:dividerHeight="5dp">
         </ListView>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
+            android:layout_height="60dp"
             android:gravity="center"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="60dp"
+            android:layout_marginBottom="30dp">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/imgForward"
-                android:background="@drawable/forward"
-                android:layout_marginLeft="30dp"
                 android:layout_gravity="center"
-                android:foregroundGravity="center"/>
+                android:background="@drawable/forward"/>
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/imgback"
-                android:layout_marginRight="30dp"
-                android:background="@drawable/back_active"
+                android:id="@+id/imgBack"
                 android:layout_gravity="center"
-                android:foregroundGravity="center"/>
+                android:layout_marginRight="100dp"
+                android:background="@drawable/back_active"/>
         </LinearLayout>
-        </LinearLayout>
+</LinearLayout>
 </LinearLayout>
