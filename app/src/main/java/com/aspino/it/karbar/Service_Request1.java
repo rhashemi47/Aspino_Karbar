@@ -67,7 +67,7 @@ import static android.content.DialogInterface.*;
 public class Service_Request1 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private String karbarCode;
 	private String DetailCode;
-	private TextView tvTitleService;
+//	private TextView tvTitleService;
 	private Button btnAddTimeJob;
 	private Button btnDesTimeJob;
 	//**************************************************************
@@ -176,7 +176,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		etAddres = (EditText) findViewById(R.id.etAddres);
 		etDescription = (EditText) findViewById(R.id.etDescription);
 //		spAddress = (Spinner) findViewById(R.id.spAddress);
-		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
+//		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
 		etCountTimeJob=(EditText)findViewById(R.id.etCountTimeJob);
 		btnAddTimeJob=(Button)findViewById(R.id.btnAddTimeJob);
 		btnDesTimeJob=(Button)findViewById(R.id.btnDesTimeJob);
@@ -308,7 +308,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		if(coursors.getCount()>0){
 			coursors.moveToNext();
 			CodeService=coursors.getString(coursors.getColumnIndex("servicename"));
-			tvTitleService.setText(":"+coursors.getString(coursors.getColumnIndex("name")));
+//			tvTitleService.setText(":"+coursors.getString(coursors.getColumnIndex("name")));
 		}
 		else
 		{

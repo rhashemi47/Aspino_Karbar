@@ -11,6 +11,8 @@ public class PublicVariable {
 	public static final String URL = "http://94.183.241.216:8070/WebERP/WebAspino/WebService/AspinoUserWSN.asmx";
 //	public static final String URL = "http://192.168.3.5/WebERP/WebAspino/WebService/AspinoUserWSN.asmx";
 	//public static final String URL = "http://aspino.org/WebERP/WebAspino/WebService/AspinoUserWSN.asmx";
+	public static String LinkFileTextCheckVersion= "http://94.183.241.216:8070/AppUpdate/Hamyar/Version.txt";
+	public static String DownloadAppUpdateLinkAPK = "http://94.183.241.216:8070/AppUpdate/hamyar/app.apk";
 	public static final String site = "http://aspino.org";
 	public static final int PersonId = 0;
 	public static List<LinearLayout> view= new ArrayList<>();

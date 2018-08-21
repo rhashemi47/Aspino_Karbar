@@ -80,12 +80,12 @@ public class AdapterListViewPager extends BaseAdapter {
 //            holder.tvDateAndTimeService.setTypeface(faceh);
 //            holder.tvAddresService.setTypeface(faceh);
             //********************************************
-            holder.tvTitleService.setTextSize(18);
-            holder.tvStatusService.setTextSize(18);
-            holder.tvDateAndTimeService.setTextSize(18);
-            holder.tvAddresService.setTextSize(18);
-            holder.tvNameHamyar.setTextSize(18);
-            holder.tvNameHamyar.setTextSize(18);
+            holder.tvTitleService.setTextSize(16);
+            holder.tvStatusService.setTextSize(8);
+            holder.tvDateAndTimeService.setTextSize(16);
+            holder.tvAddresService.setTextSize(16);
+            holder.tvNameHamyar.setTextSize(16);
+            holder.tvNameHamyar.setTextSize(16);
             convertView.setTag(holder);
 //        } else {
 //            holder = (ViewHolder) convertView.getTag();

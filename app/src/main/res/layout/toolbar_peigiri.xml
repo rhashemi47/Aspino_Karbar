@@ -2,12 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#6831d4">
     <include layout="@layout/peigiri"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:id="@+id/include_peigiri"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="60dp">
     </include>
 
     <android.support.v7.widget.Toolbar
@@ -31,8 +32,7 @@
                 android:id="@+id/imgMenu"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="center"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/hamburger1" />
             <TextView
@@ -42,11 +42,13 @@
                 android:textColor="#fff"
                 android:text="@string/peigiri"
                 android:layout_marginRight="30dp"
-                android:textSize="22sp"
+                android:textSize="24sp"
+                android:fontFamily="@font/vazir"
                 android:layout_weight="1"/>
             <ImageView
-                android:layout_width="20dp"
+                android:layout_width="25dp"
                 android:layout_height="20dp"
+                android:layout_gravity="center"
                 android:background="@drawable/btnback"
                 android:id="@+id/imgBackToggle"
                 android:layout_marginLeft="10dp"/>

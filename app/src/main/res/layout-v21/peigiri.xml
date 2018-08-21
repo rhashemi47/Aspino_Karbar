@@ -49,10 +49,11 @@
             <!--android:gravity="center">-->
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/tab_layout"
-                android:layout_marginRight="30dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginLeft="40dp"
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 app:stl_indicatorAlwaysInCenter="false"
                 app:stl_indicatorWithoutPadding="true"
                 app:stl_indicatorInFront="false"
@@ -61,7 +62,7 @@
                 app:stl_indicatorColor="#fff"
                 app:stl_indicatorThickness="50dp"
                 app:stl_indicatorWidth="auto"
-                app:stl_indicatorCornerRadius="20dp"
+                app:stl_indicatorCornerRadius="40dp"
                 app:stl_overlineColor="@color/mdtp_transparent"
                 app:stl_overlineThickness="0dp"
                 app:stl_underlineColor="@color/mdtp_transparent"

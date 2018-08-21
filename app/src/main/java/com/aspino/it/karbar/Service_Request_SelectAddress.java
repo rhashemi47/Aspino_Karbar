@@ -368,7 +368,6 @@ public boolean onKeyDown( int keyCode, KeyEvent event )  {
 				"TimeDiff", TimeDiff,
 				"AddressCode", AddressCode);
     }
-
     return super.onKeyDown( keyCode, event );
 }
 public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)

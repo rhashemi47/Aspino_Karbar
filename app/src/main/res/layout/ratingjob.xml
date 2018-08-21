@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/ratingBarZaher"
-                    />
+                    android:stepSize="1"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/ratingBarBarkhord"/>
+                    android:id="@+id/ratingBarBarkhord"
+                    android:stepSize="1"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +93,8 @@
                 <RatingBar
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/ratingBarHozooreBeMoghe"/>
+                    android:id="@+id/ratingBarHozooreBeMoghe"
+                    android:stepSize="1"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -110,7 +112,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/ratingBarGheymat"/>
+                    android:id="@+id/ratingBarGheymat"
+                    android:stepSize="1"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,7 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/ratingBarTahvil"/>
+                    android:id="@+id/ratingBarTahvil"
+                    android:stepSize="1"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -146,7 +150,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:id="@+id/ratingBarKeyfiyat"/>
+                    android:id="@+id/ratingBarKeyfiyat"
+                    android:stepSize="1"/>
             </LinearLayout>
 
             <Button

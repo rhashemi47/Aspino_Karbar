@@ -32,7 +32,7 @@ public class AdapterUpdateAddress extends BaseAdapter {
     private String backToActivity;
     private ViewHolder holder;
 
-    public AdapterUpdateAddress(Activity activity, ArrayList<HashMap<String, String>> list) {
+    public AdapterUpdateAddress(Activity activity, ArrayList<HashMap<String, String>> list,String karbarCode) {
         super();
         this.activity = activity;
         this.list = list;

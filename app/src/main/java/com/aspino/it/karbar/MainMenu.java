@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.pm.PackageInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -92,6 +93,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     Custom_ViewFlipper viewFlipper;
     GestureDetector mGestureDetector;
     private String countOrder;
+    private String AppVersion;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -105,6 +107,19 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_menu_mainmenu);
+        //****************************************************************
+        PackageInfo pInfo = null;
+        try {
+            pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String version = pInfo.versionName;
+        if(version.length()>0) {
+            AppVersion = version;
+            WsDownLoadUpdate wsDownLoadUpdate=new WsDownLoadUpdate(MainMenu.this,AppVersion, PublicVariable.LinkFileTextCheckVersion,PublicVariable.DownloadAppUpdateLinkAPK);
+            wsDownLoadUpdate.AsyncExecute();
+        }
         //****************************************************************
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
         mtoolbar.setTitle("");

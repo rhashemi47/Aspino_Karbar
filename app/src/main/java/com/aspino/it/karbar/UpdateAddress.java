@@ -60,13 +60,13 @@ public class UpdateAddress extends AppCompatActivity {
         AddAddres=findViewById(R.id.AddAddres);
         LinearBottomSaveAddress= findViewById(R.id.LinearBottomSaveAddress);
         try {
-            karbarCode = getIntent().getStringExtra("karbarCode");
+            karbarCode = getIntent().getStringExtra("karbarCode").toString();
         }
         catch (Exception e) {
             karbarCode = "";
         }
         try {
-            AddressCode = getIntent().getStringExtra("AddressCode");
+            AddressCode = getIntent().getStringExtra("AddressCode").toString();
         }
         catch (Exception e) {
             AddressCode = "";
@@ -82,7 +82,7 @@ public class UpdateAddress extends AppCompatActivity {
 
         }
         try {
-            backToActivity = getIntent().getStringExtra("nameActivity");
+            backToActivity = getIntent().getStringExtra("nameActivity").toString();
         }
         catch (Exception e) {
             backToActivity = "";
@@ -168,20 +168,20 @@ public class UpdateAddress extends AppCompatActivity {
                 map.setMyLocationEnabled(true);
                 LatLng point;
                 point = new LatLng(lat, lon);
-                db = dbh.getReadableDatabase();
-                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-                if (coursors.getCount() > 0) {
-                    coursors.moveToNext();
-                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
-                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
-                    lat = Double.parseDouble(latStr);
-                    lon = Double.parseDouble(lonStr);
-                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
-                        point = new LatLng(lat, lon);
-                    }
-                }
-                coursors.close();
-                db.close();
+//                db = dbh.getReadableDatabase();
+//                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+//                if (coursors.getCount() > 0) {
+//                    coursors.moveToNext();
+//                    String latStr = coursors.getString(coursors.getColumnIndex("Lat"));
+//                    String lonStr = coursors.getString(coursors.getColumnIndex("Lon"));
+//                    lat = Double.parseDouble(latStr);
+//                    lon = Double.parseDouble(lonStr);
+//                    if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
+//                        point = new LatLng(lat, lon);
+//                    }
+//                }
+//                coursors.close();
+//                db.close();
                 map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.pointer)));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
 
