@@ -68,7 +68,7 @@
     <string name="credite">اعتبار</string>
     <string name="home">خانه</string>
     <string name="DutyItem">وظایف</string>
-    <string name="RecentCredit">میزان اعتبار شما</string>
+    <string name="RecentCredit">اعتبار فعلی:</string>
     <string name="IncreseCredit">افزایش اعتبار</string>
     <string name="History">سفارشات درخواستی </string>
     <string name="RelateUs">به ما بپیوندید!</string>
@@ -220,4 +220,5 @@
     <string name="brithdayEkhtiari">تاریخ تولد (اختیاری)</string>
     <string name="LinkUrl"><a href=" http://aspino.ir/">قوانین و مقررات</a>
 </string>
+    <string name="Toman">تومان</string>
 </resources>

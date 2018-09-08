@@ -46,6 +46,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -81,14 +82,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     private LinearLayout LinearSupportContact;
     private Button btnLogout;
     private ImageView imgMenu;
-//    private Typeface facehVazir;
-//    private Typeface facehVazir_Bold;
-//    private Typeface facehVazir_Light;
-//    private Typeface facehVazir_Medium;
-//    private Typeface facehVazir_Thin;
     private DrawerLayout mDrawer;
     private NavigationView mNavi;
     private Toolbar mtoolbar;
+    private TextView tvUserName;
+    private TextView tvCredits;
+    private ImageView imgPicProfile;
+
     ImageView imageView;
     Custom_ViewFlipper viewFlipper;
     GestureDetector mGestureDetector;
@@ -141,6 +141,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         mNavi.setNavigationItemSelectedListener(this);
         mNavi.setItemIconTintList(null);
         imgMenu=(ImageView)findViewById(R.id.imgMenu);
+        imgPicProfile=(ImageView)header_View.findViewById(R.id.imgPicProfile);
+        tvUserName=(TextView) header_View.findViewById(R.id.tvUserName);
+        tvCredits=(TextView) header_View.findViewById(R.id.tvCredits);
         imgMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -401,7 +404,82 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         } else {
             viewFlipper.setVisibility(View.VISIBLE);
         }
+        coursors.close();
+        db = dbh.getReadableDatabase();
+        coursors = db.rawQuery("SELECT * FROM Profile", null);
+        if (coursors.getCount() > 0) {
+            coursors.moveToNext();
+            try
+            {
+                if(coursors.getString(coursors.getColumnIndex("Name")).compareTo("null")!=0){
+                    tvUserName.setText(coursors.getString(coursors.getColumnIndex("Name")));
+                }
+                else
+                {
+                    tvUserName.setText("کاربر");
+                }
 
+            }
+            catch (Exception ex){
+                tvUserName.setText("کاربر");
+            }
+            try
+            {
+                if(coursors.getString(coursors.getColumnIndex("Fam")).compareTo("null")!=0){
+                    tvUserName.setText(tvUserName.getText() + coursors.getString(coursors.getColumnIndex("Fam")));
+                }
+                else
+                {
+                    tvUserName.setText(tvUserName.getText() + "مهمان");
+                }
+
+            }
+            catch (Exception ex){
+                tvUserName.setText(tvUserName.getText() + "مهمان");
+            }
+            try
+            {
+                if(coursors.getString(coursors.getColumnIndex("Pic")).compareTo("null")!=0){
+                    imgPicProfile.setImageBitmap(convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic"))));
+                }
+                else
+                {
+                    imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
+                }
+
+            }
+            catch (Exception ex){
+                imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
+            }
+        }
+        else
+        {
+            tvUserName.setText(tvUserName.getText() + "کاربر مهمان");
+        }
+
+        coursors.close();
+        db.close();
+        db=dbh.getReadableDatabase();
+        coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
+        if (coursors.getCount() > 0) {
+            coursors.moveToNext();
+            try {
+                String splitStr[]=coursors.getString(coursors.getColumnIndex("Amount")).toString().split("\\.");
+                if(splitStr[1].compareTo("00")==0)
+                {
+                    tvCredits.setText(splitStr[0]);
+                }
+                else
+                {
+                    tvCredits.setText(coursors.getString(coursors.getColumnIndex("Amount")));
+                }
+
+            } catch (Exception ex) {
+                tvCredits.setText("0");
+            }
+        }
+        db.close();
+        coursors.close();
 //*******************************************************************************************************************
 //        db = dbh.getReadableDatabase();
 //        Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
@@ -587,355 +665,355 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
     @SuppressLint("ResourceAsColor")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void CreateMenu(Toolbar toolbar) {
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
-        String name = "";
-        String family = "";
-        String Mobile = "";
-        db = dbh.getReadableDatabase();
-        Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-        if (coursors.getCount() > 0) {
-            coursors.moveToNext();
-            try
-            {
-                if(coursors.getString(coursors.getColumnIndex("Name")).compareTo("null")!=0){
-                    name = coursors.getString(coursors.getColumnIndex("Name"));
-                }
-                else
-                {
-                    name = "کاربر";
-                }
-
-            }
-            catch (Exception ex){
-                name = "کاربر";
-            }
-            try
-            {
-                if(coursors.getString(coursors.getColumnIndex("Fam")).compareTo("null")!=0){
-                    family = coursors.getString(coursors.getColumnIndex("Fam"));
-                }
-                else
-                {
-                    family = "مهمان";
-                }
-
-            }
-            catch (Exception ex){
-                family = "مهمان";
-            }
-            try
-            {
-                if(coursors.getString(coursors.getColumnIndex("Mobile")).compareTo("null")!=0){
-                    Mobile = coursors.getString(coursors.getColumnIndex("Mobile"));
-                }
-                else
-                {
-                    Mobile = "";
-                }
-
-            }
-            catch (Exception ex){
-                Mobile = "";
-            }
-            try
-            {
-                if(coursors.getString(coursors.getColumnIndex("Pic")).compareTo("null")!=0){
-                    bmp = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
-                }
-                else
-                {
-                    bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
-                }
-
-            }
-            catch (Exception ex){
-                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
-            }
-        }
-        else
-        {
-            name = "کاربر";
-            family = "مهمان";
-        }
-        db.close();
-        int drawerGravity = Gravity.END;
-        Configuration config = getResources().getConfiguration();
-        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-            drawerGravity = Gravity.START;
-        }
-
-        // Create the AccountHeader
-        AccountHeader headerResult = new AccountHeaderBuilder()
-                .withActivity(this)
-                .withHeaderBackground(R.drawable.header_menu)
-                .addProfiles(new ProfileDrawerItem().withName(name + " " + family+"\n"+Mobile).withIcon(bmp)).withSelectionListEnabledForSingleProfile(false)
-//                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+//    private void CreateMenu(Toolbar toolbar) {
+//        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
+//        String name = "";
+//        String family = "";
+//        String Mobile = "";
+//        db = dbh.getReadableDatabase();
+//        Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+//        if (coursors.getCount() > 0) {
+//            coursors.moveToNext();
+//            try
+//            {
+//                if(coursors.getString(coursors.getColumnIndex("Name")).compareTo("null")!=0){
+//                    name = coursors.getString(coursors.getColumnIndex("Name"));
+//                }
+//                else
+//                {
+//                    name = "کاربر";
+//                }
+//
+//            }
+//            catch (Exception ex){
+//                name = "کاربر";
+//            }
+//            try
+//            {
+//                if(coursors.getString(coursors.getColumnIndex("Fam")).compareTo("null")!=0){
+//                    family = coursors.getString(coursors.getColumnIndex("Fam"));
+//                }
+//                else
+//                {
+//                    family = "مهمان";
+//                }
+//
+//            }
+//            catch (Exception ex){
+//                family = "مهمان";
+//            }
+//            try
+//            {
+//                if(coursors.getString(coursors.getColumnIndex("Mobile")).compareTo("null")!=0){
+//                    Mobile = coursors.getString(coursors.getColumnIndex("Mobile"));
+//                }
+//                else
+//                {
+//                    Mobile = "";
+//                }
+//
+//            }
+//            catch (Exception ex){
+//                Mobile = "";
+//            }
+//            try
+//            {
+//                if(coursors.getString(coursors.getColumnIndex("Pic")).compareTo("null")!=0){
+//                    bmp = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
+//                }
+//                else
+//                {
+//                    bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
+//                }
+//
+//            }
+//            catch (Exception ex){
+//                bmp = BitmapFactory.decodeResource(getResources(), R.drawable.useravatar);
+//            }
+//        }
+//        else
+//        {
+//            name = "کاربر";
+//            family = "مهمان";
+//        }
+//        db.close();
+//        int drawerGravity = Gravity.END;
+//        Configuration config = getResources().getConfiguration();
+//        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+//            drawerGravity = Gravity.START;
+//        }
+//
+//        // Create the AccountHeader
+//        AccountHeader headerResult = new AccountHeaderBuilder()
+//                .withActivity(this)
+//                .withHeaderBackground(R.drawable.header_menu)
+//                .addProfiles(new ProfileDrawerItem().withName(name + " " + family+"\n"+Mobile).withIcon(bmp)).withSelectionListEnabledForSingleProfile(false)
+////                .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
+////                    @Override
+////                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
+////                        return false;
+////                    }
+////                })
+//                .build();
+//
+//        drawer = new DrawerBuilder()
+//                .withActivity(this)
+//                .withToolbar(toolbar)
+//                .withAccountHeader(headerResult)
+//                .withDrawerGravity(drawerGravity)
+//                .withShowDrawerOnFirstLaunch(true)
+//                .addDrawerItems(
+//                        new SecondaryDrawerItem().withName(R.string.Profile).withIcon(R.drawable.profile).withSelectable(false).withEnabled(IsActive),
+//                        new SecondaryDrawerItem().withName(R.string.wallet).withIcon(R.drawable.wallet).withSelectable(false).withEnabled(IsActive),
+//                        new SecondaryDrawerItem().withName(R.string.Order).withIcon(R.drawable.clock).withSelectable(false).withEnabled(IsActive),
+//                        new SecondaryDrawerItem().withName(R.string.AddresManagement).withIcon(R.drawable.manage_addres).withSelectable(false).withEnabled(IsActive),
+//                        new SecondaryDrawerItem().withName(R.string.Invite_friends).withIcon(R.drawable.share).withSelectable(false).withEnabled(IsActive),
+////                        new SecondaryDrawerItem().withName(R.string.TermsـandـConditions).withIcon(R.drawable.rouls).withSelectable(false).withEnabled(IsActive),
+////                        new SecondaryDrawerItem().withName(R.string.Contact).withIcon(R.drawable.contact_with_us).withSelectable(false),
+//                        new SecondaryDrawerItem().withName(R.string.About).withIcon(R.drawable.about).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive)
+////                        new SecondaryDrawerItem().withName(R.string.Credits).withIcon(R.drawable.creditinmenu).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
+////                        new SecondaryDrawerItem().withName(R.string.Order).withIcon(R.drawable.invit_friend).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
+////                        new SecondaryDrawerItem().withName(R.string.Logout).withIcon(R.drawable.logout).withSelectable(false)
+//
+//
+//
+////                        new SecondaryDrawerItem().withName(R.string.Messages).withIcon(R.drawable.messages).withBadge(countMessage).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
+//                        // new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
+////                        new SecondaryDrawerItem().withName(R.string.Yourcommitment).withIcon(R.drawable.yourcommitment).withSelectable(false),
+////                        new SecondaryDrawerItem().withName(R.string.Ourcommitment).withIcon(R.drawable.ourcommitment).withSelectable(false),
+//                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
+//                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
+////                        new SecondaryDrawerItem().withName(R.string.About).withIcon(R.drawable.about).withSelectable(false),
+////                        new SecondaryDrawerItem().withName(R.string.Help).withIcon(R.drawable.help).withSelectable(false),
+//
+//                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
+//                        //new SecondaryDrawerItem().withName(R.string.Exit).withIcon(R.drawable.exit).withSelectable(false),
+////                ).addStickyDrawerItems(new PrimaryDrawerItem().withName(R.string.RelateUs).withSelectable(false).withEnabled(false),
+////                        new PrimaryDrawerItem().withName(R.string.telegram).withIcon(R.drawable.telegram).withSelectable(false),
+////                        new PrimaryDrawerItem().withName(R.string.instagram).withIcon(R.drawable.instagram).withSelectable(false))
+//                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
 //                    @Override
-//                    public boolean onProfileChanged(View view, IProfile profile, boolean currentProfile) {
-//                        return false;
-//                    }
-//                })
-                .build();
-
-        drawer = new DrawerBuilder()
-                .withActivity(this)
-                .withToolbar(toolbar)
-                .withAccountHeader(headerResult)
-                .withDrawerGravity(drawerGravity)
-                .withShowDrawerOnFirstLaunch(true)
-                .addDrawerItems(
-                        new SecondaryDrawerItem().withName(R.string.Profile).withIcon(R.drawable.profile).withSelectable(false).withEnabled(IsActive),
-                        new SecondaryDrawerItem().withName(R.string.wallet).withIcon(R.drawable.wallet).withSelectable(false).withEnabled(IsActive),
-                        new SecondaryDrawerItem().withName(R.string.Order).withIcon(R.drawable.clock).withSelectable(false).withEnabled(IsActive),
-                        new SecondaryDrawerItem().withName(R.string.AddresManagement).withIcon(R.drawable.manage_addres).withSelectable(false).withEnabled(IsActive),
-                        new SecondaryDrawerItem().withName(R.string.Invite_friends).withIcon(R.drawable.share).withSelectable(false).withEnabled(IsActive),
-//                        new SecondaryDrawerItem().withName(R.string.TermsـandـConditions).withIcon(R.drawable.rouls).withSelectable(false).withEnabled(IsActive),
-//                        new SecondaryDrawerItem().withName(R.string.Contact).withIcon(R.drawable.contact_with_us).withSelectable(false),
-                        new SecondaryDrawerItem().withName(R.string.About).withIcon(R.drawable.about).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive)
-//                        new SecondaryDrawerItem().withName(R.string.Credits).withIcon(R.drawable.creditinmenu).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
-//                        new SecondaryDrawerItem().withName(R.string.Order).withIcon(R.drawable.invit_friend).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
-//                        new SecondaryDrawerItem().withName(R.string.Logout).withIcon(R.drawable.logout).withSelectable(false)
-
-
-
-//                        new SecondaryDrawerItem().withName(R.string.Messages).withIcon(R.drawable.messages).withBadge(countMessage).withBadgeStyle(new BadgeStyle().withTextColor(Color.WHITE).withColorRes(R.color.md_red_700)).withSelectable(false).withEnabled(IsActive),
-                        // new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
-//                        new SecondaryDrawerItem().withName(R.string.Yourcommitment).withIcon(R.drawable.yourcommitment).withSelectable(false),
-//                        new SecondaryDrawerItem().withName(R.string.Ourcommitment).withIcon(R.drawable.ourcommitment).withSelectable(false),
-                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
-                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
-//                        new SecondaryDrawerItem().withName(R.string.About).withIcon(R.drawable.about).withSelectable(false),
-//                        new SecondaryDrawerItem().withName(R.string.Help).withIcon(R.drawable.help).withSelectable(false),
-
-                        //new SectionDrawerItem().withName("").withDivider(true).withTextColor(ContextCompat.getColor(this,R.color.md_grey_500)),
-                        //new SecondaryDrawerItem().withName(R.string.Exit).withIcon(R.drawable.exit).withSelectable(false),
-//                ).addStickyDrawerItems(new PrimaryDrawerItem().withName(R.string.RelateUs).withSelectable(false).withEnabled(false),
-//                        new PrimaryDrawerItem().withName(R.string.telegram).withIcon(R.drawable.telegram).withSelectable(false),
-//                        new PrimaryDrawerItem().withName(R.string.instagram).withIcon(R.drawable.instagram).withSelectable(false))
-                ).withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        switch (position) {
-                            case 1://Profile
-                                db = dbh.getReadableDatabase();
-                                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
-                                if (coursors.getCount() > 0) {
-                                    coursors.moveToNext();
-                                    String Status_check = coursors.getString(coursors.getColumnIndex("Status"));
-                                    if (Status_check.compareTo("0") == 0) {
-                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
-                                        if (c.getCount() > 0) {
-                                            c.moveToNext();
-                                            SyncProfile profile = new SyncProfile(MainMenu.this, c.getString(c.getColumnIndex("karbarCode")));
-                                            profile.AsyncExecute();
-                                        }
-                                    } else {
-                                        LoadActivity(Profile.class, "karbarCode", karbarCode);
-                                    }
-                                }
-                                else {
-                                    LoadActivity(Login.class,"karbarCode","0");
-                                }
-                                db.close();
-                                break;
-                            case 2://Credit
-                                db = dbh.getReadableDatabase();
-                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
-                                        if (c.getCount() > 0) {
-                                            c.moveToNext();
-                                            LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-                                        }
-                                else {
-                                    LoadActivity(Login.class,"karbarCode","0");
-                                }
-                                db.close();
-                                break;
-                            case 3:
-                                db = dbh.getReadableDatabase();
-                                 c = db.rawQuery("SELECT * FROM login", null);
-                                if (c.getCount() > 0) {
-                                    c.moveToNext();
-                                    String QueryCustom;
-                                    QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-                                            "LEFT JOIN " +
-                                            "Servicesdetails ON " +
-                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";
-                                    LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
-                                }
-                                break;
-                            case 4:
-                                db = dbh.getReadableDatabase();
-                                         c = db.rawQuery("SELECT * FROM login", null);
-                                        if (c.getCount() > 0) {
-                                            c.moveToNext();
-                                            LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
-                                        }
-                                        db.close();
-//                                AlertDialog.Builder alertbox1 = new AlertDialog.Builder(MainMenu.this);
-//                                // set the message to display
-//                                alertbox1.setMessage("مدیریت آدرس ها");
-//
-//                                // set a negative/no button and create a listener
-//                                alertbox1.setPositiveButton("ثبت آدرس", new DialogInterface.OnClickListener() {
-//                                    // do something when the button is clicked
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//                                        db = dbh.getReadableDatabase();
+//                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+//                        switch (position) {
+//                            case 1://Profile
+//                                db = dbh.getReadableDatabase();
+//                                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+//                                if (coursors.getCount() > 0) {
+//                                    coursors.moveToNext();
+//                                    String Status_check = coursors.getString(coursors.getColumnIndex("Status"));
+//                                    if (Status_check.compareTo("0") == 0) {
 //                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 //                                        if (c.getCount() > 0) {
 //                                            c.moveToNext();
-//                                            LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+//                                            SyncProfile profile = new SyncProfile(MainMenu.this, c.getString(c.getColumnIndex("karbarCode")));
+//                                            profile.AsyncExecute();
 //                                        }
-//                                        db.close();
-//                                        arg0.dismiss();
+//                                    } else {
+//                                        LoadActivity(Profile.class, "karbarCode", karbarCode);
 //                                    }
-//                                });
-//
-//                                // set a positive/yes button and create a listener
-//                                alertbox1.setNegativeButton("لیست آدرس های ثبت شده", new DialogInterface.OnClickListener() {
-//                                    // do something when the button is clicked
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//                                        //Declare Object From Get Internet Connection Status For Check Internet Status
-//                                        db = dbh.getReadableDatabase();
+//                                }
+//                                else {
+//                                    LoadActivity(Login.class,"karbarCode","0");
+//                                }
+//                                db.close();
+//                                break;
+//                            case 2://Credit
+//                                db = dbh.getReadableDatabase();
 //                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 //                                        if (c.getCount() > 0) {
 //                                            c.moveToNext();
-//                                            LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+//                                            LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
 //                                        }
-//                                        db.close();
-//                                        arg0.dismiss();
-//
-//                                    }
-//                                });
-//                                alertbox1.show();
-//                                db.close();
-                                break;
-                            case 5:
-//                                db = dbh.getReadableDatabase();
-//                                c = db.rawQuery("SELECT * FROM Profile", null);
-//                                if (c.getCount() > 0) {
-//                                    c.moveToNext();
-//                                    sharecode(c.getString(c.getColumnIndex("karbarCodeForReagent")));
-//                                    // LoadActivity(GiftBank.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+//                                else {
+//                                    LoadActivity(Login.class,"karbarCode","0");
 //                                }
 //                                db.close();
-//                                db = dbh.getReadableDatabase();
-                                sharecode("0");
-                                break;
-//                            case 6:
-//                                Toast.makeText(MainMenu.this, "تنظیمات", Toast.LENGTH_SHORT).show();
-//                                AlertDialog.Builder alertbox = new AlertDialog.Builder(MainMenu.this);
-//                                // set the message to display
-//                                alertbox.setMessage("قوانین و مقررات");
-//
-//                                // set a negative/no button and create a listener
-//                                alertbox.setPositiveButton("تعهدات ما", new DialogInterface.OnClickListener() {
-//                                    // do something when the button is clicked
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//                                        db = dbh.getReadableDatabase();
-//                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
-//                                        if (c.getCount() > 0) {
-//                                            c.moveToNext();
-//
-//                                            LoadActivity(OurCommitment.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-//                                        }
-//                                        db.close();
-//                                        arg0.dismiss();
-//                                    }
-//                                });
-//
-//                                // set a positive/yes button and create a listener
-//                                alertbox.setNegativeButton("تعهدات شما", new DialogInterface.OnClickListener() {
-//                                    // do something when the button is clicked
-//                                    public void onClick(DialogInterface arg0, int arg1) {
-//                                        //Declare Object From Get Internet Connection Status For Check Internet Status
-//                                        db = dbh.getReadableDatabase();
-//                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
-//                                        if (c.getCount() > 0) {
-//                                            c.moveToNext();
-//
-//                                            LoadActivity(YourCommitment.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-//                                        }
-//                                        db.close();
-//                                        arg0.dismiss();
-//
-//                                    }
-//                                });
-//                                alertbox.show();
-//                                db.close();
 //                                break;
-//                            case 7:
+//                            case 3:
 //                                db = dbh.getReadableDatabase();
-//                                c = db.rawQuery("SELECT * FROM login", null);
-//                                if (c.getCount() > 0) {
-//                                    c.moveToNext();
-//
-//                                    LoadActivity(Contact.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-//                                }
-//                                db.close();
-//
-//                                break;
-                            case 6:
-                                db = dbh.getReadableDatabase();
-                                c = db.rawQuery("SELECT * FROM login", null);
-                                if (c.getCount() > 0) {
-                                    c.moveToNext();
-
-                                    LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-                                }
-                                db.close();
-                                break;
-//                            case 8:
-//                                db=dbh.getReadableDatabase();
-//                                c = db.rawQuery("SELECT * FROM login", null);
-//                                if (c.getCount() > 0) {
-//                                    c.moveToNext();
-//
-//                                    LoadActivity(GiftBank.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-//                                }
-//                                db.close();//
-//                                break;
-//                            case 9:
-//                                db = dbh.getReadableDatabase();
-//                                c = db.rawQuery("SELECT * FROM login", null);
-//                                if (c.getCount() > 0) {
-//                                    c.moveToNext();
-//                                    Cursor creditCussor=db.rawQuery("SELECT * FROM credits",null);
-//                                    if(creditCussor.getCount()>0) {
-//                                        LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
-//                                    }
-//                                    else
-//                                    {
-//                                        SyncGettUserCreditHistory syncGettUserCreditHistory =new SyncGettUserCreditHistory(MainMenu.this,c.getString(c.getColumnIndex("karbarCode")),"0");
-//                                        syncGettUserCreditHistory.AsyncExecute();
-//                                    }
-//
-//                                }
-//                                db.close();
-//
-//                                break;
-//                            case 10:
-//                                db = dbh.getReadableDatabase();
-//                                c = db.rawQuery("SELECT * FROM login", null);
+//                                 c = db.rawQuery("SELECT * FROM login", null);
 //                                if (c.getCount() > 0) {
 //                                    c.moveToNext();
 //                                    String QueryCustom;
 //                                    QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 //                                            "LEFT JOIN " +
 //                                            "Servicesdetails ON " +
-//                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status<>3";
-//                                    LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+//                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";
+//                                    LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
 //                                }
 //                                break;
-//                            case 11:
-//                                Logout();
+//                            case 4:
+//                                db = dbh.getReadableDatabase();
+//                                         c = db.rawQuery("SELECT * FROM login", null);
+//                                        if (c.getCount() > 0) {
+//                                            c.moveToNext();
+//                                            LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+//                                        }
+//                                        db.close();
+////                                AlertDialog.Builder alertbox1 = new AlertDialog.Builder(MainMenu.this);
+////                                // set the message to display
+////                                alertbox1.setMessage("مدیریت آدرس ها");
+////
+////                                // set a negative/no button and create a listener
+////                                alertbox1.setPositiveButton("ثبت آدرس", new DialogInterface.OnClickListener() {
+////                                    // do something when the button is clicked
+////                                    public void onClick(DialogInterface arg0, int arg1) {
+////                                        db = dbh.getReadableDatabase();
+////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+////                                        if (c.getCount() > 0) {
+////                                            c.moveToNext();
+////                                            LoadActivity2(Map.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+////                                        }
+////                                        db.close();
+////                                        arg0.dismiss();
+////                                    }
+////                                });
+////
+////                                // set a positive/yes button and create a listener
+////                                alertbox1.setNegativeButton("لیست آدرس های ثبت شده", new DialogInterface.OnClickListener() {
+////                                    // do something when the button is clicked
+////                                    public void onClick(DialogInterface arg0, int arg1) {
+////                                        //Declare Object From Get Internet Connection Status For Check Internet Status
+////                                        db = dbh.getReadableDatabase();
+////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+////                                        if (c.getCount() > 0) {
+////                                            c.moveToNext();
+////                                            LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+////                                        }
+////                                        db.close();
+////                                        arg0.dismiss();
+////
+////                                    }
+////                                });
+////                                alertbox1.show();
+////                                db.close();
 //                                break;
-                        }
-                        return true;
-                    }
-                })
-                .build();
-    }
+//                            case 5:
+////                                db = dbh.getReadableDatabase();
+////                                c = db.rawQuery("SELECT * FROM Profile", null);
+////                                if (c.getCount() > 0) {
+////                                    c.moveToNext();
+////                                    sharecode(c.getString(c.getColumnIndex("karbarCodeForReagent")));
+////                                    // LoadActivity(GiftBank.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                }
+////                                db.close();
+////                                db = dbh.getReadableDatabase();
+//                                sharecode("0");
+//                                break;
+////                            case 6:
+////                                Toast.makeText(MainMenu.this, "تنظیمات", Toast.LENGTH_SHORT).show();
+////                                AlertDialog.Builder alertbox = new AlertDialog.Builder(MainMenu.this);
+////                                // set the message to display
+////                                alertbox.setMessage("قوانین و مقررات");
+////
+////                                // set a negative/no button and create a listener
+////                                alertbox.setPositiveButton("تعهدات ما", new DialogInterface.OnClickListener() {
+////                                    // do something when the button is clicked
+////                                    public void onClick(DialogInterface arg0, int arg1) {
+////                                        db = dbh.getReadableDatabase();
+////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+////                                        if (c.getCount() > 0) {
+////                                            c.moveToNext();
+////
+////                                            LoadActivity(OurCommitment.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                        }
+////                                        db.close();
+////                                        arg0.dismiss();
+////                                    }
+////                                });
+////
+////                                // set a positive/yes button and create a listener
+////                                alertbox.setNegativeButton("تعهدات شما", new DialogInterface.OnClickListener() {
+////                                    // do something when the button is clicked
+////                                    public void onClick(DialogInterface arg0, int arg1) {
+////                                        //Declare Object From Get Internet Connection Status For Check Internet Status
+////                                        db = dbh.getReadableDatabase();
+////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
+////                                        if (c.getCount() > 0) {
+////                                            c.moveToNext();
+////
+////                                            LoadActivity(YourCommitment.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                        }
+////                                        db.close();
+////                                        arg0.dismiss();
+////
+////                                    }
+////                                });
+////                                alertbox.show();
+////                                db.close();
+////                                break;
+////                            case 7:
+////                                db = dbh.getReadableDatabase();
+////                                c = db.rawQuery("SELECT * FROM login", null);
+////                                if (c.getCount() > 0) {
+////                                    c.moveToNext();
+////
+////                                    LoadActivity(Contact.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                }
+////                                db.close();
+////
+////                                break;
+//                            case 6:
+//                                db = dbh.getReadableDatabase();
+//                                c = db.rawQuery("SELECT * FROM login", null);
+//                                if (c.getCount() > 0) {
+//                                    c.moveToNext();
+//
+//                                    LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+//                                }
+//                                db.close();
+//                                break;
+////                            case 8:
+////                                db=dbh.getReadableDatabase();
+////                                c = db.rawQuery("SELECT * FROM login", null);
+////                                if (c.getCount() > 0) {
+////                                    c.moveToNext();
+////
+////                                    LoadActivity(GiftBank.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                }
+////                                db.close();//
+////                                break;
+////                            case 9:
+////                                db = dbh.getReadableDatabase();
+////                                c = db.rawQuery("SELECT * FROM login", null);
+////                                if (c.getCount() > 0) {
+////                                    c.moveToNext();
+////                                    Cursor creditCussor=db.rawQuery("SELECT * FROM credits",null);
+////                                    if(creditCussor.getCount()>0) {
+////                                        LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+////                                    }
+////                                    else
+////                                    {
+////                                        SyncGettUserCreditHistory syncGettUserCreditHistory =new SyncGettUserCreditHistory(MainMenu.this,c.getString(c.getColumnIndex("karbarCode")),"0");
+////                                        syncGettUserCreditHistory.AsyncExecute();
+////                                    }
+////
+////                                }
+////                                db.close();
+////
+////                                break;
+////                            case 10:
+////                                db = dbh.getReadableDatabase();
+////                                c = db.rawQuery("SELECT * FROM login", null);
+////                                if (c.getCount() > 0) {
+////                                    c.moveToNext();
+////                                    String QueryCustom;
+////                                    QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
+////                                            "LEFT JOIN " +
+////                                            "Servicesdetails ON " +
+////                                            "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status<>3";
+////                                    LoadActivity2(List_Order.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+////                                }
+////                                break;
+////                            case 11:
+////                                Logout();
+////                                break;
+//                        }
+//                        return true;
+//                    }
+//                })
+//                .build();
+//    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int mId = item.getItemId();

@@ -15,6 +15,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="75dp"
             android:layout_height="75dp"
+            android:id="@+id/imgPicProfile"
             android:src="@drawable/useravatar"
             android:scaleType="centerCrop"
             android:contentDescription="Profile Picture" />
@@ -29,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="8dp"
                 android:textSize="16sp"
+                android:id="@+id/tvUserName"
                 android:textColor="#fff"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +62,7 @@
                             android:textColor="#6831d5"
                             android:textSize="10sp"
                             android:paddingTop="4dp"
-                            android:text="25000 تومان"
+                            android:id="@+id/tvCredits"
                             android:layout_weight="1"/>
                 </LinearLayout>
                 <LinearLayout

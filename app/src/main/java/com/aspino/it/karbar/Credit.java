@@ -8,9 +8,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,6 +22,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +37,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -53,7 +60,21 @@ public class Credit extends AppCompatActivity implements NavigationView.OnNaviga
 	private ImageView imgBackToggle;
 	private EditText etCurrencyInsertCredit;
 	private ImageView imgMenu;
+	private Button btnTwoThousand;
+	private Button btnFiftyThousand;
+	private Button btnOneHundredThousand;
+	private Button btnIncreseCredit;
 	private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
+	private EditText etInsertPriceUser;
+	private TextView tvUserName;
+	private TextView tvCredits;
+	private ImageView imgPicProfile;
+	private Handler mHandler;
+	private boolean continue_or_stop=true;
+	private TextView tvContentCredits;
+	private Cursor coursors;
+	private String Content;
+
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
@@ -66,6 +87,11 @@ protected void onCreate(Bundle savedInstanceState) {
 //	btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
 //	btncredite=(Button)findViewById(R.id.btncrediteBottom);
 	etCurrencyInsertCredit=(EditText) findViewById(R.id.etCurrencyInsertCredit);
+	btnTwoThousand=(Button)findViewById(R.id.btnTwoThousand);
+	btnFiftyThousand=(Button)findViewById(R.id.btnFiftyThousand);
+	btnOneHundredThousand=(Button)findViewById(R.id.btnOneHundredThousand);
+	etInsertPriceUser=(EditText)findViewById(R.id.etInsertPriceUser);
+	btnIncreseCredit=(Button)findViewById(R.id.btnIncreseCredit);
 	//****************************************************************
 	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
 
@@ -77,6 +103,10 @@ protected void onCreate(Bundle savedInstanceState) {
 
 	mNavi = (NavigationView) findViewById(R.id.navigation_view);
 	View header_View= mNavi.getHeaderView(0);
+	imgPicProfile=(ImageView)header_View.findViewById(R.id.imgPicProfile);
+	tvUserName=(TextView) header_View.findViewById(R.id.tvUserName);
+	tvCredits=(TextView) header_View.findViewById(R.id.tvCredits);
+	tvContentCredits=(TextView) findViewById(R.id.tvContentCredits);
 	imgBackToggle=(ImageView)findViewById(R.id.imgBackToggle);
 	imgBackToggle.setOnClickListener(new View.OnClickListener() {
 		@Override
@@ -148,92 +178,197 @@ protected void onCreate(Bundle savedInstanceState) {
 //	txtContent.setTypeface(FontMitra);
 //	tvRecentCreditsValue=(TextView)findViewById(R.id.tvRecentCreditsValue);
 //	tvRecentCreditsValue.setTypeface(FontMitra);
-	String Query="UPDATE UpdateApp SET Status='1'";
-	db=dbh.getWritableDatabase();
-	db.execSQL(Query);
-	try
-	{
-		String Content="";
-		Cursor coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
-		if (coursors.getCount() > 0) {
-			coursors.moveToNext();
-			String splitStr[]=coursors.getString(coursors.getColumnIndex("Amount")).toString().split("\\.");
-			if(splitStr[1].compareTo("00")==0)
-			{
-				Content+=splitStr[0];
+	//*********************************************************
+	mHandler = new Handler();
+	new Thread(new Runnable() {
+		@Override
+		public void run() {
+			while (continue_or_stop) {
+				try {
+					mHandler.post(new Runnable() {
+						@Override
+						public void run() {
+							try
+							{
+								db=dbh.getReadableDatabase();
+								coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
+								if (coursors.getCount() > 0) {
+									coursors.moveToNext();
+									String splitStr[]= coursors.getString(coursors.getColumnIndex("Amount")).toString().split(Pattern.quote("/"));
+									if(splitStr[1].compareTo("00")==0)
+									{
+										tvContentCredits.setText(splitStr[0]);
+									}
+									else
+									{
+										tvContentCredits.setText(coursors.getString(coursors.getColumnIndex("Amount")));
+									}
+									if(!coursors.isClosed()) {
+										coursors.close();
+									}
+
+									if(db.isOpen()) {
+										db.close();
+									}
+
+								}
+								if(Content.compareTo("")==0){
+									tvContentCredits.setText("0");
+								}
+								else {
+									tvContentCredits.setText("0");
+								}
+								if(!coursors.isClosed()) {
+									coursors.close();
+								}
+								if(db.isOpen()) {
+									db.close();
+								}
+							}
+							catch (Exception ex){
+								Log.i(ex.toString(), "run: ex");
+							}
+						}
+
+					});
+					Thread.sleep(1000); // every 6 seconds
+				} catch (Exception e) {
+				}
+			}
+		}
+	}).start();
+	//*********************************************************
+
+	btnTwoThousand.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			btnTwoThousand.setBackgroundResource(R.drawable.rounded_textview_currency2);
+			btnFiftyThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnOneHundredThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnTwoThousand.setTextColor(Color.parseColor("#FFFFFF"));
+			btnFiftyThousand.setTextColor(Color.parseColor("#272a95"));
+			btnOneHundredThousand.setTextColor(Color.parseColor("#272a95"));
+			etInsertPriceUser.setText("20000");
+		}
+	});
+	btnFiftyThousand.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			btnFiftyThousand.setBackgroundResource(R.drawable.rounded_textview_currency2);
+			btnTwoThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnOneHundredThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnFiftyThousand.setTextColor(Color.parseColor("#FFFFFF"));
+			btnTwoThousand.setTextColor(Color.parseColor("#272a95"));
+			btnOneHundredThousand.setTextColor(Color.parseColor("#272a95"));
+			etInsertPriceUser.setText("50000");
+		}
+	});
+	btnOneHundredThousand.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			btnOneHundredThousand.setBackgroundResource(R.drawable.rounded_textview_currency2);
+			btnFiftyThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnTwoThousand.setBackgroundResource(R.drawable.rounded_textview_currency1);
+			btnOneHundredThousand.setTextColor(Color.parseColor("#FFFFFF"));
+			btnFiftyThousand.setTextColor(Color.parseColor("#272a95"));
+			btnTwoThousand.setTextColor(Color.parseColor("#272a95"));
+			etInsertPriceUser.setText("100000");
+		}
+	});
+	btnIncreseCredit.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			if(etInsertPriceUser.getText().length()>0) {
+				SyncInsertUserCredit syncInsertUserCredit = new SyncInsertUserCredit(Credit.this,etInsertPriceUser.getText().toString() , karbarCode, "1", "10004", "تست");
+				syncInsertUserCredit.AsyncExecute();
 			}
 			else
 			{
-				Content+=coursors.getString(coursors.getColumnIndex("Amount"));
+				Toast.makeText(Credit.this, "لطفا مبلغ مورد نظر خود را به تومان وارد نمایید", Toast.LENGTH_SHORT).show();
+			}
+		}
+	});
+	db = dbh.getReadableDatabase();
+	Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
+	if (coursors.getCount() > 0) {
+		coursors.moveToNext();
+		try
+		{
+			if(coursors.getString(coursors.getColumnIndex("Name")).compareTo("null")!=0){
+				tvUserName.setText(coursors.getString(coursors.getColumnIndex("Name")));
+			}
+			else
+			{
+				tvUserName.setText("کاربر");
 			}
 
 		}
-		else
+		catch (Exception ex){
+			tvUserName.setText("کاربر");
+		}
+		try
 		{
-//			lstHistoryCredit.setVisibility(View.GONE);
+			if(coursors.getString(coursors.getColumnIndex("Fam")).compareTo("null")!=0){
+				tvUserName.setText(tvUserName.getText() + coursors.getString(coursors.getColumnIndex("Fam")));
+			}
+			else
+			{
+				tvUserName.setText(tvUserName.getText() + "مهمان");
+			}
+
 		}
-		if(Content.compareTo("")==0){
-//			tvRecentCreditsValue.setText("0"+" ریال");
+		catch (Exception ex){
+			tvUserName.setText(tvUserName.getText() + "مهمان");
 		}
-		else {
-//			tvRecentCreditsValue.setText(Content+" ریال");
+		try
+		{
+			if(coursors.getString(coursors.getColumnIndex("Pic")).compareTo("null")!=0){
+				imgPicProfile.setImageBitmap(convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic"))));
+			}
+			else
+			{
+				imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
+			}
+
+		}
+		catch (Exception ex){
+			imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
 		}
 	}
-	catch (Exception ex){
-//		tvRecentCreditsValue.setText("0"+" ریال");
-//		lstHistoryCredit.setVisibility(View.GONE);
+	else
+	{
+		tvUserName.setText(tvUserName.getText() + "کاربر مهمان");
 	}
-//	try
-//	{
-//		Cursor coursors = db.rawQuery("SELECT * FROM credits", null);
-//		String Content="";
-//		for (int i=0;i<coursors.getCount();i++) {
-//			coursors.moveToNext();
-//			HashMap<String, String> map = new HashMap<String, String>();
-//			map.put("name","مبلغ: " +coursors.getString(coursors.getColumnIndex("Price"))+ " ریال " +"\n"
-//			+"عملیات: " + coursors.getString(coursors.getColumnIndex("TransactionType"))+ "\n"
-//			+"نوع تراکنش: " + coursors.getString(coursors.getColumnIndex("PaymentMethod"))+ "\n"
-//			+"تاریخ: " + coursors.getString(coursors.getColumnIndex("TransactionDate"))+ "\n"
-//			+"شماره سند: " + coursors.getString(coursors.getColumnIndex("DocNumber"))+ "\n"
-//			+"توضیحات: " + coursors.getString(coursors.getColumnIndex("Description")));
-//			map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
-//			valuse.add(map);
-//		}
-//		AdapterCredit dataAdapter=new AdapterCredit(Credit.this,valuse,karbarCode);
-//		lstHistoryCredit.setAdapter(dataAdapter);
-//		if(valuse.size()==0){
-//			lstHistoryCredit.setVisibility(View.GONE);
-//			txtContent.setVisibility(View.VISIBLE);
-//			txtContent.setText("موردی جهت نمایش وجود ندارد");
-//		}
-//		else
-//		{
-//			lstHistoryCredit.setVisibility(View.VISIBLE);
-//			txtContent.setVisibility(View.GONE);
-//		}
-//	}
-//	catch (Exception ex){
-//		lstHistoryCredit.setVisibility(View.GONE);
-//		txtContent.setVisibility(View.VISIBLE);
-//		tvRecentCreditsValue.setText("موردی جهت نمایش وجود ندارد");
-//	}
-//	btnIncreseCredit.setOnClickListener(new View.OnClickListener() {
-//		@Override
-//		public void onClick(View v) {
-//			if(etCurrencyInsertCredit.getText().length()>0) {
-//				SyncInsertUserCredit syncInsertUserCredit = new SyncInsertUserCredit(Credit.this, etCurrencyInsertCredit.getText().toString(), karbarCode, "1", "10004", "تست");
-//				syncInsertUserCredit.AsyncExecute();
-//			}
-//			else
-//			{
-//				Toast.makeText(Credit.this, "لطفا مبلغ مورد نظر خود را به ریال وارد نمایید", Toast.LENGTH_SHORT).show();
-//			}
-//		}
-//	});
+
+	coursors.close();
+	db.close();
+	db=dbh.getReadableDatabase();
+	coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
+	if (coursors.getCount() > 0) {
+		coursors.moveToNext();
+		try {
+			String splitStr[]=coursors.getString(coursors.getColumnIndex("Amount")).toString().split("\\.");
+			if(splitStr[1].compareTo("00")==0)
+			{
+				tvCredits.setText(splitStr[0]);
+			}
+			else
+			{
+				tvCredits.setText(coursors.getString(coursors.getColumnIndex("Amount")));
+			}
+
+		} catch (Exception ex) {
+			tvCredits.setText("0");
+		}
+	}
+	db.close();
+	coursors.close();
+
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
+		continue_or_stop=false;
     	Credit.this.LoadActivity(MainMenu.class, "karbarCode", karbarCode);
     }
 
@@ -241,13 +376,14 @@ public boolean onKeyDown( int keyCode, KeyEvent event )  {
 }
 public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
+		continue_or_stop=false;
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
-
 		Credit.this.startActivity(intent);
 	}
 	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue
 			, String VariableName2, String VariableValue2) {
+		continue_or_stop=false;
 		Intent intent = new Intent(getApplicationContext(), Cls);
 		intent.putExtra(VariableName, VariableValue);
 		intent.putExtra(VariableName2, VariableValue2);
@@ -381,6 +517,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
+				continue_or_stop=false;
 				//Declare Object From Get Internet Connection Status For Check Internet Status
 				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
 				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
@@ -431,5 +568,17 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			}
 		});
 		alertbox.show();
+	}
+	public Bitmap convertToBitmap(String base) {
+		Bitmap Bmp = null;
+		try {
+			byte[] decodedByte = Base64.decode(base, Base64.DEFAULT);
+			Bmp = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//
+			return Bmp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Bmp;
+		}
 	}
 }

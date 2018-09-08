@@ -194,7 +194,7 @@ public class SyncGetUserCredit {
 		db.close();
 		if(this.Flag.compareTo("0")!=0) {
 			Toast.makeText(activity, "ثبت شد", Toast.LENGTH_LONG).show();
-			LoadActivity(Credit.class, "karbarCode", pUserCode);
+//			LoadActivity(Credit.class, "karbarCode", pUserCode);
 		}
 //		else {
 //			LoadActivity(MainMenu.class, "karbarCode", pUserCode);
