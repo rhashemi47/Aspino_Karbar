@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -17,7 +18,6 @@ import org.ksoap2.transport.HttpTransportSE;
 import java.io.IOException;
 
 public class SyncGetUserServices {
-
 	//Primary Variable
 	DatabaseHelper dbh;
 	SQLiteDatabase db;
@@ -194,8 +194,8 @@ public class SyncGetUserServices {
 				boolean check = checkStatus(value[0], value[32]);
 				if (!check) {
 					db.execSQL("DELETE FROM OrdersService WHERE Code='" + value[0] + "'");
-					DateStart = value[7].split("/");
-					DateEnd = value[8].split("/");
+					DateStart = value[8].split("/");
+					DateEnd = value[18].split("/");
 					TimeStart = value[19].split(":");
 					TimeEnd = value[20].split(":");
 					String query = "INSERT INTO OrdersService (" +
@@ -273,7 +273,7 @@ public class SyncGetUserServices {
 			}
 			catch (Exception ex)
 			{
-
+				Log.i(ex.toString(), "InsertDataFromWsToDb: Error");
 			}
 		}
 	}

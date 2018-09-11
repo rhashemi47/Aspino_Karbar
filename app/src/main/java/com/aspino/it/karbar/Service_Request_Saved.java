@@ -789,8 +789,8 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					valuse.add(map);
 				}
 			}
-			AdapterInfoHamyar dataAdapter=new AdapterInfoHamyar(Service_Request_Saved.this,valuse);
-			lvHamyar.setAdapter(dataAdapter);
+//			AdapterInfoHamyar dataAdapter=new AdapterInfoHamyar(Service_Request_Saved.this,valuse);
+//			lvHamyar.setAdapter(dataAdapter);
 		}
 		db.close();
 //		((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map2)).getMapAsync(new OnMapReadyCallback() {

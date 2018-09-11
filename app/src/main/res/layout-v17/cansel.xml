@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layoutDirection="rtl"
-    android:background="@drawable/rounded_bottom_activity">
+    android:layoutDirection="rtl">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -38,9 +37,8 @@
     </android.support.design.widget.AppBarLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_height="500dp"
+            android:background="@drawable/rounded_bottom_activity"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvTextCansel"
@@ -133,7 +131,7 @@
                 android:layout_height="40dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:text="دلیل دیگری دارید ؟"
+                android:text="دلیل دیگری دارید"
                 android:textColor="#fff"
                 android:textSize="18sp"
                 android:layout_marginTop="5dp"

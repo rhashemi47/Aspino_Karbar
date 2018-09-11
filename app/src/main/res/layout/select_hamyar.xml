@@ -14,7 +14,7 @@
         android:layout_below="@+id/appbar">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="250dp"
             android:layout_marginBottom="20dp"
             android:orientation="vertical"
             android:background="@drawable/head_body_select_hamyar">
@@ -142,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -151,8 +151,8 @@
                     android:text="@string/Cansel_Service"
                     android:textColor="#fff"
                     android:drawableLeft="@drawable/recycle"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
                     android:id="@+id/tvCanselService"
                     android:background="@drawable/rounded_button_cansle"/>
             </LinearLayout>

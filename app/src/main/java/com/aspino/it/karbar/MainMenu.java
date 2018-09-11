@@ -174,31 +174,22 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
             throw sqle;
         }
+
         try
         {
-
             db = dbh.getReadableDatabase();
-            Cursor cursor= db.rawQuery("SELECT * FROM login", null);
+            Cursor cursor = db.rawQuery("SELECT * FROM login", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToNext();
                 karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
                 db.close();
             }
-            if(karbarCode.compareTo("0")==0)
-            {
+            if (karbarCode.compareTo("0") == 0) {
                 LoadActivity(Login.class, "karbarCode", "0");
             }
 
         } catch (Exception e) {
             // throw new Error("Error Opne Activity");
-        }
-        try
-        {
-            karbarCode = getIntent().getStringExtra("karbarCode");
-        }
-        catch (Exception ex)
-        {
-            karbarCode="0";
         }
         //***********************Start Service***************************************
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
@@ -346,6 +337,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
                startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
                startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+               startService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
            }
        }
        catch (Exception ex)
@@ -619,6 +611,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
                 stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
                 stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+                stopService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
                 db = dbh.getWritableDatabase();
                 db.execSQL("DELETE FROM address");
                 db.execSQL("DELETE FROM AmountCredit");

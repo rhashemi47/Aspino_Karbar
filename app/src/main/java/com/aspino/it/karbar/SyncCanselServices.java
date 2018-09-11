@@ -216,7 +216,7 @@ public class SyncCanselServices {
 		db.execSQL("UPDATE OrdersService SET Status='3' WHERE Code='"+UserServiceCode+"'");
 		db.close();
 		Toast.makeText(activity, "سرویس لغو گردید", Toast.LENGTH_LONG).show();
-		LoadActivity(List_Order.class, "karbarCode", pUserCode);
+		LoadActivity(Paigiri.class, "karbarCode", pUserCode);
     }
 	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{

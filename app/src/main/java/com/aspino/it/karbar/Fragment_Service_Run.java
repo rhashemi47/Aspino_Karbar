@@ -60,22 +60,23 @@ public class Fragment_Service_Run extends Fragment {
             throw sqle;
         }
         db=dbh.getReadableDatabase();
-        Cursor coursors;
-            coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-                    "LEFT JOIN " +
-                    "Servicesdetails ON " +
-                    "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'", null);
+        Cursor coursors,C;
+            coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name,address.AddressText FROM OrdersService  " +
+                    "LEFT JOIN Servicesdetails " +
+                    "ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
+                    "LEFT JOIN address " +
+                    "ON OrdersService.AddressCode=address.Code " +
+                    "WHERE OrdersService.Status ='1' OR OrdersService.Status ='0'", null);
         for(int i=0;i<coursors.getCount();i++){
             coursors.moveToNext();
             HashMap<String, String> map = new HashMap<String, String>();
             String StartDate;
             String StartTime;
+            C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE Code='"+coursors.getString(coursors.getColumnIndex("Code"))+"'",null);
+            map.put("NameHamyar",String.valueOf(C.getCount()));
             StartDate=coursors.getString(coursors.getColumnIndex("StartYear"))+"/"+
                     coursors.getString(coursors.getColumnIndex("StartMonth"))+"/"+
                     coursors.getString(coursors.getColumnIndex("StartDay"));
-//            EndDate=coursors.getString(coursors.getColumnIndex("EndYear"))+"/"+
-//                    coursors.getString(coursors.getColumnIndex("EndMonth"))+"/"+
-//                    coursors.getString(coursors.getColumnIndex("EndDay"));
             StartTime=coursors.getString(coursors.getColumnIndex("StartHour"))+":"+
                     coursors.getString(coursors.getColumnIndex("StartMinute"));
 //            EndTime=coursors.getString(coursors.getColumnIndex("EndHour"))+":"+
@@ -127,11 +128,10 @@ public class Fragment_Service_Run extends Fragment {
 //                    break;
 //            }
             map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
-            map.put("Status",coursors.getString(coursors.getColumnIndex("Status")));
             map.put("DateAndTimeService",StartDate + " ساعت " +StartTime);
             map.put("TitleService",coursors.getString(coursors.getColumnIndex("name")));
-            map.put("AddresService",coursors.getString(coursors.getColumnIndex("AddressCode")));
-//            map.put("NameHamyar",coursors.getString(coursors.getColumnIndex("NameHamyar")));
+            map.put("AddresService",coursors.getString(coursors.getColumnIndex("AddressText")));
+            map.put("Status",coursors.getString(coursors.getColumnIndex("Status")));
 
             valuse.add(map);
         }

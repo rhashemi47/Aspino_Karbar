@@ -93,9 +93,9 @@
         <activity
             android:name="com.aspino.it.karbar.List_Order"
             android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.Service_Request_Saved"
-            android:noHistory="false"/>
+        <!--<activity-->
+            <!--android:name="com.aspino.it.karbar.Service_Request_Saved"-->
+            <!--android:noHistory="false"/>-->
         <activity
             android:name="com.aspino.it.karbar.Service_Request_Edit"
             android:noHistory="false"/>
@@ -139,6 +139,9 @@
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceVisit">
+
+        </service>
+        <service android:name="com.aspino.it.karbar.ServiceGetUserServicesHamyarRequest">
 
         </service>
         <meta-data

@@ -113,7 +113,6 @@ public class AdapterListViewPager extends BaseAdapter {
         holder.tvDateAndTimeService.setText(DateAndTimeService);
         holder.tvAddresService.setText(AddresService);
         holder.tvNameHamyar.setText(NameHamyar);
-
         return convertView;
     }
 
@@ -122,9 +121,9 @@ public class AdapterListViewPager extends BaseAdapter {
         @Override
         public void onClick(View v) {
             String code = ((LinearLayout)v).getTag().toString();
-            Toast.makeText(activity.getApplicationContext(),"Select Hamyar",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo SelectHamyar
-            intent.putExtra("Code",code);
+//            Toast.makeText(activity.getApplicationContext(),"Select Hamyar",Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(activity.getApplicationContext(),Select_Hamyar.class);//todo SelectHamyar
+            intent.putExtra("OrderCode",code);
             activity.startActivity(intent);
         }
     };
@@ -134,7 +133,7 @@ public class AdapterListViewPager extends BaseAdapter {
             String code = ((LinearLayout)v).getTag().toString();
             Toast.makeText(activity.getApplicationContext(),"Pardakht Factor",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo pardakh_factor_sefaresh.xml
-            intent.putExtra("Code",code);
+            intent.putExtra("OrderCode",code);
             activity.startActivity(intent);
         }
     };

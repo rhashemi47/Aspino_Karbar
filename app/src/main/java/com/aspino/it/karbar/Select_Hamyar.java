@@ -14,55 +14,62 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 //import android.graphics.Typeface;
 
 public class Select_Hamyar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+	private static  Cursor C;
 	private String karbarCode;
 
 	private DatabaseHelper dbh;
 	private TextView txtContent;
 	private SQLiteDatabase db;
-//	private Button btnOrder;
-//	private Button btnAcceptOrder;
-//	private Button btncredite;
-//	private GoogleMap map;
-//	private Typeface FontMitra;
-//	private LatLng point;
 	private DrawerLayout mDrawer;
 	private NavigationView mNavi;
 	private Toolbar mtoolbar;
-	private Button btnLogout;
 	private ImageView imgBackToggle;
+	private Button btnLogout;
+	private String OrderCode;
+	private TextView tvContentTypeService;
+	private TextView tvContentCodeService;
+	private TextView tvContentAddress;
+	private TextView tvDateService;
+	private TextView tvTimeService;
+	private RecyclerView RecylcLstHamyar;
+	private Button tvCanselService;
+	private Button tvAcceptAndSelectHamyar;
+	private String StartDate;
+	private String StartTime;
+	private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
+
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
 		super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
 	}
 @Override
-protected void onCreate(Bundle savedInstanceState) {
+protected void onCreate(final Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.slide_menu_select_hamyar);
-//	btnOrder=(Button)findViewById(R.id.btnOrderBottom);
-//	btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
-//	btncredite=(Button)findViewById(R.id.btncrediteBottom);
 	//****************************************************************
 	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar_about);
-
-//	mtoolbar.setTitle("");
-//	setSupportActionBar(mtoolbar);
-//	getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//	getSupportActionBar().setDisplayShowHomeEnabled(true);
 	mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
 	mNavi = (NavigationView) findViewById(R.id.navigation_view);
@@ -83,11 +90,17 @@ protected void onCreate(Bundle savedInstanceState) {
 	});
 	mNavi.setNavigationItemSelectedListener(this);
 	mNavi.setItemIconTintList(null);
-
 	ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
-
 	mDrawer.addDrawerListener(aToggle);
 	aToggle.syncState();
+	tvContentTypeService=(TextView)findViewById(R.id.tvContentTypeService);
+	tvContentCodeService=(TextView)findViewById(R.id.tvContentCodeService);
+	tvContentAddress=(TextView)findViewById(R.id.tvContentAddress);
+	tvDateService=(TextView)findViewById(R.id.tvDateService);
+	tvTimeService=(TextView)findViewById(R.id.tvTimeService);
+	RecylcLstHamyar=(RecyclerView)findViewById(R.id.RecylcLstHamyar);
+	tvCanselService=(Button)findViewById(R.id.tvCanselService);
+	tvAcceptAndSelectHamyar=(Button)findViewById(R.id.tvAcceptAndSelectHamyar);
 	dbh = new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -111,12 +124,147 @@ protected void onCreate(Bundle savedInstanceState) {
 		karbarCode = getIntent().getStringExtra("karbarCode").toString();
 
 	} catch (Exception e) {
+		db=dbh.getReadableDatabase();
 		Cursor cursor = db.rawQuery("SELECT * FROM login", null);
 		for (int i = 0; i < cursor.getCount(); i++) {
 			cursor.moveToNext();
 			karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
 	}
+	try
+	{
+		OrderCode=getIntent().getStringExtra("OrderCode").toString();
+	}
+	catch (Exception ex)
+	{
+		OrderCode="0";
+	}
+	db=dbh.getReadableDatabase();
+	Cursor coursors;
+	coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name,address.AddressText FROM OrdersService  " +
+			"LEFT JOIN Servicesdetails " +
+			"ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
+			"LEFT JOIN address " +
+			"ON OrdersService.AddressCode=address.Code " +
+			"WHERE OrdersService.Code ='"+OrderCode+"'", null);
+	if(coursors.getCount()>0)
+	{
+		coursors.moveToNext();
+		tvContentCodeService.setText(coursors.getString(coursors.getColumnIndex("OrdersService.Code")));
+		tvContentTypeService.setText(coursors.getString(coursors.getColumnIndex("Servicesdetails.name")));
+		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("address.AddressText")));
+		StartDate=coursors.getString(coursors.getColumnIndex("StartYear"))+"/"+
+			coursors.getString(coursors.getColumnIndex("StartMonth"))+"/"+
+			coursors.getString(coursors.getColumnIndex("StartDay"));
+		StartTime=coursors.getString(coursors.getColumnIndex("StartHour"))+":"+
+				coursors.getString(coursors.getColumnIndex("StartMinute"));
+		tvDateService.setText(StartDate);
+		tvTimeService.setText(StartTime);
+		String Query="SELECT UserServicesHamyarRequest.*,InfoHamyar.* FROM UserServicesHamyarRequest " +
+				"LEFT JOIN " +
+				"InfoHamyar ON " +
+				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code" +
+				" WHERE UserServicesHamyarRequest.Code='"+coursors.getString(coursors.getColumnIndex("Code"))+"'";
+		C=db.rawQuery(Query,null);
+		for(int i=0;i<C.getCount();i++)
+		{
+			C.moveToNext();
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("Code",C.getString(C.getColumnIndex("UserServicesHamyarRequest.HamyarCode")));
+			map.put("Name",C.getString(C.getColumnIndex("InfoHamyar.Fname")) + " " + C.getString(C.getColumnIndex("InfoHamyar.Lname")));
+			map.put("imgHamyar",C.getString(C.getColumnIndex("InfoHamyar.img")));
+			map.put("RateBar",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
+			map.put("RateNumber",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
+			valuse.add(map);
+		}
+		db.close();
+		C.close();
+		coursors.close();
+		AdapterInfoHamyar dataAdapter=new AdapterInfoHamyar(Select_Hamyar.this,valuse);
+		RecylcLstHamyar.setAdapter(dataAdapter);
+	}
+	tvCanselService.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			LayoutInflater li = LayoutInflater.from(Select_Hamyar.this);
+			View promptsView = li.inflate(R.layout.cansel, null);
+			AlertDialog.Builder alertbox = new AlertDialog.Builder(Select_Hamyar.this);
+			//set view
+			alertbox.setView(promptsView);
+			 Button btnTestService = (Button) promptsView.findViewById(R.id.btnTestService);
+			 Button btnChangeTimeService = (Button) promptsView.findViewById(R.id.btnChangeTimeService);
+			 Button btnFindBestPrice = (Button) promptsView.findViewById(R.id.btnFindBestPrice);
+			 Button btnChangeTimeByHamyar = (Button) promptsView.findViewById(R.id.btnChangeTimeByHamyar);
+			 Button btnHamyarDoNotAdherePrice = (Button) promptsView.findViewById(R.id.btnHamyarDoNotAdherePrice);
+			 Button btnHamyarDonotGoodBehavior = (Button) promptsView.findViewById(R.id.btnHamyarDonotGoodBehavior);
+			 Button btnCanselByQrderHamyar = (Button) promptsView.findViewById(R.id.btnCanselByQrderHamyar);
+			 Button btnOtherCase = (Button) promptsView.findViewById(R.id.btnOtherCase);
+
+			btnTestService.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"سفارشم آزمایشی بود");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnChangeTimeService.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"برنامه زمانی ام تغییر کرد");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnFindBestPrice.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"قیمت مناسب تری پیدا کردم");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnChangeTimeByHamyar.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"متخصص زمان خدمت را تغییر داد");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnHamyarDoNotAdherePrice.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"متخصص به قیمت پایبند نبود");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnHamyarDonotGoodBehavior.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"متخصص رفتار مناسبی نداشت");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnCanselByQrderHamyar.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"به درخواست متخصص لغو کردم");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+			btnOtherCase.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					SyncCanselServices syncCanselServices=new SyncCanselServices(Select_Hamyar.this,karbarCode,OrderCode,"دلیل دیگری دارید");
+					syncCanselServices.AsyncExecute();
+				}
+			});
+
+
+			// create alert dialog
+			AlertDialog alertDialog = alertbox.create();
+
+			// show it
+			alertDialog.show();
+		}
+	});
 }
 public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
@@ -247,7 +395,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		} else {
 
 //			super.onBackPressed();
-			LoadActivity(MainMenu.class, "karbarCode", karbarCode);
+			LoadActivity(Paigiri.class, "karbarCode", karbarCode);
 		}
 
 	}

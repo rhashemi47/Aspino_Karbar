@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -15,24 +16,24 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
-public class SyncGetUserServiceHamyar {
-
+public class SyncGetUserServicesHamyarRequest {
 	//Primary Variable
 	DatabaseHelper dbh;
 	SQLiteDatabase db;
 	PublicVariable PV;
 	InternetConnection IC;
 	private Context activity;
-	private String UserServiceCode;
+	private String pUserCode;
 	private String WsResponse;
+	private String LastRequestCode;
 	private boolean CuShowDialog = false;
 
 	//Contractor
-	public SyncGetUserServiceHamyar(Context activity, String UserServiceCode) {
+	public SyncGetUserServicesHamyarRequest(Context activity, String pUserCode, String LastRequestCode) {
 		this.activity = activity;
-		this.UserServiceCode = UserServiceCode;
+		this.pUserCode = pUserCode;
+		this.LastRequestCode = LastRequestCode;
 
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
@@ -79,15 +80,14 @@ public class SyncGetUserServiceHamyar {
 
 		public AsyncCallWS(Context activity) {
 			this.activity = activity;
-			this.dialog = new ProgressDialog(activity);
-			this.dialog.setCanceledOnTouchOutside(false);
+			this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
 		}
 
 		@Override
 		protected String doInBackground(String... params) {
 			String result = null;
 			try {
-				CallWsMethod("GetUserServiceHamyar");
+				CallWsMethod("GetUserServicesHamyarRequest");
 			} catch (Exception e) {
 				result = e.getMessage().toString();
 			}
@@ -138,16 +138,25 @@ public class SyncGetUserServiceHamyar {
 	public void CallWsMethod(String METHOD_NAME) {
 		//Create request
 		SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
-		PropertyInfo UserServiceCodePI = new PropertyInfo();
+		PropertyInfo pUserCodePI = new PropertyInfo();
 		//Set Name
-		UserServiceCodePI.setName("UserServiceCode");
+		pUserCodePI.setName("UserCode");
 		//Set Value
-		UserServiceCodePI.setValue(UserServiceCode);
+		pUserCodePI.setValue(pUserCode);
 		//Set dataType
-		UserServiceCodePI.setType(String.class);
+		pUserCodePI.setType(String.class);
 		//Add the property to request object
-		request.addProperty(UserServiceCodePI);
-
+		request.addProperty(pUserCodePI);
+		//****************************************************************
+		PropertyInfo LastUserServiceCodePI = new PropertyInfo();
+		//Set Name
+		LastUserServiceCodePI.setName("LastRequestCode");
+		//Set Value
+		LastUserServiceCodePI.setValue(LastRequestCode);
+		//Set dataType
+		LastUserServiceCodePI.setType(String.class);
+		//Add the property to request object
+		request.addProperty(LastUserServiceCodePI);
 		//Create envelope
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);
@@ -174,31 +183,34 @@ public class SyncGetUserServiceHamyar {
 	public void InsertDataFromWsToDb(String AllRecord) {
 		String[] res;
 		String[] value;
-		res = WsResponse.split(Pattern.quote("[Besparina@@]"));
-		for (int i = 0; i < res.length; i++)
-		{
-			value = res[i].split(Pattern.quote("[Besparina##]"));
-
-			if(!check(value[0]))
-			{
-				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[0],value[1],value[2],value[3]);
-				syncGetUserServiceHamyarPic.AsyncExecute();
+		res = WsResponse.split("@@");
+		db = dbh.getWritableDatabase();
+		for (int i = 0; i < res.length; i++) {
+			value = res[i].split("##");
+			if (!check(value[1], value[2])) {
+				String query = "INSERT INTO UserServicesHamyarRequest (" +
+						"Code," +
+						"BsUserServicesCode," +
+						"HamyarCode," +
+						"Price," +
+						"HmayarStar) VALUES('" +
+						value[0] + "','" +
+						value[1] + "','" +
+						value[2] + "','" +
+						value[3] + "','" +
+						value[4] + "')";
+				db.execSQL(query);
 			}
-			db=dbh.getWritableDatabase();
-			String 	query = "INSERT INTO Hamyar (" +
-					"CodeHamyarInfo," +
-					"CodeOrder" +
-					") VALUES('" +
-					value[0] + "','" +
-					UserServiceCode + "')";
-			db.execSQL(query);
+		}
+		if(db.isOpen()) {
 			db.close();
 		}
 	}
-	public boolean check(String Code)
+	public boolean check(String CodeOrder,String HamyarCode)
 	{
 		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM InfoHamyar WHERE Code='"+Code+"'";
+		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
+				" AND HamyarCode='" + HamyarCode;
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{

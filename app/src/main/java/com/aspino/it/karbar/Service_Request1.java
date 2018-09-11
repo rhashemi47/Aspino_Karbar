@@ -1,7 +1,6 @@
 package com.aspino.it.karbar;
 
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,72 +8,39 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-//import com.google.android.gms.maps.CameraUpdateFactory;
-//import com.google.android.gms.maps.GoogleMap;
-//import com.google.android.gms.maps.OnMapReadyCallback;
-//import com.google.android.gms.maps.SupportMapFragment;
-//import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-//import com.google.android.gms.maps.model.LatLng;
-//import com.google.android.gms.maps.model.MarkerOptions;
 import com.aspino.it.karbar.Date.ChangeDate;
 import com.ikovac.timepickerwithseconds.MyTimePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.date.DatePickerDialog;
-import com.mohamadamin.persianmaterialdatetimepicker.utils.PersianCalendar;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
-
-import java.util.List;
-
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
 import static android.content.DialogInterface.*;
 
 public class Service_Request1 extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private String karbarCode;
 	private String DetailCode;
-//	private TextView tvTitleService;
 	private Button btnAddTimeJob;
 	private Button btnDesTimeJob;
 	//**************************************************************
 	private EditText etFromDate;
-//	private EditText etToDate;
-//	private EditText etFromTime;
-//	private EditText etToTime;
 	private EditText etAddres;
 	private EditText etDescription;
 	private EditText etCountTimeJob;
@@ -98,7 +64,6 @@ public class Service_Request1 extends AppCompatActivity implements NavigationVie
 	private String EndMinute ;
 	private String AddressCode ;
 	private String Description ;
-//	private Spinner spAddress ;
 	private int posisionID=-1 ;
 	private String ToDate;
 	private String ToTime;
@@ -396,8 +361,19 @@ protected void onCreate(Bundle savedInstanceState) {
 					{
 
 						String DateGaregury=faToEn(ChangeDate.changeFarsiToMiladi(sp[1].toString().replace(" ",""))).replace("/","-");
-//						String strClock,strDate;
-						int intHour,intMin;
+						String DateGSP[];
+						db=dbh.getReadableDatabase();
+						String query="SELECT DATETIME('"+DateGaregury + " " +sp[0].toString().replace(" ","")+":00'"
+								+",'+" + "1 day') as Date";
+						Cursor cursor_convert=db.rawQuery(query,null);
+						if(cursor_convert.getCount()>0)
+						{
+							cursor_convert.moveToNext();
+							DateGSP=cursor_convert.getString(cursor_convert.getColumnIndex("Date")).split(" ");
+							DateGaregury=DateGSP[0];
+						}
+						cursor_convert.close();
+						db.close();
 						spClock=sp[0].toString().split(":");
 						spClock[0]=spClock[0].replace(" ","");
 						spClock[1]=spClock[1].replace(" ","");
@@ -413,13 +389,13 @@ protected void onCreate(Bundle savedInstanceState) {
 //						}
 						db=dbh.getReadableDatabase();
 						countTime=etCountTimeJob.getText().toString().replace(" ساعت","");
-						String query="SELECT DATETIME('"+DateGaregury + " " +spClock[0] +":"+spClock[1]+":00'"
+						query="SELECT DATETIME('"+DateGaregury + " " +spClock[0] +":"+spClock[1]+":00'"
 								+",'+"+countTime+" hours') as Date";
 						Cursor cursor=db.rawQuery(query,null);
 						if(cursor.getCount()>0)
 						{
 							cursor.moveToNext();
-							String DateFinal=cursor.getString(cursor.getColumnIndex("Date")).replace("-","/");
+							String DateFinal=faToEn(cursor.getString(cursor.getColumnIndex("Date")).replace("-","/"));
 							String SpaceSlit[]=DateFinal.split(" ");
 							SpaceSlit[0]=faToEn(ChangeDate.changeMiladiToFarsi(SpaceSlit[0]));
 							ToDate=SpaceSlit[0];
@@ -429,7 +405,7 @@ protected void onCreate(Bundle savedInstanceState) {
 					}
 					LoadActivity(Service_Request_SelectAddress.class, "karbarCode", karbarCode,
 							"DetailCode", DetailCode,
-							"FromDate", etFromDate.getText().toString(),
+							"FromDate", faToEn(etFromDate.getText().toString()),
 							"ToDate", ToDate,
 							"FromTime", spClock[0] +":"+spClock[1],
 							"ToTime", ToTime,
@@ -929,6 +905,19 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				.replace("۷", "7")
 				.replace("۸", "8")
 				.replace("۹", "9");
+	}
+	public static String EnToFa(String num) {
+		return num
+				.replace("0", "۰")
+				.replace("1", "۱")
+				.replace("2", "۲")
+				.replace("3", "۳")
+				.replace("4", "۴")
+				.replace("5", "۵")
+				.replace("6", "۶")
+				.replace("7", "۷")
+				.replace("8", "۸")
+				.replace("9", "۹");
 	}
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {

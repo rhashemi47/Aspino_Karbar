@@ -59,10 +59,12 @@ public class Fragment_Service_Done extends Fragment {
         }
         db=dbh.getReadableDatabase();
         Cursor coursors;
-        coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
-                "LEFT JOIN " +
-                "Servicesdetails ON " +
-                "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE Status ='0'", null);
+        coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name,address.AddressText FROM OrdersService  " +
+                "LEFT JOIN Servicesdetails " +
+                "ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
+                "LEFT JOIN address " +
+                "ON OrdersService.AddressCode=address.Code " +
+                "WHERE OrdersService.Status ='0'", null);
         for(int i=0;i<coursors.getCount();i++){
             coursors.moveToNext();
             HashMap<String, String> map = new HashMap<String, String>();
