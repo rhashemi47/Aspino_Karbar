@@ -16,6 +16,7 @@ public class PublicVariable {
 	public static final String site = "http://aspino.org";
 	public static final int PersonId = 0;
 	public static List<LinearLayout> view= new ArrayList<>();
+	public static List<LinearLayout> view_hamyar= new ArrayList<>();
 	public static final String FIELD_SPLITTER = "##";
 	public static final String RECORD_SPLITTER = "@@";
 	public static final String Recive_NumberPhone = "+9810005137017";

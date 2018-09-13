@@ -131,7 +131,7 @@ public class AdapterListViewPager extends BaseAdapter {
         @Override
         public void onClick(View v) {
             String code = ((LinearLayout)v).getTag().toString();
-            Toast.makeText(activity.getApplicationContext(),"Pardakht Factor",Toast.LENGTH_LONG).show();
+//            Toast.makeText(activity.getApplicationContext(),"Pardakht Factor",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(activity.getApplicationContext(),Pardakh_Factor_Sefaresh.class);//todo pardakh_factor_sefaresh.xml
             intent.putExtra("OrderCode",code);
             activity.startActivity(intent);

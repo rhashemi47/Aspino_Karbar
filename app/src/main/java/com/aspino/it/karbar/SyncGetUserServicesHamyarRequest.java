@@ -187,7 +187,7 @@ public class SyncGetUserServicesHamyarRequest {
 		db = dbh.getWritableDatabase();
 		for (int i = 0; i < res.length; i++) {
 			value = res[i].split("##");
-			if (!check(value[1], value[2])) {
+			if (!check1(value[1], value[2])) {
 				String query = "INSERT INTO UserServicesHamyarRequest (" +
 						"Code," +
 						"BsUserServicesCode," +
@@ -201,16 +201,61 @@ public class SyncGetUserServicesHamyarRequest {
 						value[4] + "')";
 				db.execSQL(query);
 			}
+			if(!check2(value[2]))
+			{
+				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[0],value[1],value[2],value[3]);
+				syncGetUserServiceHamyarPic.AsyncExecute();
+			}
+			if(!check3(value[2],value[1]))
+			{
+				db=dbh.getWritableDatabase();
+				String 	query = "INSERT INTO Hamyar (" +
+						"CodeHamyarInfo," +
+						"CodeOrder" +
+						") VALUES('" +
+						value[0] + "','" +
+						value[1] + "')";
+				db.execSQL(query);
+				db.close();
+			}
 		}
 		if(db.isOpen()) {
 			db.close();
 		}
 	}
-	public boolean check(String CodeOrder,String HamyarCode)
+	public boolean check1(String CodeOrder,String HamyarCode)
 	{
 		db=dbh.getReadableDatabase();
 		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
-				" AND HamyarCode='" + HamyarCode;
+				"' AND HamyarCode='" + HamyarCode+"'";
+		Cursor cursor=db.rawQuery(query,null);
+		if(cursor.getCount()>0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public boolean check2(String Code)
+	{
+		db=dbh.getReadableDatabase();
+		String query="SELECT * FROM InfoHamyar WHERE Code='"+Code+"'";
+		Cursor cursor=db.rawQuery(query,null);
+		if(cursor.getCount()>0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public boolean check3(String Code,String OrderCode)
+	{
+		db=dbh.getReadableDatabase();
+		String query="SELECT * FROM Hamyar WHERE CodeHamyarInfo='"+Code+"' AND CodeOrder='"+OrderCode+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{

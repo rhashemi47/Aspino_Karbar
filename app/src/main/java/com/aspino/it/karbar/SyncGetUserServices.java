@@ -263,13 +263,12 @@ public class SyncGetUserServices {
 							value[33] + "')";
 					db.execSQL(query);
 					db.close();
-					SyncGetUserServiceHamyar syncGetUserServiceHamyar=new SyncGetUserServiceHamyar(activity.getApplicationContext(),value[0]);
-					syncGetUserServiceHamyar.AsyncExecute();
 					if (!isFirst) {
 						runNotification("آسپینو", value[4], i, value[0], Service_Request_Saved.class, value[32]);
 					}
-
 				}
+//				SyncGetUserServiceHamyar syncGetUserServiceHamyar=new SyncGetUserServiceHamyar(activity.getApplicationContext(),value[0]);
+//				syncGetUserServiceHamyar.AsyncExecute();
 			}
 			catch (Exception ex)
 			{
@@ -356,7 +355,7 @@ public class SyncGetUserServices {
 				break;
 		}
 		NotificationClass notifi=new NotificationClass();
-		notifi.Notificationm(this.activity,title,getDetailname(detail)+" "+ StrStatus,OrderCode,id,Cls);
+		notifi.Notificationm(this.activity,title,"کد سرویس: "+OrderCode+"\n"+getDetailname(detail)+" "+ StrStatus,OrderCode,id,Cls);
 	}
 	public boolean IsFristInsert()
 	{

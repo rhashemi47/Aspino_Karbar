@@ -177,37 +177,10 @@ public class SyncGetUserServiceHamyar {
 		res = WsResponse.split(Pattern.quote("[Besparina@@]"));
 		for (int i = 0; i < res.length; i++)
 		{
-			value = res[i].split(Pattern.quote("[Besparina##]"));
 
-			if(!check(value[0]))
-			{
-				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[0],value[1],value[2],value[3]);
-				syncGetUserServiceHamyarPic.AsyncExecute();
-			}
-			db=dbh.getWritableDatabase();
-			String 	query = "INSERT INTO Hamyar (" +
-					"CodeHamyarInfo," +
-					"CodeOrder" +
-					") VALUES('" +
-					value[0] + "','" +
-					UserServiceCode + "')";
-			db.execSQL(query);
-			db.close();
+
 		}
 	}
-	public boolean check(String Code)
-	{
-		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM InfoHamyar WHERE Code='"+Code+"'";
-		Cursor cursor=db.rawQuery(query,null);
-		if(cursor.getCount()>0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 }
 

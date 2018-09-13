@@ -14,6 +14,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class SyncGetUserServiceHamyarPic {
 
@@ -175,7 +176,8 @@ public class SyncGetUserServiceHamyarPic {
 
 	public void InsertDataFromWsToDb(String AllRecord) {
 		String query;
-		if (WsResponse.compareTo("ERROR")!=0) {
+		String value[] =WsResponse.split(Pattern.quote("[Besparina##]"));
+		if (value[3].compareTo("ERROR")!=0) {
 			 query = "INSERT INTO InfoHamyar (" +
 					"Code," +
 					"Fname," +
@@ -184,10 +186,10 @@ public class SyncGetUserServiceHamyarPic {
 					"img" +
 					") VALUES('" +
 					HamyarCode + "','" +
-					Fname + "','" +
-					Lname + "','" +
-					Mobile + "','" +
-					WsResponse + "')";
+					 value[0] + "','" +
+					 value[1] + "','" +
+					 value[2] + "','" +
+					 value[3] + "')";
 		}
 		else
 		{
@@ -199,9 +201,9 @@ public class SyncGetUserServiceHamyarPic {
 					"img" +
 					") VALUES('" +
 					HamyarCode + "','" +
-					Fname + "','" +
-					Lname + "','" +
-					Mobile + "','" +
+					value[0] + "','" +
+					value[1] + "','" +
+					value[2] + "','" +
 					"0" + "')";
 		}
 

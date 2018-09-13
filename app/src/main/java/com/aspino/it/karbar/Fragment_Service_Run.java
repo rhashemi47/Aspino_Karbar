@@ -72,8 +72,16 @@ public class Fragment_Service_Run extends Fragment {
             HashMap<String, String> map = new HashMap<String, String>();
             String StartDate;
             String StartTime;
-            C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE Code='"+coursors.getString(coursors.getColumnIndex("Code"))+"'",null);
+            C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='"+coursors.getString(coursors.getColumnIndex("Code"))+"'",null);
             map.put("NameHamyar",String.valueOf(C.getCount()));
+            if(C.getCount()>0) {
+                C.moveToNext();
+                map.put("CodeHamyarRequest", C.getString(C.getColumnIndex("Code")));
+            }
+            else
+            {
+                map.put("CodeHamyarRequest", "0");
+            }
             StartDate=coursors.getString(coursors.getColumnIndex("StartYear"))+"/"+
                     coursors.getString(coursors.getColumnIndex("StartMonth"))+"/"+
                     coursors.getString(coursors.getColumnIndex("StartDay"));

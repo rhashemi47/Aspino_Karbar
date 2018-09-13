@@ -2,13 +2,21 @@ package com.aspino.it.karbar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,7 +45,9 @@ public class Pardakh_Factor_Sefaresh extends AppCompatActivity {
 	private TextView tvContetnDiscountService;
 	private TextView tvContetnFinalCurrency;
 	private Button btnCachFactor;
-	private String CodeOrder;
+	private String OrderCode;
+	private String strCall;
+	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -97,22 +107,22 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	try
 	{
-		CodeOrder = getIntent().getStringExtra("Code").toString();
+		OrderCode = getIntent().getStringExtra("OrderCode").toString();
 
 	}
 	catch (Exception e)
 	{
-		CodeOrder="0";
+		OrderCode="0";
 	}
 	db=dbh.getReadableDatabase();
-	Cursor coursors;
+	Cursor coursors,cursor;
 	String Query="SELECT OrdersService.*,Servicesdetails.name,address.name adname FROM OrdersService " +
 			"LEFT JOIN " +
 			"Servicesdetails ON " +
 			"Servicesdetails.code=OrdersService.ServiceDetaileCode " +
 			"LEFT JOIN " +
 			"address ON " +
-			"OrdersService.AddressCode=address.code WHERE OrdersService.Code ="+ CodeOrder;
+			"OrdersService.AddressCode=address.code WHERE OrdersService.Code ="+ OrderCode;
 	coursors = db.rawQuery(Query, null);
 	for(int i=0;i<coursors.getCount();i++){
 		coursors.moveToNext();
@@ -125,7 +135,46 @@ protected void onCreate(Bundle savedInstanceState) {
 		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("adname")));
 		tvCodeService.setText(coursors.getString(coursors.getColumnIndex("OrdersService.Code")));
 	}
-	db.close();
+	if(!coursors.isClosed())
+	{
+		coursors.close();
+	}
+	Query="SELECT Hamyar.*,InfoHamyar.* FROM Hamyar " +
+			"LEFT JOIN " +
+			"InfoHamyar ON " +
+			"Hamyar.CodeHamyarInfo=InfoHamyar.Code " +
+			" WHERE Hamyar.CodeOrder ="+ OrderCode;
+	cursor = db.rawQuery(Query, null);
+	if(cursor.getCount()>0){
+		cursor.moveToNext();
+		imgHamyar.setImageBitmap(convertToBitmap(cursor.getString(cursor.getColumnIndex("img"))));
+		strCall=cursor.getString(cursor.getColumnIndex("Mobile"));
+	}
+	if(!cursor.isClosed())
+	{
+		cursor.close();
+	}
+	if(db.isOpen()) {
+		db.close();
+	}
+	imgCall.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			dialContactPhone(strCall);
+		}
+	});
+	imgMessage.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			//todo Send SMS
+		}
+	});
+	btnCachFactor.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			//todo
+		}
+	});
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
@@ -142,12 +191,30 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 
 		this.startActivity(intent);
 	}
-	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue
-			, String VariableName2, String VariableValue2) {
-		Intent intent = new Intent(getApplicationContext(), Cls);
-		intent.putExtra(VariableName, VariableValue);
-		intent.putExtra(VariableName2, VariableValue2);
+	public Bitmap convertToBitmap(String base) {
+		Bitmap Bmp = null;
+		try {
+			byte[] decodedByte = Base64.decode(base, Base64.DEFAULT);
+			Bmp = BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+//
+			return Bmp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Bmp;
+		}
+	}
+	public void dialContactPhone(String phoneNumber) {
+		Intent callIntent = new Intent(Intent.ACTION_CALL);
+		callIntent.setData(Uri.parse("tel:" + phoneNumber));
+		if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(Pardakh_Factor_Sefaresh.this, new String[]{android.Manifest.permission.CALL_PHONE},REQUEST_CODE_ASK_PERMISSIONS);
+			return;
+		}
+		startActivity(callIntent);
+	}
+	@Override
+	public void onBackPressed() {
 
-		this.startActivity(intent);
+		LoadActivity(Paigiri.class, "karbarCode", karbarCode);
 	}
 }

@@ -58,6 +58,7 @@ public class Select_Hamyar extends AppCompatActivity implements NavigationView.O
 	private String StartDate;
 	private String StartTime;
 	private ArrayList<HashMap<String ,String>> valuse=new ArrayList<HashMap<String, String>>();
+	private String CodeHamyarRequest;
 
 
 	@Override
@@ -160,21 +161,25 @@ protected void onCreate(final Bundle savedInstanceState) {
 				coursors.getString(coursors.getColumnIndex("StartMinute"));
 		tvDateService.setText(StartDate);
 		tvTimeService.setText(StartTime);
-		String Query="SELECT UserServicesHamyarRequest.*,InfoHamyar.* FROM UserServicesHamyarRequest " +
+		String Query="SELECT A.Code as requestcode,A.BsUserServicesCode,A.HamyarCode,A.Price,A.HmayarStar," +
+				"B.Code as hamyarcode,B.Fname,B.Lname,B.img,B.Mobile" +
+				" FROM UserServicesHamyarRequest A " +
 				"LEFT JOIN " +
-				"InfoHamyar ON " +
-				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code" +
-				" WHERE UserServicesHamyarRequest.Code='"+coursors.getString(coursors.getColumnIndex("Code"))+"'";
+				"InfoHamyar B ON " +
+				" A.HamyarCode=B.Code" +
+				" WHERE A.BsUserServicesCode='"+OrderCode+"'";
 		C=db.rawQuery(Query,null);
 		for(int i=0;i<C.getCount();i++)
 		{
 			C.moveToNext();
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("Code",C.getString(C.getColumnIndex("UserServicesHamyarRequest.HamyarCode")));
-			map.put("Name",C.getString(C.getColumnIndex("InfoHamyar.Fname")) + " " + C.getString(C.getColumnIndex("InfoHamyar.Lname")));
-			map.put("imgHamyar",C.getString(C.getColumnIndex("InfoHamyar.img")));
-			map.put("RateBar",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
-			map.put("RateNumber",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
+			map.put("Code",C.getString(C.getColumnIndex("A.HamyarCode")));
+			map.put("Name",C.getString(C.getColumnIndex("B.Fname")) + " " + C.getString(C.getColumnIndex("B.Lname")));
+			map.put("imgHamyar",C.getString(C.getColumnIndex("B.img")));
+			map.put("RateBar",C.getString(C.getColumnIndex("B.HmayarStar")));
+			map.put("RateNumber",C.getString(C.getColumnIndex("B.HmayarStar")));
+			map.put("UnreadCount",C.getString(C.getColumnIndex("A.Price")));
+			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("A.requestcode")));
 			valuse.add(map);
 		}
 		db.close();
@@ -183,6 +188,34 @@ protected void onCreate(final Bundle savedInstanceState) {
 		AdapterInfoHamyar dataAdapter=new AdapterInfoHamyar(Select_Hamyar.this,valuse);
 		RecylcLstHamyar.setAdapter(dataAdapter);
 	}
+	tvAcceptAndSelectHamyar.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			String ErrorStr="";
+			db=dbh.getReadableDatabase();
+			Cursor cursorhamyar_select = db.rawQuery("SELECT * FROM hamyar_select",null);
+			if(cursorhamyar_select.getCount()>0)
+			{
+				cursorhamyar_select.moveToNext();
+				CodeHamyarRequest=cursorhamyar_select.getString(cursorhamyar_select.getColumnIndex("Code"));
+			}
+			else
+			{
+				ErrorStr="پیشنهادی را انتخاب نکرده اید!";
+			}
+			db.close();
+			if(ErrorStr.length()==0)
+			{
+				SyncInsertFromHamyarRequestToHamyarAccept syncInsertFromHamyarRequestToHamyarAccept = new SyncInsertFromHamyarRequestToHamyarAccept(Select_Hamyar.this,
+						CodeHamyarRequest);
+				syncInsertFromHamyarRequestToHamyarAccept.AsyncExecute();
+			}
+			else
+			{
+				Toast.makeText(Select_Hamyar.this, ErrorStr, Toast.LENGTH_SHORT).show();
+			}
+		}
+	});
 	tvCanselService.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {

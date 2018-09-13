@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="200dp"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical"
@@ -12,12 +12,12 @@
         android:background="@drawable/rounded_linear_deactive"
         android:layout_gravity="center"
         android:gravity="center">
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewContactLogo"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:gravity="center" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -48,8 +48,8 @@
                 android:stepSize="1.0"
                 android:id="@+id/RatingHamyar"
                 style="?android:attr/ratingBarStyleSmall"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
                 android:theme="@style/RatingBar"
                 android:layout_gravity="center"/>
             <TextView
@@ -72,8 +72,8 @@
         android:id="@+id/textViewUnreadCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="100dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginLeft="25dp"
         android:padding="5dp"
         android:textColor="#fff"
         android:layout_gravity="center"
@@ -90,6 +90,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="100dp"
+        android:visibility="gone"
         android:background="@drawable/rounded_bottom_detail_hamyar"/>
 </LinearLayout>
 
