@@ -64,7 +64,7 @@ public class Fragment_Service_Done extends Fragment {
                 "ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
                 "LEFT JOIN address " +
                 "ON OrdersService.AddressCode=address.Code " +
-                "WHERE OrdersService.Status ='0'", null);
+                "WHERE OrdersService.Status ='5'", null);
         for(int i=0;i<coursors.getCount();i++){
             coursors.moveToNext();
             HashMap<String, String> map = new HashMap<String, String>();

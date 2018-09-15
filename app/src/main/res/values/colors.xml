@@ -9,4 +9,5 @@
     <color name="colorPrimary">#a075f6</color>
     <color name="colorPrimaryDark">#6b35d7</color>
     <color name="colorAccent">#000</color>
+    <color name="mdtp_transparent">#00000000</color>
 </resources>

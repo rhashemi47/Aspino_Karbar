@@ -1,5 +1,6 @@
 package com.aspino.it.karbar;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -216,5 +218,36 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 	public void onBackPressed() {
 
 		LoadActivity(Paigiri.class, "karbarCode", karbarCode);
+	}
+	public  void alert_final_factor()
+	{
+		LayoutInflater li = LayoutInflater.from(Pardakh_Factor_Sefaresh.this);
+		View promptsView = li.inflate(R.layout.change_currency, null);
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(Pardakh_Factor_Sefaresh.this);
+		AlertDialog alertDialog = alertbox.create();
+		//set view
+		alertbox.setView(promptsView);
+		Button btnYes = (Button) promptsView.findViewById(R.id.btnYes);
+		Button btnNo = (Button) promptsView.findViewById(R.id.btnNo);
+
+		btnYes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode);
+				syncUpdateAcceptHamyarFinalPrice.AsyncExecute();
+			}
+		});
+		btnNo.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+//				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode);
+//				syncUpdateAcceptHamyarFinalPrice.AsyncExecute();
+
+			}
+		});
+		// create alert dialog
+		alertDialog = alertbox.create();
+		// show it
+		alertDialog.show();
 	}
 }

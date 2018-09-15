@@ -193,12 +193,14 @@ public class SyncGetUserServicesHamyarRequest {
 						"BsUserServicesCode," +
 						"HamyarCode," +
 						"Price," +
-						"HmayarStar) VALUES('" +
+						"HmayarStar," +
+						"PriceFinal) VALUES('" +
 						value[0] + "','" +
 						value[1] + "','" +
 						value[2] + "','" +
 						value[3] + "','" +
-						value[4] + "')";
+						value[4] + "','" +
+						value[5] + "')";
 				db.execSQL(query);
 			}
 			if(!check2(value[2]))

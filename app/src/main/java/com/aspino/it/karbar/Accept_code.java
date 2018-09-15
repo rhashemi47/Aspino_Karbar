@@ -71,7 +71,7 @@ public class Accept_code extends Activity {
 		try
 		{
 
-			phonenumber = getIntent().getStringExtra("phonenumber").toString();
+			phonenumber = getIntent().getStringExtra("phonenumber");
 		}
 		catch (Exception ex)
 		{
@@ -316,7 +316,6 @@ public void onPause() {
 								}
 							});
 						} catch (Exception e) {
-							// TODO: handle exception
 						}
 					}
 				}
