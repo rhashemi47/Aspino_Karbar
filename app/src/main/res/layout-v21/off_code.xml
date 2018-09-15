@@ -63,83 +63,81 @@
             android:foregroundGravity="center"
             android:layout_marginTop="20dp"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"
         android:orientation="vertical">
-
-
-
-
 
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
-                android:layoutDirection="rtl"
-                android:id="@+id/etPhoneNumber"
+                android:id="@+id/etOffCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/rounded_edittext_with_border"
                 android:ems="2"
-                android:padding="10dp"
-                android:layout_marginTop="40dp"
-                android:textSize="20sp"
+                android:gravity="center"
                 android:inputType="phone"
-                android:textStyle="normal"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp" />
+                android:layoutDirection="rtl"
+                android:padding="10dp"
+                android:textSize="24sp"
+                android:textStyle="normal" />
+
             <Button
-                android:id="@+id/btnEnter"
+                android:id="@+id/btnSetOffCode"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_alignTop="@+id/etPhoneNumber"
-                android:layout_alignBottom="@+id/etPhoneNumber"
-                android:layout_alignRight="@+id/etPhoneNumber"
+                android:layout_alignBottom="@+id/etOffCode"
+                android:layout_alignRight="@+id/etOffCode"
+                android:layout_alignTop="@+id/etOffCode"
+                android:layout_margin="5dp"
+                android:textSize="14sp"
                 android:background="@drawable/rounded_button_violet"
                 android:text="اعمال"
-                android:textColor="#fff"
-                android:layout_margin="5dp"/>
+                android:textColor="#fff" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tvText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="2dp"
             android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="10dp"
             android:lineSpacingExtra="4dp"
             android:text="برای اطلاع از کد های تخفیف ، آسپینو رو در شبکه های اجتماعی دنبال کنید"
-            android:textSize="20dp"
+            android:textAlignment="center"
             android:textColor="#333333"
-            android:textAlignment="center"/>
-        </LinearLayout>
+            android:textSize="20dp" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="30dp">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/imgForward"
-            android:background="@drawable/forward"
-            android:layout_marginLeft="30dp"
             android:layout_gravity="center"
-            android:foregroundGravity="center"/>
+            android:background="@drawable/forward"/>
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/imgback"
-            android:layout_marginRight="30dp"
-            android:background="@drawable/back_active"
+            android:id="@+id/imgBack"
             android:layout_gravity="center"
-            android:foregroundGravity="center"/>
+            android:layout_marginRight="100dp"
+            android:background="@drawable/back_deactive"/>
     </LinearLayout>
 </LinearLayout>

@@ -212,6 +212,10 @@ public void onPause() {
 	}
 	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{
+		if(intentReciever.isOrderedBroadcast())
+		{
+			intentReciever.abortBroadcast();
+		}
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
 		Accept_code.this.startActivity(intent);
@@ -230,6 +234,10 @@ public void onPause() {
 	}
 	public void Send_AcceptCode()
 	{
+		if(intentReciever.isOrderedBroadcast())
+		{
+			intentReciever.abortBroadcast();
+		}
 //		countDownTimer.cancel();
 		String query="UPDATE login SET Phone ='"+phonenumber+"', AcceptCode='"+acceptcode.getText().toString()+"'";
 		db=dbh.getWritableDatabase();

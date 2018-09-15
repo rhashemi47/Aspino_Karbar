@@ -390,7 +390,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		String query="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 		"LEFT JOIN " +
 				"Servicesdetails ON " +
-				"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code="+OrderCode;
+				"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code_OrdersService="+OrderCode;
 		Cursor cursor = db.rawQuery(query,null);
 		for(int i=0;i<cursor.getCount();i++){
 			cursor.moveToNext();
@@ -674,7 +674,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				query="SELECT OrdersService.*,address.* FROM OrdersService " +
 						"LEFT JOIN " +
 						"address ON " +
-						"address.code=OrdersService.AddressCode WHERE OrdersService.Code="+OrderCode;
+						"address.code=OrdersService.AddressCode WHERE OrdersService.Code_OrdersService="+OrderCode;
 				Cursor cursorAddress = db.rawQuery(query,null);
 				if(cursorAddress.getCount()>0)
 				{

@@ -55,6 +55,7 @@ public class SyncInsertUserServices {
 	private String CarType ;
 	private String Language ;
 	private String DateDiff ;
+	private String OffCode ;
 	//private String acceptcode;
 	private boolean CuShowDialog=true;
 	//Contractor
@@ -63,7 +64,7 @@ public class SyncInsertUserServices {
 								  String EndYear, String EndMonth, String EndDay, String EndHour, String EndMinute,
 								  String AddressCode, String Description, String IsEmergency, String PeriodicServices, String EducationGrade,
 								  String FieldOfStudy, String StudentGender, String TeacherGender, String EducationTitle, String ArtField, String CarWashType,
-								  String CarType, String Language, String DateDiff) {
+								  String CarType, String Language, String DateDiff,String OffCode) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
 		this.ServiceDetaileCode = ServiceDetaileCode;
@@ -94,6 +95,7 @@ public class SyncInsertUserServices {
 		this.CarType = CarType;
 		this.Language = Language;
 		this.DateDiff = DateDiff;
+		this.OffCode = OffCode;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -488,6 +490,16 @@ public class SyncInsertUserServices {
 		LanguagePI.setType(String.class);
 		//Add the property to request object
 		request.addProperty(LanguagePI);
+		//****************************************************************
+		PropertyInfo OffCodePI = new PropertyInfo();
+		//Set Name
+		OffCodePI.setName("OffCodeName");
+		//Set Value
+		OffCodePI.setValue(OffCode);
+		//Set dataType
+		OffCodePI.setType(String.class);
+		//Add the property to request object
+		request.addProperty(OffCodePI);
 
 //****************************************************************************************
 	    //Create envelope
@@ -517,7 +529,7 @@ public class SyncInsertUserServices {
     {
 		db=dbh.getWritableDatabase();
 		db.execSQL("INSERT INTO OrdersService ("+
-					"Code,"+
+					"Code_OrdersService,"+
 					"pUserCode,"+
 					"ServiceDetaileCode,"+
 					"MaleCount,"+
@@ -578,6 +590,8 @@ public class SyncInsertUserServices {
 							CarType+"','"+
 							Language+"','0','"+
 							DateDiff+"')");
+
+		db.execSQL("DELETE FROM OffCode");
 		db.close();
 		//Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
 		String mergDateAndTime=StartYear+"/"+StartMonth+"/"+StartDay+" - "+StartHour+":"+StartMinute;

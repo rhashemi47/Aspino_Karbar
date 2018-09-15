@@ -215,7 +215,7 @@ public class SyncGetUserServicesHamyarRequest {
 						"CodeHamyarInfo," +
 						"CodeOrder" +
 						") VALUES('" +
-						value[0] + "','" +
+						value[2] + "','" +
 						value[1] + "')";
 				db.execSQL(query);
 				db.close();

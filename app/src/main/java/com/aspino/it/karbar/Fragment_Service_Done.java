@@ -126,7 +126,7 @@ public class Fragment_Service_Done extends Fragment {
 //                    StrStatus="متوقف و تسویه نشده";
 //                    break;
 //            }
-            map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
+            map.put("Code",coursors.getString(coursors.getColumnIndex("Code_OrdersService")));
             map.put("Status",coursors.getString(coursors.getColumnIndex("Status")));
             map.put("DateAndTimeService",StartDate + " ساعت " +StartTime);
             map.put("TitleService",coursors.getString(coursors.getColumnIndex("name")));

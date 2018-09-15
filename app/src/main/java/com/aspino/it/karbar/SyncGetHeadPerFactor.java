@@ -235,7 +235,7 @@ public class SyncGetHeadPerFactor {
 		String query="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 				"LEFT JOIN " +
 				"Servicesdetails ON " +
-				"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code="+OrderCode;
+				"Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code_OrdersService="+OrderCode;
 		Cursor coursors = db.rawQuery(query, null);
 		if (coursors.getCount() > 0)
 		{

@@ -20,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -124,7 +125,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			"Servicesdetails.code=OrdersService.ServiceDetaileCode " +
 			"LEFT JOIN " +
 			"address ON " +
-			"OrdersService.AddressCode=address.code WHERE OrdersService.Code ="+ OrderCode;
+			"OrdersService.AddressCode=address.code WHERE OrdersService.Code_OrdersService ="+ OrderCode;
 	coursors = db.rawQuery(Query, null);
 	for(int i=0;i<coursors.getCount();i++){
 		coursors.moveToNext();
@@ -135,7 +136,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		coursors.getString(coursors.getColumnIndex("StartHour"))+":"+
 				coursors.getString(coursors.getColumnIndex("StartMinute")));
 		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("adname")));
-		tvCodeService.setText(coursors.getString(coursors.getColumnIndex("OrdersService.Code")));
+		tvCodeService.setText(coursors.getString(coursors.getColumnIndex("Code_OrdersService")));
 	}
 	if(!coursors.isClosed())
 	{
@@ -151,6 +152,25 @@ protected void onCreate(Bundle savedInstanceState) {
 		cursor.moveToNext();
 		imgHamyar.setImageBitmap(convertToBitmap(cursor.getString(cursor.getColumnIndex("img"))));
 		strCall=cursor.getString(cursor.getColumnIndex("Mobile"));
+	}
+	if(!cursor.isClosed())
+	{
+		cursor.close();
+	}
+	if(db.isOpen()) {
+		db.close();
+	}
+	String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
+	db=dbh.getReadableDatabase();
+	cursor = db.rawQuery(Query, null);
+	if(cursor.getCount()>0){
+		cursor.moveToNext();
+		String Price =cursor.getString(cursor.getColumnIndex("Price"));
+		String PriceFinal =cursor.getString(cursor.getColumnIndex("PriceFinal"));
+		if(PriceFinal.compareTo(Price)!=0)
+		{
+			alert_final_factor(PriceFinal);
+		}
 	}
 	if(!cursor.isClosed())
 	{
@@ -219,17 +239,19 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 
 		LoadActivity(Paigiri.class, "karbarCode", karbarCode);
 	}
-	public  void alert_final_factor()
+	public  void alert_final_factor(String PriceFinal)
 	{
 		LayoutInflater li = LayoutInflater.from(Pardakh_Factor_Sefaresh.this);
 		View promptsView = li.inflate(R.layout.change_currency, null);
 		AlertDialog.Builder alertbox = new AlertDialog.Builder(Pardakh_Factor_Sefaresh.this);
-		AlertDialog alertDialog = alertbox.create();
 		//set view
 		alertbox.setView(promptsView);
 		Button btnYes = (Button) promptsView.findViewById(R.id.btnYes);
 		Button btnNo = (Button) promptsView.findViewById(R.id.btnNo);
-
+		TextView tvChangePrice = (TextView) promptsView.findViewById(R.id.tvChangePrice);
+		tvChangePrice.setText(PriceFinal);
+		// create alert dialog
+		final AlertDialog alertDialog = alertbox.create();
 		btnYes.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -242,11 +264,9 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			public void onClick(View v) {
 //				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode);
 //				syncUpdateAcceptHamyarFinalPrice.AsyncExecute();
-
+				alertDialog.dismiss();
 			}
 		});
-		// create alert dialog
-		alertDialog = alertbox.create();
 		// show it
 		alertDialog.show();
 	}

@@ -66,6 +66,7 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:textColor="#6a33d7"
+                android:id="@+id/tvChangePrice"
                 android:background="@drawable/rounded_button_currency"/>
         </LinearLayout>
         <LinearLayout

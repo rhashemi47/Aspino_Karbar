@@ -193,7 +193,7 @@ public class SyncGetUserServices {
 			try {
 				boolean check = checkStatus(value[0], value[32]);
 				if (!check) {
-					db.execSQL("DELETE FROM OrdersService WHERE Code='" + value[0] + "'");
+					db.execSQL("DELETE FROM OrdersService WHERE Code_OrdersService='" + value[0] + "'");
 					DateStart = value[8].split("/");
 					DateEnd = value[18].split("/");
 					TimeStart = value[19].split(":");
@@ -280,7 +280,7 @@ public class SyncGetUserServices {
 	public boolean checkStatus(String codeStr,String statusStr)
 	{
 		db=dbh.getReadableDatabase();
-		String query = "SELECT * FROM OrdersService WHERE Code='"+codeStr+"' AND Status='"+statusStr+"'";
+		String query = "SELECT * FROM OrdersService WHERE Code_OrdersService='"+codeStr+"' AND Status='"+statusStr+"'";
 		Cursor cursor= db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{

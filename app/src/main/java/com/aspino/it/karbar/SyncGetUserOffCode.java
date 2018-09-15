@@ -1,11 +1,12 @@
 package com.aspino.it.karbar;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -16,29 +17,26 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
 
-public class SyncMessage {
+public class SyncGetUserOffCode {
 
 	//Primary Variable
 	DatabaseHelper dbh;
 	SQLiteDatabase db;
 	PublicVariable PV;
     InternetConnection IC;
-	private Context activity;
-
-	private String karbarCode;
+	private Activity activity;
 	private String WsResponse;
-	private String LastMessageCode;
+	private String OffCode;
+	private String flag;
 	//private String acceptcode;
 	private boolean CuShowDialog=false;
 	//Contractor
-	public SyncMessage(Context activity, String karbarCode, String LastMessageCode) {
+	public SyncGetUserOffCode(Activity activity, String OffCode) {
 		this.activity = activity;
-
-		this.LastMessageCode=LastMessageCode;
-		this.karbarCode=karbarCode;
+		this.OffCode = OffCode;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
-		
+
 		dbh=new DatabaseHelper(this.activity.getApplicationContext());
 		try {
 
@@ -57,9 +55,9 @@ public class SyncMessage {
    		} catch (SQLException sqle) {
 
    			throw sqle;
-   		}   		
+   		}
 	}
-	
+
 	public void AsyncExecute()
 	{
 		if(IC.isConnectingToInternet()==true)
@@ -68,58 +66,54 @@ public class SyncMessage {
 			{
 				AsyncCallWS task = new AsyncCallWS(this.activity);
 				task.execute();
-			}	
+			}
 			 catch (Exception e) {
-
+				//Toast.makeText(this.activity.getApplicationContext(), PersianReshape.reshape("ط¹ط¯ظ… ط¯ط³طھط±ط³غŒ ط¨ظ‡ ط³ط±ظˆط±"), Toast.LENGTH_SHORT).show();
 	            e.printStackTrace();
 			 }
 		}
 		else
 		{
-			//Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	//Async Method
 	private class AsyncCallWS extends AsyncTask<String, Void, String> {
 		private ProgressDialog dialog;
-		private Context activity;
-		
-		public AsyncCallWS(Context activity) {
+		private Activity activity;
+
+		public AsyncCallWS(Activity activity) {
 		    this.activity = activity;
-		    this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+		    this.dialog = new ProgressDialog(activity);
+		    this.dialog.setCanceledOnTouchOutside(false);
 		}
-		
+
         @Override
         protected String doInBackground(String... params) {
         	String result = null;
         	try
         	{
-        		CallWsMethod("GetUserMessages");
+        		CallWsMethod("GetUserOffCode");
         	}
 	    	catch (Exception e) {
 	    		result = e.getMessage().toString();
 			}
 	        return result;
         }
- 
+
         @Override
         protected void onPostExecute(String result) {
         	if(result == null)
         	{
 	            if(WsResponse.toString().compareTo("ER") == 0)
 	            {
-	            	//Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
+	            	Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 	            }
-	            else if(WsResponse.toString().compareTo("0") == 0)
+	            else if(WsResponse.toString().compareTo("ERROR") == 0)
 	            {
-	            	//Toast.makeText(this.activity.getApplicationContext(), "پیام جدیدی اعلام نشده", Toast.LENGTH_LONG).show();
-
+	            	Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 	            }
-				else if(WsResponse.toString().compareTo("2") == 0)
-				{
-					//Toast.makeText(this.activity.getApplicationContext(), "کاربر شناسایی نشد!", Toast.LENGTH_LONG).show();
-				}
 	            else
 	            {
 	            	InsertDataFromWsToDb(WsResponse);
@@ -137,7 +131,7 @@ public class SyncMessage {
             }
             catch (Exception e) {}
         }
- 
+
         @Override
         protected void onPreExecute() {
         	if(CuShowDialog)
@@ -146,35 +140,26 @@ public class SyncMessage {
         		this.dialog.show();
         	}
         }
- 
+
         @Override
         protected void onProgressUpdate(Void... values) {
         }
-        
+
     }
-	
+
+
 	public void CallWsMethod(String METHOD_NAME) {
 	    //Create request
 	    SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
-		PropertyInfo karbarCodePI = new PropertyInfo();
-		//Set Name
-		karbarCodePI.setName("UserCode");
-		//Set Value
-		karbarCodePI.setValue(this.karbarCode);
-		//Set dataType
-		karbarCodePI.setType(String.class);
-		//Add the property to request object
-		request.addProperty(karbarCodePI);
-		//*****************************************************
-		PropertyInfo LastMessageCodePI = new PropertyInfo();
-		//Set Name
-		LastMessageCodePI.setName("LastMessageCode");
-		//Set Value
-		LastMessageCodePI.setValue(this.LastMessageCode);
-		//Set dataType
-		LastMessageCodePI.setType(String.class);
-		//Add the property to request object
-		request.addProperty(LastMessageCodePI);
+	    PropertyInfo OffCodePI = new PropertyInfo();
+	    //Set Name
+		OffCodePI.setName("OffCode");
+	    //Set Value
+		OffCodePI.setValue(OffCode);
+	    //Set dataType
+		OffCodePI.setType(String.class);
+	    //Add the property to request object
+	    request.addProperty(OffCodePI);
 	    //Create envelope
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
@@ -189,62 +174,22 @@ public class SyncMessage {
 	        //Get the response
 	        SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
 	        //Assign it to FinalResultForCheck static variable
-	        WsResponse = response.toString();	
+	        WsResponse = response.toString();
 	        if(WsResponse == null) WsResponse="ER";
 	    } catch (Exception e) {
 	    	WsResponse = "ER";
 	    	e.printStackTrace();
 	    }
 	}
-	
-	
+
+
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		String[] value;
-		String[] res;
-		String query=null;
-		boolean isFirst=IsFristInsert();
-		res=WsResponse.split("@@");
 		db=dbh.getWritableDatabase();
-		for(int i=0;i<res.length;i++){
-			value=res[i].split("##");
-			query="INSERT INTO messages (Code," +
-					"Title" +
-					",Content" +
-					",InsertDate,IsReade,IsSend) VALUES('"+value[0]+
-					"','"+value[1]+
-					"','"+value[2]+
-					"','"+value[3]+
-					"','"+value[4]+
-					"','0')";
-			db.execSQL(query);
-			db.close();
-			if(!isFirst && value[4].compareTo("0")==0) {
-				runNotification("آسپینو", value[1], i, value[0], ShowMessage.class);
-			}
-		}
+		db.execSQL("DELETE FROM OffCode");
+		db.execSQL("INSERT INTO OffCode (Code,Value) VALUES('"+ OffCode + "','" + WsResponse + "')");
+		db.close();
+		Toast.makeText(activity.getApplicationContext(),"کد تخفیف صحیح است و پس از ثبت سرویس اعمال می گردد",Toast.LENGTH_LONG).show();
     }
-	public void runNotification(String title,String TitleMessage,int id,String MessageCode,Class<?> Cls)
-	{
-		//todo
-		NotificationClass notifi=new NotificationClass();
-		notifi.Notificationm(this.activity,title,TitleMessage,MessageCode,id,Cls);
-	}
-	public boolean IsFristInsert()
-	{
-		db=dbh.getReadableDatabase();
-		String query = "SELECT * FROM messages";
-		Cursor cursor= db.rawQuery(query,null);
-		if(cursor.getCount()>0)
-		{
-			db.close();
-			return false;
-		}
-		else
-		{
-			db.close();
-			return true;
-		}
-	}
-
+	
 }

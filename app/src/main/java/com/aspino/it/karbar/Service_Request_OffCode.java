@@ -18,23 +18,18 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public class Service_Request_SelectAddress extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Service_Request_OffCode extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 //	private TextView tvTitleService;
 	private ImageView imgBack;
 	private ImageView imgSave;
-	//**************************************************************
-	private Button btnAdd_New_Address;
-	//**************************************************************
 	private DatabaseHelper dbh;
 	private SQLiteDatabase db;
 	private String StartYear ;
@@ -65,11 +60,11 @@ public class Service_Request_SelectAddress extends AppCompatActivity implements 
 	private NavigationView mNavi;
 	private Toolbar mtoolbar;
 	private Button btnLogout;
-	private ImageView imgClose;
+	private Button btnSetOffCode;
 	private ImageView imgMenu;
+	private String OffCodeSTR="";
+	private EditText etOffCode;
 	//***************************************************
-	private ListView listViewAddress;
-	private ArrayList<HashMap<String,String>> valuse=new ArrayList<HashMap<String, String>>();
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -78,13 +73,12 @@ public class Service_Request_SelectAddress extends AppCompatActivity implements 
 	@Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.slide_menu_select_address);
+	setContentView(R.layout.slide_menu_offcode);
 
 		imgBack=(ImageView) findViewById(R.id.imgBack);
 		imgSave=(ImageView) findViewById(R.id.imgForward);
-		listViewAddress=(ListView) findViewById(R.id.listViewAddress);
-		btnAdd_New_Address=(Button) findViewById(R.id.btnAdd_New_Address);
-//		tvTitleService=(TextView) findViewById(R.id.tvTitleService);
+		btnSetOffCode=(Button) findViewById(R.id.btnSetOffCode);
+		etOffCode=(EditText) findViewById(R.id.etOffCode);
 
 //****************************************************************
 		Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar);
@@ -96,13 +90,6 @@ protected void onCreate(Bundle savedInstanceState) {
 		mNavi = (NavigationView) findViewById(R.id.navigation_view);
 
 		View header_View= mNavi.getHeaderView(0);
-		imgClose=(ImageView)findViewById(R.id.imgClose);
-		imgClose.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				onBackPressed();
-			}
-		});
 
 		btnLogout=(Button)header_View.findViewById(R.id.btnLogout);
 		btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -267,47 +254,26 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 //**************************************************************
 		db=dbh.getReadableDatabase();
-		Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
-		if(cursorAddress.getCount()>0)
+		Cursor cursor=db.rawQuery("SELECT * FROM OffCode",null);
+		if(cursor.getCount()>0)
 		{
-			for(int i=0;i<cursorAddress.getCount();i++){
-				cursorAddress.moveToNext();
-				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("TitleAddress",cursorAddress.getString(cursorAddress.getColumnIndex("Name")));
-				map.put("ContentAddress",cursorAddress.getString(cursorAddress.getColumnIndex("AddressText")));
-				map.put("Code",cursorAddress.getString(cursorAddress.getColumnIndex("Code")));
-				valuse.add(map);
-			}
-			AdapterSelectAddress dataAdapter=new AdapterSelectAddress(Service_Request_SelectAddress.this,valuse);
-			listViewAddress.setAdapter(dataAdapter);
+			OffCodeSTR=cursor.getString(cursor.getColumnIndex("Value"));
+			etOffCode.setText(OffCodeSTR);
 		}
-		db.close();
+		else
+		{
+			OffCodeSTR="0";
+			etOffCode.setText(OffCodeSTR);
+		}
 //**************************************************************
-//		db=dbh.getReadableDatabase();
-//		Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE code='"+DetailCode+"'",null);
-//		if(coursors.getCount()>0){
-//			coursors.moveToNext();
-//			CodeService=coursors.getString(coursors.getColumnIndex("servicename"));
-////			tvTitleService.setText(":"+coursors.getString(coursors.getColumnIndex("name")));
-//		}
-//		db.close();
-		btnAdd_New_Address.setOnClickListener(new View.OnClickListener() {
+		btnSetOffCode.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				LoadActivity_Map(Map.class,"karbarCode", karbarCode
-						,"FromDate",FromDate
-						,"FromTime",FromTime
-						,"ToTime",ToTime
-						,"Description",Description
-						,"TimeDiff",TimeDiff
-						,"DetailCode",DetailCode
-						,"MaleCount",MaleCount
-						,"FemaleCount",FemaleCount
-						,"HamyarCount",HamyarCount
-						,"nameActivity","Service_Request_SelectAddress"
-						,"ToDate",ToDate);
+				SyncGetUserOffCode syncGetUserOffCode=new SyncGetUserOffCode(Service_Request_OffCode.this,etOffCode.getText().toString());
+				syncGetUserOffCode.AsyncExecute();
 			}
 		});
+//**************************************************************
 		imgSave.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -326,30 +292,24 @@ protected void onCreate(Bundle savedInstanceState) {
 				db.close();
 				if(ErrorStr.length()==0)
 					{
-//
-						LoadActivity4(Service_Request_OffCode.class, "karbarCode", karbarCode,
-								"DetailCode", DetailCode,
-								"FromDate", FromDate,
-								"ToDate", ToDate,
-								"FromTime", FromTime,
-								"ToTime", ToTime,
-								"Description", Description,
-								"TimeDiff", TimeDiff,
-								"MaleCount", MaleCount,
-								"FemaleCount", FemaleCount,
-								"HamyarCount", HamyarCount
-						);
+
+						SyncInsertUserServices syncInsertUserServices = new SyncInsertUserServices(Service_Request_OffCode.this,
+								karbarCode, DetailCode, MaleCount, FemaleCount, HamyarCount, StartYear, StartMonth,
+								StartDay, StartHour, StartMinute, EndYear, EndMonth, EndDay, EndHour, EndMinute,
+								AddressCode, Description, "0", "0", "0",
+								"0", "0", "0", "0", "0", "0", "0", "0",TimeDiff,etOffCode.getText().toString());
+						syncInsertUserServices.AsyncExecute();
 					}
 					else
 					{
-							Toast.makeText(Service_Request_SelectAddress.this, ErrorStr, Toast.LENGTH_SHORT).show();
+							Toast.makeText(Service_Request_OffCode.this, ErrorStr, Toast.LENGTH_SHORT).show();
 					}
 		}
 	});
 		imgBack.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				LoadActivity3(Service_Request1.class,"karbarCode", karbarCode,
+				LoadActivity2(Service_Request1.class,"karbarCode", karbarCode,
 						"DetailCode", DetailCode,
 						"FromDate", FromDate,
 						"ToDate", ToDate,
@@ -364,7 +324,7 @@ protected void onCreate(Bundle savedInstanceState) {
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {
     if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
-    	LoadActivity3(Service_Request1.class,"karbarCode", karbarCode,
+    	LoadActivity2(Service_Request1.class,"karbarCode", karbarCode,
 				"DetailCode", DetailCode,
 				"FromDate", FromDate,
 				"ToDate", ToDate,
@@ -380,36 +340,10 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
-		Service_Request_SelectAddress.this.startActivity(intent);
+		Service_Request_OffCode.this.startActivity(intent);
 	}
-public void LoadActivity_Map(Class<?> Cls, String VariableName1, String VariableValue1,
-							 String VariableName2, String VariableValue2,
-							 String VariableName3, String VariableValue3,
-							 String VariableName4, String VariableValue4,
-							 String VariableName5, String VariableValue5,
-							 String VariableName6, String VariableValue6,
-							 String VariableName7, String VariableValue7,
-							 String VariableName8, String VariableValue8,
-							 String VariableName9, String VariableValue9,
-							 String VariableName10, String VariableValue10,
-							 String VariableName11, String VariableValue11,
-							 String VariableName12, String VariableValue12){
-	Intent intent = new Intent(getApplicationContext(),Cls);
-	intent.putExtra(VariableName1, VariableValue1);
-	intent.putExtra(VariableName2, VariableValue2);
-	intent.putExtra(VariableName3, VariableValue3);
-	intent.putExtra(VariableName4, VariableValue4);
-	intent.putExtra(VariableName5, VariableValue5);
-	intent.putExtra(VariableName6, VariableValue6);
-	intent.putExtra(VariableName7, VariableValue7);
-	intent.putExtra(VariableName8, VariableValue8);
-	intent.putExtra(VariableName9, VariableValue9);
-	intent.putExtra(VariableName10, VariableValue10);
-	intent.putExtra(VariableName11, VariableValue11);
-	intent.putExtra(VariableName12, VariableValue12);
-	Service_Request_SelectAddress.this.startActivity(intent);
-	}
-public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableValue1,
+
+public void LoadActivity2(Class<?> Cls, String VariableName1, String VariableValue1,
 						  String VariableName2, String VariableValue2,
 						  String VariableName3, String VariableValue3,
 						  String VariableName4, String VariableValue4,
@@ -429,7 +363,7 @@ public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableVal
 	intent.putExtra(VariableName7, VariableValue7);
 	intent.putExtra(VariableName8, VariableValue8);
 	intent.putExtra(VariableName9, VariableValue9);
-	Service_Request_SelectAddress.this.startActivity(intent);
+	Service_Request_OffCode.this.startActivity(intent);
 	}
 	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue, String VariableName2, String VariableValue2)
 	{
@@ -437,32 +371,6 @@ public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableVal
 		intent.putExtra(VariableName, VariableValue);
 		intent.putExtra(VariableName2, VariableValue2);
 		startActivity(intent);
-	}
-	public void LoadActivity4(Class<?> Cls, String VariableName1, String VariableValue1,
-							 String VariableName2, String VariableValue2,
-							 String VariableName3, String VariableValue3,
-							 String VariableName4, String VariableValue4,
-							 String VariableName5, String VariableValue5,
-							 String VariableName6, String VariableValue6,
-							 String VariableName7, String VariableValue7,
-							 String VariableName8, String VariableValue8,
-							 String VariableName9, String VariableValue9,
-							 String VariableName10, String VariableValue10,
-							 String VariableName11, String VariableValue11)
-	{
-		Intent intent = new Intent(getApplicationContext(),Cls);
-		intent.putExtra(VariableName1, VariableValue1);
-		intent.putExtra(VariableName2, VariableValue2);
-		intent.putExtra(VariableName3, VariableValue3);
-		intent.putExtra(VariableName4, VariableValue4);
-		intent.putExtra(VariableName5, VariableValue5);
-		intent.putExtra(VariableName6, VariableValue6);
-		intent.putExtra(VariableName7, VariableValue7);
-		intent.putExtra(VariableName8, VariableValue8);
-		intent.putExtra(VariableName9, VariableValue9);
-		intent.putExtra(VariableName10, VariableValue10);
-		intent.putExtra(VariableName11, VariableValue11);
-		this.startActivity(intent);
 	}
 	@Override
 	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -481,7 +389,7 @@ public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableVal
 						Cursor c = db.rawQuery("SELECT * FROM login", null);
 						if (c.getCount() > 0) {
 							c.moveToNext();
-							SyncProfile profile = new SyncProfile(Service_Request_SelectAddress.this, c.getString(c.getColumnIndex("karbarCode")));
+							SyncProfile profile = new SyncProfile(Service_Request_OffCode.this, c.getString(c.getColumnIndex("karbarCode")));
 							profile.AsyncExecute();
 						}
 					} else {
@@ -552,11 +460,11 @@ public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableVal
 	}
 	void sharecode(String shareStr)
 	{
-		Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+		Intent sharingIntent = new Intent(Intent.ACTION_SEND);
 		sharingIntent.setType("text/plain");
 		String shareBody = "آسپینو" + "\n"+"کد معرف: "+shareStr+"\n"+"آدرس سایت: " + PublicVariable.site;
-		sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "عنوان");
-		sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+		sharingIntent.putExtra(Intent.EXTRA_SUBJECT, "عنوان");
+		sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
 		startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری با"));
 	}
 	@Override
@@ -641,18 +549,5 @@ public void LoadActivity3(Class<?> Cls, String VariableName1, String VariableVal
 			}
 		});
 		alertbox.show();
-	}
-	public static String faToEn(String num) {
-		return num
-				.replace("۰", "0")
-				.replace("۱", "1")
-				.replace("۲", "2")
-				.replace("۳", "3")
-				.replace("۴", "4")
-				.replace("۵", "5")
-				.replace("۶", "6")
-				.replace("۷", "7")
-				.replace("۸", "8")
-				.replace("۹", "9");
 	}
 }

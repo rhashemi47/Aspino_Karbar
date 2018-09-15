@@ -1,6 +1,5 @@
 	package com.aspino.it.karbar;
 
-    import android.app.Activity;
     import android.app.AlertDialog;
     import android.content.Context;
     import android.content.DialogInterface;
@@ -373,7 +372,7 @@
                     stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
                     stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
                     stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
-                    stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+//                    stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
                     stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
                     stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
                     db = dbh.getWritableDatabase();

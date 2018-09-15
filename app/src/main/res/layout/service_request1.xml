@@ -9,29 +9,29 @@
     android:focusableInTouchMode="true"
     android:layoutDirection="rtl">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/appbar_padding_top"
-        android:background="#7236ea"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <!--<android.support.design.widget.AppBarLayout-->
+    <!--android:id="@+id/appbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingTop="@dimen/appbar_padding_top"-->
+    <!--android:background="#7236ea"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/service_request"
-                android:textColor="#fff"
-                android:gravity="center"
-                android:textSize="22sp"/>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--app:layout_scrollFlags="scroll|enterAlways"-->
+    <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/service_request"-->
+    <!--android:textColor="#fff"-->
+    <!--android:gravity="center"-->
+    <!--android:textSize="22sp"/>-->
+    <!--</android.support.v7.widget.Toolbar>-->
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <ScrollView
         android:id="@+id/ScrollLayout"
@@ -43,89 +43,114 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/LinearTitleService"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/rounded_layout_select_job_body">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTitleString"
-                    android:text="@string/Desired_service"
-                    android:textColor="#000000"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTitleService"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="#000000"/>
-            </LinearLayout>
+            <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:id="@+id/LinearTitleService"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:background="@drawable/rounded_layout_select_job_body">-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/tvTitleString"-->
+            <!--android:text="@string/Desired_service"-->
+            <!--android:textSize="18sp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:textColor="#000000"/>-->
+            <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/tvTitleService"-->
+            <!--android:layout_weight="1"-->
+            <!--android:textSize="18sp"-->
+            <!--android:layout_marginLeft="5dp"-->
+            <!--android:layout_marginRight="5dp"-->
+            <!--android:textColor="#000000"/>-->
+            <!--</LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_height="100dp"
+                    android:orientation="vertical"
                     android:layout_marginTop="2dp"
                     android:id="@+id/LinearTimeJob"
-                    android:background="@drawable/rounded_layout_select_job_body">
-                    <ImageView
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:src="@drawable/clock3"
+                    android:background="@drawable/rounded_layout_select_job_body"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="مدت زمان مورد نیاز کار"
                         android:layout_gravity="right"
-                        android:layout_marginLeft="20dp"/>
+                        android:textSize="18sp"
+                        android:textColor="#000"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="-5dp"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                        <Button
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:id="@+id/btnAddTimeJob"
-                            android:background="@drawable/plus"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp">
+                        <ImageView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:src="@drawable/clock3"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
-                        <EditText
-                            android:layout_width="100dp"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/etCountTimeJob"
-                            android:background="@drawable/rounded_edittext2"
-                            android:inputType="phone"
-                            android:text="3 ساعت"
-                            android:textSize="24sp"
-                            android:enabled="false"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:textColor="#000000"/>
-                        <Button
-                            android:layout_width="35dp"
-                            android:layout_height="35dp"
-                            android:id="@+id/btnDesTimeJob"
-                            android:background="@drawable/mines"
-                            android:layout_gravity="center"/>
+                            android:layout_marginEnd="50dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp">
+                            <Button
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:id="@+id/btnAddTimeJob"
+                                android:background="@drawable/plus"
+                                android:layout_gravity="center"
+                                android:gravity="center"/>
+                            <EditText
+                                android:layout_width="130dp"
+                                android:layout_height="40dp"
+                                android:id="@+id/etCountTimeJob"
+                                android:background="@drawable/rounded_edittext2"
+                                android:inputType="phone"
+                                android:text="3 ساعت"
+                                android:textSize="24sp"
+                                android:enabled="false"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:textColor="#000000"/>
+                            <Button
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:id="@+id/btnDesTimeJob"
+                                android:background="@drawable/mines"
+                                android:layout_gravity="center"/>
+                        </LinearLayout>
                     </LinearLayout>
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="110dp"
                     android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:id="@+id/LinearFromDate"
                     android:background="@drawable/rounded_layout_select_job_body">
 
@@ -134,104 +159,141 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleFromDate"
                         android:text="@string/DateAndTime"
+                        android:textSize="18sp"
+                        android:layout_marginRight="20dp"
+                        android:layout_gravity="right"
                         android:textColor="#000000"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:orientation="horizontal">
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
                             android:src="@drawable/calender_and_clock"/>
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="40dp"
                             android:id="@+id/etFromDate"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="20dp"
                             android:background="@drawable/rounded_edittext"
-                            android:textSize="24sp"
+                            android:textSize="18sp"
+                            android:drawableLeft="@drawable/down_arrwo"
+                            android:paddingLeft="20dp"
+                            android:hint="@string/DoSelect"
+                            android:textColorHint="#000"
+                            android:textDirection="rtl"
                             android:textColor="#000000"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/LinearGenderExpert"
-                    android:background="@drawable/rounded_layout_select_job_body">
-                    <LinearLayout
+                    android:background="@drawable/rounded_layout_select_job_body"
+                    android:orientation="vertical">
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <CheckBox
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/chbMale"
-                            android:textSize="6sp"
-                            android:drawableBottom="@drawable/man"
-                            android:layout_weight="1"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/Male"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
-                    </LinearLayout>
+                        android:text="@string/GenderExpert"
+                        android:layout_gravity="right"
+                        android:textSize="18sp"
+                        android:layout_marginRight="20dp"
+                        android:textColor="#000"/>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:layout_weight="1">
-                        <CheckBox
+                        android:id="@+id/LinearGenderExpert">
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/chbFemale"
-                            android:textSize="6sp"
-                            android:drawableBottom="@drawable/women"
-                            android:layout_weight="1"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/Female"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
+                            android:orientation="vertical"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:layout_weight="1">
-                        <CheckBox
+                            android:gravity="center"
+                            android:layout_marginRight="20dp">
+                            <CheckBox
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:id="@+id/chbMale"
+                                android:checked="true"
+                                android:button="@drawable/selector_checkbox"
+                                android:drawableBottom="@drawable/man"
+                                android:layout_weight="1"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/Male"
+                                android:textColor="#000000"
+                                android:textSize="18sp"
+                                android:layout_marginTop="10dp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginRight="10dp"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/chbMaleAndFemale"
-                            android:drawableBottom="@drawable/maleandfemale"
-                            android:textSize="6sp"
-                            android:layout_weight="1"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/Doesnotmatter"
-                            android:textColor="#000000"
-                            android:textSize="18sp"
+                            android:orientation="vertical"
                             android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:gravity="center"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginLeft="60dp">
+                            <CheckBox
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:id="@+id/chbFemale"
+                                android:button="@drawable/selector_checkbox"
+                                android:textSize="6sp"
+                                android:drawableBottom="@drawable/women"
+                                android:layout_weight="1"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/Female"
+                                android:textColor="#000000"
+                                android:textSize="18sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="10dp"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:layout_marginLeft="20dp">
+                            <CheckBox
+                                android:layout_width="match_parent"
+                                android:layout_height="65dp"
+                                android:id="@+id/chbMaleAndFemale"
+                                android:drawableBottom="@drawable/maleandfemale"
+                                android:button="@drawable/selector_checkbox"
+                                android:textSize="6sp"
+                                android:layout_weight="1"/>
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/Doesnotmatter"
+                                android:textColor="#000000"
+                                android:textSize="18sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="5dp"/>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
+
                 <!--<LinearLayout-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="wrap_content"-->
@@ -340,37 +402,50 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvTitleDescription"
                         android:text="@string/DescriptionCompletly"
+                        android:layout_marginRight="20dp"
+                        android:textSize="18sp"
                         android:textColor="#000000"/>
                     <EditText
                         android:id="@+id/etDescription"
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
+                        android:layout_height="100dp"
                         android:layout_weight="1"
                         android:hint="@string/DescriptionForHamyar"
                         android:inputType="textMultiLine"
                         android:layout_gravity="right"
                         android:gravity="right"
+                        android:layout_marginTop="10dp"
                         android:paddingRight="10dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="5dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:paddingBottom="5dp"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/rounded_edittext"
-                        android:textColor="#000000" />
+                        android:textColor="#000" />
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgForward"
+                    android:layout_gravity="center"
+                    android:background="@drawable/forward"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/imgBack"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="100dp"
+                    android:background="@drawable/back_deactive"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="30dp">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/imgForward"
-            android:layout_gravity="center"
-            android:background="@drawable/forward"/>
-    </LinearLayout>
 </RelativeLayout>

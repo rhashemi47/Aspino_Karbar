@@ -2,7 +2,6 @@ package com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -285,8 +284,8 @@ public class InsertKarbar {
 			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
 		}
 		db.close();
-		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
-		syncMessage.AsyncExecute();
+//		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
+//		syncMessage.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, karbarCode);
 		syncProfile.AsyncExecute();
 		SyncState syncState=new SyncState(this.activity);

@@ -1051,7 +1051,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
-				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+//				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
 				stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
 				stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
 				db = dbh.getWritableDatabase();

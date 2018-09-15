@@ -221,4 +221,5 @@
     <string name="LinkUrl"><a href=" http://aspino.ir/">قوانین و مقررات</a>
 </string>
     <string name="Toman">تومان</string>
+    <string name="OffCode">کد تخفیف</string>
 </resources>

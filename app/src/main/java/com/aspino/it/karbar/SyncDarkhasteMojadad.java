@@ -196,7 +196,7 @@ public class SyncDarkhasteMojadad {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
 		db=dbh.getWritableDatabase();
-		db.execSQL("UPDATE OrdersService SET Status='0' WHERE Code='"+UserServiceCode+"'");
+		db.execSQL("UPDATE OrdersService SET Status='0' WHERE Code_OrdersService='"+UserServiceCode+"'");
 		db.close();
 		Toast.makeText(this.activity, "سرویس مجددا فعال شد.", Toast.LENGTH_SHORT).show();
     }

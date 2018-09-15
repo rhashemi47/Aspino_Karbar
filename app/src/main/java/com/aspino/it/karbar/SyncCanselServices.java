@@ -213,7 +213,7 @@ public class SyncCanselServices {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
 		db=dbh.getWritableDatabase();
-		db.execSQL("UPDATE OrdersService SET Status='3' WHERE Code='"+UserServiceCode+"'");
+		db.execSQL("UPDATE OrdersService SET Status='3' WHERE Code_OrdersService='"+UserServiceCode+"'");
 		db.close();
 		Toast.makeText(activity, "سرویس لغو گردید", Toast.LENGTH_LONG).show();
 		LoadActivity(Paigiri.class, "karbarCode", pUserCode);

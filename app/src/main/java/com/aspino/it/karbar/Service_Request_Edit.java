@@ -1491,7 +1491,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		 String query="SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 				 "LEFT JOIN " +
 				 "Servicesdetails ON " +
-				 "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code="+CodeOrderService;
+				 "Servicesdetails.code=OrdersService.ServiceDetaileCode WHERE OrdersService.Code_OrdersService="+CodeOrderService;
 		 Cursor cursor = db.rawQuery(query,null);
 		 if(cursor.getCount()>0)
 		 {
@@ -1632,7 +1632,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			 query="SELECT OrdersService.*,address.* FROM OrdersService " +
 					 "LEFT JOIN " +
 					 "address ON " +
-					 "address.code=OrdersService.AddressCode WHERE OrdersService.Code="+CodeOrderService;
+					 "address.code=OrdersService.AddressCode WHERE OrdersService.Code_OrdersService="+CodeOrderService;
 			 Cursor cursorAddress = db.rawQuery(query,null);
 			 if(cursorAddress.getCount()>0)
 			 {

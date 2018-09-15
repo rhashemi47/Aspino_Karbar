@@ -42,7 +42,7 @@ public class ServiceGetLocation extends Service {
                     // TODO Auto-generated method stub
                     while (continue_or_stop) {
                         try {
-                            Thread.sleep(60000); // every 60 seconds
+                            Thread.sleep(6000); // every 60 seconds
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {

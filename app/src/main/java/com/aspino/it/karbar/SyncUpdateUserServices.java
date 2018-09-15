@@ -528,9 +528,9 @@ public class SyncUpdateUserServices {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
 		db=dbh.getWritableDatabase();
-		db.execSQL("DELETE FROM OrdersService WHERE Code='" + UserServices + "'");
+		db.execSQL("DELETE FROM OrdersService WHERE Code_OrdersService='" + UserServices + "'");
 		String query="INSERT INTO OrdersService ("+
-				"Code,"+
+				"Code_OrdersService,"+
 				"pUserCode,"+
 				"ServiceDetaileCode,"+
 				"MaleCount,"+

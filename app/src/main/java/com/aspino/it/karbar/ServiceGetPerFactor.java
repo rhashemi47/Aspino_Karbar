@@ -68,7 +68,7 @@ public class ServiceGetPerFactor extends Service {
                                     for(int i=0;i<coursors.getCount();i++){
                                         coursors.moveToNext();
 
-                                        Code=coursors.getString(coursors.getColumnIndex("Code"));
+                                        Code=coursors.getString(coursors.getColumnIndex("Code_OrdersService"));
                                     }
                                     db.close();
                                     SyncGetFactorUsersHead syncGetFactorUsersHead=new SyncGetFactorUsersHead(getApplicationContext(),Code);

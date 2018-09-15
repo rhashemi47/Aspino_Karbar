@@ -1,28 +1,23 @@
 package com.aspino.it.karbar;
 
-import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.GestureDetector;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Build;
@@ -36,7 +31,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,14 +43,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mikepenz.materialdrawer.AccountHeader;
-import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
-import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.holder.BadgeStyle;
-import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
@@ -334,7 +321,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
            if (karbarCode.compareTo("0") != 0) {
                startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
                startService(new Intent(getBaseContext(), ServiceGetLocation.class));
-               startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+//               startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
                startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
                startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
                startService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
@@ -608,7 +595,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
                 stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
                 stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
-                stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+//                stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
                 stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
                 stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
                 stopService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));

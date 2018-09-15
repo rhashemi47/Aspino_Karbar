@@ -20,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,7 +27,6 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -147,11 +145,11 @@ protected void onCreate(final Bundle savedInstanceState) {
 			"ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
 			"LEFT JOIN address " +
 			"ON OrdersService.AddressCode=address.Code " +
-			"WHERE OrdersService.Code ='"+OrderCode+"'", null);
+			"WHERE OrdersService.Code_OrdersService ='"+OrderCode+"'", null);
 	if(coursors.getCount()>0)
 	{
 		coursors.moveToNext();
-		tvContentCodeService.setText(coursors.getString(coursors.getColumnIndex("OrdersService.Code")));
+		tvContentCodeService.setText(coursors.getString(coursors.getColumnIndex("OrdersService.Code_OrdersService")));
 		tvContentTypeService.setText(coursors.getString(coursors.getColumnIndex("Servicesdetails.name")));
 		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("address.AddressText")));
 		StartDate=coursors.getString(coursors.getColumnIndex("StartYear"))+"/"+
@@ -161,25 +159,24 @@ protected void onCreate(final Bundle savedInstanceState) {
 				coursors.getString(coursors.getColumnIndex("StartMinute"));
 		tvDateService.setText(StartDate);
 		tvTimeService.setText(StartTime);
-		String Query="SELECT A.Code as requestcode,A.BsUserServicesCode,A.HamyarCode,A.Price,A.HmayarStar," +
-				"B.Code as hamyarcode,B.Fname,B.Lname,B.img,B.Mobile" +
-				" FROM UserServicesHamyarRequest A " +
-				"LEFT JOIN " +
-				"InfoHamyar B ON " +
-				" A.HamyarCode=B.Code" +
-				" WHERE A.BsUserServicesCode='"+OrderCode+"'";
+		String Query="SELECT UserServicesHamyarRequest.*,InfoHamyar.*" +
+				" FROM UserServicesHamyarRequest " +
+				" LEFT JOIN " +
+				" InfoHamyar ON " +
+				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code " +
+				" WHERE UserServicesHamyarRequest.BsUserServicesCode='"+OrderCode+"'";
 		C=db.rawQuery(Query,null);
 		for(int i=0;i<C.getCount();i++)
 		{
 			C.moveToNext();
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("Code",C.getString(C.getColumnIndex("A.HamyarCode")));
-			map.put("Name",C.getString(C.getColumnIndex("B.Fname")) + " " + C.getString(C.getColumnIndex("B.Lname")));
-			map.put("imgHamyar",C.getString(C.getColumnIndex("B.img")));
-			map.put("RateBar",C.getString(C.getColumnIndex("B.HmayarStar")));
-			map.put("RateNumber",C.getString(C.getColumnIndex("B.HmayarStar")));
-			map.put("UnreadCount",C.getString(C.getColumnIndex("A.Price")));
-			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("A.requestcode")));
+			map.put("Code",C.getString(C.getColumnIndex("UserServicesHamyarRequest.HamyarCode")));
+			map.put("Name",C.getString(C.getColumnIndex("InfoHamyar.Fname")) + " " + C.getString(C.getColumnIndex("InfoHamyar.Lname")));
+			map.put("imgHamyar",C.getString(C.getColumnIndex("InfoHamyar.img")));
+			map.put("RateBar",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
+			map.put("RateNumber",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
+			map.put("UnreadCount",C.getString(C.getColumnIndex("UserServicesHamyarRequest.Price")));
+			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("UserServicesHamyarRequest.Code")));
 			valuse.add(map);
 		}
 		db.close();
@@ -455,7 +452,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
-				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
+//				stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
 				stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
 				stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
 				db = dbh.getWritableDatabase();

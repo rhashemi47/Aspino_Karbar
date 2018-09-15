@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -19,8 +17,6 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 public class HmLogin {
 
@@ -260,8 +256,8 @@ public class HmLogin {
 			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
         }
 		db.close();
-		SyncMessage syncMessage=new SyncMessage(this.activity, res[0].toString(),LastMessageCode);
-		syncMessage.AsyncExecute();
+//		SyncMessage syncMessage=new SyncMessage(this.activity, res[0].toString(),LastMessageCode);
+//		syncMessage.AsyncExecute();
 //		SyncServices syncservices=new SyncServices(this.activity,res[0].toString(),CityCodeLocation);
 //		syncservices.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, res[0].toString());

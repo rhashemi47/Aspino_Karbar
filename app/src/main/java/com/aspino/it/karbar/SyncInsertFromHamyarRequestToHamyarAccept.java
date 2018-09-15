@@ -184,12 +184,12 @@ public class SyncInsertFromHamyarRequestToHamyarAccept {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
     	db=dbh.getReadableDatabase();
-    	Cursor cursor=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE Code='"+HamyarRequestCode+"'",null);
+    	Cursor cursor=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE HamyarCode='"+HamyarRequestCode+"'",null);
     	if(cursor.getCount()>0)
 		{
 			cursor.moveToNext();
 			db=dbh.getWritableDatabase();
-			String Query="UPDATE OrdersService SET Status='1' WHERE Code='"+cursor.getString(cursor.getColumnIndex("BsUserServicesCode"))+"'";
+			String Query="UPDATE OrdersService SET Status='1' WHERE Code_OrdersService='"+cursor.getString(cursor.getColumnIndex("BsUserServicesCode"))+"'";
 			db.execSQL(Query);
 			LoadActivity(MainMenu.class,"","");
 		}

@@ -93,9 +93,9 @@
         <activity
             android:name="com.aspino.it.karbar.List_Order"
             android:noHistory="false"/>
-        <!--<activity-->
-            <!--android:name="com.aspino.it.karbar.Service_Request_Saved"-->
-            <!--android:noHistory="false"/>-->
+        <activity
+            android:name="com.aspino.it.karbar.Service_Request_OffCode"
+            android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Service_Request_Edit"
             android:noHistory="false"/>
@@ -130,9 +130,6 @@
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetPerFactor">
-
-        </service>
-        <service android:name="com.aspino.it.karbar.ServiceSyncMessage">
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetServicesAndServiceDetails">

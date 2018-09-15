@@ -40,6 +40,7 @@ public class Fragment_Service_Run extends Fragment {
 
         View rootView=inflater.inflate(R.layout.fragment__service__run, container, false);
         ListView lstServiceRun = (ListView)rootView.findViewById(R.id.lstServiceRun);
+        valuse.clear();
         dbh=new DatabaseHelper(getContext());
         try {
 
@@ -72,8 +73,8 @@ public class Fragment_Service_Run extends Fragment {
             HashMap<String, String> map = new HashMap<String, String>();
             String StartDate;
             String StartTime;
-            C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='"+coursors.getString(coursors.getColumnIndex("Code"))+"'",null);
-            map.put("NameHamyar",String.valueOf(C.getCount()));
+            C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='"+coursors.getString(coursors.getColumnIndex("Code_OrdersService"))+"'",null);
+            map.put("NameHamyar","تعداد " + String.valueOf(C.getCount()) + " متخصص پیشنهاد دهنده ");
             if(C.getCount()>0) {
                 C.moveToNext();
                 map.put("CodeHamyarRequest", C.getString(C.getColumnIndex("Code")));
@@ -135,7 +136,7 @@ public class Fragment_Service_Run extends Fragment {
 //                    StrStatus="متوقف و تسویه نشده";
 //                    break;
 //            }
-            map.put("Code",coursors.getString(coursors.getColumnIndex("Code")));
+            map.put("Code",coursors.getString(coursors.getColumnIndex("Code_OrdersService")));
             map.put("DateAndTimeService",StartDate + " ساعت " +StartTime);
             map.put("TitleService",coursors.getString(coursors.getColumnIndex("name")));
             map.put("AddresService",coursors.getString(coursors.getColumnIndex("AddressText")));
