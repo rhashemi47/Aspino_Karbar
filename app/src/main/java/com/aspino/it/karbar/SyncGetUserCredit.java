@@ -189,16 +189,18 @@ public class SyncGetUserCredit {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
 		db=dbh.getWritableDatabase();
-			String query="UPDATE AmountCredit SET Amount='"+this.WsResponse+"'" ;
-			db.execSQL(query);
+		String query="DELETE FROM AmountCredit" ;
+		db.execSQL(query);
+		query="INSERT INTO AmountCredit  (Amount) VALUES('"+this.WsResponse+"')" ;
+		db.execSQL(query);
 		db.close();
 		if(this.Flag.compareTo("0")!=0) {
 			Toast.makeText(activity, "ثبت شد", Toast.LENGTH_LONG).show();
 //			LoadActivity(Credit.class, "karbarCode", pUserCode);
 		}
-//		else {
-//			LoadActivity(MainMenu.class, "karbarCode", pUserCode);
-//		}
+		else {
+			//LoadActivity(MainMenu.class, "karbarCode", pUserCode);
+		}
     }
 	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
 	{

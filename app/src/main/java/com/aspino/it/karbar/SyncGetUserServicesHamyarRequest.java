@@ -194,13 +194,31 @@ public class SyncGetUserServicesHamyarRequest {
 						"HamyarCode," +
 						"Price," +
 						"HmayarStar," +
-						"PriceFinal) VALUES('" +
+						"PriceFinal," +
+						"PriceOff," +
+						"TotalPrice) VALUES('" +
 						value[0] + "','" +
 						value[1] + "','" +
 						value[2] + "','" +
 						value[3] + "','" +
 						value[4] + "','" +
-						value[5] + "')";
+						value[5] + "','" +
+						value[6] + "','" +
+						value[7] + "')";
+				db.execSQL(query);
+			}
+			else
+			{
+				String query = "UPDATE UserServicesHamyarRequest SET " +
+						"Code='" + value[0] + "' , " +
+						"BsUserServicesCode='" + value[1] + "' , " +
+						"HamyarCode='" + value[2] + "' , " +
+						"Price='" + value[3] + "' , " +
+						"HmayarStar='" + value[4] + "' , " +
+						"PriceFinal='" + value[5] + "' , " +
+						"PriceOff='" + value[6] + "' , " +
+						"TotalPrice='"+ value[7]+ "' WHERE BsUserServicesCode='" + value[1] +
+						"' AND HamyarCode='" + value[2] +"'";
 				db.execSQL(query);
 			}
 			if(!check2(value[2]))

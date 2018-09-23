@@ -128,7 +128,7 @@ public class Info_Person extends Activity {
 
 			}
 		});
-		etBrithday.setOnClickListener(new View.OnClickListener() {
+		etBrithday.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				PersianDatePickerDialog picker = new PersianDatePickerDialog(Info_Person.this);

@@ -1,6 +1,7 @@
 package com.aspino.it.karbar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,11 +27,13 @@ public class SyncUpdateAcceptHamyarFinalPrice {
 	private Activity activity;
 	private String RequestCode;
 	private String WsResponse;
+	private AlertDialog alertDialog;
 	private boolean CuShowDialog=true;
 	//Contractor
-	public SyncUpdateAcceptHamyarFinalPrice(Activity activity, String RequestCode) {
+	public SyncUpdateAcceptHamyarFinalPrice(Activity activity, String RequestCode,AlertDialog alertDialog) {
 		this.activity = activity;
 		this.RequestCode = RequestCode;
+		this.alertDialog = alertDialog;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 
@@ -182,6 +185,9 @@ public class SyncUpdateAcceptHamyarFinalPrice {
 
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		//todo
+    	db=dbh.getWritableDatabase();
+    	String query = "UPDATE UserServicesHamyarRequest SET Confirm='1' WHERE Code='" + RequestCode + "'";
+		db.execSQL(query);
+		alertDialog.dismiss();
     }
 }

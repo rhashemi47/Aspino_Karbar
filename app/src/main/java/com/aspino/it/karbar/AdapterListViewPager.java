@@ -100,6 +100,7 @@ public class AdapterListViewPager extends BaseAdapter {
         {
             holder.LinearStatusService.setBackgroundColor(Color.parseColor("#12b44f"));
             holder.tvStatusService.setText("تایید شده");
+            if(Status.compareTo("5")==0)
             holder.LinearMain.setOnClickListener(ItemOnclickPardakht);
         }
         else

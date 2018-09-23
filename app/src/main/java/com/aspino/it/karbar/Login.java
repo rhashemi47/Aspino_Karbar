@@ -1,7 +1,9 @@
 package com.aspino.it.karbar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -100,9 +102,47 @@ public class Login extends Activity {
 	@Override
 	public boolean onKeyDown( int keyCode, KeyEvent event )  {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			LoadActivity(MainMenu.class,"karbarCode","0");
+			ExitApplication();
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	private void ExitApplication()
+	{
+		//Exit All Activity And Kill Application
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
+		// set the message to display
+		alertbox.setMessage("آیا می خواهید از برنامه خارج شوید ؟");
+
+		// set a negative/no button and create a listener
+		alertbox.setPositiveButton("خیر", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				arg0.dismiss();
+			}
+		});
+
+		// set a positive/yes button and create a listener
+		alertbox.setNegativeButton("بله", new DialogInterface.OnClickListener() {
+			// do something when the button is clicked
+			public void onClick(DialogInterface arg0, int arg1) {
+				//Declare Object From Get Internet Connection Status For Check Internet Status
+				//System.exit(0);
+				Intent startMain = new Intent(Intent.ACTION_MAIN);
+
+				startMain.addCategory(Intent.CATEGORY_HOME);
+
+				startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+				startActivity(startMain);
+
+				finish();
+
+				arg0.dismiss();
+
+			}
+		});
+
+		alertbox.show();
 	}
 }
 

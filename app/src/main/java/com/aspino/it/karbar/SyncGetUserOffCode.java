@@ -112,7 +112,7 @@ public class SyncGetUserOffCode {
 	            }
 	            else if(WsResponse.toString().compareTo("ERROR") == 0)
 	            {
-	            	Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
+	            	Toast.makeText(this.activity.getApplicationContext(), "کد معتبر نیست", Toast.LENGTH_LONG).show();
 	            }
 	            else
 	            {
@@ -153,7 +153,7 @@ public class SyncGetUserOffCode {
 	    SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
 	    PropertyInfo OffCodePI = new PropertyInfo();
 	    //Set Name
-		OffCodePI.setName("OffCode");
+		OffCodePI.setName("OffCodeName");
 	    //Set Value
 		OffCodePI.setValue(OffCode);
 	    //Set dataType

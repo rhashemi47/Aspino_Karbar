@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,6 +51,8 @@ public class Pardakh_Factor_Sefaresh extends AppCompatActivity {
 	private Button btnCachFactor;
 	private String OrderCode;
 	private String strCall;
+	private String Confirm="0";
+	private String FinalCurrency="0";
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 
 	@Override
@@ -118,7 +121,8 @@ protected void onCreate(Bundle savedInstanceState) {
 		OrderCode="0";
 	}
 	db=dbh.getReadableDatabase();
-	Cursor coursors,cursor;
+	final Cursor coursors;
+	Cursor cursor;
 	String Query="SELECT OrdersService.*,Servicesdetails.name,address.name adname FROM OrdersService " +
 			"LEFT JOIN " +
 			"Servicesdetails ON " +
@@ -160,14 +164,21 @@ protected void onCreate(Bundle savedInstanceState) {
 	if(db.isOpen()) {
 		db.close();
 	}
-	String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
+	Query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
 	db=dbh.getReadableDatabase();
 	cursor = db.rawQuery(Query, null);
 	if(cursor.getCount()>0){
 		cursor.moveToNext();
 		String Price =cursor.getString(cursor.getColumnIndex("Price"));
 		String PriceFinal =cursor.getString(cursor.getColumnIndex("PriceFinal"));
-		if(PriceFinal.compareTo(Price)!=0)
+		String DiscountService =cursor.getString(cursor.getColumnIndex("PriceOff"));
+		FinalCurrency =cursor.getString(cursor.getColumnIndex("TotalPrice"));
+		Confirm =cursor.getString(cursor.getColumnIndex("Confirm"));
+		tvEstimatedPrice.setText(Price);
+		tvFinalPrice.setText(PriceFinal);
+		tvContetnDiscountService.setText(DiscountService);
+		tvContetnFinalCurrency.setText(FinalCurrency);
+		if(PriceFinal.compareTo(Price)!=0 && Confirm.compareTo("0")==0)
 		{
 			alert_final_factor(PriceFinal);
 		}
@@ -194,7 +205,47 @@ protected void onCreate(Bundle savedInstanceState) {
 	btnCachFactor.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			//todo
+			if(Confirm.compareTo("1")==0)
+			{
+				db=dbh.getReadableDatabase();
+				String query="SELECT * FROM AmountCredit";
+				Cursor cursor1=db.rawQuery(query,null);
+				if(cursor1.getCount()>0)
+				{
+					cursor1.moveToNext();
+					String sp[]=cursor1.getString(cursor1.getColumnIndex("Amount")).split("/");
+					int amount=Integer.parseInt(sp[0]);
+					int finalCurency=Integer.parseInt(FinalCurrency);
+					if(finalCurency<=amount)
+					{
+						db=dbh.getWritableDatabase();
+						String query1="UPDATE AmountCredit SET Amount='"+String.valueOf(amount-finalCurency)+"/00'" ;
+						db.execSQL(query1);
+						Toast.makeText(Pardakh_Factor_Sefaresh.this,"پرداخت شد",Toast.LENGTH_LONG).show();
+						LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+					}
+					else
+					{
+						Toast.makeText(Pardakh_Factor_Sefaresh.this,"لطفا حساب خود را شارژ فرمایید!",Toast.LENGTH_LONG).show();
+					}
+				}
+				else
+				{
+					Toast.makeText(Pardakh_Factor_Sefaresh.this,"لطفا حساب خود را شارژ فرمایید!",Toast.LENGTH_LONG).show();
+				}
+			}
+			else
+			{
+				Toast.makeText(Pardakh_Factor_Sefaresh.this,"ابتدا باید هزینه نهایی را تایید فرمایید!",Toast.LENGTH_LONG).show();
+			}
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			if(!coursors.isClosed())
+			{
+				coursors.close();
+			}
 		}
 	});
 }
@@ -255,7 +306,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		btnYes.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode);
+				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode,alertDialog);
 				syncUpdateAcceptHamyarFinalPrice.AsyncExecute();
 			}
 		});

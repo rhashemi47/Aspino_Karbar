@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -29,6 +30,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ProfileEdit extends Activity {
@@ -155,6 +158,108 @@ public class ProfileEdit extends Activity {
 //
 //			}
 		}
+		etTextBthDate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PersianDatePickerDialog picker = new PersianDatePickerDialog(ProfileEdit.this);
+				picker.setPositiveButtonString("تایید");
+				picker.setNegativeButton("انصراف");
+				picker.setTodayButton("امروز");
+				picker.setTodayButtonVisible(true);
+				//  picker.setInitDate(initDate);
+				picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+				picker.setMinYear(1300);
+				picker.setActionTextColor(Color.GRAY);
+				//picker.setTypeFace(FontMitra);
+				picker.setListener(new Listener() {
+
+					@Override
+					public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+						//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+						String StartYear = String.valueOf(persianCalendar.getPersianYear());
+						String StartMonth;
+						if(persianCalendar.getPersianMonth()<10)
+						{
+							StartMonth="0"+String.valueOf(persianCalendar.getPersianMonth());
+						}
+						else
+						{
+							StartMonth=String.valueOf(persianCalendar.getPersianMonth());
+						}
+						String StartDay;
+						if(persianCalendar.getPersianDay()<10)
+						{
+							StartDay="0"+String.valueOf(persianCalendar.getPersianDay());
+						}
+						else
+						{
+							StartDay=String.valueOf(persianCalendar.getPersianDay());
+						}
+
+						etTextBthDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
+
+						db.close();
+					}
+
+					@Override
+					public void onDismissed() {
+
+					}
+				});
+				picker.show();
+			}
+		});
+		etTextBthDate.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				PersianDatePickerDialog picker = new PersianDatePickerDialog(ProfileEdit.this);
+				picker.setPositiveButtonString("تایید");
+				picker.setNegativeButton("انصراف");
+				picker.setTodayButton("امروز");
+				picker.setTodayButtonVisible(true);
+				//  picker.setInitDate(initDate);
+				picker.setMaxYear(PersianDatePickerDialog.THIS_YEAR);
+				picker.setMinYear(1300);
+				picker.setActionTextColor(Color.GRAY);
+				//picker.setTypeFace(FontMitra);
+				picker.setListener(new Listener() {
+
+					@Override
+					public void onDateSelected(ir.hamsaa.persiandatepicker.util.PersianCalendar persianCalendar) {
+						//Toast.makeText(getApplicationContext(), persianCalendar.getPersianYear() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianDay(), Toast.LENGTH_SHORT).show();
+						String StartYear = String.valueOf(persianCalendar.getPersianYear());
+						String StartMonth;
+						if(persianCalendar.getPersianMonth()<10)
+						{
+							StartMonth="0"+String.valueOf(persianCalendar.getPersianMonth());
+						}
+						else
+						{
+							StartMonth=String.valueOf(persianCalendar.getPersianMonth());
+						}
+						String StartDay;
+						if(persianCalendar.getPersianDay()<10)
+						{
+							StartDay="0"+String.valueOf(persianCalendar.getPersianDay());
+						}
+						else
+						{
+							StartDay=String.valueOf(persianCalendar.getPersianDay());
+						}
+
+						etTextBthDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
+
+						db.close();
+					}
+
+					@Override
+					public void onDismissed() {
+
+					}
+				});
+				picker.show();
+			}
+		});
 		btnSaveEditProfile.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

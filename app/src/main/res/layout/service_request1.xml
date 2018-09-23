@@ -9,30 +9,6 @@
     android:focusableInTouchMode="true"
     android:layoutDirection="rtl">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-    <!--android:id="@+id/appbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:paddingTop="@dimen/appbar_padding_top"-->
-    <!--android:background="#7236ea"-->
-    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
-
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--app:layout_scrollFlags="scroll|enterAlways"-->
-    <!--app:popupTheme="@style/AppTheme.PopupOverlay">-->
-    <!--<TextView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/service_request"-->
-    <!--android:textColor="#fff"-->
-    <!--android:gravity="center"-->
-    <!--android:textSize="22sp"/>-->
-    <!--</android.support.v7.widget.Toolbar>-->
-    <!--</android.support.design.widget.AppBarLayout>-->
-
     <ScrollView
         android:id="@+id/ScrollLayout"
         android:layout_width="match_parent"
@@ -44,32 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:id="@+id/LinearTitleService"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:background="@drawable/rounded_layout_select_job_body">-->
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/tvTitleString"-->
-            <!--android:text="@string/Desired_service"-->
-            <!--android:textSize="18sp"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:textColor="#000000"/>-->
-            <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/tvTitleService"-->
-            <!--android:layout_weight="1"-->
-            <!--android:textSize="18sp"-->
-            <!--android:layout_marginLeft="5dp"-->
-            <!--android:layout_marginRight="5dp"-->
-            <!--android:textColor="#000000"/>-->
-            <!--</LinearLayout>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -114,7 +64,8 @@
                             android:gravity="center"
                             android:layout_marginEnd="50dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp">
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginRight="50dp">
                             <Button
                                 android:layout_width="45dp"
                                 android:layout_height="45dp"

@@ -26,12 +26,9 @@
         </activity>
         <activity
             android:name="com.aspino.it.karbar.MainMenu"
-            android:noHistory="false" />
+            android:noHistory="true" />
         <activity
             android:name="com.aspino.it.karbar.Login"
-            android:noHistory="false" />
-        <activity
-            android:name="com.aspino.it.karbar.Info_Person"
             android:noHistory="false" />
         <activity
             android:name="com.aspino.it.karbar.Accept_code"
@@ -41,27 +38,6 @@
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.About"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.Contact"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.GiftBank"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.Help"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.List_Messages"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.OurCommitment"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.YourCommitment"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.ShowMessage"
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.List_Address"
@@ -76,13 +52,7 @@
             android:name="com.aspino.it.karbar.Credit"
             android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.History"
-            android:noHistory="false"/>
-        <activity
             android:name="com.aspino.it.karbar.List_ServiceDerails"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.List_Services"
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Service_Request1"
@@ -91,19 +61,7 @@
             android:name="com.aspino.it.karbar.Map"
             android:noHistory="false"/>
         <activity
-            android:name="com.aspino.it.karbar.List_Order"
-            android:noHistory="false"/>
-        <activity
             android:name="com.aspino.it.karbar.Service_Request_OffCode"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.Service_Request_Edit"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.Service_Request_Edit1"
-            android:noHistory="false"/>
-        <activity
-            android:name="com.aspino.it.karbar.ShowFactor"
             android:noHistory="false"/>
         <activity
             android:name="com.aspino.it.karbar.Final_ShowCodeService"
@@ -120,22 +78,17 @@
         <activity
             android:name="com.aspino.it.karbar.Select_Hamyar"
             android:noHistory="false"/>
-        <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
+        <activity
+            android:name="com.aspino.it.karbar.Info_Person"
+            android:noHistory="false"/>
 
-        </service>
         <service android:name="com.aspino.it.karbar.ServiceGetLocation">
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetSliderPic">
 
         </service>
-        <service android:name="com.aspino.it.karbar.ServiceGetPerFactor">
-
-        </service>
         <service android:name="com.aspino.it.karbar.ServiceGetServicesAndServiceDetails">
-
-        </service>
-        <service android:name="com.aspino.it.karbar.ServiceGetServiceVisit">
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetUserServicesHamyarRequest">

@@ -227,6 +227,7 @@ public class HmLogin {
 //		SyncServices syncservices=new SyncServices(this.activity,acceptcode);
 //		syncservices.AsyncExecute();
 		LoadActivity2(Info_Person.class, "phonenumber",phonenumber,"acceptcode",this.acceptcode,"CityCodeLocation",CityCodeLocation);
+
     }
 	public void setlogin() 
 	{
@@ -262,6 +263,8 @@ public class HmLogin {
 //		syncservices.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, res[0].toString());
 		syncProfile.AsyncExecute();
+		SyncGetUserCredit syncGetUserCredit=new SyncGetUserCredit(this.activity, res[0].toString(),"0");
+		syncGetUserCredit.AsyncExecute();
 		SyncState syncState=new SyncState(this.activity);
 		syncState.AsyncExecute();
 		SyncCity syncCity=new SyncCity(this.activity,CityCodeLocation);

@@ -1,0 +1,125 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#f2f2f2"
+    android:layoutDirection="rtl"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:background="@drawable/head_body_select_hamyar">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/useravatar"
+                    android:layout_gravity="center"
+                    android:id="@+id/imgUser"
+                    android:background="@drawable/profilepicrounded"/>
+
+                <TextView
+                    android:id="@+id/tvTextUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#fff"
+                    android:textAlignment="center"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/tvTextUserMobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:textColor="#fcff1c"
+                    android:textAlignment="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <TextView
+            android:id="@+id/tvTextEditProfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ProfileEdit"
+            android:textSize="10sp"
+            android:textColor="#333333"
+            android:gravity="right"
+            android:drawableRight="@drawable/pen_small"
+            android:textAlignment="gravity"
+            android:layout_marginTop="10dp"
+            android:drawablePadding="10dp"
+            android:layout_marginRight="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#acacac"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+            </View>
+
+
+
+            <TextView
+                android:id="@+id/tvTextCallSupport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/CallSupport"
+                android:textSize="10sp"
+                android:textColor="#333333"
+                android:gravity="right"
+                android:drawableRight="@drawable/call2_small"
+                android:textAlignment="gravity"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:layout_marginRight="10dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#acacac"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
+
+            </View>
+
+            <TextView
+                android:id="@+id/tvTextExitAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ExitAccount"
+                android:textSize="10sp"
+                android:textColor="#333333"
+                android:gravity="right"
+                android:drawableRight="@drawable/exit_small"
+                android:textAlignment="gravity"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="10dp"
+                android:layout_marginRight="10dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

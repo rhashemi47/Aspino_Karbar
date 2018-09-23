@@ -319,11 +319,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //********************************************************************Start And Stop Service BackGround
        try {
            if (karbarCode.compareTo("0") != 0) {
-               startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
                startService(new Intent(getBaseContext(), ServiceGetLocation.class));
-//               startService(new Intent(getBaseContext(), ServiceSyncMessage.class));
-               startService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
-               startService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
                startService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
            }
        }
@@ -405,7 +401,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             try
             {
                 if(coursors.getString(coursors.getColumnIndex("Fam")).compareTo("null")!=0){
-                    tvUserName.setText(tvUserName.getText() + coursors.getString(coursors.getColumnIndex("Fam")));
+                    tvUserName.setText(tvUserName.getText() +" "+ coursors.getString(coursors.getColumnIndex("Fam")));
                 }
                 else
                 {
@@ -423,12 +419,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 }
                 else
                 {
-                    imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
+                    imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.logo1));
                 }
 
             }
             catch (Exception ex){
-                imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.useravatar));
+                imgPicProfile.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.logo1));
             }
         }
         else
@@ -592,12 +588,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(DialogInterface arg0, int arg1) {
                 //Declare Object From Get Internet Connection Status For Check Internet Status
                 stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
-                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+                
                 stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
                 stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
 //                stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
-                stopService(new Intent(getBaseContext(), ServiceGetPerFactor.class));
-                stopService(new Intent(getBaseContext(), ServiceGetServiceVisit.class));
+                
+                
                 stopService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
                 db = dbh.getWritableDatabase();
                 db.execSQL("DELETE FROM address");
