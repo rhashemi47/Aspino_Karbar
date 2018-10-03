@@ -42,6 +42,14 @@
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:id="@+id/tvRateNumber"
+                android:textColor="#000"
+                android:layout_gravity="center"
+                android:gravity="center"/>
             <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,14 +61,6 @@
                 android:layout_marginLeft="15dp"
                 android:theme="@style/RatingBar"
                 android:layout_gravity="center"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:id="@+id/tvRateNumber"
-                android:textColor="#000"
-                android:layout_gravity="center"
-                android:gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 <LinearLayout

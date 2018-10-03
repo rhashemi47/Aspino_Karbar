@@ -117,6 +117,7 @@ public class Main_Activity  extends AppCompatActivity{
         //***********************Start Service***************************************
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
         startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
+        startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
         //***************************************************************************
         db = dbh.getReadableDatabase();
         Cursor coursors = db.rawQuery("SELECT * FROM Slider", null);

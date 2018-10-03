@@ -69,6 +69,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="100dp"
+                    android:id="@+id/imgRate"
                     android:src="@drawable/happy"
                     android:layout_marginTop="-20dp"/>
                 <LinearLayout
@@ -84,6 +85,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:numStars="5"
+                        android:id="@+id/ratingbar"
                         android:stepSize="1"/>
                 </LinearLayout>
             </LinearLayout>
@@ -106,6 +108,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+            android:id="@+id/etDescriptionForHamyar"
             android:background="@drawable/rounded_edittext"/>
     </LinearLayout>
     <LinearLayout
@@ -123,7 +126,7 @@
             android:paddingRight="20dp"
             android:layout_marginBottom="10dp"
             android:textSize="22sp"
-            android:id="@+id/tvAcceptAndSelectHamyar"
+            android:id="@+id/btnSaveRating"
             android:background="@drawable/rounded_button_add_address"/>
     </LinearLayout>
 </RelativeLayout>

@@ -83,17 +83,15 @@ public class ServiceGetSliderPic extends Service {
                             Cursor cursor = db.rawQuery("SELECT * FROM Slider",null);
 
                             if(cursor.getCount()>0) {
-                                Thread.sleep(6000); // every 12 hour
+                                Thread.sleep(43200000); // every 12 hour
                             }
                             else {
-                                Thread.sleep(6000); // every 12 hour
+                                Thread.sleep(60000); // every 12 hour
                             }
 
                             db.close();
                         }
                         catch (Exception e) {
-                            String error="";
-                            error=e.getMessage().toString();
                         }
 
                     }

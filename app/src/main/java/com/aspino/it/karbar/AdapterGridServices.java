@@ -76,7 +76,7 @@ public class AdapterGridServices extends BaseAdapter {
             convertView.setTag(holder);
         } else
         {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (AdapterGridServices.ViewHolder) convertView.getTag();
         }
         String name = map.get("name");
         String code = map.get("Code");

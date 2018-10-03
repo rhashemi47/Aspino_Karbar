@@ -77,18 +77,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:id="@+id/LinearTelegram"
                     android:orientation="vertical">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/telegicon"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/telegicon"
+                        android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvTextTelegram"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/telegram"
-                        android:textSize="32sp"
+                        android:textSize="18dp"
                         android:textColor="#fff"
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="6dp"/>
@@ -97,19 +98,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:id="@+id/LinearWeb"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/webicon"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/webicon"
+                        android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvTextWebSite"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/WebSite"
-                        android:textSize="32sp"
+                        android:textSize="18dp"
                         android:textColor="#fff"
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="0dp"/>
@@ -117,18 +119,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:id="@+id/LinearInestagram"
                     android:orientation="vertical">
-                <ImageView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/instaicon"
-                    android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/instaicon"
+                        android:layout_gravity="center"/>
                     <TextView
                         android:id="@+id/tvTextInsta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/instagram"
-                        android:textSize="32sp"
+                        android:textSize="18dp"
                         android:textColor="#fff"
                         android:layout_marginTop="5dp"
                         android:layout_marginRight="0dp"/>

@@ -190,7 +190,7 @@ protected void onCreate(Bundle savedInstanceState) {
 								coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
 								if (coursors.getCount() > 0) {
 									coursors.moveToNext();
-									String splitStr[]= coursors.getString(coursors.getColumnIndex("Amount")).toString().split(Pattern.quote("/"));
+									String splitStr[]= coursors.getString(coursors.getColumnIndex("Amount")).toString().split(Pattern.quote("."));
 									if(splitStr[1].compareTo("00")==0)
 									{
 										tvContentCredits.setText(splitStr[0]);
@@ -515,7 +515,8 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			public void onClick(DialogInterface arg0, int arg1) {
 				continue_or_stop=false;
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));

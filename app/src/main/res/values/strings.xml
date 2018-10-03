@@ -222,4 +222,15 @@
 </string>
     <string name="Toman">تومان</string>
     <string name="OffCode">کد تخفیف</string>
+    <string name="Select_this_Hamyar">انتخاب این متخصص</string>
+    <string name="saved_comment">نظرات ثبت شده:</string>
+    <string name="HistoryJob">سابقه کار:</string>
+    <string name="infoPersonal">مشخصات فردی</string>
+    <string name="Firstname">نام:</string>
+    <string name="Lastname">نام خانوادگی:</string>
+    <string name="Birthday">متولد:</string>
+    <string name="DegreeOfEducation">مدرک تحصیلی:</string>
+    <string name="infoPerfesional">مشخصات حرفه ای</string>
+    <string name="BaseExpert">زمینه تخصص:</string>
+    <string name="Comment_Hamyar">پیام متخصص برای شما:</string>
 </resources>

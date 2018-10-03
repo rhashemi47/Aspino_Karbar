@@ -136,15 +136,16 @@
                 android:hint="کد ملی"
                 android:textColor="#333333"
                 android:gravity="right"
+                android:inputType="number"
                 android:textAlignment="gravity"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp" />
             <!--<view-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="#6a33d7"-->
-                <!--android:layout_marginRight="10dp"-->
-                <!--android:layout_marginLeft="10dp">-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:background="#6a33d7"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginLeft="10dp">-->
 
             <!--</view>-->
 
@@ -155,6 +156,7 @@
                 android:hint="پست الکترونیک"
                 android:textColor="#333333"
                 android:gravity="right"
+                android:inputType="textEmailAddress"
                 android:textAlignment="gravity"
                 android:layout_marginRight="10dp"
                 android:layout_marginLeft="10dp" />

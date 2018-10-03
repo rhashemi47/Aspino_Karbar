@@ -181,6 +181,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //***********************Start Service***************************************
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
         startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
+        startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
         //***************************************************************************
 //        facehVazir = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
         etSearch = (EditText) findViewById(R.id.etSearch);
@@ -319,7 +320,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         //********************************************************************Start And Stop Service BackGround
        try {
            if (karbarCode.compareTo("0") != 0) {
-               startService(new Intent(getBaseContext(), ServiceGetLocation.class));
+               //startService(new Intent(getBaseContext(), ServiceGetLocation.class));
                startService(new Intent(getBaseContext(), ServiceGetUserServicesHamyarRequest.class));
            }
        }
@@ -587,8 +588,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             // do something when the button is clicked
             public void onClick(DialogInterface arg0, int arg1) {
                 //Declare Object From Get Internet Connection Status For Check Internet Status
-                stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
-                
+                //stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
                 stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
                 stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
 //                stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));

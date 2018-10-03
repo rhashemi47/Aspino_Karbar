@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 //import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -32,12 +34,9 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 	private DatabaseHelper dbh;
 	private TextView txtContent;
 	private SQLiteDatabase db;
-//	private Button btnOrder;
-//	private Button btnAcceptOrder;
-//	private Button btncredite;
-//	private GoogleMap map;
-//	private Typeface FontMitra;
-//	private LatLng point;
+	private LinearLayout LinearTelegram;
+	private LinearLayout LinearWeb;
+	private LinearLayout LinearInestagram;
 	private DrawerLayout mDrawer;
 	private NavigationView mNavi;
 	private Toolbar mtoolbar;
@@ -53,9 +52,9 @@ public class About extends AppCompatActivity implements NavigationView.OnNavigat
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
 	setContentView(R.layout.slide_menu_about);
-//	btnOrder=(Button)findViewById(R.id.btnOrderBottom);
-//	btnAcceptOrder=(Button)findViewById(R.id.btnAcceptOrderBottom);
-//	btncredite=(Button)findViewById(R.id.btncrediteBottom);
+	LinearTelegram=(LinearLayout)findViewById(R.id.LinearTelegram);
+	LinearWeb=(LinearLayout)findViewById(R.id.LinearWeb);
+	LinearInestagram=(LinearLayout)findViewById(R.id.LinearInestagram);
 	//****************************************************************
 	Toolbar mtoolbar = (Toolbar) findViewById(R.id.m_toolbar_about);
 
@@ -91,18 +90,30 @@ protected void onCreate(Bundle savedInstanceState) {
 			mDrawer.openDrawer(GravityCompat.START);
 		}
 	});
-
-//        ActionBarDrawerToggle aToggle = new ActionBarDrawerToggle(this, mDrawer, mtoolbar, R.string.open, R.string.close);
-
-//        mDrawer.addDrawerListener(aToggle);
-//        aToggle.syncState();
-	//*****************************************************************
-//	btnLogout.setOnClickListener(new View.OnClickListener() {
-//		@Override
-//		public void onClick(View view) {
-//			Logout();
-//		}
-//	});
+	LinearTelegram.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent urlCall = new Intent(Intent.ACTION_VIEW);
+			urlCall.setData(Uri.parse(PublicVariable.Telegram));
+			startActivity(urlCall);
+		}
+	});
+	LinearWeb.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent urlCall = new Intent(Intent.ACTION_VIEW);
+			urlCall.setData(Uri.parse(PublicVariable.site));
+			startActivity(urlCall);
+		}
+	});
+	LinearInestagram.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			Intent urlCall = new Intent(Intent.ACTION_VIEW);
+			urlCall.setData(Uri.parse(PublicVariable.Instagram));
+			startActivity(urlCall);
+		}
+	});
 	dbh=new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -300,7 +311,8 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));

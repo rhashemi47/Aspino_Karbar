@@ -81,10 +81,9 @@
         <activity
             android:name="com.aspino.it.karbar.Info_Person"
             android:noHistory="false"/>
-
-        <service android:name="com.aspino.it.karbar.ServiceGetLocation">
-
-        </service>
+        <activity
+            android:name="com.aspino.it.karbar.Survey"
+            android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetSliderPic">
 
         </service>
@@ -92,6 +91,9 @@
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetUserServicesHamyarRequest">
+
+        </service>
+        <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
 
         </service>
         <meta-data

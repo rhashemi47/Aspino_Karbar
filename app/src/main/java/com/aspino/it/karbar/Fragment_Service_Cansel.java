@@ -37,6 +37,7 @@ public class Fragment_Service_Cansel extends Fragment {
         // Inflate the layout for this fragment
         View rootView=inflater.inflate(R.layout.fragment_service__cansel, container, false);
         ListView lstServiceRun = (ListView)rootView.findViewById(R.id.lstServiceCansel);
+        valuse.clear();
         dbh=new DatabaseHelper(getContext());
         try {
 

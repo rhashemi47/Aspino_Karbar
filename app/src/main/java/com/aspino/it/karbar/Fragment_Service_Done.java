@@ -38,6 +38,7 @@ public class Fragment_Service_Done extends Fragment {
 
         View rootView=inflater.inflate(R.layout.fragment__service__done, container, false);
         ListView lstServiceRun = (ListView)rootView.findViewById(R.id.lstServiceDone);
+        valuse.clear();
         dbh=new DatabaseHelper(getContext());
         try {
 

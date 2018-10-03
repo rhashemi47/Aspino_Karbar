@@ -54,6 +54,7 @@ public class Pardakh_Factor_Sefaresh extends AppCompatActivity {
 	private String Confirm="0";
 	private String FinalCurrency="0";
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
+	private String HamyarCode;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -149,13 +150,14 @@ protected void onCreate(Bundle savedInstanceState) {
 	Query="SELECT Hamyar.*,InfoHamyar.* FROM Hamyar " +
 			"LEFT JOIN " +
 			"InfoHamyar ON " +
-			"Hamyar.CodeHamyarInfo=InfoHamyar.Code " +
+			"Hamyar.CodeHamyarInfo=InfoHamyar.Code_InfoHamyar " +
 			" WHERE Hamyar.CodeOrder ="+ OrderCode;
 	cursor = db.rawQuery(Query, null);
 	if(cursor.getCount()>0){
 		cursor.moveToNext();
 		imgHamyar.setImageBitmap(convertToBitmap(cursor.getString(cursor.getColumnIndex("img"))));
 		strCall=cursor.getString(cursor.getColumnIndex("Mobile"));
+		HamyarCode=cursor.getString(cursor.getColumnIndex("InfoHamyar.Code_InfoHamyar"));
 	}
 	if(!cursor.isClosed())
 	{
@@ -205,6 +207,13 @@ protected void onCreate(Bundle savedInstanceState) {
 	btnCachFactor.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
+		String	Query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
+		db=dbh.getReadableDatabase();
+		Cursor	cursor = db.rawQuery(Query, null);
+			if(cursor.getCount()>0){
+				cursor.moveToNext();
+				Confirm=cursor.getString(cursor.getColumnIndex("Confirm"));
+			}
 			if(Confirm.compareTo("1")==0)
 			{
 				db=dbh.getReadableDatabase();
@@ -213,16 +222,15 @@ protected void onCreate(Bundle savedInstanceState) {
 				if(cursor1.getCount()>0)
 				{
 					cursor1.moveToNext();
-					String sp[]=cursor1.getString(cursor1.getColumnIndex("Amount")).split("/");
+					String Amount=cursor1.getString(cursor1.getColumnIndex("Amount"));
+					String sp[]=Amount.split("\\.");
 					int amount=Integer.parseInt(sp[0]);
 					int finalCurency=Integer.parseInt(FinalCurrency);
 					if(finalCurency<=amount)
 					{
-						db=dbh.getWritableDatabase();
-						String query1="UPDATE AmountCredit SET Amount='"+String.valueOf(amount-finalCurency)+"/00'" ;
-						db.execSQL(query1);
-						Toast.makeText(Pardakh_Factor_Sefaresh.this,"پرداخت شد",Toast.LENGTH_LONG).show();
-						LoadActivity(MainMenu.class,"karbarCode",karbarCode);
+						SyncServicePayment syncServicePayment=new SyncServicePayment(Pardakh_Factor_Sefaresh.this,
+								karbarCode,OrderCode,tvContetnFinalCurrency.getText().toString(),HamyarCode,amount,finalCurency);
+						syncServicePayment.AsyncExecute();
 					}
 					else
 					{

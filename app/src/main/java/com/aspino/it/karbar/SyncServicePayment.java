@@ -2,6 +2,8 @@ package com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -16,38 +18,42 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
 
-public class UpdateProfile {
+public class SyncServicePayment {
 
-	//Primary Variable
+	private  int finalCurency;
+	private  int Amount;
 	DatabaseHelper dbh;
 	SQLiteDatabase db;
 	PublicVariable PV;
-    InternetConnection IC;
+	InternetConnection IC;
 	private Activity activity;
-	private String UserCode;
-	private String Month;
-	private String Year;
-	private String Day;
+	private String pUserCode;
 	private String WsResponse;
-	private String ReagentCode;
-	private String ShMelli;
-	private String Email;
+	private String BsUserServiceCode;
+	private String Price;
+	//private String acceptcode;
 	private boolean CuShowDialog=true;
-	private String[] res;
-	//Contractor
-	public UpdateProfile(Activity activity, String UserCode, String Year, String Month, String Day, String ReagentCode, String ShMelli, String Email) {
-		this.activity = activity;
-		this.UserCode=UserCode;
-		this.Year=Year;
-		this.Month=Month;
-		this.ReagentCode=ReagentCode;
-		this.Day=Day;
-		this.ShMelli=ShMelli;
-		this.Email=Email;
+	private String HamyarCode;
 
+	//Contractor
+	public SyncServicePayment(Activity activity,
+							  String pUserCode,
+							  String BsUserServiceCode,
+							  String Price,
+							  String HamyarCode,
+							  int Amount,
+							  int finalCurency) {
+		this.activity = activity;
+		this.pUserCode = pUserCode;
+		this.BsUserServiceCode = BsUserServiceCode;
+		this.Price = Price;
+		this.HamyarCode = HamyarCode;
+		this.Amount = Amount;
+		this.finalCurency = finalCurency;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
-		
+
+
 		dbh=new DatabaseHelper(this.activity.getApplicationContext());
 		try {
 
@@ -67,9 +73,8 @@ public class UpdateProfile {
 
    			throw sqle;
    		}
-   		
 	}
-	
+
 	public void AsyncExecute()
 	{
 		if(IC.isConnectingToInternet()==true)
@@ -78,7 +83,7 @@ public class UpdateProfile {
 			{
 				AsyncCallWS task = new AsyncCallWS(this.activity);
 				task.execute();
-			}	
+			}
 			 catch (Exception e) {
 				//Toast.makeText(this.activity.getApplicationContext(), PersianReshape.reshape("ط¹ط¯ظ… ط¯ط³طھط±ط³غŒ ط¨ظ‡ ط³ط±ظˆط±"), Toast.LENGTH_SHORT).show();
 	            e.printStackTrace();
@@ -89,47 +94,46 @@ public class UpdateProfile {
 			Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	//Async Method
 	private class AsyncCallWS extends AsyncTask<String, Void, String> {
 		private ProgressDialog dialog;
 		private Activity activity;
-		
+
 		public AsyncCallWS(Activity activity) {
 		    this.activity = activity;
-		    this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+		    this.dialog = new ProgressDialog(activity);
+		    this.dialog.setCanceledOnTouchOutside(false);
 		}
-		
+
         @Override
         protected String doInBackground(String... params) {
         	String result = null;
         	try
         	{
-        		CallWsMethod("UpdateUserBthDate");
+        		CallWsMethod("ServicePayment");
         	}
 	    	catch (Exception e) {
 	    		result = e.getMessage().toString();
 			}
 	        return result;
         }
- 
+
         @Override
         protected void onPostExecute(String result) {
         	if(result == null)
         	{
-        		res=WsResponse.split("##");
-	            if(res[0].toString().compareTo("ER") == 0)
+	            if(WsResponse.toString().compareTo("ER") == 0)
 	            {
 	            	Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 	            }
-	            else if(res[0].toString().compareTo("0") == 0)
+	            else if(WsResponse.toString().compareTo("0") == 0)
 	            {
 	            	Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 	            }
-	         
 	            else
 	            {
-	            	InsertDataFromWsToDb();
+	            	InsertDataFromWsToDb(WsResponse);
 	            }
         	}
         	else
@@ -144,7 +148,7 @@ public class UpdateProfile {
             }
             catch (Exception e) {}
         }
- 
+
         @Override
         protected void onPreExecute() {
         	if(CuShowDialog)
@@ -153,86 +157,47 @@ public class UpdateProfile {
         		this.dialog.show();
         	}
         }
- 
+
         @Override
         protected void onProgressUpdate(Void... values) {
         }
-        
+
     }
-	
+
+
 	public void CallWsMethod(String METHOD_NAME) {
 	    //Create request
 	    SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
-	    PropertyInfo UserCodePI = new PropertyInfo();
+	    PropertyInfo pUserCodePI = new PropertyInfo();
 	    //Set Name
-		UserCodePI.setName("UserCode");
+		pUserCodePI.setName("pUserCode");
 	    //Set Value
-		UserCodePI.setValue(this.UserCode);
+		pUserCodePI.setValue(pUserCode);
 	    //Set dataType
-		UserCodePI.setType(String.class);
+		pUserCodePI.setType(String.class);
 	    //Add the property to request object
-	    request.addProperty(UserCodePI);
-	    //*******************************************************************
-	    PropertyInfo YearPI = new PropertyInfo();
+	    request.addProperty(pUserCodePI);
+	    //****************************************************
+	    PropertyInfo BsUserServiceCodePI = new PropertyInfo();
 	    //Set Name
-		YearPI.setName("Year");
+		BsUserServiceCodePI.setName("BsUserServiceCode");
 	    //Set Value
-		YearPI.setValue(this.Year);
+		BsUserServiceCodePI.setValue(BsUserServiceCode);
 	    //Set dataType
-		YearPI.setType(String.class);
+		BsUserServiceCodePI.setType(String.class);
 	    //Add the property to request object
-	    request.addProperty(YearPI);
-	    //*********************************************************************
-	    PropertyInfo MonthPI = new PropertyInfo();
+	    request.addProperty(BsUserServiceCodePI);
+	    //****************************************************
+	    PropertyInfo PricePI = new PropertyInfo();
 	    //Set Name
-		MonthPI.setName("Month");
+		PricePI.setName("Price");
 	    //Set Value
-		MonthPI.setValue(this.Month);
+		PricePI.setValue(Price);
 	    //Set dataType
-		MonthPI.setType(String.class);
+		PricePI.setType(String.class);
 	    //Add the property to request object
-	    request.addProperty(MonthPI);
-	    //**********************************************************************
-	    PropertyInfo DayPI = new PropertyInfo();
-	    //Set Name
-		DayPI.setName("Day");
-	    //Set Value
-		DayPI.setValue(this.Day);
-	    //Set dataType
-		DayPI.setType(String.class);
-	    //Add the property to request object
-	    request.addProperty(DayPI);
-	    //*********
-	    PropertyInfo ReagentCodePI = new PropertyInfo();
-	    //Set Name
-		ReagentCodePI.setName("ReagentCodeStr");
-	    //Set Value
-		ReagentCodePI.setValue(this.ReagentCode);
-	    //Set dataType
-		ReagentCodePI.setType(String.class);
-	    //Add the property to request object
-	    request.addProperty(ReagentCodePI);
-	    //**********************************************
-	    PropertyInfo EmailPI = new PropertyInfo();
-	    //Set Name
-		EmailPI.setName("Email");
-	    //Set Value
-		EmailPI.setValue(this.Email);
-	    //Set dataType
-		EmailPI.setType(String.class);
-	    //Add the property to request object
-	    request.addProperty(EmailPI);
-	    //**********************************************
-	    PropertyInfo ShMelliPI = new PropertyInfo();
-	    //Set Name
-		ShMelliPI.setName("ShMelli");
-	    //Set Value
-		ShMelliPI.setValue(this.ShMelli);
-	    //Set dataType
-		ShMelliPI.setType(String.class);
-	    //Add the property to request object
-	    request.addProperty(ShMelliPI);
-	    
+	    request.addProperty(PricePI);
+	    //****************************************************
 	    //Create envelope
 	    SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 	            SoapEnvelope.VER11);
@@ -247,22 +212,33 @@ public class UpdateProfile {
 	        //Get the response
 	        SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
 	        //Assign it to FinalResultForCheck static variable
-	        WsResponse = response.toString();	
+	        WsResponse = response.toString();
 	        if(WsResponse == null) WsResponse="ER";
 	    } catch (Exception e) {
 	    	WsResponse = "ER";
 	    	e.printStackTrace();
 	    }
 	}
-	
-	
-	public void InsertDataFromWsToDb()
-    {
+
+
+	public void InsertDataFromWsToDb(String AllRecord)
+	{
 		db=dbh.getWritableDatabase();
-		db.execSQL("UPDATE Profile SET BthDate='"+Year+"/"+Month+"/"+Day+"' , " +
-				"ShSh='"+ShMelli+"' , " +
-				"Email='"+Email+"'");
-		db.close();
-		Toast.makeText(this.activity, "ثبت شد", Toast.LENGTH_SHORT).show();
-    }
+		String query1="UPDATE AmountCredit SET Amount='"+String.valueOf(Amount-finalCurency)+".00'" ;
+		db.execSQL(query1);
+		Toast.makeText(activity.getApplicationContext(),"پرداخت شد",Toast.LENGTH_LONG).show();
+		LoadActivity(Survey.class,"karbarCode",pUserCode,
+				"HamyarCode",HamyarCode,
+				"OrderCode",BsUserServiceCode);
+	}
+	public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue,
+							 String VariableName1, String VariableValue1,
+							 String VariableName2, String VariableValue2)
+	{
+		Intent intent = new Intent(activity,Cls);
+		intent.putExtra(VariableName, VariableValue);
+		intent.putExtra(VariableName1, VariableValue1);
+		intent.putExtra(VariableName2, VariableValue2);
+		activity.startActivity(intent);
+	}
 }

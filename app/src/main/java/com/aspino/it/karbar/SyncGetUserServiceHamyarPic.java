@@ -179,7 +179,7 @@ public class SyncGetUserServiceHamyarPic {
 		String value[] =WsResponse.split(Pattern.quote("[Besparina##]"));
 		if (value[3].compareTo("ERROR")!=0) {
 			 query = "INSERT INTO InfoHamyar (" +
-					"Code," +
+					"Code_InfoHamyar," +
 					"Fname," +
 					"Lname," +
 					"Mobile," +
@@ -194,7 +194,7 @@ public class SyncGetUserServiceHamyarPic {
 		else
 		{
 			query = "INSERT INTO InfoHamyar (" +
-					"Code," +
+					"Code_InfoHamyar," +
 					"Fname," +
 					"Lname," +
 					"Mobile," +

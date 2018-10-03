@@ -75,24 +75,31 @@ public class AdapterGridSelectHamyar extends BaseAdapter {
         HashMap<String, String> map = list.get(position);
         Typeface vazir = Typeface.createFromAsset(activity.getAssets(), "font/vazir.ttf");
         Typeface vazir_medium = Typeface.createFromAsset(activity.getAssets(), "font/vazir_medium.ttf");
-        convertView = inflater.inflate(R.layout.list_recycle_item_hamyar, null);
-        holder = new ViewHolder();
-        holder.textViewContactName= (TextView) convertView.findViewById(R.id.textViewContactName);
-        holder.tvRateNumber= (TextView) convertView.findViewById(R.id.tvRateNumber);
-        holder.textViewUnreadCount= (TextView) convertView.findViewById(R.id.textViewUnreadCount);
-        holder.buttonInvite= (Button) convertView.findViewById(R.id.buttonInvite);
-        holder.imageViewContactLogo= (ImageView) convertView.findViewById(R.id.imageViewContactLogo);
-        holder.LinearHamyar= (LinearLayout) convertView.findViewById(R.id.LinearHamyar);
-        holder.RatingHamyar= (RatingBar) convertView.findViewById(R.id.RatingHamyar);
-        //****************************************
-        holder.textViewContactName.setTypeface(vazir_medium);
-        holder.tvRateNumber.setTypeface(vazir);
-        holder.textViewUnreadCount.setTypeface(vazir);
-        //****************************************
-        holder.textViewContactName.setTextSize(14);
-        holder.tvRateNumber.setTextSize(14);
-        holder.textViewUnreadCount.setTextSize(14);
-        convertView.setTag(holder);
+        if(convertView==null) {
+            convertView = inflater.inflate(R.layout.list_recycle_item_hamyar, null);
+
+            holder = new ViewHolder();
+            holder.textViewContactName= (TextView) convertView.findViewById(R.id.textViewContactName);
+            holder.tvRateNumber= (TextView) convertView.findViewById(R.id.tvRateNumber);
+            holder.textViewUnreadCount= (TextView) convertView.findViewById(R.id.textViewUnreadCount);
+            holder.buttonInvite= (Button) convertView.findViewById(R.id.buttonInvite);
+            holder.imageViewContactLogo= (ImageView) convertView.findViewById(R.id.imageViewContactLogo);
+            holder.LinearHamyar= (LinearLayout) convertView.findViewById(R.id.LinearHamyar);
+            holder.RatingHamyar= (RatingBar) convertView.findViewById(R.id.RatingHamyar);
+            //****************************************
+            holder.textViewContactName.setTypeface(vazir_medium);
+            holder.tvRateNumber.setTypeface(vazir);
+            holder.textViewUnreadCount.setTypeface(vazir);
+            //****************************************
+            holder.textViewContactName.setTextSize(14);
+            holder.tvRateNumber.setTextSize(14);
+            holder.textViewUnreadCount.setTextSize(14);
+            convertView.setTag(holder);
+        }
+        else
+        {
+            holder = (AdapterGridSelectHamyar.ViewHolder) convertView.getTag();
+        }
         String name = map.get("name");
         String code = map.get("Code");
 //        holder.txtValues.setText(name);todo

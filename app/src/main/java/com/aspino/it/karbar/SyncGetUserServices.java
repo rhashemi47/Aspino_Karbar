@@ -17,7 +17,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
 
-public class SyncGetUserServicesHamyarRequest {
+public class SyncGetUserServices {
 	//Primary Variable
 	DatabaseHelper dbh;
 	SQLiteDatabase db;
@@ -26,15 +26,15 @@ public class SyncGetUserServicesHamyarRequest {
 	private Context activity;
 	private String pUserCode;
 	private String WsResponse;
-	private String LastRequestCode;
+	private String LastUserServiceCode;
 	private boolean CuShowDialog = false;
 
 	//Contractor
-	public SyncGetUserServicesHamyarRequest(Context activity, String pUserCode, String LastRequestCode) {
+	public SyncGetUserServices(Context activity, String pUserCode, String LastUserServiceCode) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
-		this.LastRequestCode = LastRequestCode;
-		PublicVariable.thread_RequestHamyar=false;
+		this.LastUserServiceCode = LastUserServiceCode;
+		PublicVariable.thread_ServiceSaved=false;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 
@@ -87,7 +87,7 @@ public class SyncGetUserServicesHamyarRequest {
 		protected String doInBackground(String... params) {
 			String result = null;
 			try {
-				CallWsMethod("GetUserServicesHamyarRequest");
+				CallWsMethod("GetUserService");
 			} catch (Exception e) {
 				result = e.getMessage().toString();
 			}
@@ -97,7 +97,7 @@ public class SyncGetUserServicesHamyarRequest {
 		@Override
 		protected void onPostExecute(String result) {
 			if (result == null) {
-				PublicVariable.thread_RequestHamyar=true;
+				PublicVariable.thread_ServiceSaved=true;
 				if (WsResponse.toString().compareTo("ER") == 0) {
 					//Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 				}
@@ -141,7 +141,7 @@ public class SyncGetUserServicesHamyarRequest {
 		SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
 		PropertyInfo pUserCodePI = new PropertyInfo();
 		//Set Name
-		pUserCodePI.setName("UserCode");
+		pUserCodePI.setName("pUserCode");
 		//Set Value
 		pUserCodePI.setValue(pUserCode);
 		//Set dataType
@@ -151,9 +151,9 @@ public class SyncGetUserServicesHamyarRequest {
 		//****************************************************************
 		PropertyInfo LastUserServiceCodePI = new PropertyInfo();
 		//Set Name
-		LastUserServiceCodePI.setName("LastRequestCode");
+		LastUserServiceCodePI.setName("LastUserServiceCode");
 		//Set Value
-		LastUserServiceCodePI.setValue(LastRequestCode);
+		LastUserServiceCodePI.setValue(LastUserServiceCode);
 		//Set dataType
 		LastUserServiceCodePI.setType(String.class);
 		//Add the property to request object
@@ -184,88 +184,105 @@ public class SyncGetUserServicesHamyarRequest {
 	public void InsertDataFromWsToDb(String AllRecord) {
 		String[] res;
 		String[] value;
+		String[] DateStart, DateEnd;
+		String[] TimeStart, TimeEnd;
+		boolean isFirst=IsFristInsert();
 		res = WsResponse.split("@@");
 		db = dbh.getWritableDatabase();
 		for (int i = 0; i < res.length; i++) {
 			value = res[i].split("##");
-			if (!check1(value[1], value[2])) {
-				String query = "INSERT INTO UserServicesHamyarRequest (" +
-						"Code," +
-						"BsUserServicesCode," +
-						"HamyarCode," +
-						"Price," +
-						"HmayarStar," +
-						"PriceFinal," +
-						"PriceOff," +
-						"TotalPrice) VALUES('" +
-						value[0] + "','" +
-						value[1] + "','" +
-						value[2] + "','" +
-						value[3] + "','" +
-						value[4] + "','" +
-						value[5] + "','" +
-						value[6] + "','" +
-						value[7] + "')";
-				db.execSQL(query);
-			}
-			else
-			{
-				String query="";
-				if(check_PriceFinal(value[0],value[2],value[5])) {
-					query = "UPDATE UserServicesHamyarRequest SET " +
-							"Code='" + value[0] + "' , " +
-							"BsUserServicesCode='" + value[1] + "' , " +
-							"HamyarCode='" + value[2] + "' , " +
-							"Price='" + value[3] + "' , " +
-							"HmayarStar='" + value[4] + "' , " +
-							"PriceFinal='" + value[5] + "' , " +
-							"PriceOff='" + value[6] + "' , " +
-							"TotalPrice='" + value[7] + "' WHERE BsUserServicesCode='" + value[1] +
-							"' AND HamyarCode='" + value[2] + "'";
+			try {
+				boolean check = checkStatus(value[0], value[32]);
+				if (!check) {
+					db.execSQL("DELETE FROM OrdersService WHERE Code_OrdersService='" + value[0] + "'");
+					DateStart = value[8].split("/");
+					DateEnd = value[18].split("/");
+					TimeStart = value[19].split(":");
+					TimeEnd = value[20].split(":");
+					String query = "INSERT INTO OrdersService (" +
+							"Code_OrdersService," +
+							"pUserCode," +
+							"ServiceDetaileCode," +
+							"MaleCount," +
+							"FemaleCount," +
+							"HamyarCount," +
+							"StartYear," +
+							"StartMonth," +
+							"StartDay," +
+							"StartHour," +
+							"StartMinute," +
+							"EndYear," +
+							"EndMonth," +
+							"EndDay," +
+							"EndHour," +
+							"EndMinute," +
+							"AddressCode," +
+							"Description," +
+							"IsEmergency," +
+							"PeriodicServices," +
+							"EducationGrade," +
+							"FieldOfStudy," +
+							"StudentGender," +
+							"TeacherGender," +
+							"EducationTitle," +
+							"ArtField," +
+							"CarWashType," +
+							"CarType," +
+							"Language," +
+							"Status," +
+							"DateDiff) VALUES('" +
+							value[0] + "','" +
+							value[1] + "','" +
+							value[4] + "','" +
+							value[5] + "','" +
+							value[6] + "','" +
+							value[21] + "','" +
+							DateStart[0] + "','" +
+							DateStart[1] + "','" +
+							DateStart[2] + "','" +
+							TimeStart[0] + "','" +
+							TimeStart[1] + "','" +
+							DateEnd[0] + "','" +
+							DateEnd[1] + "','" +
+							DateEnd[2] + "','" +
+							TimeEnd[0] + "','" +
+							TimeEnd[1] + "','" +
+							value[9] + "','" +
+							value[15] + "','" +
+							value[16] + "','" +
+							value[22] + "','" +
+							value[23] + "','" +
+							value[24] + "','" +
+							value[25] + "','" +
+							value[26] + "','" +
+							value[27] + "','" +
+							value[28] + "','" +
+							value[29] + "','" +
+							value[30] + "','" +
+							value[31] + "','" +
+							value[32] + "','" +
+							value[33] + "')";
+					db.execSQL(query);
+					db.close();
+					if (!isFirst) {
+						runNotification("آسپینو", value[4], i, value[0], MainMenu.class, value[32]);
+					}
 				}
-				else
-				{
-					query = "UPDATE UserServicesHamyarRequest SET " +
-							"Code='" + value[0] + "' , " +
-							"BsUserServicesCode='" + value[1] + "' , " +
-							"HamyarCode='" + value[2] + "' , " +
-							"Price='" + value[3] + "' , " +
-							"HmayarStar='" + value[4] + "' , " +
-							"PriceFinal='" + value[5] + "' , " +
-							"PriceOff='" + value[6] + "' , " +
-							"TotalPrice='" + value[7] + "' , Confirm='0' WHERE BsUserServicesCode='" + value[1] +
-							"' AND HamyarCode='" + value[2] + "'";
-				}
-				db.execSQL(query);
+//				SyncGetUserServiceHamyar syncGetUserServiceHamyar=new SyncGetUserServiceHamyar(activity.getApplicationContext(),value[0]);
+//				syncGetUserServiceHamyar.AsyncExecute();
 			}
-			if(!check2(value[2]))
+			catch (Exception ex)
 			{
-				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[0],value[1],value[2],value[3]);
-				syncGetUserServiceHamyarPic.AsyncExecute();
-			}
-			if(!check3(value[2],value[1]))
-			{
-				db=dbh.getWritableDatabase();
-				String 	query = "INSERT INTO Hamyar (" +
-						"CodeHamyarInfo," +
-						"CodeOrder" +
-						") VALUES('" +
-						value[2] + "','" +
-						value[1] + "')";
-				db.execSQL(query);
-				db.close();
+				Log.i(ex.toString(), "InsertDataFromWsToDb: Error");
 			}
 		}
-		if(db.isOpen()) {
-			db.close();
-		}
 	}
-	public boolean check1(String CodeOrder,String HamyarCode)
+
+	public boolean checkStatus(String codeStr,String statusStr)
 	{
 		db=dbh.getReadableDatabase();
-		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
-				"' AND HamyarCode='" + HamyarCode+"'";
-		Cursor cursor=db.rawQuery(query,null);
+		String query = "SELECT * FROM OrdersService WHERE Code_OrdersService='"+codeStr+"' AND Status='"+statusStr+"'";
+		Cursor cursor= db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
 			return true;
@@ -275,47 +292,84 @@ public class SyncGetUserServicesHamyarRequest {
 			return false;
 		}
 	}
-	public boolean check_PriceFinal(String CodeOrder,String HamyarCode,String PriceFinal)
+	public String getDetailname(String detailCode)
 	{
-		db=dbh.getReadableDatabase();
-		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
-				"' AND HamyarCode='" + HamyarCode+"' AND PriceFinal='"+PriceFinal+"'";
-		Cursor cursor=db.rawQuery(query,null);
-		if(cursor.getCount()>0)
+		db = dbh.getReadableDatabase();
+		String query = "SELECT * FROM Servicesdetails  WHERE code=" + detailCode;
+		Cursor coursors = db.rawQuery(query, null);
+		if (coursors.getCount() > 0)
 		{
-			return true;
+			coursors.moveToNext();
+			return coursors.getString(coursors.getColumnIndex("name"));
 		}
 		else
 		{
-			return false;
+			return "";
 		}
 	}
-	public boolean check2(String Code)
+	public void runNotification(String title,String detail,int id,String OrderCode,Class<?> Cls,String status)
 	{
-		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM InfoHamyar WHERE Code_InfoHamyar='"+Code+"'";
-		Cursor cursor=db.rawQuery(query,null);
-		if(cursor.getCount()>0)
+		String StrStatus="";
+		switch (status)
 		{
-			return true;
+			case "0":
+				StrStatus="آزاد شد";
+				break;
+			case "1":
+				StrStatus="در نوبت انجام قرار گرفت";
+				break;
+			case "2":
+				StrStatus="در حال انجام است";
+				break;
+			case "3":
+				StrStatus="لغو شد";
+				break;
+			case "4":
+				StrStatus="اتمام و تسویه شده است";
+				break;
+			case "5":
+				StrStatus="اتمام و تسویه نشده است";
+				break;
+			case "6":
+				StrStatus="اعلام شکایت شده است";
+				break;
+			case "7":
+				StrStatus="درحال پیگیری شکایت و یا رفع خسارت می باشد";
+				break;
+			case "8":
+				StrStatus=" توسط متخصص رفع عیب و خسارت شده است";
+				break;
+			case "9":
+				StrStatus="پرداخت خسارت";
+				break;
+			case "10":
+				StrStatus="پرداخت جریمه";
+				break;
+			case "11":
+				StrStatus="تسویه حساب با متخصص";
+				break;
+			case "12":
+				StrStatus="متوقف و تسویه شده است";
+				break;
+			case "13":
+				StrStatus="متوقف و تسویه نشده است";
+				break;
 		}
-		else
-		{
-			return false;
-		}
+		NotificationClass notifi=new NotificationClass();
+		notifi.Notificationm(this.activity,title,"کد سرویس: "+OrderCode+"\n"+getDetailname(detail)+" "+ StrStatus,OrderCode,id,Cls);
 	}
-	public boolean check3(String Code,String OrderCode)
+	public boolean IsFristInsert()
 	{
 		db=dbh.getReadableDatabase();
-		String query="SELECT * FROM Hamyar WHERE CodeHamyarInfo='"+Code+"' AND CodeOrder='"+OrderCode+"'";
-		Cursor cursor=db.rawQuery(query,null);
+		String query = "SELECT * FROM OrdersService";
+		Cursor cursor= db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
-			return true;
+			return false;
 		}
 		else
 		{
-			return false;
+			return true;
 		}
 	}
 }

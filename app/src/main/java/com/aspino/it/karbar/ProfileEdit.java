@@ -464,7 +464,7 @@ public class ProfileEdit extends Activity {
 		}
 		if(errorStr.compareTo("")==0)
 		{
-			UpdateProfile updateProfile = new UpdateProfile(ProfileEdit.this, karbarCode, yearStr, monStr, dayStr,"0");
+			UpdateProfile updateProfile = new UpdateProfile(ProfileEdit.this, karbarCode, yearStr, monStr, dayStr,"0",etTextNationalCode.getText().toString(),etTextEmail.getText().toString());
 			updateProfile.AsyncExecute();
 		}
 		else

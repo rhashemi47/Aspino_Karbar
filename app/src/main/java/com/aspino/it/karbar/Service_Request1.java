@@ -800,7 +800,7 @@ protected void onCreate(Bundle savedInstanceState) {
 			@Override
 			public void onClick(View v) {
 				int count;
-				if(Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت",""))>0)
+				if(Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت",""))>1)
 				{
 					count = Integer.parseInt(etCountTimeJob.getText().toString().replace(" ساعت","")) - 1;
 					etCountTimeJob.setText(String.valueOf(count)+" ساعت");
@@ -1047,7 +1047,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));

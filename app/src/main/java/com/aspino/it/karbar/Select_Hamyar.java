@@ -163,8 +163,9 @@ protected void onCreate(final Bundle savedInstanceState) {
 				" FROM UserServicesHamyarRequest " +
 				" LEFT JOIN " +
 				" InfoHamyar ON " +
-				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code " +
+				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code_InfoHamyar" +
 				" WHERE UserServicesHamyarRequest.BsUserServicesCode='"+OrderCode+"'";
+		PublicVariable.view_hamyar.clear();
 		C=db.rawQuery(Query,null);
 		for(int i=0;i<C.getCount();i++)
 		{
@@ -448,7 +449,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));

@@ -14,7 +14,7 @@ import java.io.IOException;
  * Created by hashemi on 02/18/2018.
  */
 
-public class ServiceGetUserServicesHamyarRequest extends Service {
+public class ServiceGetServiceSaved extends Service {
     Handler mHandler;
     boolean continue_or_stop = true;
     boolean createthread=true;
@@ -40,7 +40,7 @@ public class ServiceGetUserServicesHamyarRequest extends Service {
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (PublicVariable.thread_RequestHamyar) {
+                                    if (PublicVariable.thread_ServiceSaved) {
                                         dbh = new DatabaseHelper(getApplicationContext());
                                         try {
 
@@ -64,11 +64,12 @@ public class ServiceGetUserServicesHamyarRequest extends Service {
                                         Cursor coursors = db.rawQuery("SELECT * FROM login", null);
                                         for (int i = 0; i < coursors.getCount(); i++) {
                                             coursors.moveToNext();
+
                                             karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
                                         }
                                         db.close();
-                                        SyncGetUserServicesHamyarRequest syncGetUserServicesHamyarRequest = new SyncGetUserServicesHamyarRequest(getApplicationContext(), karbarCode, "0");
-                                        syncGetUserServicesHamyarRequest.AsyncExecute();
+                                        SyncGetUserServices syncGetUserServices = new SyncGetUserServices(getApplicationContext(), karbarCode, "0");
+                                        syncGetUserServices.AsyncExecute();
                                     }
                                 }
                             });
