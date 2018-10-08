@@ -14,9 +14,8 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import java.io.IOException;
-import java.util.regex.Pattern;
 
-public class SyncGetUserServiceHamyarPic {
+public class SyncGetUserServiceStartDate {
 
 	//Primary Variable
 	DatabaseHelper dbh;
@@ -24,17 +23,15 @@ public class SyncGetUserServiceHamyarPic {
 	PublicVariable PV;
 	InternetConnection IC;
 	private Context activity;
-	private String HamyarCode;
-	private String UserCode;
 	private String WsResponse;
+	private String pUserServiceCode;
 	private boolean CuShowDialog = false;
 
 	//Contractor
-	public SyncGetUserServiceHamyarPic(Context activity, String HamyarCode,String UserCode) {
+	public SyncGetUserServiceStartDate(Context activity, String pUserServiceCode) {
 		this.activity = activity;
-		this.HamyarCode = HamyarCode;
-		this.UserCode = UserCode;
-
+		this.pUserServiceCode = pUserServiceCode;
+		PublicVariable.theard_GetUserServiceStartDate=false;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 
@@ -65,11 +62,11 @@ public class SyncGetUserServiceHamyarPic {
 				AsyncCallWS task = new AsyncCallWS(this.activity);
 				task.execute();
 			} catch (Exception e) {
-				//Toast.makeText(this.activity.getApplicationContext(), PersianReshape.reshape("ط¹ط¯ظ… ط¯ط³طھط±ط³غŒ ط¨ظ‡ ط³ط±ظˆط±"), Toast.LENGTH_SHORT).show();
+				//akeText(this.activity.getApplicationContext(), PersianReshape.reshape("ط¹ط¯ظ… ط¯ط³طھط±ط³غŒ ط¨ظ‡ ط³ط±ظˆط±"), Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			}
 		} else {
-			//Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
+			//akeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -87,7 +84,7 @@ public class SyncGetUserServiceHamyarPic {
 		protected String doInBackground(String... params) {
 			String result = null;
 			try {
-				CallWsMethod("GetHamyarProfilePic");
+				CallWsMethod("GetUserServiceStartDate");
 			} catch (Exception e) {
 				result = e.getMessage().toString();
 			}
@@ -97,21 +94,22 @@ public class SyncGetUserServiceHamyarPic {
 		@Override
 		protected void onPostExecute(String result) {
 			if (result == null) {
+				PublicVariable.theard_GetUserServiceStartDate=true;
 				if (WsResponse.toString().compareTo("ER") == 0) {
-					//Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
+					//akeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 				}
 				else if (WsResponse.toString().compareTo("0") == 0) {
-					//Toast.makeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
+					//akeText(this.activity.getApplicationContext(), "خطا در ارتباط با سرور", Toast.LENGTH_LONG).show();
 				}
 				else if (WsResponse.toString().compareTo("2") == 0) {
-					//Toast.makeText(this.activity.getApplicationContext(), "کاربر شناسایی نشد", Toast.LENGTH_LONG).show();
+					//akeText(this.activity.getApplicationContext(), "کاربر شناسایی نشد", Toast.LENGTH_LONG).show();
 				}
 				else
 				{
 					InsertDataFromWsToDb(WsResponse);
 				}
 			} else {
-				//Toast.makeText(this.activity, "ط®ط·ط§ ط¯ط± ط§طھطµط§ظ„ ط¨ظ‡ ط³ط±ظˆط±", Toast.LENGTH_SHORT).show();
+				//akeText(this.activity, "ط®ط·ط§ ط¯ط± ط§طھطµط§ظ„ ط¨ظ‡ ط³ط±ظˆط±", Toast.LENGTH_SHORT).show();
 			}
 			try {
 				if (this.dialog.isShowing()) {
@@ -138,15 +136,15 @@ public class SyncGetUserServiceHamyarPic {
 	public void CallWsMethod(String METHOD_NAME) {
 		//Create request
 		SoapObject request = new SoapObject(PV.NAMESPACE, METHOD_NAME);
-		PropertyInfo HamyarCodePI = new PropertyInfo();
+		PropertyInfo pUserServiceCodePI = new PropertyInfo();
 		//Set Name
-		HamyarCodePI.setName("HamyarCode");
+		pUserServiceCodePI.setName("pUserServiceCode");
 		//Set Value
-		HamyarCodePI.setValue(HamyarCode);
+		pUserServiceCodePI.setValue(pUserServiceCode);
 		//Set dataType
-		HamyarCodePI.setType(String.class);
+		pUserServiceCodePI.setType(String.class);
 		//Add the property to request object
-		request.addProperty(HamyarCodePI);
+		request.addProperty(pUserServiceCodePI);
 		//Create envelope
 		SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 				SoapEnvelope.VER11);
@@ -171,41 +169,32 @@ public class SyncGetUserServiceHamyarPic {
 
 
 	public void InsertDataFromWsToDb(String AllRecord) {
-		String query;
-		String value[] =WsResponse.split(Pattern.quote("[Besparina##]"));
-		if (value[3].compareTo("ERROR")!=0) {
-			 query = "INSERT INTO InfoHamyar (" +
-					"Code_InfoHamyar," +
-					"Fname," +
-					"Lname," +
-					"Mobile," +
-					"img" +
-					") VALUES('" +
-					HamyarCode + "','" +
-					 value[0] + "','" +
-					 value[1] + "','" +
-					 value[2] + "','" +
-					 value[3] + "')";
-		}
-		else
-		{
-			query = "INSERT INTO InfoHamyar (" +
-					"Code_InfoHamyar," +
-					"Fname," +
-					"Lname," +
-					"Mobile," +
-					"img" +
-					") VALUES('" +
-					HamyarCode + "','" +
-					value[0] + "','" +
-					value[1] + "','" +
-					value[2] + "','" +
-					"0" + "')";
-		}
+		String[] res;
+		String[] value;
+		res = WsResponse.split("@@");
 		db = dbh.getWritableDatabase();
-		db.execSQL(query);
-		SyncGetHamyarProfile syncGetHamyarProfile=new SyncGetHamyarProfile(activity,UserCode,HamyarCode);
-		syncGetHamyarProfile.AsyncExecute();
+		for (int i = 0; i < res.length; i++) {
+			value = res[i].split("##");
+			String query = "INSERT INTO StartDateService (" +
+							"Code," +
+							"BsUserServiceCode," +
+							"HamyarCode," +
+							"StartDate) VALUES('" +
+							value[0] + "','" +
+							value[1] + "','" +
+							value[2] + "','" +
+							value[3] + "')";
+					db.execSQL(query);
+					String message="برای سرویس به شماره: " + value[1] +"اعلام شروع به کار شده است";
+						runNotification("بسپارینا", message, i, value[1], MainMenu.class, "2");
+		}
+		db.close();
 	}
+	public void runNotification(String title, String detail, int id, String OrderCode, Class<?> Cls, String status)
+	{
+		NotificationClass notifi=new NotificationClass();
+		notifi.Notificationm(this.activity,title,detail,OrderCode,id,Cls);
+	}
+
 }
 

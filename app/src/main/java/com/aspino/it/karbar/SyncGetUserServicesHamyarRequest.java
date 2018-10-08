@@ -240,8 +240,13 @@ public class SyncGetUserServicesHamyarRequest {
 			}
 			if(!check2(value[2]))
 			{
-				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[0],value[1],value[2],value[3]);
+				SyncGetUserServiceHamyarPic syncGetUserServiceHamyarPic=new SyncGetUserServiceHamyarPic(activity,value[2],pUserCode);
 				syncGetUserServiceHamyarPic.AsyncExecute();
+			}
+			else
+			{
+				SyncGetHamyarProfile syncGetHamyarProfile=new SyncGetHamyarProfile(activity,pUserCode,value[2]);
+				syncGetHamyarProfile.AsyncExecute();
 			}
 			if(!check3(value[2],value[1]))
 			{
