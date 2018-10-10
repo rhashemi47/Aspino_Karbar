@@ -185,7 +185,7 @@ class SyncGetHamyarProfile {
                 "CourseCode='" +value[4] + "', " +
                 "HmServices='" +value[5] + "', " +
                 "WorkHistoryInMonth='" +value[6] + "', " +
-                "HmayarStar='" +value[7] + "' WHERE Code_InfoHamyar='" + HamyarCode + "'";
+                "HmayarStar='" +value[7].replace("@@","") + "' WHERE Code_InfoHamyar='" + HamyarCode + "'";
         db = dbh.getWritableDatabase();
         db.execSQL(query);
         SyncGetHamyarComment syncGetHamyarComment=new SyncGetHamyarComment(activity,UserCode,HamyarCode);

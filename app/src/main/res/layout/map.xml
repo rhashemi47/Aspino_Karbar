@@ -33,11 +33,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:text="@string/nameLocation"
+                            android:textSize="32sp"
                             android:layout_gravity="center"
                             android:gravity="center"/>
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:textSize="32sp"
                             android:id="@+id/NameAddres"/>
                     </LinearLayout>
                     <LinearLayout
@@ -48,11 +50,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:textSize="32sp"
                             android:text="@string/DetailAddres"/>
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="70dp"
                             android:id="@+id/AddAddres"
+                            android:textSize="32sp"
                             android:layout_weight="1"/>
                         <Button
                             android:layout_width="match_parent"
@@ -60,6 +64,7 @@
                             android:id="@+id/btnSaveLocation"
                             android:text="@string/SaveLocation"
                             android:textColor="#fff"
+                            android:textSize="22sp"
                             android:layout_marginRight="60dp"
                             android:layout_marginLeft="60dp"
                             android:layout_marginBottom="5dp"
