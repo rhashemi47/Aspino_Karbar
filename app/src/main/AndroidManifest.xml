@@ -84,6 +84,9 @@
         <activity
             android:name="com.aspino.it.karbar.Survey"
             android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Joziat_Motekhases"
+            android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetSliderPic">
 
         </service>

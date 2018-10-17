@@ -159,25 +159,25 @@ protected void onCreate(final Bundle savedInstanceState) {
 				coursors.getString(coursors.getColumnIndex("StartMinute"));
 		tvDateService.setText(StartDate);
 		tvTimeService.setText(StartTime);
-		String Query="SELECT UserServicesHamyarRequest.*,InfoHamyar.*" +
-				" FROM UserServicesHamyarRequest " +
+		String Query="SELECT A.HamyarCode,A.Code ReqCode,A.Price,B.Fname,B.img,B.HmayarStar,B.Lname" +
+				" FROM UserServicesHamyarRequest A" +
 				" LEFT JOIN " +
-				" InfoHamyar ON " +
-				" UserServicesHamyarRequest.HamyarCode=InfoHamyar.Code_InfoHamyar" +
-				" WHERE UserServicesHamyarRequest.BsUserServicesCode='"+OrderCode+"'";
+				" (select max(Code_InfoHamyar)Code_InfoHamyar, max(Fname)Fname,max(img)img,max(HmayarStar)HmayarStar,max(Lname)Lname from InfoHamyar group by Code_InfoHamyar) B ON " +
+				" A.HamyarCode=B.Code_InfoHamyar" +
+				" WHERE A.BsUserServicesCode='"+OrderCode+"'";
 		PublicVariable.view_hamyar.clear();
 		C=db.rawQuery(Query,null);
 		for(int i=0;i<C.getCount();i++)
 		{
 			C.moveToNext();
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("Code",C.getString(C.getColumnIndex("UserServicesHamyarRequest.HamyarCode")));
-			map.put("Name",C.getString(C.getColumnIndex("InfoHamyar.Fname")) + " " + C.getString(C.getColumnIndex("InfoHamyar.Lname")));
-			map.put("imgHamyar",C.getString(C.getColumnIndex("InfoHamyar.img")));
-			map.put("RateBar",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
-			map.put("RateNumber",C.getString(C.getColumnIndex("InfoHamyar.HmayarStar")));
-			map.put("UnreadCount",C.getString(C.getColumnIndex("UserServicesHamyarRequest.Price")));
-			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("UserServicesHamyarRequest.Code")));
+			map.put("Code",C.getString(C.getColumnIndex("HamyarCode")));
+			map.put("Name",C.getString(C.getColumnIndex("Fname")) + " " + C.getString(C.getColumnIndex("Lname")));
+			map.put("imgHamyar",C.getString(C.getColumnIndex("img")));
+			map.put("RateBar",C.getString(C.getColumnIndex("HmayarStar")));
+			map.put("RateNumber",C.getString(C.getColumnIndex("HmayarStar")));
+			map.put("UnreadCount",C.getString(C.getColumnIndex("Price")));
+			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("ReqCode")));
 			valuse.add(map);
 		}
 		db.close();

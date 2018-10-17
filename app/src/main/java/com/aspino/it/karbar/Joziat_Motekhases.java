@@ -45,6 +45,7 @@ public class Joziat_Motekhases extends AppCompatActivity {
 	private String FinalCurrency="0";
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 	private String HamyarCode;
+	private String CodeMotkhases;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -109,33 +110,16 @@ protected void onCreate(Bundle savedInstanceState) {
 	{
 		OrderCode="0";
 	}
-//	db=dbh.getReadableDatabase();
-//	final Cursor coursors;
-//	Cursor cursor;
-//	String Query="SELECT OrdersService.*,Servicesdetails.name,address.name adname FROM OrdersService " +
-//			"LEFT JOIN " +
-//			"Servicesdetails ON " +
-//			"Servicesdetails.code=OrdersService.ServiceDetaileCode " +
-//			"LEFT JOIN " +
-//			"address ON " +
-//			"OrdersService.AddressCode=address.code WHERE OrdersService.Code_OrdersService ="+ OrderCode;
-//	coursors = db.rawQuery(Query, null);
-//	for(int i=0;i<coursors.getCount();i++){
-//		coursors.moveToNext();
-//		tvContentTypeService.setText(coursors.getString(coursors.getColumnIndex("name")));
-//		tvDateService.setText(coursors.getString(coursors.getColumnIndex("StartYear"))+"/"+
-//				coursors.getString(coursors.getColumnIndex("StartMonth"))+"/"+
-//				coursors.getString(coursors.getColumnIndex("StartDay")) + " - " +
-//		coursors.getString(coursors.getColumnIndex("StartHour"))+":"+
-//				coursors.getString(coursors.getColumnIndex("StartMinute")));
-//		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("adname")));
-//		tvCodeService.setText(coursors.getString(coursors.getColumnIndex("Code_OrdersService")));
-//	}
-//	if(!coursors.isClosed())
-//	{
-//		coursors.close();
-//	}
-	String Query="SELECT Hamyar.*,InfoHamyar.* FROM Hamyar " +
+	try
+	{
+		CodeMotkhases = getIntent().getStringExtra("CodeMotkhases").toString();
+
+	}
+	catch (Exception e)
+	{
+		CodeMotkhases="0";
+	}
+	String Query="SELECT InfoHamyar.* FROM Hamyar " +
 			"LEFT JOIN " +
 			"InfoHamyar ON " +
 			"Hamyar.CodeHamyarInfo=InfoHamyar.Code_InfoHamyar " +

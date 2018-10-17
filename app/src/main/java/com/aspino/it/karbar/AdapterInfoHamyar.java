@@ -113,8 +113,8 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
         @Override
         public void onClick(View v) {
             String item = ((Button) v).getTag().toString();
-            Intent intent = new Intent(mActivity, Select_Hamyar.class);//todo show Details Hamyar
-            intent.putExtra("Code", item);
+            Intent intent = new Intent(mActivity, Joziat_Motekhases.class);
+            intent.putExtra("CodeMotkhases", item);
             mActivity.startActivity(intent);
         }
     };
