@@ -66,13 +66,15 @@ public class Fragment_Service_Run extends Fragment {
                     "LEFT JOIN Servicesdetails " +
                     "ON Servicesdetails.code=OrdersService.ServiceDetaileCode " +
                     "LEFT JOIN address " +
-                    "ON OrdersService.AddressCode=address.Code " +
-                    "WHERE OrdersService.Status ='1' OR OrdersService.Status ='0'", null);
+                    "ON OrdersService.AddressCode=address.Code "
+                    +"WHERE OrdersService.Status ='1' OR OrdersService.Status ='2' OR OrdersService.Status ='0'"
+                    , null);
         for(int i=0;i<coursors.getCount();i++){
             coursors.moveToNext();
             HashMap<String, String> map = new HashMap<String, String>();
             String StartDate;
             String StartTime;
+            String Status=coursors.getString(coursors.getColumnIndex("Status"));
             C=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='"+coursors.getString(coursors.getColumnIndex("Code_OrdersService"))+"'",null);
             map.put("NameHamyar","تعداد " + String.valueOf(C.getCount()) + " متخصص پیشنهاد دهنده ");
             if(C.getCount()>0) {

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.text.BreakIterator;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -39,13 +40,14 @@ public class Joziat_Motekhases extends AppCompatActivity {
 	private TextView tvHistoryJobAll;
 	private TextView tvComment_Hamyar;
 	private Button btnSelectThisHamyar;
-	private String OrderCode;
+	private String CodeHamyarRequest;
 	private String strCall;
 	private String Confirm="0";
 	private String FinalCurrency="0";
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 	private String HamyarCode;
 	private String CodeMotkhases;
+	private String OrderCode;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -54,7 +56,7 @@ public class Joziat_Motekhases extends AppCompatActivity {
 @Override
 protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
-	setContentView(R.layout.pardakh_factor_sefaresh);
+	setContentView(R.layout.joziat_motekhases);
 	imgHamyar=(ImageView) findViewById(R.id.imgHamyar);
 	imgCall=(ImageView) findViewById(R.id.imgCall);
 	imgMessage=(ImageView) findViewById(R.id.imgMessage);
@@ -103,12 +105,12 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	try
 	{
-		OrderCode = getIntent().getStringExtra("OrderCode").toString();
+		CodeHamyarRequest = getIntent().getStringExtra("CodeHamyarRequest").toString();
 
 	}
 	catch (Exception e)
 	{
-		OrderCode="0";
+		CodeHamyarRequest="0";
 	}
 	try
 	{
@@ -119,17 +121,32 @@ protected void onCreate(Bundle savedInstanceState) {
 	{
 		CodeMotkhases="0";
 	}
-	String Query="SELECT InfoHamyar.* FROM Hamyar " +
-			"LEFT JOIN " +
-			"InfoHamyar ON " +
-			"Hamyar.CodeHamyarInfo=InfoHamyar.Code_InfoHamyar " +
-			" WHERE Hamyar.CodeOrder ="+ OrderCode;
+	String Query="SELECT A.HamyarCode,A.Code ReqCode,A.BsUserServicesCode ,B.Mobile,B.Fname,B.Lname,B.img,B.BthDate,B.CourseCode,B.HmServices,B.WorkHistoryInMonth,B.WorkHistoryAllYear" +
+//			",B.CommentToUser" +
+			" FROM UserServicesHamyarRequest A" +
+			" LEFT JOIN " +
+			" (SELECT max(Code_InfoHamyar)Code_InfoHamyar, max(Mobile)Mobile, max(Fname)Fname,max(img)img,max(HmayarStar)HmayarStar,max(Lname)Lname ,max(BthDate)BthDate ,max(CourseCode)CourseCode ,max(HmServices)HmServices ,max(WorkHistoryInMonth)WorkHistoryInMonth,max(WorkHistoryAllYear)WorkHistoryAllYear" +
+			" FROM InfoHamyar group by Code_InfoHamyar) B ON " +
+			" A.HamyarCode=B.Code_InfoHamyar" +
+			" WHERE A.Code='"+CodeHamyarRequest+"'";
 	Cursor cursor = db.rawQuery(Query, null);
 	if(cursor.getCount()>0){
 		cursor.moveToNext();
 		imgHamyar.setImageBitmap(convertToBitmap(cursor.getString(cursor.getColumnIndex("img"))));
 		strCall=cursor.getString(cursor.getColumnIndex("Mobile"));
-		HamyarCode=cursor.getString(cursor.getColumnIndex("InfoHamyar.Code_InfoHamyar"));
+		HamyarCode=cursor.getString(cursor.getColumnIndex("HamyarCode"));
+		tvFirstname.setText(cursor.getString(cursor.getColumnIndex("Fname")));
+		tvLastname.setText(cursor.getString(cursor.getColumnIndex("Lname")));
+		tvBirthday.setText(cursor.getString(cursor.getColumnIndex("BthDate")));
+		tvDegreeOfEducation.setText(cursor.getString(cursor.getColumnIndex("CourseCode")));
+		tvBaseExpert.setText(cursor.getString(cursor.getColumnIndex("HmServices")));
+		tvHistoryJobAll.setText(cursor.getString(cursor.getColumnIndex("WorkHistoryAllYear")));
+		tvHistoryJob.setText(cursor.getString(cursor.getColumnIndex("WorkHistoryInMonth")));
+		OrderCode=cursor.getString(cursor.getColumnIndex("BsUserServicesCode"));
+//		tvComment_Hamyar.setText(cursor.getString(cursor.getColumnIndex("CommentToUser")));
+		Cursor cursorComment=db.rawQuery("SELECT * FROM Comment WHERE HamyarCode='"+HamyarCode+"'",null);
+		tvCommentSaved.setText(String.valueOf(cursorComment.getCount()));
+		cursorComment.close();
 	}
 	if(!cursor.isClosed())
 	{
@@ -138,32 +155,6 @@ protected void onCreate(Bundle savedInstanceState) {
 	if(db.isOpen()) {
 		db.close();
 	}
-//	Query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
-//	db=dbh.getReadableDatabase();
-//	cursor = db.rawQuery(Query, null);
-//	if(cursor.getCount()>0){
-//		cursor.moveToNext();
-//		String Price =cursor.getString(cursor.getColumnIndex("Price"));
-//		String PriceFinal =cursor.getString(cursor.getColumnIndex("PriceFinal"));
-//		String DiscountService =cursor.getString(cursor.getColumnIndex("PriceOff"));
-//		FinalCurrency =cursor.getString(cursor.getColumnIndex("TotalPrice"));
-//		Confirm =cursor.getString(cursor.getColumnIndex("Confirm"));
-//		tvEstimatedPrice.setText(Price);
-//		tvFinalPrice.setText(PriceFinal);
-//		tvContetnDiscountService.setText(DiscountService);
-//		tvContetnFinalCurrency.setText(FinalCurrency);
-//		if(PriceFinal.compareTo(Price)!=0 && Confirm.compareTo("0")==0)
-//		{
-//			alert_final_factor(PriceFinal);
-//		}
-//	}
-//	if(!cursor.isClosed())
-//	{
-//		cursor.close();
-//	}
-//	if(db.isOpen()) {
-//		db.close();
-//	}
 	imgCall.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -179,7 +170,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	btnSelectThisHamyar.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			//todo
+			SyncInsertFromHamyarRequestToHamyarAccept syncInsertFromHamyarRequestToHamyarAccept = new SyncInsertFromHamyarRequestToHamyarAccept(Joziat_Motekhases.this,
+					CodeHamyarRequest);
+			syncInsertFromHamyarRequestToHamyarAccept.AsyncExecute();
 		}
 	});
 }
@@ -189,11 +182,11 @@ protected void onCreate(Bundle savedInstanceState) {
 //
 //    return super.onKeyDown( keyCode, event );
 //}
-public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue)
+public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue, String VariableName1, String VariableValue1)
 	{
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
-
+		intent.putExtra(VariableName1, VariableValue1);
 		this.startActivity(intent);
 	}
 	public Bitmap convertToBitmap(String base) {
@@ -219,6 +212,6 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 	}
 	@Override
 	public void onBackPressed() {
-			LoadActivity(Select_Hamyar.class, "karbarCode", karbarCode);//todo Send Order Code
+			LoadActivity(Select_Hamyar.class, "karbarCode", karbarCode, "OrderCode", OrderCode);//todo Send Order Code
 	}
 }

@@ -102,12 +102,6 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDzlg_PGiriwn7yipo2xDLeLwIJ8mD6EMs" />
-        <!--<meta-data-->
-
-
-        <!--android:name="com.google.android.geo.API_KEY"-->
-            <!--android:value="AIzaSyAUYNvpBlo7k5pcrIs58syOpbINOGT43v8"/>-->
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

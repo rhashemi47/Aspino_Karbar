@@ -35,9 +35,9 @@ public class SMSReseiver extends BroadcastReceiver {
                                 messageBody = msgs[i].getMessageBody();
                                 StrAccept = messageBody.split(":");
                                 StrAccept[1] = StrAccept[1].trim();
-                                if (StrAccept[0].compareTo("آسپینو کاربر ") == 0) {
+//                                if (StrAccept[0].compareTo("آسپينو كاربر ") == 0) {
                                     mListener.onMessageReceived(StrAccept[1]);
-                                }
+//                                }
                             }
                         }
                         if (messageBody.compareTo("") != 0) {

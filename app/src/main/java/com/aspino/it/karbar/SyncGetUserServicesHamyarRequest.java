@@ -44,7 +44,7 @@ public class SyncGetUserServicesHamyarRequest {
 			dbh.createDataBase();
 
 		} catch (IOException ioe) {
-
+			PublicVariable.thread_RequestHamyar = true;
 			throw new Error("Unable to create database");
 
 		}
@@ -54,7 +54,7 @@ public class SyncGetUserServicesHamyarRequest {
 			dbh.openDataBase();
 
 		} catch (SQLException sqle) {
-
+			PublicVariable.thread_RequestHamyar = true;
 			throw sqle;
 		}
 	}
@@ -66,9 +66,11 @@ public class SyncGetUserServicesHamyarRequest {
 				task.execute();
 			} catch (Exception e) {
 				//Toast.makeText(this.activity.getApplicationContext(), PersianReshape.reshape("ط¹ط¯ظ… ط¯ط³طھط±ط³غŒ ط¨ظ‡ ط³ط±ظˆط±"), Toast.LENGTH_SHORT).show();
+				PublicVariable.thread_RequestHamyar = true;
 				e.printStackTrace();
 			}
 		} else {
+			PublicVariable.thread_RequestHamyar = true;
 			//Toast.makeText(this.activity.getApplicationContext(), "لطفا ارتباط شبکه خود را چک کنید", Toast.LENGTH_SHORT).show();
 		}
 	}
@@ -80,7 +82,8 @@ public class SyncGetUserServicesHamyarRequest {
 
 		public AsyncCallWS(Context activity) {
 			this.activity = activity;
-			this.dialog = new ProgressDialog(activity);		    this.dialog.setCanceledOnTouchOutside(false);
+			this.dialog = new ProgressDialog(activity);
+			this.dialog.setCanceledOnTouchOutside(false);
 		}
 
 		@Override
@@ -89,6 +92,7 @@ public class SyncGetUserServicesHamyarRequest {
 			try {
 				CallWsMethod("GetUserServicesHamyarRequest");
 			} catch (Exception e) {
+				PublicVariable.thread_RequestHamyar = true;
 				result = e.getMessage().toString();
 			}
 			return result;
@@ -96,6 +100,7 @@ public class SyncGetUserServicesHamyarRequest {
 
 		@Override
 		protected void onPostExecute(String result) {
+			PublicVariable.thread_RequestHamyar = true;
 			if (result == null) {
 				PublicVariable.thread_RequestHamyar=true;
 				if (WsResponse.toString().compareTo("ER") == 0) {
@@ -119,6 +124,7 @@ public class SyncGetUserServicesHamyarRequest {
 					this.dialog.dismiss();
 				}
 			} catch (Exception e) {
+				PublicVariable.thread_RequestHamyar = true;
 			}
 		}
 
@@ -220,7 +226,10 @@ public class SyncGetUserServicesHamyarRequest {
 							"HmayarStar='" + value[4] + "' , " +
 							"PriceFinal='" + value[5] + "' , " +
 							"PriceOff='" + value[6] + "' , " +
-							"TotalPrice='" + value[7] + "' WHERE BsUserServicesCode='" + value[1] +
+							"ConfirmFirst='" + value[8] + "' , " +
+							"ConfirmSecond='" + value[9] + "' , " +
+							"TotalPrice='" + value[7] + "' " +
+							"WHERE BsUserServicesCode='" + value[1] +
 							"' AND HamyarCode='" + value[2] + "'";
 				}
 				else
@@ -229,11 +238,13 @@ public class SyncGetUserServicesHamyarRequest {
 							"Code='" + value[0] + "' , " +
 							"BsUserServicesCode='" + value[1] + "' , " +
 							"HamyarCode='" + value[2] + "' , " +
-							"Price='" + value[3] + "' , " +
 							"HmayarStar='" + value[4] + "' , " +
 							"PriceFinal='" + value[5] + "' , " +
 							"PriceOff='" + value[6] + "' , " +
-							"TotalPrice='" + value[7] + "' , Confirm='0' WHERE BsUserServicesCode='" + value[1] +
+							"TotalPrice='" + value[7] + "' , " +
+							"ConfirmFirst='" + value[8] + "' , " +
+							"ConfirmSecond='" + value[9] + "'" +
+							" WHERE BsUserServicesCode='" + value[1] +
 							"' AND HamyarCode='" + value[2] + "'";
 				}
 				db.execSQL(query);
@@ -280,10 +291,10 @@ public class SyncGetUserServicesHamyarRequest {
 			return false;
 		}
 	}
-	public boolean check_PriceFinal(String CodeOrder,String HamyarCode,String PriceFinal)
+	public boolean check_PriceFinal(String CodeRquest,String HamyarCode,String PriceFinal)
 	{
 		db=dbh.getReadableDatabase();
-		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
+		String query = "SELECT * FROM UserServicesHamyarRequest WHERE Code='" + CodeRquest +
 				"' AND HamyarCode='" + HamyarCode+"' AND PriceFinal='"+PriceFinal+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)

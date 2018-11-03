@@ -192,10 +192,12 @@ class SyncGetHamyarComment {
             value = res[i].split("##");
             if (!check(value[0])) {
                 query = "INSERT INTO Comment (" +
+                        "HamyarCode," +
                         "Code_Comment," +
                         "NameFamily," +
                         "Comment," +
                         "InsertDate) VALUES('" +
+                        HamyarCode + "','" +
                         value[0] + "','" +
                         value[1] + "','" +
                         value[2] + "','" +

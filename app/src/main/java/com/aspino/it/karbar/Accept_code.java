@@ -58,6 +58,7 @@ public class Accept_code extends Activity {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			acceptcode.setText(intent.getExtras().getString("sms"));
+			intentReciever.abortBroadcast();
 		}
 	};
 	@Override
@@ -97,7 +98,6 @@ public class Accept_code extends Activity {
 					//do nothing
 				}
 				else{
-
 					ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.READ_SMS},GET_MY_PERMISSION);
 				}
 			}
@@ -336,6 +336,7 @@ public void onPause() {
 	public void onDestroy() {
 		super.onDestroy();
 		// Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
+		intentReciever.abortBroadcast();
 		continue_or_stop=false;
 	}
 }

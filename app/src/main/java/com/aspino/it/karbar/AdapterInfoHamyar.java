@@ -63,7 +63,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
         holder.tvRateNumber.setText(RateNumber);
         holder.RatingHamyar.setRating(Float.parseFloat(RateBar));
         holder.imgHamyar.setImageBitmap(convertToBitmap(imgHamyar));
-        holder.buttonInvite.setTag(Code);
+        holder.buttonInvite.setTag(CodeHamyarRequest);
         holder.buttonInvite.setOnClickListener(ButtonItemOnClick);
         holder.LinearHamyar.setTag(CodeHamyarRequest);
         holder.LinearHamyar.setOnClickListener(ItemOnclick);
@@ -114,7 +114,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
         public void onClick(View v) {
             String item = ((Button) v).getTag().toString();
             Intent intent = new Intent(mActivity, Joziat_Motekhases.class);
-            intent.putExtra("CodeMotkhases", item);
+            intent.putExtra("CodeHamyarRequest", item);
             mActivity.startActivity(intent);
         }
     };

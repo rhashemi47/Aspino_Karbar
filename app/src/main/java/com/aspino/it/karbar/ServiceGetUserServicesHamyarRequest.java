@@ -72,7 +72,7 @@ public class ServiceGetUserServicesHamyarRequest extends Service {
                                     }
                                 }
                             });
-                            Thread.sleep(6000); // every 60 seconds
+                            Thread.sleep(6000); // every 6 seconds
                         } catch (Exception e) {
                             // TODO: handle exception
                         }

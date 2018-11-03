@@ -184,7 +184,7 @@ public class SyncInsertFromHamyarRequestToHamyarAccept {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
     	db=dbh.getReadableDatabase();
-    	Cursor cursor=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE HamyarCode='"+HamyarRequestCode+"'",null);
+    	Cursor cursor=db.rawQuery("SELECT * FROM UserServicesHamyarRequest WHERE Code='"+HamyarRequestCode+"'",null);
     	if(cursor.getCount()>0)
 		{
 			cursor.moveToNext();

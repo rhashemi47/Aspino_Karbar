@@ -186,7 +186,7 @@ public class SyncUpdateAcceptHamyarFinalPrice {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
     	db=dbh.getWritableDatabase();
-    	String query = "UPDATE UserServicesHamyarRequest SET Confirm='1' WHERE Code='" + RequestCode + "'";
+    	String query = "UPDATE UserServicesHamyarRequest SET ConfirmSecond='1' WHERE Code='" + RequestCode + "'";
 		db.execSQL(query);
 		alertDialog.dismiss();
     }

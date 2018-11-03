@@ -55,6 +55,7 @@ public class Pardakh_Factor_Sefaresh extends AppCompatActivity {
 	private String FinalCurrency="0";
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 	private String HamyarCode;
+	private String RequestCode="0";
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -175,7 +176,8 @@ protected void onCreate(Bundle savedInstanceState) {
 		String PriceFinal =cursor.getString(cursor.getColumnIndex("PriceFinal"));
 		String DiscountService =cursor.getString(cursor.getColumnIndex("PriceOff"));
 		FinalCurrency =cursor.getString(cursor.getColumnIndex("TotalPrice"));
-		Confirm =cursor.getString(cursor.getColumnIndex("Confirm"));
+		Confirm =cursor.getString(cursor.getColumnIndex("ConfirmSecond"));
+		RequestCode =cursor.getString(cursor.getColumnIndex("Code"));
 		tvEstimatedPrice.setText(Price);
 		tvFinalPrice.setText(PriceFinal);
 		tvContetnDiscountService.setText(DiscountService);
@@ -212,7 +214,7 @@ protected void onCreate(Bundle savedInstanceState) {
 		Cursor	cursor = db.rawQuery(Query, null);
 			if(cursor.getCount()>0){
 				cursor.moveToNext();
-				Confirm=cursor.getString(cursor.getColumnIndex("Confirm"));
+				Confirm=cursor.getString(cursor.getColumnIndex("ConfirmSecond"));
 			}
 			if(Confirm.compareTo("1")==0)
 			{
@@ -314,7 +316,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		btnYes.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,OrderCode,alertDialog);
+				SyncUpdateAcceptHamyarFinalPrice syncUpdateAcceptHamyarFinalPrice=new SyncUpdateAcceptHamyarFinalPrice(Pardakh_Factor_Sefaresh.this,RequestCode,alertDialog);
 				syncUpdateAcceptHamyarFinalPrice.AsyncExecute();
 			}
 		});
