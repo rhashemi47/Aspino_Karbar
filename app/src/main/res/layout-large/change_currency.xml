@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/rounded_bottom_activity"
+    android:background="@color/mdtp_transparent"
     android:layoutDirection="rtl">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@drawable/rounded_bottom_activity"
         android:layout_marginTop="10dp">
         <LinearLayout
             android:layout_width="match_parent"

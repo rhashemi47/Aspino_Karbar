@@ -37,7 +37,7 @@
             android:id="@+id/listViewAddress"
             android:layout_width="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_height="380dp"
+            android:layout_height="340dp"
             android:background="#ffffff"
             android:dividerHeight="5dp">
         </ListView>

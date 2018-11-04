@@ -35,7 +35,6 @@ public class Main_Activity  extends AppCompatActivity{
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
 //    private TextView tvSignUp;
-    private Button btnServiceOrder;
     private ImageView imageView;
     private Custom_ViewFlipper viewFlipper;
     private GestureDetector mGestureDetector;
@@ -45,7 +44,6 @@ public class Main_Activity  extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu);
 //        tvSignUp=(TextView)findViewById(R.id.tvSignUp);
-        btnServiceOrder=(Button) findViewById(R.id.btnServiceOrder);
         viewFlipper=(Custom_ViewFlipper) findViewById(R.id.vf);
 
         dbh = new DatabaseHelper(getApplicationContext());

@@ -156,14 +156,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="110dp"
-                    android:layout_marginLeft="110dp"
+                    android:layout_marginRight="90dp"
+                    android:layout_marginLeft="90dp"
                     android:text="@string/Cansel_Service"
                     android:textColor="#fff"
                     android:textSize="16sp"
                     android:drawableLeft="@drawable/recycle"
-                    android:paddingLeft="40dp"
-                    android:paddingRight="40dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:id="@+id/tvCanselService"
                     android:background="@drawable/rounded_button_cansle"/>
             </LinearLayout>
@@ -204,8 +204,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="60dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
             android:text="@string/AcceptAndSelectHamyar"
             android:textColor="#fff"
             android:paddingLeft="10dp"
