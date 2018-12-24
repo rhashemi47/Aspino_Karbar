@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -154,14 +154,14 @@ public class SyncProfilePic {
 	String LastNewsId;
 	public void LoadMaxNewId()
 	{
-		db = dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		Cursor cursors = db.rawQuery("select IFNULL(max(id),0)MID from news", null);
 		if(cursors.getCount() > 0)
 		{
 			cursors.moveToNext();
 			LastNewsId = cursors.getString(cursors.getColumnIndex("MID"));
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 	}
 	
 	public void CallWsMethod(String METHOD_NAME) {
@@ -204,9 +204,9 @@ public class SyncProfilePic {
 	public void InsertDataFromWsToDb(String AllRecord)
     {
 		String query=null;
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		query="UPDATE Profile SET Pic='"+WsResponse+"'";
-		db.execSQL(query);
-		db.close();
+		db.execSQL(query);if(db.isOpen()){db.close();}
+		if(db.isOpen()) {                                            db.close();                                        }
     }
 }

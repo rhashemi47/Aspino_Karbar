@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -103,7 +103,7 @@ public class UpdateAddress extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                String CodeState,CodeCity;
-                db=dbh.getWritableDatabase();
+                try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
                 String StrnameAddress=NameAddres.getText().toString().trim();
                 String StrAddAddres=AddAddres.getText().toString().trim();
                 String StrError="";
@@ -124,7 +124,7 @@ public class UpdateAddress extends AppCompatActivity {
                     syncUpdateAddress.AsyncExecute();
                 }
 
-                db.close();
+                if(db.isOpen()) {                                            db.close();                                        }
             }
         });
 
@@ -144,7 +144,7 @@ public class UpdateAddress extends AppCompatActivity {
             lon=Double.parseDouble(coursors.getString(coursors.getColumnIndex("Lng")));
         }
         coursors.close();
-        db.close();
+        if(db.isOpen()) {                                            db.close();                                        }
         //*************************************************************************************************
         GPSTracker gps = new GPSTracker(UpdateAddress.this);
 
@@ -168,7 +168,7 @@ public class UpdateAddress extends AppCompatActivity {
                 map.setMyLocationEnabled(true);
                 LatLng point;
                 point = new LatLng(lat, lon);
-//                db = dbh.getReadableDatabase();
+//                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 //                if (coursors.getCount() > 0) {
 //                    coursors.moveToNext();

@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.*;
 import android.app.AlertDialog;
@@ -164,14 +164,16 @@ public class Map extends AppCompatActivity {
         try {
             karbarCode = getIntent().getStringExtra("karbarCode").toString();
         } catch (Exception e) {
-            db = dbh.getReadableDatabase();
+            try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
             Cursor coursors = db.rawQuery("SELECT * FROM login", null);
             for (int i = 0; i < coursors.getCount(); i++) {
                 coursors.moveToNext();
 
                 karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
             }
-            db.close();
+            if(db.isOpen()) {
+                db.close();
+            }
         }
         try {
             backToActivity = getIntent().getStringExtra("nameActivity").toString();
@@ -196,7 +198,7 @@ public class Map extends AppCompatActivity {
             public void onClick(View v) {
 
                 String CodeState="",CodeCity="";
-                db=dbh.getWritableDatabase();
+                try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
                 String StrnameAddress=NameAddres.getText().toString().trim();
                 String StrAddAddres=AddAddres.getText().toString().trim();
                 String StrError="";
@@ -217,14 +219,36 @@ public class Map extends AppCompatActivity {
                 {
                     String latStr=Double.toString(lat);
                     String lonStr=Double.toString(lon);
-                    SyncAddress syncAddress=new SyncAddress(Map.this,karbarCode,"0",StrnameAddress,"0","0",StrAddAddres,"0",latStr,lonStr);
+                    SyncAddress syncAddress=new SyncAddress(Map.this,
+                            karbarCode,
+                            "0",
+                            StrnameAddress,
+                            "0",
+                            "0",
+                            StrAddAddres,
+                            "0",
+                            latStr,
+                            lonStr,
+                            DetailCode,
+                            FromDate,
+                            ToDate,
+                            FromTime,
+                            ToTime,
+                            Description,
+                            TimeDiff,
+                            MaleCount,
+                            FemaleCount,
+                            HamyarCount
+                    );
                     syncAddress.AsyncExecute();
                 }
                 else
                 {
                     Toast.makeText(Map.this,StrError,Toast.LENGTH_LONG).show();
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
             }
         });
 
@@ -389,7 +413,7 @@ public class Map extends AppCompatActivity {
                 lat=35.691063;
                 lon=51.407941;
                 point = new LatLng(lat, lon);
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
                 if (coursors.getCount() > 0) {
                     coursors.moveToNext();
@@ -401,7 +425,9 @@ public class Map extends AppCompatActivity {
                         point = new LatLng(lat, lon);
                     }
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 map.addMarker(new MarkerOptions().position(point).title("سرویس").icon(BitmapDescriptorFactory.fromResource(R.drawable.pointer)));
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(point, 17));
 

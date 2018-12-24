@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -258,11 +258,11 @@ public class UpdateProfile {
 	
 	public void InsertDataFromWsToDb()
     {
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("UPDATE Profile SET BthDate='"+Year+"/"+Month+"/"+Day+"' , " +
 				"ShSh='"+ShMelli+"' , " +
 				"Email='"+Email+"'");
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		Toast.makeText(this.activity, "ثبت شد", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -204,7 +204,7 @@ public class SyncProfile {
     {
 		String[] value;
 		String query=null;
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM Profile");
 			value=WsResponse.split("##");
 			query="INSERT INTO Profile " +
@@ -220,8 +220,8 @@ public class SyncProfile {
 					"','"+value[3]+
 					"','"+value[4]+
 					"')";
-			db.execSQL(query);
-		db.close();
+			db.execSQL(query);if(db.isOpen()){db.close();}
+		if(db.isOpen()) {                                            db.close();                                        }
 		SyncProfilePic syncProfilePic=new SyncProfilePic(activity,karbarCode);
 		syncProfilePic.AsyncExecute();
     }

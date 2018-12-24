@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -185,9 +185,9 @@ public class SyncUpdateAcceptHamyarFinalPrice {
 
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-    	db=dbh.getWritableDatabase();
+    	try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
     	String query = "UPDATE UserServicesHamyarRequest SET ConfirmSecond='1' WHERE Code='" + RequestCode + "'";
-		db.execSQL(query);
+		db.execSQL(query);if(db.isOpen()){db.close();}
 		alertDialog.dismiss();
     }
 }

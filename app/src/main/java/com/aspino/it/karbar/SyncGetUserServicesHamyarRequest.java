@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -191,10 +191,27 @@ public class SyncGetUserServicesHamyarRequest {
 		String[] res;
 		String[] value;
 		res = WsResponse.split("@@");
-		db = dbh.getWritableDatabase();
+		try {
+			if (!db.isOpen()) {
+				db = dbh.getWritableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db = dbh.getWritableDatabase();
+		}
 		for (int i = 0; i < res.length; i++) {
 			value = res[i].split("##");
 			if (!check1(value[1], value[2])) {
+				try {
+					if (!db.isOpen()) {
+						db = dbh.getWritableDatabase();
+					}
+				}
+				catch (Exception ex)
+				{
+					db = dbh.getWritableDatabase();
+				}
 				String query = "INSERT INTO UserServicesHamyarRequest (" +
 						"Code," +
 						"BsUserServicesCode," +
@@ -212,10 +229,23 @@ public class SyncGetUserServicesHamyarRequest {
 						value[5] + "','" +
 						value[6] + "','" +
 						value[7] + "')";
-				db.execSQL(query);
+				db.execSQL(query);if(db.isOpen()){db.close();}
+				if(db.isOpen())
+				{
+					db.close();
+				}
 			}
 			else
 			{
+				try {
+					if (!db.isOpen()) {
+						db = dbh.getWritableDatabase();
+					}
+				}
+				catch (Exception ex)
+				{
+					db = dbh.getWritableDatabase();
+				}
 				String query="";
 				if(check_PriceFinal(value[0],value[2],value[5])) {
 					query = "UPDATE UserServicesHamyarRequest SET " +
@@ -234,6 +264,7 @@ public class SyncGetUserServicesHamyarRequest {
 				}
 				else
 				{
+
 					query = "UPDATE UserServicesHamyarRequest SET " +
 							"Code='" + value[0] + "' , " +
 							"BsUserServicesCode='" + value[1] + "' , " +
@@ -247,7 +278,20 @@ public class SyncGetUserServicesHamyarRequest {
 							" WHERE BsUserServicesCode='" + value[1] +
 							"' AND HamyarCode='" + value[2] + "'";
 				}
-				db.execSQL(query);
+				try {
+					if (!db.isOpen()) {
+						db = dbh.getWritableDatabase();
+					}
+				}
+				catch (Exception ex)
+				{
+					db = dbh.getWritableDatabase();
+				}
+				db.execSQL(query);if(db.isOpen()){db.close();}
+				if(db.isOpen())
+				{
+					db.close();
+				}
 			}
 			if(!check2(value[2]))
 			{
@@ -261,15 +305,26 @@ public class SyncGetUserServicesHamyarRequest {
 			}
 			if(!check3(value[2],value[1]))
 			{
-				db=dbh.getWritableDatabase();
+				try {
+					if (!db.isOpen()) {
+						db = dbh.getWritableDatabase();
+					}
+				}
+				catch (Exception ex)
+				{
+					db = dbh.getWritableDatabase();
+				}
 				String 	query = "INSERT INTO Hamyar (" +
 						"CodeHamyarInfo," +
 						"CodeOrder" +
 						") VALUES('" +
 						value[2] + "','" +
 						value[1] + "')";
-				db.execSQL(query);
-				db.close();
+				db.execSQL(query);if(db.isOpen()){db.close();}
+				if(db.isOpen())
+				{
+					db.close();
+				}
 			}
 		}
 		if(db.isOpen()) {
@@ -278,59 +333,130 @@ public class SyncGetUserServicesHamyarRequest {
 	}
 	public boolean check1(String CodeOrder,String HamyarCode)
 	{
-		db=dbh.getReadableDatabase();
+		try {
+			if (!db.isOpen()) {
+				db=dbh.getReadableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db=dbh.getReadableDatabase();
+		}
+
 		String query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + CodeOrder +
 				"' AND HamyarCode='" + HamyarCode+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
+			if(db.isOpen()) {
+				db.close();
+			}
+			cursor.close();
 			return true;
 		}
 		else
 		{
+			if(db.isOpen()) {
+				db.close();
+			}
+			cursor.close();
 			return false;
 		}
 	}
 	public boolean check_PriceFinal(String CodeRquest,String HamyarCode,String PriceFinal)
 	{
-		db=dbh.getReadableDatabase();
+		try {
+			if (!db.isOpen()) {
+				db=dbh.getReadableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db=dbh.getReadableDatabase();
+		}
 		String query = "SELECT * FROM UserServicesHamyarRequest WHERE Code='" + CodeRquest +
 				"' AND HamyarCode='" + HamyarCode+"' AND PriceFinal='"+PriceFinal+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return true;
 		}
 		else
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return false;
 		}
 	}
 	public boolean check2(String Code)
 	{
-		db=dbh.getReadableDatabase();
+		try {
+			if (!db.isOpen()) {
+				db=dbh.getReadableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db=dbh.getReadableDatabase();
+		}
 		String query="SELECT * FROM InfoHamyar WHERE Code_InfoHamyar='"+Code+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return true;
 		}
 		else
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return false;
 		}
 	}
 	public boolean check3(String Code,String OrderCode)
 	{
-		db=dbh.getReadableDatabase();
+		try {
+			if (!db.isOpen()) {
+				db=dbh.getReadableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db=dbh.getReadableDatabase();
+		}
 		String query="SELECT * FROM Hamyar WHERE CodeHamyarInfo='"+Code+"' AND CodeOrder='"+OrderCode+"'";
 		Cursor cursor=db.rawQuery(query,null);
 		if(cursor.getCount()>0)
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return true;
 		}
 		else
 		{
+			if(db.isOpen())
+			{
+				db.close();
+			}
+			cursor.close();
 			return false;
 		}
 	}

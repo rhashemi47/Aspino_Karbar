@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class DatabaseHelper extends SQLiteOpenHelper {
 	  String DB_PATH =null;
 	  
-	    private static String DB_NAME = "DB_Karbar.db";
+	    private static String DB_NAME = "DB_Karbar_Aspino.db";
 	 
 	    private SQLiteDatabase myDataBase;
 	    

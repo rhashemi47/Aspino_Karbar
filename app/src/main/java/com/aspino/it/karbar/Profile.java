@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.*;
 import android.app.Activity;
@@ -149,7 +149,9 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 				tvTextUserMobile.setText(coursors.getString(coursors.getColumnIndex("Phone")));
 			}
+		if(db.isOpen()) {
 			db.close();
+		}
 
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
 		db=dbh.getReadableDatabase();
@@ -193,7 +195,9 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 					cursor.moveToNext();
 					dialContactPhone(cursor.getString(cursor.getColumnIndex("PhoneNumber")));
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 			}
 		});
 		tvTextExitAccount.setOnClickListener(new View.OnClickListener() {
@@ -364,13 +368,13 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 			case REQUEST_CODE_ASK_PERMISSIONS:
 				if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					// Permission Granted
-					db = dbh.getReadableDatabase();
+					try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 					Cursor cursorPhone = db.rawQuery("SELECT * FROM Supportphone", null);
 					if (cursorPhone.getCount() > 0) {
 						cursorPhone.moveToNext();
 						dialContactPhone(cursorPhone.getString(cursorPhone.getColumnIndex("PhoneNumber")));
 					}
-					db.close();
+					if(db.isOpen()) {                                            db.close();                                        }
 				} else {
 					// Permission Denied
 					Toast.makeText(Profile.this, "مجوز تماس از طریق برنامه لغو شده برای بر قراری تماس از درون برنامه باید مجوز دسترسی تماس را فعال نمایید.", Toast.LENGTH_LONG)
@@ -449,7 +453,7 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 		switch (mId) {
 
 			case R.id.profile:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 				if (coursors.getCount() > 0) {
 					coursors.moveToNext();
@@ -468,11 +472,13 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				else {
 					LoadActivity(Login.class,"karbarCode","0");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.wallet:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -481,10 +487,12 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				else {
 					LoadActivity(Login.class,"karbarCode","0");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 			case R.id.Order:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -498,13 +506,13 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				break;
 
 			case R.id.AddresManagement:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
 				}
-				db.close();
+				if(db.isOpen()) {                                            db.close();                                        }
 				break;
 
 			case R.id.Invite_friends:
@@ -512,14 +520,16 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				break;
 
 			case R.id.About:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 
 					LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 		}
 
@@ -569,7 +579,7 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));				stopService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
@@ -604,7 +614,9 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				db.execSQL("DELETE FROM Unit");
 				db.execSQL("DELETE FROM UpdateApp");
 				db.execSQL("DELETE FROM visit");
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				Intent startMain = new Intent(Intent.ACTION_MAIN);
 
 				startMain.addCategory(Intent.CATEGORY_HOME);

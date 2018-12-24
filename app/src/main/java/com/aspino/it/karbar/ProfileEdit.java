@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -98,7 +98,9 @@ public class ProfileEdit extends Activity {
 				karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 //				tvTextUserMobile.setText(coursors.getString(coursors.getColumnIndex("Phone")));
 			}
+		if(db.isOpen()) {
 			db.close();
+		}
 
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
 		db=dbh.getReadableDatabase();
@@ -198,7 +200,9 @@ public class ProfileEdit extends Activity {
 
 						etTextBthDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
 
-						db.close();
+						if(db.isOpen()) {
+							db.close();
+						}
 					}
 
 					@Override
@@ -249,7 +253,9 @@ public class ProfileEdit extends Activity {
 
 						etTextBthDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
 
-						db.close();
+						if(db.isOpen()) {
+							db.close();
+						}
 					}
 
 					@Override
@@ -273,7 +279,9 @@ public class ProfileEdit extends Activity {
 				{
 					Toast.makeText(getApplicationContext(), "اتصال به شبکه را چک نمایید.", Toast.LENGTH_LONG).show();
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 			}
 		});
 //		try
@@ -471,7 +479,7 @@ public class ProfileEdit extends Activity {
 		{
 			Toast.makeText(ProfileEdit.this, errorStr, Toast.LENGTH_SHORT).show();
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 	}
 	@Override
 	public boolean onKeyDown( int keyCode, KeyEvent event )  {

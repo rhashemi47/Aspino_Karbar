@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -257,7 +257,7 @@ public class InsertKarbar {
 	public void InsertDataFromWsToDb(String[] AllRecord)
     {
     	String notext="";
-		db=dbh.getWritableDatabase();	
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM login");
 		db.execSQL("DELETE FROM Profile");
 		db.execSQL("INSERT INTO login (karbarCode,islogin,Phone,AcceptCode) VALUES('"+karbarCode+"','1','"+phonenumber+"','"+acceptcode+"')");
@@ -283,7 +283,9 @@ public class InsertKarbar {
 			cursors.moveToNext();
 			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
 		}
-		db.close();
+		if(db.isOpen()) {
+			db.close();
+		}
 //		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
 //		syncMessage.AsyncExecute();
 		SyncProfile syncProfile=new SyncProfile(this.activity, karbarCode);
@@ -292,7 +294,7 @@ public class InsertKarbar {
 		syncState.AsyncExecute();
 		SyncCity syncCity=new SyncCity(this.activity,CityCodeLocation);
 		syncCity.AsyncExecute();
-		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,karbarCode,"0");
+		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,karbarCode,"0","0","0","0","0","0","0","0","0","0","0","0");
 		syncGetUserAddress.AsyncExecute();
     }
 private  String getStringLocation()

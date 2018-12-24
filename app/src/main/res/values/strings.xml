@@ -233,4 +233,6 @@
     <string name="infoPerfesional">مشخصات حرفه ای</string>
     <string name="BaseExpert">زمینه تخصص:</string>
     <string name="Comment_Hamyar">پیام متخصص برای شما:</string>
+    <string name="default_notification_channel_id">Aspino_Karbar</string>
+    <string name="default_notification_channel_title">آسپینو</string>
 </resources>

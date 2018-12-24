@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -95,6 +95,34 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_menu_mainmenu);
         //****************************************************************
+        dbh = new DatabaseHelper(getApplicationContext());
+        try {
+
+            dbh.createDataBase();
+
+        } catch (IOException ioe) {
+
+            throw new Error("Unable to create database");
+
+        }
+
+        try {
+
+            dbh.openDataBase();
+
+        } catch (SQLException sqle) {
+
+            throw sqle;
+        }
+        try {
+            if(!db.isOpen())
+            {
+                db = dbh.getReadableDatabase();
+            }
+        }
+        catch (Exception ex){
+            db = dbh.getReadableDatabase();
+        }
         PackageInfo pInfo = null;
         try {
             pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -142,34 +170,18 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
 //        mDrawer.addDrawerListener(aToggle);
 //        aToggle.syncState();
-        dbh = new DatabaseHelper(getApplicationContext());
-        try {
 
-            dbh.createDataBase();
-
-        } catch (IOException ioe) {
-
-            throw new Error("Unable to create database");
-
-        }
-
-        try {
-
-            dbh.openDataBase();
-
-        } catch (SQLException sqle) {
-
-            throw sqle;
-        }
 
         try
         {
-            db = dbh.getReadableDatabase();
+            try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
             Cursor cursor = db.rawQuery("SELECT * FROM login", null);
             if (cursor.getCount() > 0) {
                 cursor.moveToNext();
                 karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
             }
             if (karbarCode.compareTo("0") == 0) {
                 LoadActivity(Login.class, "karbarCode", "0");
@@ -182,6 +194,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
         startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
         startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+        startService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
         //***************************************************************************
 //        facehVazir = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");
         etSearch = (EditText) findViewById(R.id.etSearch);
@@ -192,36 +205,40 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         viewFlipper=(Custom_ViewFlipper) findViewById(R.id.vf);
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(MainMenu.this));
         dbh = new DatabaseHelper(getApplicationContext());
-        try {
-
-            dbh.createDataBase();
-
-        } catch (IOException ioe) {
-
-            throw new Error("Unable to create database");
-
-        }
-
-        try {
-
-            dbh.openDataBase();
-
-        } catch (SQLException sqle) {
-
-            throw sqle;
-        }
-        db = dbh.getReadableDatabase();
+//        try {
+//
+//            dbh.createDataBase();
+//
+//        } catch (IOException ioe) {
+//
+//            throw new Error("Unable to create database");
+//
+//        }
+//
+//        try {
+//
+//            dbh.openDataBase();
+//
+//        } catch (SQLException sqle) {
+//
+//            throw sqle;
+//        }
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         Cursor coursors = db.rawQuery("SELECT * FROM messages WHERE IsReade='0' AND IsDelete='0'", null);
         if (coursors.getCount() > 0) {
             countMessage = String.valueOf(coursors.getCount());
         }
-        db.close();
-        db = dbh.getReadableDatabase();
+        if(db.isOpen()) {
+            db.close();
+        }
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         final Cursor cursor = db.rawQuery("SELECT * FROM OrdersService WHERE Status ='1'", null);
         if (cursor.getCount() > 0) {
             countOrder = String.valueOf(cursor.getCount());
         }
-        db.close();
+        if(db.isOpen()) {
+            db.close();
+        }
         //**************LinearListOrder***********************************************************************************
         LinearListOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +258,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     cursor.moveToNext();
                     dialContactPhone(cursor.getString(cursor.getColumnIndex("PhoneNumber")));
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
             }
         });
 //        ***************************************************************************************************
@@ -249,7 +268,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         GridViewServices.setVisibility(View.VISIBLE);
         //Create Button For Services in Grid View
 
-        db = dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         Cursor cursor1 = db.rawQuery("SELECT * FROM services", null);
         if (cursor1.getCount() > 0) {
             valuse = new ArrayList<HashMap<String, String>>();
@@ -260,7 +279,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 map.put("Code", cursor1.getString(cursor1.getColumnIndex("code")));
                 valuse.add(map);
             }
-            db.close();
+            if(db.isOpen()) {
+                db.close();
+            }
             AdapterGridServices adapterGridServices = new AdapterGridServices(MainMenu.this, valuse, karbarCode);
             GridViewServices.setAdapter(adapterGridServices);
         }
@@ -279,7 +300,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     lstSearchDetailService.setVisibility(View.GONE);
                     GridViewServices.setVisibility(View.VISIBLE);
                     //Create Button For Services in Grid View
-                    db = dbh.getReadableDatabase();
+                    try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                     Cursor cursor = db.rawQuery("SELECT * FROM services", null);
                     valuse = new ArrayList<HashMap<String, String>>();
                     for (int x = 0; x < cursor.getCount(); x++) {
@@ -289,7 +310,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                         map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
                         valuse.add(map);
                     }
-                    db.close();
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     AdapterGridServices adapterGridServices = new AdapterGridServices(MainMenu.this, valuse, karbarCode);
                     GridViewServices.setAdapter(adapterGridServices);
                 } else {
@@ -297,7 +320,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     GridViewServices.setVisibility(View.GONE);
                     valuse = new ArrayList<HashMap<String, String>>();
                     //Create Button For Services in Grid View
-                    db = dbh.getReadableDatabase();
+                    try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                     Cursor cursor = db.rawQuery("SELECT * FROM servicesdetails WHERE name LIKE '%" + strSeach + "%'", null);
                     for (int x = 0; x < cursor.getCount(); x++) {
                         cursor.moveToNext();
@@ -306,7 +329,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                         map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
                         valuse.add(map);
                     }
-                    db.close();
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     AdapterServiceDetails adapterServiceDetails = new AdapterServiceDetails(MainMenu.this, valuse, karbarCode);
                     lstSearchDetailService.setAdapter(adapterServiceDetails);
                 }
@@ -330,7 +355,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
        }
         //**************************************************************************
 
-        db = dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         coursors = db.rawQuery("SELECT * FROM Slider", null);
         if (coursors.getCount() > 0) {
             Bitmap bpm[] = new Bitmap[coursors.getCount()];
@@ -343,7 +368,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
                 link[j] = coursors.getString(coursors.getColumnIndex("Link"));
             }
-            db.close();
+            if(db.isOpen()) {                                            db.close();                                        }
             int i = 0;
             while (i < bpm.length) {
                 imageView = new ImageView(getApplicationContext());
@@ -381,7 +406,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             viewFlipper.setVisibility(View.VISIBLE);
         }
         coursors.close();
-        db = dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         coursors = db.rawQuery("SELECT * FROM Profile", null);
         if (coursors.getCount() > 0) {
             coursors.moveToNext();
@@ -434,7 +459,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         coursors.close();
-        db.close();
+        if(db.isOpen()) {
+            db.close();
+        }
         db=dbh.getReadableDatabase();
         coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
         if (coursors.getCount() > 0) {
@@ -454,10 +481,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 tvCredits.setText("0");
             }
         }
-        db.close();
+        if(db.isOpen()) {
+            db.close();
+        }
         coursors.close();
 //*******************************************************************************************************************
-//        db = dbh.getReadableDatabase();
+//        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //        Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
 //                "LEFT JOIN " +
 //                "Servicesdetails ON " +
@@ -532,7 +561,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //                    }
 //
 //                }
-//                db = dbh.getReadableDatabase();
+//                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                Cursor cursorPhone = db.rawQuery("SELECT * FROM Supportphone", null);
 //                if (cursorPhone.getCount() > 0) {
 //                    cursorPhone.moveToNext();
@@ -589,8 +618,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(DialogInterface arg0, int arg1) {
                 //Declare Object From Get Internet Connection Status For Check Internet Status
                 //stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
-                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
-                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));				stopService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
+                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));				stopService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
                 stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
                 stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
 //                stopService(new Intent(getBaseContext(), ServiceSyncMessage.class));
@@ -625,7 +654,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 db.execSQL("DELETE FROM Unit");
                 db.execSQL("DELETE FROM UpdateApp");
                 db.execSQL("DELETE FROM visit");
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 Intent startMain = new Intent(Intent.ACTION_MAIN);
 
                 startMain.addCategory(Intent.CATEGORY_HOME);
@@ -648,7 +679,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //        String name = "";
 //        String family = "";
 //        String Mobile = "";
-//        db = dbh.getReadableDatabase();
+//        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //        Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 //        if (coursors.getCount() > 0) {
 //            coursors.moveToNext();
@@ -774,7 +805,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 //                        switch (position) {
 //                            case 1://Profile
-//                                db = dbh.getReadableDatabase();
+//                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 //                                if (coursors.getCount() > 0) {
 //                                    coursors.moveToNext();
@@ -796,7 +827,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //                                db.close();
 //                                break;
 //                            case 2://Credit
-//                                db = dbh.getReadableDatabase();
+//                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 //                                        if (c.getCount() > 0) {
 //                                            c.moveToNext();
@@ -808,7 +839,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //                                db.close();
 //                                break;
 //                            case 3:
-//                                db = dbh.getReadableDatabase();
+//                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                 c = db.rawQuery("SELECT * FROM login", null);
 //                                if (c.getCount() > 0) {
 //                                    c.moveToNext();
@@ -821,7 +852,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 //                                }
 //                                break;
 //                            case 4:
-//                                db = dbh.getReadableDatabase();
+//                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                         c = db.rawQuery("SELECT * FROM login", null);
 //                                        if (c.getCount() > 0) {
 //                                            c.moveToNext();
@@ -836,7 +867,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                alertbox1.setPositiveButton("ثبت آدرس", new DialogInterface.OnClickListener() {
 ////                                    // do something when the button is clicked
 ////                                    public void onClick(DialogInterface arg0, int arg1) {
-////                                        db = dbh.getReadableDatabase();
+////                                        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 ////                                        if (c.getCount() > 0) {
 ////                                            c.moveToNext();
@@ -852,7 +883,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                    // do something when the button is clicked
 ////                                    public void onClick(DialogInterface arg0, int arg1) {
 ////                                        //Declare Object From Get Internet Connection Status For Check Internet Status
-////                                        db = dbh.getReadableDatabase();
+////                                        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 ////                                        if (c.getCount() > 0) {
 ////                                            c.moveToNext();
@@ -867,7 +898,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                db.close();
 //                                break;
 //                            case 5:
-////                                db = dbh.getReadableDatabase();
+////                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                c = db.rawQuery("SELECT * FROM Profile", null);
 ////                                if (c.getCount() > 0) {
 ////                                    c.moveToNext();
@@ -875,7 +906,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                    // LoadActivity(GiftBank.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
 ////                                }
 ////                                db.close();
-////                                db = dbh.getReadableDatabase();
+////                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                sharecode("0");
 //                                break;
 ////                            case 6:
@@ -888,7 +919,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                alertbox.setPositiveButton("تعهدات ما", new DialogInterface.OnClickListener() {
 ////                                    // do something when the button is clicked
 ////                                    public void onClick(DialogInterface arg0, int arg1) {
-////                                        db = dbh.getReadableDatabase();
+////                                        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 ////                                        if (c.getCount() > 0) {
 ////                                            c.moveToNext();
@@ -905,7 +936,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                    // do something when the button is clicked
 ////                                    public void onClick(DialogInterface arg0, int arg1) {
 ////                                        //Declare Object From Get Internet Connection Status For Check Internet Status
-////                                        db = dbh.getReadableDatabase();
+////                                        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                        Cursor c = db.rawQuery("SELECT * FROM login", null);
 ////                                        if (c.getCount() > 0) {
 ////                                            c.moveToNext();
@@ -921,7 +952,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                db.close();
 ////                                break;
 ////                            case 7:
-////                                db = dbh.getReadableDatabase();
+////                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                c = db.rawQuery("SELECT * FROM login", null);
 ////                                if (c.getCount() > 0) {
 ////                                    c.moveToNext();
@@ -932,7 +963,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////
 ////                                break;
 //                            case 6:
-//                                db = dbh.getReadableDatabase();
+//                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                                c = db.rawQuery("SELECT * FROM login", null);
 //                                if (c.getCount() > 0) {
 //                                    c.moveToNext();
@@ -952,7 +983,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////                                db.close();//
 ////                                break;
 ////                            case 9:
-////                                db = dbh.getReadableDatabase();
+////                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                c = db.rawQuery("SELECT * FROM login", null);
 ////                                if (c.getCount() > 0) {
 ////                                    c.moveToNext();
@@ -971,7 +1002,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 ////
 ////                                break;
 ////                            case 10:
-////                                db = dbh.getReadableDatabase();
+////                                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 ////                                c = db.rawQuery("SELECT * FROM login", null);
 ////                                if (c.getCount() > 0) {
 ////                                    c.moveToNext();
@@ -999,7 +1030,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         switch (mId) {
 
             case R.id.profile:
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
                 if (coursors.getCount() > 0) {
                     coursors.moveToNext();
@@ -1018,11 +1049,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 else {
                     LoadActivity(Login.class,"karbarCode","0");
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 break;
 
             case R.id.wallet:
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 Cursor c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
@@ -1031,10 +1064,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 else {
                     LoadActivity(Login.class,"karbarCode","0");
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 break;
             case R.id.Order:
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
@@ -1048,13 +1083,15 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 break;
 
             case R.id.AddresManagement:
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
                     LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 break;
 
             case R.id.Invite_friends:
@@ -1062,14 +1099,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 break;
 
             case R.id.About:
-                db = dbh.getReadableDatabase();
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
 
                     LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
                 }
-                db.close();
+                if(db.isOpen()) {
+                    db.close();
+                }
                 break;
         }
 
@@ -1216,13 +1255,15 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             case REQUEST_CODE_ASK_PERMISSIONS:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    db = dbh.getReadableDatabase();
+                    try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                     Cursor cursorPhone = db.rawQuery("SELECT * FROM Supportphone", null);
                     if (cursorPhone.getCount() > 0) {
                         cursorPhone.moveToNext();
                         dialContactPhone(cursorPhone.getString(cursorPhone.getColumnIndex("PhoneNumber")));
                     }
-                    db.close();
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                 } else {
                     // Permission Denied
                     Toast.makeText(MainMenu.this, "مجوز تماس از طریق برنامه لغو شده برای بر قراری تماس از درون برنامه باید مجوز دسترسی تماس را فعال نمایید.", Toast.LENGTH_LONG)

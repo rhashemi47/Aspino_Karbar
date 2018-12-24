@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,8 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -48,6 +50,9 @@ public class Joziat_Motekhases extends AppCompatActivity {
 	private String HamyarCode;
 	private String CodeMotkhases;
 	private String OrderCode;
+	private LinearLayout LinearComments;
+	private String StrRatingHamyar;
+	private RatingBar RatingHamyar;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -61,6 +66,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	imgCall=(ImageView) findViewById(R.id.imgCall);
 	imgMessage=(ImageView) findViewById(R.id.imgMessage);
 	tvCommentSaved=(TextView) findViewById(R.id.tvCommentSaved);
+	LinearComments=(LinearLayout) findViewById(R.id.LinearComments);
 	tvHistoryJob=(TextView) findViewById(R.id.tvHistoryJob);
 	tvFirstname=(TextView) findViewById(R.id.tvFirstname);
 	tvLastname=(TextView) findViewById(R.id.tvLastname);
@@ -70,6 +76,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	tvHistoryJobAll=(TextView) findViewById(R.id.tvHistoryJobAll);
 	tvComment_Hamyar=(TextView) findViewById(R.id.tvComment_Hamyar);
 	btnSelectThisHamyar=(Button) findViewById(R.id.btnSelectThisHamyar);
+	RatingHamyar=(RatingBar) findViewById(R.id.RatingHamyar);
 	dbh=new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -121,6 +128,15 @@ protected void onCreate(Bundle savedInstanceState) {
 	{
 		CodeMotkhases="0";
 	}
+	try
+	{
+		StrRatingHamyar = getIntent().getStringExtra("RatingHamyar").toString();
+	}
+	catch (Exception e)
+	{
+		StrRatingHamyar="0";
+	}
+	RatingHamyar.setRating(Float.valueOf(StrRatingHamyar));
 	String Query="SELECT A.HamyarCode,A.Code ReqCode,A.BsUserServicesCode ,B.Mobile,B.Fname,B.Lname,B.img,B.BthDate,B.CourseCode,B.HmServices,B.WorkHistoryInMonth,B.WorkHistoryAllYear" +
 //			",B.CommentToUser" +
 			" FROM UserServicesHamyarRequest A" +
@@ -129,6 +145,17 @@ protected void onCreate(Bundle savedInstanceState) {
 			" FROM InfoHamyar group by Code_InfoHamyar) B ON " +
 			" A.HamyarCode=B.Code_InfoHamyar" +
 			" WHERE A.Code='"+CodeHamyarRequest+"'";
+	try
+	{
+		if(!db.isOpen())
+		{
+			db=dbh.getReadableDatabase();
+		}
+	}
+	catch (Exception ex)
+	{
+		db=dbh.getReadableDatabase();
+	}
 	Cursor cursor = db.rawQuery(Query, null);
 	if(cursor.getCount()>0){
 		cursor.moveToNext();
@@ -155,6 +182,7 @@ protected void onCreate(Bundle savedInstanceState) {
 	if(db.isOpen()) {
 		db.close();
 	}
+
 	imgCall.setOnClickListener(new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
@@ -175,6 +203,15 @@ protected void onCreate(Bundle savedInstanceState) {
 			syncInsertFromHamyarRequestToHamyarAccept.AsyncExecute();
 		}
 	});
+	LinearComments.setOnClickListener(new View.OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			LoadActivity2(Comment_Customer.class,"HamyarCode",HamyarCode,
+					"CodeHamyarRequest",CodeHamyarRequest,
+					"StrRatingHamyar",StrRatingHamyar
+			,"CodeMotkhases",CodeMotkhases);
+		}
+	});
 }
 //@Override
 //public boolean onKeyDown( int keyCode, KeyEvent event )  {
@@ -187,6 +224,18 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		Intent intent = new Intent(getApplicationContext(),Cls);
 		intent.putExtra(VariableName, VariableValue);
 		intent.putExtra(VariableName1, VariableValue1);
+		this.startActivity(intent);
+	}
+	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue,
+							  String VariableName1, String VariableValue1,
+							  String VariableName2, String VariableValue2,
+							  String VariableName3, String VariableValue3)
+	{
+		Intent intent = new Intent(getApplicationContext(),Cls);
+		intent.putExtra(VariableName, VariableValue);
+		intent.putExtra(VariableName1, VariableValue1);
+		intent.putExtra(VariableName2, VariableValue2);
+		intent.putExtra(VariableName3, VariableValue3);
 		this.startActivity(intent);
 	}
 	public Bitmap convertToBitmap(String base) {

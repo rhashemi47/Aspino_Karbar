@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.content.Context;
 import android.content.Intent;
@@ -129,7 +129,9 @@ protected void onCreate(Bundle savedInstanceState) {
 		coursors.moveToNext();
 		NameOrder=coursors.getString(coursors.getColumnIndex("name"));
 	}
-	db.close();
+	if(db.isOpen()) {
+		db.close();
+	}
 	//**********************
 	db=dbh.getReadableDatabase();
 	Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE code='"+AddressFinalService+"'",null);
@@ -139,9 +141,13 @@ protected void onCreate(Bundle savedInstanceState) {
 			cursorAddress.moveToNext();
 			AddressFinalService=cursorAddress.getString(cursorAddress.getColumnIndex("AddressText"));
 		}
+		if(db.isOpen()) {
+			db.close();
+		}
+	}
+	if(db.isOpen()) {
 		db.close();
 	}
-	db.close();
 	tvCodeServiceFinal.setText(CodeServiceFinal);
 	tvNameOrder.setText(NameOrder);
 	tvAddressFinalService.setText(AddressFinalService);

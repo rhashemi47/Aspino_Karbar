@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -203,7 +203,7 @@ public class SyncGetUserServiceHamyarPic {
 					"0" + "')";
 		}
 		db = dbh.getWritableDatabase();
-		db.execSQL(query);
+		db.execSQL(query);if(db.isOpen()){db.close();}
 		SyncGetHamyarProfile syncGetHamyarProfile=new SyncGetHamyarProfile(activity,UserCode,HamyarCode);
 		syncGetHamyarProfile.AsyncExecute();
 	}

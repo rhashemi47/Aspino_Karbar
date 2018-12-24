@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -195,13 +195,13 @@ public class SyncServicesForService {
 		String[] res;
 		String[] value;
 		res=WsResponse.split(Pattern.quote("[Besparina@@]"));
-		db=dbh.getWritableDatabase();			
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM services");
 		for(int i=0;i<res.length;i++){
 			value=res[i].split(Pattern.quote("[Besparina##]"));
 			db.execSQL("INSERT INTO services (code,servicename,Pic) VALUES('"+value[0] +"','"+value[1]+"','"+value[2]+"')");
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		SyncServicesDetailsForService syncServicesDetailsForService=new SyncServicesDetailsForService(this.activity);
 		syncServicesDetailsForService.AsyncExecute();
     }

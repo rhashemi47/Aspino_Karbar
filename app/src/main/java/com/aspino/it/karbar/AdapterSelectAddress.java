@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -30,6 +30,7 @@ public class AdapterSelectAddress extends BaseAdapter {
     private SQLiteDatabase db;
     private String karbarCode;
     private String backToActivity;
+    private boolean sw=true;
     private ViewHolder holder;
 
     public AdapterSelectAddress(Activity activity, ArrayList<HashMap<String, String>> list) {
@@ -78,6 +79,11 @@ public class AdapterSelectAddress extends BaseAdapter {
             holder.txtContentAddress = (TextView) convertView.findViewById(R.id.txtContentAddress);
 //            holder.txtContentAddress.setTypeface(faceh);
             holder.txtContentAddress.setTextSize(16);
+            if(sw)
+            {
+                holder.LinearAddress.setBackgroundColor(Color.parseColor("#9877ee"));
+                sw=false;
+            }
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -120,9 +126,9 @@ public class AdapterSelectAddress extends BaseAdapter {
             String AddressCode="";
             AddressCode = ((LinearLayout)v).getTag().toString();
             String query="INSERT INTO address_select (Code) VALUES('"+AddressCode+ "')";
-            db=dbh.getWritableDatabase();
+            try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
             db.execSQL("DELETE FROM address_select");
-            db.execSQL(query);
+            db.execSQL(query);if(db.isOpen()){db.close();}
             for(int i=0;i<PublicVariable.view.size();i++)
             {
                 String tag1,tag2;

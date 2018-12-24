@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Service;
 import android.content.Intent;
@@ -82,10 +82,10 @@ public class ServiceGetLocation extends Service {
                                                 longitude = gps.getLongitude();
                                                 String query = "UPDATE Profile SET Lat='" + Double.toString(latitude) + "',Lon='" + Double.toString(longitude) + "'";
                                                 db = dbh.getWritableDatabase();
-                                                db.execSQL(query);
+                                                db.execSQL(query);if(db.isOpen()){db.close();}
                                             }
                                         }
-                                        db.close();
+                                        if(db.isOpen()) {                                            db.close();                                        }
                                     }
 
                                 }

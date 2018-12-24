@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -223,7 +223,7 @@ public class SyncServicePayment {
 
 	public void InsertDataFromWsToDb(String AllRecord)
 	{
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		String query1="UPDATE AmountCredit SET Amount='"+String.valueOf(Amount-finalCurency)+".00'" ;
 		db.execSQL(query1);
 		Toast.makeText(activity.getApplicationContext(),"پرداخت شد",Toast.LENGTH_LONG).show();

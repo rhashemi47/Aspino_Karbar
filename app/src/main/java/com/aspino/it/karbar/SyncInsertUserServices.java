@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -527,7 +527,7 @@ public class SyncInsertUserServices {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("INSERT INTO OrdersService ("+
 					"Code_OrdersService,"+
 					"pUserCode,"+
@@ -592,7 +592,7 @@ public class SyncInsertUserServices {
 							DateDiff+"')");
 
 		db.execSQL("DELETE FROM OffCode");
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		//Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
 		String mergDateAndTime=StartYear+"/"+StartMonth+"/"+StartDay+" - "+StartHour+":"+StartMinute;
 		LoadActivity(Final_ShowCodeService.class, "karbarCode", pUserCode,

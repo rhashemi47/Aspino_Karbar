@@ -81,7 +81,9 @@
 
                 karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
             }
-            db.close();
+            if(db.isOpen()) {
+                db.close();
+            }
         }
             try {
                 backToActivity = getIntent().getStringExtra("nameActivity").toString();
@@ -120,7 +122,9 @@
                 AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode);
                 lvAddress.setAdapter(dataAdapter);
             }
-            db.close();
+            if(db.isOpen()) {
+                db.close();
+            }
             btnAdd_New_Address.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

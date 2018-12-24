@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -246,7 +246,8 @@ protected void onCreate(Bundle savedInstanceState) {
 			}
 			else
 			{
-				Toast.makeText(Pardakh_Factor_Sefaresh.this,"ابتدا باید هزینه نهایی را تایید فرمایید!",Toast.LENGTH_LONG).show();
+				alert_final_factor(FinalCurrency);
+				//Toast.makeText(Pardakh_Factor_Sefaresh.this,"ابتدا باید هزینه نهایی را تایید فرمایید!",Toast.LENGTH_LONG).show();
 			}
 			if(db.isOpen())
 			{

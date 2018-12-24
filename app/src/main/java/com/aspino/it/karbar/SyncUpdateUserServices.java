@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -527,7 +527,7 @@ public class SyncUpdateUserServices {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM OrdersService WHERE Code_OrdersService='" + UserServices + "'");
 		String query="INSERT INTO OrdersService ("+
 				"Code_OrdersService,"+
@@ -591,7 +591,7 @@ public class SyncUpdateUserServices {
 				CarType+"','"+
 				Language+"','0','"+
 				DateDiff+"')";
-		db.execSQL(query);
+		db.execSQL(query);if(db.isOpen()){db.close();}
 //		db.execSQL("UPDATE OrdersService SET "+
 //					"MaleCount='"+MaleCount+"',"+
 //					"FemaleCount='"+FemaleCount+"',"+
@@ -620,7 +620,7 @@ public class SyncUpdateUserServices {
 //					"CarType='"+CarType+"',"+
 //					"Language='"+Language+"'," +
 //					"Status='0' WHERE Code='"+UserServices+"'");
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		Toast.makeText(activity, "سرویس ویرایش شد.", Toast.LENGTH_LONG).show();
 		LoadActivity(MainMenu.class, "karbarCode", pUserCode);
     }

@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
@@ -32,6 +32,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
     Activity mActivity;
     private DatabaseHelper dbh;
     private SQLiteDatabase db;
+    private String RatingHamyar;
 
     public AdapterInfoHamyar(Activity activity, ArrayList<HashMap<String, String>> itemRecycleList) {
         this.itemRecycleList = itemRecycleList;
@@ -50,7 +51,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
         String Name = map.get("Name");
         String Code = map.get("Code");
         String imgHamyar = map.get("imgHamyar");
-        String RateBar = map.get("RateBar");
+        RatingHamyar = map.get("RateBar");
         String RateNumber = map.get("RateNumber");
         String UnreadCount = map.get("UnreadCount");
         String CodeHamyarRequest = map.get("CodeHamyarRequest");
@@ -61,7 +62,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
             holder.textViewUnreadCount.setText(UnreadCount);
         }
         holder.tvRateNumber.setText(RateNumber);
-        holder.RatingHamyar.setRating(Float.parseFloat(RateBar));
+        holder.RatingHamyar.setRating(Float.parseFloat(RatingHamyar));
         holder.imgHamyar.setImageBitmap(convertToBitmap(imgHamyar));
         holder.buttonInvite.setTag(CodeHamyarRequest);
         holder.buttonInvite.setOnClickListener(ButtonItemOnClick);
@@ -115,6 +116,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
             String item = ((Button) v).getTag().toString();
             Intent intent = new Intent(mActivity, Joziat_Motekhases.class);
             intent.putExtra("CodeHamyarRequest", item);
+            intent.putExtra("RatingHamyar", RatingHamyar);
             mActivity.startActivity(intent);
         }
     };
@@ -146,7 +148,7 @@ public class AdapterInfoHamyar extends RecyclerView.Adapter<AdapterInfoHamyar.Vi
             String query = "INSERT INTO hamyar_select (Code) VALUES('" + hamya_Code + "')";
             db = dbh.getWritableDatabase();
             db.execSQL("DELETE FROM hamyar_select");
-            db.execSQL(query);
+            db.execSQL(query);if(db.isOpen()){db.close();}
             for (int i = 0; i < PublicVariable.view_hamyar.size(); i++) {
                 String tag1, tag2;
                 tag1 = ((LinearLayout) v).getTag().toString();

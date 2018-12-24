@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Service;
 import android.content.Intent;
@@ -70,7 +70,7 @@ public class ServiceGetSliderPic extends Service {
                                         coursors.moveToNext();
                                         karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
                                     }
-                                    db.close();
+                                    if(db.isOpen()) {                                            db.close();                                        }
 
                                         SyncSliderPic syncSliderPic=new SyncSliderPic(getApplicationContext(),karbarCode);
                                         syncSliderPic.AsyncExecute();
@@ -89,7 +89,7 @@ public class ServiceGetSliderPic extends Service {
                                 Thread.sleep(60000); // every 12 hour
                             }
 
-                            db.close();
+                            if(db.isOpen()) {                                            db.close();                                        }
                         }
                         catch (Exception e) {
                         }

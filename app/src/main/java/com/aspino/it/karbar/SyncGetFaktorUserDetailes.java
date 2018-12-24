@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -197,6 +197,6 @@ public class SyncGetFaktorUserDetailes {
 					"','"+value[7]+
 					"')");
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 	}
 }

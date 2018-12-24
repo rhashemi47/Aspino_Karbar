@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 
 import android.animation.ValueAnimator;
@@ -240,8 +240,8 @@ public void onPause() {
 		}
 //		countDownTimer.cancel();
 		String query="UPDATE login SET Phone ='"+phonenumber+"', AcceptCode='"+acceptcode.getText().toString()+"'";
-		db=dbh.getWritableDatabase();
-		db.execSQL(query);
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
+		db.execSQL(query);if(db.isOpen()){db.close();}
 		HmLogin hm=new HmLogin(Accept_code.this, phonenumber, acceptcode.getText().toString(),check_load,getStringLocation());
 		hm.AsyncExecute();
 	}

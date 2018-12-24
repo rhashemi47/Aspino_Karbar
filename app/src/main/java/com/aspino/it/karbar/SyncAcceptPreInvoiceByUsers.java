@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -204,10 +204,10 @@ public class SyncAcceptPreInvoiceByUsers {
     {
 		PersianCalendar cal=new PersianCalendar();
 		String DateNow=cal.getPersianLongDate();
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 			String query="UPDATE BsFaktorUsersHead SET AcceptPreInvoiceByUsers='"+this.Accpept+
 					"', AcceptDatePreInvoide='"+DateNow+"' WHERE Code='"+this.pAcceptPreInvoiceByUsersCode+"'" ;
-			db.execSQL(query);
+			db.execSQL(query);if(db.isOpen()){db.close();}
 			if(this.Accpept.compareTo("1")==0)
 			{
 				Toast.makeText(this.activity.getApplicationContext(), "پیش فاکتور تایید شد.", Toast.LENGTH_SHORT).show();
@@ -216,6 +216,6 @@ public class SyncAcceptPreInvoiceByUsers {
 			{
 				Toast.makeText(this.activity.getApplicationContext(), "پیش فاکتور رد شد.", Toast.LENGTH_SHORT).show();
 			}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
     }
 }

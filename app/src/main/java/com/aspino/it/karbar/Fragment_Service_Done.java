@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 
 import android.database.Cursor;
@@ -136,7 +136,9 @@ public class Fragment_Service_Done extends Fragment {
 
             valuse.add(map);
         }
-        db.close();
+        if(db.isOpen()) {
+            db.close();
+        }
 
         AdapterListViewPager dataAdapter=new AdapterListViewPager(getActivity(),valuse);
         lstServiceRun.setAdapter(dataAdapter);

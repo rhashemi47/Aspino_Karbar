@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.aspino.it.karbar">
+    package ="com.aspino.it.karbar">
 
     <application
         android:allowBackup="true"
@@ -87,6 +87,9 @@
         <activity
             android:name="com.aspino.it.karbar.Joziat_Motekhases"
             android:noHistory="false"/>
+        <activity
+            android:name="com.aspino.it.karbar.Comment_Customer"
+            android:noHistory="false"/>
         <service android:name="com.aspino.it.karbar.ServiceGetSliderPic">
 
         </service>
@@ -97,6 +100,9 @@
 
         </service>
         <service android:name="com.aspino.it.karbar.ServiceGetServiceSaved">
+
+        </service>
+        <service android:name="com.aspino.it.karbar.ServiceGetUserServiceStartDate">
 
         </service>
         <meta-data

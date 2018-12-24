@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -67,12 +67,14 @@ public class Main_Activity  extends AppCompatActivity{
         }
         try {
 
-            db = dbh.getReadableDatabase();
+            try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 Cursor cursor= db.rawQuery("SELECT * FROM login", null);
                 if (cursor.getCount() > 0) {
                     cursor.moveToNext();
                     karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
-                    db.close();
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                 }
                 if(karbarCode.compareTo("0")!=0)
                 {
@@ -116,8 +118,9 @@ public class Main_Activity  extends AppCompatActivity{
         startService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
         startService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
         startService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+        startService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
         //***************************************************************************
-        db = dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         Cursor coursors = db.rawQuery("SELECT * FROM Slider", null);
         if (coursors.getCount() > 0) {
             Bitmap bpm[] = new Bitmap[coursors.getCount()];
@@ -130,7 +133,9 @@ public class Main_Activity  extends AppCompatActivity{
                 bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
                 link[j] = coursors.getString(coursors.getColumnIndex("Link"));
             }
-            db.close();
+            if(db.isOpen()) {
+                db.close();
+            }
             int i = 0;
             while (i < bpm.length) {
                 imageView = new ImageView(getApplicationContext());
@@ -210,7 +215,7 @@ public class Main_Activity  extends AppCompatActivity{
 //                {
 //                    Toast.makeText(getApplicationContext(),"جهت استفاده از امکانات آسپینو وارد حساب کاربری خود شوید",Toast.LENGTH_LONG).show();
 //                }
-//                db = dbh.getReadableDatabase();
+//                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //                Cursor coursors = db.rawQuery("SELECT * FROM services", null);
 //                if (coursors.getCount() > 0) {
 //                    LoadActivity(MainMenu.class,"karbarCode",karbarCode);

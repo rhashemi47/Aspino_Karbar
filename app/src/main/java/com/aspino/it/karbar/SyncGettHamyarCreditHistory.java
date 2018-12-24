@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -155,14 +155,14 @@ public class SyncGettHamyarCreditHistory {
 	String LastNewsId;
 	public void LoadMaxNewId()
 	{
-		db = dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		Cursor cursors = db.rawQuery("select IFNULL(max(id),0)MID from news", null);
 		if(cursors.getCount() > 0)
 		{
 			cursors.moveToNext();
 			LastNewsId = cursors.getString(cursors.getColumnIndex("MID"));
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 	}
 	
 	public void CallWsMethod(String METHOD_NAME) {
@@ -206,7 +206,7 @@ public class SyncGettHamyarCreditHistory {
 		String[] value;
 		res=WsResponse.split("@@");
 		String query=null;
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM credits");
 		for(int i=0;i<res.length;i++){
 			value=res[i].split("##");
@@ -220,9 +220,9 @@ public class SyncGettHamyarCreditHistory {
 					"','"+value[6]+
 					"','"+value[7]+
 					"')";
-			db.execSQL(query);
+			db.execSQL(query);if(db.isOpen()){db.close();}
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		Toast.makeText(activity, "ثبت شد", Toast.LENGTH_LONG).show();
 
 	}

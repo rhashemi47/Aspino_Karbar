@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -239,7 +239,7 @@ public class CustomeExpandableListAdapter extends BaseExpandableListAdapter {
 					mChildCheckStates.put(mGroupPosition, getChecked);
 					db=dbh.getReadableDatabase();
 					Cursor coursors=db.rawQuery("SELECT * FROM servicesdetails WHERE name='"+buttonView.getTag().toString()+"'", null);
-					db=dbh.getWritableDatabase();
+					try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 					coursors.moveToNext();
 					db.execSQL("INSERT INTO exprtise (code) VALUES('"+coursors.getString(coursors.getColumnIndex("code")) +"')");
 
@@ -250,7 +250,7 @@ public class CustomeExpandableListAdapter extends BaseExpandableListAdapter {
 					mChildCheckStates.put(mGroupPosition, getChecked);
 					db=dbh.getReadableDatabase();
 					Cursor coursors=db.rawQuery("SELECT * FROM servicesdetails WHERE name='"+buttonView.getTag().toString()+"'", null);
-					db=dbh.getWritableDatabase();
+					try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 					coursors.moveToNext();
 					db.execSQL("DELETE FROM exprtise WHERE code='"+coursors.getString(coursors.getColumnIndex("code")) +"'");
 				}

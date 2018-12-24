@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:numStars="5"
-                android:stepSize="0.1"
+                android:stepSize="1.0"
                 android:id="@+id/RatingHamyar"
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_marginLeft="20dp"
@@ -160,7 +160,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/LinearCurrncy1"
+        android:id="@+id/LinearComments"
         android:orientation="vertical"
         android:layout_weight="1"
         android:layout_marginTop="2dp"

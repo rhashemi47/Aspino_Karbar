@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -192,20 +192,20 @@ public class SyncSliderPic {
 		String[] value;
 		res=WsResponse.split(Pattern.quote("[Besparina@@]"));
 		String query=null;
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM Slider");
 		for(int i=0;i<res.length;i++){
 			try
 			{
 				value=res[i].split(Pattern.quote("[Besparina##]"));
 				query="INSERT INTO Slider (Code,Pic) VALUES('"+value[0]+"','"+value[1]+"')";
-				db.execSQL(query);
+				db.execSQL(query);if(db.isOpen()){db.close();}
 			}catch (Exception ex)
 			{
 
 			}
 
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
     }
 }

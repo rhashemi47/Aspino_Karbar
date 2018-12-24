@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -187,8 +187,21 @@ class SyncGetHamyarProfile {
                 "WorkHistoryInMonth='" +value[6] + "', " +
                 "WorkHistoryAllYear='" +0 + "', " +//todo value[7]<-------
                 "HmayarStar='" +value[7].replace("@@","") + "' WHERE Code_InfoHamyar='" + HamyarCode + "'";
-        db = dbh.getWritableDatabase();
-        db.execSQL(query);
+        try {
+            if (!db.isOpen()) {
+                db = dbh.getWritableDatabase();
+            }
+        }
+        catch (Exception ex)
+        {
+            db = dbh.getWritableDatabase();
+        }
+
+        db.execSQL(query);if(db.isOpen()){db.close();}
+        if(db.isOpen())
+        {
+            db.close();
+        }
         SyncGetHamyarComment syncGetHamyarComment=new SyncGetHamyarComment(activity,UserCode,HamyarCode);
         syncGetHamyarComment.AsyncExecute();
     }

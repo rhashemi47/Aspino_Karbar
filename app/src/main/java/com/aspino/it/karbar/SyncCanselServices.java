@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -212,9 +212,9 @@ public class SyncCanselServices {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("UPDATE OrdersService SET Status='3' WHERE Code_OrdersService='"+UserServiceCode+"'");
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		Toast.makeText(activity, "سرویس لغو گردید", Toast.LENGTH_LONG).show();
 		LoadActivity(Paigiri.class, "karbarCode", pUserCode);
     }

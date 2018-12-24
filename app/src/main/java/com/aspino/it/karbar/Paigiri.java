@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -208,7 +208,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		switch (mId) {
 
 			case R.id.profile:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 				if (coursors.getCount() > 0) {
 					coursors.moveToNext();
@@ -227,11 +227,13 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				else {
 					LoadActivity(Login.class,"karbarCode","0");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.wallet:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -240,10 +242,12 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				else {
 					LoadActivity(Login.class,"karbarCode","0");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 			case R.id.Order:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -257,13 +261,15 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				break;
 
 			case R.id.AddresManagement:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.Invite_friends:
@@ -271,14 +277,16 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				break;
 
 			case R.id.About:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 
 					LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 		}
 
@@ -329,7 +337,7 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
 				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));
-				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+				stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));				stopService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
@@ -364,7 +372,9 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				db.execSQL("DELETE FROM Unit");
 				db.execSQL("DELETE FROM UpdateApp");
 				db.execSQL("DELETE FROM visit");
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				Intent startMain = new Intent(Intent.ACTION_MAIN);
 
 				startMain.addCategory(Intent.CATEGORY_HOME);

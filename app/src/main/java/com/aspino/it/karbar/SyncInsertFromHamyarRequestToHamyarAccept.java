@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -188,14 +188,14 @@ public class SyncInsertFromHamyarRequestToHamyarAccept {
     	if(cursor.getCount()>0)
 		{
 			cursor.moveToNext();
-			db=dbh.getWritableDatabase();
+			try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 			String Query="UPDATE OrdersService SET Status='1' WHERE Code_OrdersService='"+cursor.getString(cursor.getColumnIndex("BsUserServicesCode"))+"'";
-			db.execSQL(Query);
+			db.execSQL(Query);if(db.isOpen()){db.close();}
 			LoadActivity(MainMenu.class,"","");
 		}
     	if(db.isOpen())
 		{
-			db.close();
+			if(db.isOpen()) {                                            db.close();                                        }
 		}
 		if(!cursor.isClosed())
 		{

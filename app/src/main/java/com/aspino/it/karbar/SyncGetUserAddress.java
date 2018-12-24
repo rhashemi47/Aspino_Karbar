@@ -1,7 +1,8 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
@@ -27,13 +28,49 @@ public class SyncGetUserAddress {
 	private String pUserCode;
 	private String WsResponse;
 	private String Flag;
+	//*******************
+	private String AddressCode;
+	private String DetailCode;
+	private String FromDate;
+	private String ToDate;
+	private String FromTime;
+	private String ToTime;
+	private String Description;
+	private String TimeDiff;
+	private String MaleCount;
+	private String FemaleCount;
+	private String HamyarCount;
 	//private String acceptcode;
 	private boolean CuShowDialog=false;
 	//Contractor
-	public SyncGetUserAddress(Activity activity, String pUserCode,String Flag) {
+	public SyncGetUserAddress(Activity activity,
+							  String pUserCode,
+							  String Flag,
+							  String AddressCode,
+							  String DetailCode,
+							   String FromDate,
+							   String ToDate,
+							   String FromTime,
+							   String ToTime,
+							   String Description,
+							   String TimeDiff,
+							   String MaleCount,
+							   String FemaleCount,
+							   String HamyarCount) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
 		this.Flag = Flag;
+		this.AddressCode=AddressCode;
+		this.DetailCode=DetailCode;
+		this.FromDate=FromDate;
+		this.ToDate=ToDate;
+		this.FromTime=FromTime;
+		this.ToTime=ToTime;
+		this.Description=Description;
+		this.TimeDiff=TimeDiff;
+		this.MaleCount=MaleCount;
+		this.FemaleCount=FemaleCount;
+		this.HamyarCount=HamyarCount;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -182,12 +219,19 @@ public class SyncGetUserAddress {
 	}
 	
 	
-	public void InsertDataFromWsToDb(String AllRecord)
-    {
+	public void InsertDataFromWsToDb(String AllRecord) {
 		String[] res;
 		String[] value;
-		res=WsResponse.split("@@");
-		db=dbh.getWritableDatabase();
+		res = WsResponse.split("@@");
+		try {
+			if (!db.isOpen()) {
+				db = dbh.getWritableDatabase();
+			}
+		}
+		catch (Exception ex)
+		{
+			db = dbh.getWritableDatabase();
+		}
 		db.execSQL("DELETE FROM address");
 		for(int i=0;i<res.length;i++){
 			value=res[i].split("##");
@@ -216,10 +260,64 @@ public class SyncGetUserAddress {
 					"','"+value[10]+
 					"')");
 		}
-		db.close();
-		if(this.Flag.compareTo("0")!=0) {
-			Toast.makeText(activity, "درخواست انجام شد.", Toast.LENGTH_LONG).show();
+		if(db.isOpen()){
+			db.close();
+		}
+		if(this.Flag.compareTo("1")==0) {
+			Toast.makeText(activity, "آدرس ثبت شد.", Toast.LENGTH_LONG).show();
+			String query="INSERT INTO address_select (Code) VALUES('"+AddressCode+ "')";
+			try {
+				if (!db.isOpen()) {
+					db = dbh.getWritableDatabase();
+				}
+			}
+			catch (Exception ex)
+			{
+				db = dbh.getWritableDatabase();
+			}
+			db.execSQL("DELETE FROM address_select");
+			db.execSQL(query);if(db.isOpen()){db.close();}
+			if(db.isOpen()){
+				db.close();
+			}
+			LoadActivity(Service_Request_OffCode.class, "karbarCode", pUserCode,
+					"DetailCode", DetailCode,
+					"FromDate", FromDate,
+					"ToDate", ToDate,
+					"FromTime", FromTime,
+					"ToTime", ToTime,
+					"Description", Description,
+					"TimeDiff", TimeDiff,
+					"MaleCount", MaleCount,
+					"FemaleCount", FemaleCount,
+					"HamyarCount", HamyarCount
+			);
 		}
     }
-	
+	public void LoadActivity(Class<?> Cls, String VariableName1, String VariableValue1,
+							  String VariableName2, String VariableValue2,
+							  String VariableName3, String VariableValue3,
+							  String VariableName4, String VariableValue4,
+							  String VariableName5, String VariableValue5,
+							  String VariableName6, String VariableValue6,
+							  String VariableName7, String VariableValue7,
+							  String VariableName8, String VariableValue8,
+							  String VariableName9, String VariableValue9,
+							  String VariableName10, String VariableValue10,
+							  String VariableName11, String VariableValue11)
+	{
+		Intent intent = new Intent(this.activity,Cls);
+		intent.putExtra(VariableName1, VariableValue1);
+		intent.putExtra(VariableName2, VariableValue2);
+		intent.putExtra(VariableName3, VariableValue3);
+		intent.putExtra(VariableName4, VariableValue4);
+		intent.putExtra(VariableName5, VariableValue5);
+		intent.putExtra(VariableName6, VariableValue6);
+		intent.putExtra(VariableName7, VariableValue7);
+		intent.putExtra(VariableName8, VariableValue8);
+		intent.putExtra(VariableName9, VariableValue9);
+		intent.putExtra(VariableName10, VariableValue10);
+		intent.putExtra(VariableName11, VariableValue11);
+		activity.startActivity(intent);
+	}
 }

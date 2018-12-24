@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -188,11 +188,11 @@ public class SyncGetUserServiceStartDate {
 							value[1] + "','" +
 							value[2] + "','" +
 							value[3] + "')";
-					db.execSQL(query);
+					db.execSQL(query);if(db.isOpen()){db.close();}
 					String message="برای سرویس به شماره: " + value[1] +"اعلام شروع به کار شده است";
 						runNotification("بسپارینا", message, i, value[1], MainMenu.class, "2");
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 	}
 	public void runNotification(String title, String detail, int id, String OrderCode, Class<?> Cls, String status)
 	{

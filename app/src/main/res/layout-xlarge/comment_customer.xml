@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:titleTextColor="#ffff"
@@ -53,9 +53,9 @@
                             android:stepSize="1.0"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_marginRight="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:layoutDirection="ltr"
+                            android:layout_marginLeft="15dp"
                             android:theme="@style/RatingBar"
+                            android:layoutDirection="ltr"
                             />
                     </LinearLayout>
                     <LinearLayout

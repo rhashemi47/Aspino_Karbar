@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -185,10 +185,10 @@ public class SyncGetUserOffCode {
 
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM OffCode");
 		db.execSQL("INSERT INTO OffCode (Code,Value) VALUES('"+ OffCode + "','" + WsResponse + "')");
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		Toast.makeText(activity.getApplicationContext(),"کد تخفیف صحیح است و پس از ثبت سرویس اعمال می گردد",Toast.LENGTH_LONG).show();
     }
 	

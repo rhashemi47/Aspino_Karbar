@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -75,10 +75,12 @@ public class Login extends Activity {
 							String query = null;
 							db = dbh.getWritableDatabase();
 							query = "INSERT INTO Profile (Mobile) VALUES ('" + etPhoneNumber.getText().toString() + "')";
-							db.execSQL(query);
+							db.execSQL(query);if(db.isOpen()){db.close();}
 							SendAcceptCode sendCode = new SendAcceptCode(Login.this, etPhoneNumber.getText().toString(), "1");
 							sendCode.AsyncExecute();
-							db.close();
+							if(db.isOpen()) {
+								db.close();
+							}
 						}
 						else
 						{

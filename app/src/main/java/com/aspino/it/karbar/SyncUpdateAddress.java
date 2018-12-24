@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -307,7 +307,7 @@ public class SyncUpdateAddress {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,pUserCode,this.Flag);
+		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,pUserCode,this.Flag,"0","0","0","0","0","0","0","0","0","0","0");
 		syncGetUserAddress.AsyncExecute();
     }
 	

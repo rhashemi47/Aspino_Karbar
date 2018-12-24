@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -195,7 +195,7 @@ public class SyncGettUserCreditHistory {
 		String[] value;
 		res=WsResponse.split("@@");
 		String query=null;
-		db=dbh.getWritableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 		db.execSQL("DELETE FROM credits");
 		for(int i=0;i<res.length;i++){
 			value=res[i].split("##");
@@ -209,9 +209,9 @@ public class SyncGettUserCreditHistory {
 					"','"+value[6]+
 					"','"+value[7]+
 					"')";
-			db.execSQL(query);
+			db.execSQL(query);if(db.isOpen()){db.close();}
 		}
-		db.close();
+		if(db.isOpen()) {                                            db.close();                                        }
 		SyncGetUserCredit syncGetUserCredit=new SyncGetUserCredit(this.activity,pkarbarCode,this.Flag);
 		syncGetUserCredit.AsyncExecute();
 	}

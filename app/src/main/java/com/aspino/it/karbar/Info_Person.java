@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.content.Context;
@@ -69,7 +69,7 @@ public class Info_Person extends Activity {
         	
         }
         catch (Exception e) {
-			db = dbh.getReadableDatabase();
+			try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 			String query = "SELECT * FROM Profile";
 			Cursor cursor=db.rawQuery(query,null);
 			if(cursor.getCount()>0)
@@ -80,7 +80,9 @@ public class Info_Person extends Activity {
 			else {
 				phonenumber="0";
 			}
-			db.close();
+			if(db.isOpen()) {
+				db.close();
+			}
 		}		
    		try
         {

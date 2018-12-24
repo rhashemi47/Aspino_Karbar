@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -202,21 +202,51 @@ class SyncGetHamyarComment {
                         value[1] + "','" +
                         value[2] + "','" +
                         value[3] + "')";
-                db = dbh.getWritableDatabase();
-                db.execSQL(query);
+                try {
+                    if (!db.isOpen()) {
+                        db = dbh.getWritableDatabase();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    db = dbh.getWritableDatabase();
+                }
+                db.execSQL(query);if(db.isOpen()){db.close();}
+                if(db.isOpen())
+                {
+                    if(db.isOpen()) {                                            db.close();                                        }
+                }
             }
         }
     }
     private boolean check(String Code) {
-        db=dbh.getReadableDatabase();
-        String query = "SELECT * Comment WHERE Code_Comment='" +Code+"'";
+        try {
+            if (!db.isOpen()) {
+                db=dbh.getReadableDatabase();
+            }
+        }
+        catch (Exception ex)
+        {
+            db=dbh.getReadableDatabase();
+        }
+        String query = "SELECT * FROM Comment WHERE Code_Comment='" +Code+"'";
         Cursor cursor=db.rawQuery(query,null);
         if(cursor.getCount()>0)
         {
+            if(db.isOpen())
+            {
+                db.close();
+            }
+            cursor.close();
             return true;
         }
         else
         {
+            if(db.isOpen())
+            {
+                db.close();
+            }
+            cursor.close();
             return false;
         }
     }

@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Service;
 import android.content.Intent;
@@ -60,14 +60,14 @@ public class ServiceGetServiceSaved extends Service {
 
                                             throw sqle;
                                         }
-                                        db = dbh.getReadableDatabase();
+                                        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                                         Cursor coursors = db.rawQuery("SELECT * FROM login", null);
                                         for (int i = 0; i < coursors.getCount(); i++) {
                                             coursors.moveToNext();
 
                                             karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
                                         }
-                                        db.close();
+                                        if(db.isOpen()) {                                            db.close();                                        }
                                         SyncGetUserServices syncGetUserServices = new SyncGetUserServices(getApplicationContext(), karbarCode, "0");
                                         syncGetUserServices.AsyncExecute();
                                     }

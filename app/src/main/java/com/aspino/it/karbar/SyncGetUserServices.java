@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -262,8 +262,8 @@ public class SyncGetUserServices {
 							value[31] + "','" +
 							value[32] + "','" +
 							value[33] + "')";
-					db.execSQL(query);
-					db.close();
+					db.execSQL(query);if(db.isOpen()){db.close();}
+					if(db.isOpen()) {                                            db.close();                                        }
 					if (!isFirst) {
 						runNotification("آسپینو", value[4], i, value[0], MainMenu.class, value[32]);
 					}
@@ -294,7 +294,7 @@ public class SyncGetUserServices {
 	}
 	public String getDetailname(String detailCode)
 	{
-		db = dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		String query = "SELECT * FROM Servicesdetails  WHERE code=" + detailCode;
 		Cursor coursors = db.rawQuery(query, null);
 		if (coursors.getCount() > 0)

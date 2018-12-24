@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -259,14 +259,16 @@ protected void onCreate(Bundle savedInstanceState) {
 		try {
 			karbarCode = getIntent().getStringExtra("karbarCode").toString();
 		} catch (Exception e) {
-			db = dbh.getReadableDatabase();
+			try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 			Cursor coursors = db.rawQuery("SELECT * FROM login", null);
 			for (int i = 0; i < coursors.getCount(); i++) {
 				coursors.moveToNext();
 
 				karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
 			}
-			db.close();
+			if(db.isOpen()) {
+				db.close();
+			}
 		}
 		db=dbh.getReadableDatabase();
 		Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE code='"+DetailCode+"'",null);
@@ -279,7 +281,9 @@ protected void onCreate(Bundle savedInstanceState) {
 		{
 			Toast.makeText(getBaseContext(), "نوع فرم ثبت نشده", Toast.LENGTH_LONG).show();
 		}
-		db.close();
+		if(db.isOpen()) {
+			db.close();
+		}
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -373,7 +377,9 @@ protected void onCreate(Bundle savedInstanceState) {
 							DateGaregury=DateGSP[0];
 						}
 						cursor_convert.close();
-						db.close();
+						if(db.isOpen()) {
+							db.close();
+						}
 						spClock=sp[0].toString().split(":");
 						spClock[0]=spClock[0].replace(" ","");
 						spClock[1]=spClock[1].replace(" ","");
@@ -401,7 +407,9 @@ protected void onCreate(Bundle savedInstanceState) {
 							ToDate=SpaceSlit[0];
 							ToTime=SpaceSlit[1];
 						}
-						db.close();
+						if(db.isOpen()) {
+							db.close();
+						}
 					}
 					LoadActivity(Service_Request_SelectAddress.class, "karbarCode", karbarCode,
 							"DetailCode", DetailCode,
@@ -461,11 +469,13 @@ protected void onCreate(Bundle savedInstanceState) {
 							}
 
 							etFromDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
-							db=dbh.getWritableDatabase();
+							try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 							String query="UPDATE  DateTB SET Date = '" +StartYear+"/"+StartMonth+"/"+StartDay+"'";
-							db.execSQL(query);
+							db.execSQL(query);if(db.isOpen()){db.close();}
 
-							db.close();
+							if(db.isOpen()) {
+								db.close();
+							}
 							GetTime();
 						}
 
@@ -500,9 +510,9 @@ protected void onCreate(Bundle savedInstanceState) {
 //										DayStr=String.valueOf(dayOfMonth);
 //									}
 //									etFromDate.setText(String.valueOf(year) + "/" + Mon + "/" + DayStr);
-////									db=dbh.getWritableDatabase();
+////									try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 ////									String query="UPDATE  DateTB SET Date = '" +String.valueOf(year)+"/"+String.valueOf(monthOfYear+1)+"/"+String.valueOf(dayOfMonth)+"'";
-////									db.execSQL(query);
+////									db.execSQL(query);if(db.isOpen()){db.close();}
 ////
 ////									db.close();
 //									GetTime();
@@ -553,11 +563,13 @@ protected void onCreate(Bundle savedInstanceState) {
 						}
 
 						etFromDate.setText(PersianDigitConverter.PerisanNumber(StartYear + "/" + StartMonth + "/" + StartDay));
-						db=dbh.getWritableDatabase();
+						try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 						String query="UPDATE  DateTB SET Date = '" +StartYear+"/"+StartMonth+"/"+StartDay+"'";
-						db.execSQL(query);
+						db.execSQL(query);if(db.isOpen()){db.close();}
 
-						db.close();
+						if(db.isOpen()) {
+							db.close();
+						}
 						GetTime();
 					}
 
@@ -771,7 +783,7 @@ protected void onCreate(Bundle savedInstanceState) {
 //		spAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //			@Override
 //			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//				db = dbh.getReadableDatabase();
+//				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //				Cursor cursor = db.rawQuery("SELECT * FROM address WHERE Name='" + spAddress.getItemAtPosition(position).toString() + "'", null);
 //				if (cursor.getCount() > 0) {
 //					cursor.moveToNext();
@@ -863,9 +875,9 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				/*time.setText(getString(R.string.time) + String.format("%02d", hourOfDay)+
 						":" + String.format("%02d", minute) +
 						":" + String.format("%02d", seconds));	*/
-				db=dbh.getWritableDatabase();
+				try { if(!db.isOpen()) { db=dbh.getWritableDatabase();}}	catch (Exception ex){	db=dbh.getWritableDatabase();	}
 				String query="UPDATE  DateTB SET Time = '" +String.valueOf(hourOfDay)+":"+String.valueOf(minute)+"'";
-				db.execSQL(query);
+				db.execSQL(query);if(db.isOpen()){db.close();}
 				String DateStr =etFromDate.getText().toString();
 				String  hour,min;
 				if(hourOfDay<10)
@@ -927,7 +939,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 		switch (mId) {
 
 			case R.id.profile:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor coursors = db.rawQuery("SELECT * FROM Profile", null);
 				if (coursors.getCount() > 0) {
 					coursors.moveToNext();
@@ -946,11 +958,13 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				else {
 					LoadActivity2(Login.class,"karbarCode","0","","");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.wallet:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				Cursor c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -959,10 +973,12 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				else {
 					LoadActivity2(Login.class,"karbarCode","0","","");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 			case R.id.Order:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
@@ -976,13 +992,15 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				break;
 
 			case R.id.AddresManagement:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.Invite_friends:
@@ -990,14 +1008,16 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				break;
 
 			case R.id.About:
-				db = dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
 
 					LoadActivity2(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")),"","");
 				}
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 		}
 
@@ -1047,7 +1067,7 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 			// do something when the button is clicked
 			public void onClick(DialogInterface arg0, int arg1) {
 				//Declare Object From Get Internet Connection Status For Check Internet Status
-				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));
+				//stopService(new Intent(getBaseContext(), ServiceGetLocation.class));                stopService(new Intent(getBaseContext(), ServiceGetServiceSaved.class));				stopService(new Intent(getBaseContext(), ServiceGetUserServiceStartDate.class));
 
 				stopService(new Intent(getBaseContext(), ServiceGetServicesAndServiceDetails.class));
 				stopService(new Intent(getBaseContext(), ServiceGetSliderPic.class));
@@ -1082,7 +1102,9 @@ public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValu
 				db.execSQL("DELETE FROM Unit");
 				db.execSQL("DELETE FROM UpdateApp");
 				db.execSQL("DELETE FROM visit");
-				db.close();
+				if(db.isOpen()) {
+					db.close();
+				}
 				Intent startMain = new Intent(Intent.ACTION_MAIN);
 
 				startMain.addCategory(Intent.CATEGORY_HOME);

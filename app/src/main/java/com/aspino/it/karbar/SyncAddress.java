@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -35,6 +35,16 @@ public class SyncAddress {
 	private String IsDefault;
 	private String WsResponse;
 	//private String acceptcode;
+	private String DetailCode;
+	private String FromDate;
+	private String ToDate;
+	private String FromTime;
+	private String ToTime;
+	private String Description;
+	private String TimeDiff;
+	private String MaleCount;
+	private String FemaleCount;
+	private String HamyarCount;
 	private boolean CuShowDialog=true;
 	//Contractor
 	public SyncAddress(Activity activity, String pUserCode,
@@ -45,7 +55,17 @@ public class SyncAddress {
 					   String AddressText,
 					   String Email,
 					   String Lat,
-					   String Lng) {
+					   String Lng,
+					   String DetailCode,
+					   String FromDate,
+					   String ToDate,
+					   String FromTime,
+					   String ToTime,
+					   String Description,
+					   String TimeDiff,
+					   String MaleCount,
+					   String FemaleCount,
+					   String HamyarCount) {
 		this.activity = activity;
 		this.pUserCode = pUserCode;
 		this.IsDefault = IsDefault;
@@ -56,6 +76,16 @@ public class SyncAddress {
 		this.Email = Email;
 		this.Lat = Lat;
 		this.Lng = Lng;
+		this.DetailCode=DetailCode;
+		this.FromDate=FromDate;
+		this.ToDate=ToDate;
+		this.FromTime=FromTime;
+		this.ToTime=ToTime;
+		this.Description=Description;
+		this.TimeDiff=TimeDiff;
+		this.MaleCount=MaleCount;
+		this.FemaleCount=FemaleCount;
+		this.HamyarCount=HamyarCount;
 		IC = new InternetConnection(this.activity.getApplicationContext());
 		PV = new PublicVariable();
 		
@@ -286,7 +316,20 @@ public class SyncAddress {
 	
 	public void InsertDataFromWsToDb(String AllRecord)
     {
-		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,pUserCode,"1");
+		SyncGetUserAddress syncGetUserAddress=new SyncGetUserAddress(activity,
+				pUserCode,
+				"1",
+				WsResponse,
+				DetailCode,
+				FromDate,
+				ToDate,
+				FromTime,
+				ToTime,
+				Description,
+				TimeDiff,
+				MaleCount,
+				FemaleCount,
+				HamyarCount);
 		syncGetUserAddress.AsyncExecute();
     }
 	

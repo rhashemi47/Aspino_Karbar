@@ -1,4 +1,4 @@
-package com.aspino.it.karbar;
+package  com.aspino.it.karbar;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -231,7 +231,7 @@ public class HmLogin {
     }
 	public void setlogin() 
 	{
-		db = dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		Cursor cursors = db.rawQuery("SELECT * FROM login", null);
 		if(cursors.getCount()>0)
 		{
@@ -245,10 +245,18 @@ public class HmLogin {
 		}
 		else
 		{
-			db = dbh.getWritableDatabase();
+			try {
+				if (!db.isOpen()) {
+					db = dbh.getWritableDatabase();
+				}
+			}
+			catch (Exception ex)
+			{
+				db = dbh.getWritableDatabase();
+			}
 			db.execSQL("DELETE FROM login");
 			String query="INSERT INTO login (karbarCode,islogin) VALUES('"+res[0].toString()+"','1')";
-			db.execSQL(query);
+			db.execSQL(query);if(db.isOpen()){db.close();}
 		}
         cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
         if(cursors.getCount()>0)
@@ -256,7 +264,9 @@ public class HmLogin {
             cursors.moveToNext();
 			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
         }
-		db.close();
+		if(db.isOpen()) {
+			db.close();
+		}
 //		SyncMessage syncMessage=new SyncMessage(this.activity, res[0].toString(),LastMessageCode);
 //		syncMessage.AsyncExecute();
 //		SyncServices syncservices=new SyncServices(this.activity,res[0].toString(),CityCodeLocation);
@@ -269,7 +279,7 @@ public class HmLogin {
 		syncState.AsyncExecute();
 		SyncCity syncCity=new SyncCity(this.activity,CityCodeLocation);
 		syncCity.AsyncExecute();
-		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,res[0].toString(),"0");
+		SyncGetUserAddress syncGetUserAddress=new  SyncGetUserAddress(this.activity,res[0].toString(),"0","0","0","0","0","0","0","0","0","0","0","0");
 		syncGetUserAddress.AsyncExecute();
 	}
 	public void setloginDeactive() 
