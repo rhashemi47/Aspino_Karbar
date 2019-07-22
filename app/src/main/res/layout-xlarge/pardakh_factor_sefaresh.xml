@@ -182,28 +182,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_detail_service"
         android:layout_below="@+id/LinearCurrncy"
-        android:id="@+id/LinearDetails">
+        android:id="@+id/LinearDetailsHeader"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:textSize="32sp"
+            android:text="@string/ServiDetaile"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LinearDetailsHeader"
+        android:layout_marginBottom="70dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/rounded_detail_service"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:layout_marginRight="10dp"
-                android:textSize="32sp"
-                android:text="@string/ServiDetaile"
-                android:layout_marginLeft="10dp"/>
-        </LinearLayout>
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/LinearCurrncy"
+            android:id="@+id/LinearDetails">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -295,6 +303,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/LinearVisit"
             android:orientation="horizontal"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -317,6 +326,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/LinearStartService"
             android:orientation="horizontal"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -339,6 +349,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/LinearFinishService"
             android:orientation="horizontal"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
@@ -414,6 +425,7 @@
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
     </LinearLayout>
+    </ScrollView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

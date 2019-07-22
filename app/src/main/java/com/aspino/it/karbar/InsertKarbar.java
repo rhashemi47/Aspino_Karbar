@@ -276,7 +276,8 @@ public class InsertKarbar {
 				"','"+notext+
 				"','"+notext+
 				"','"+notext+"','"+notext+"','"+notext+"','"+notext+"','"+notext+"')");
-		db=dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+
 		Cursor cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
 		if(cursors.getCount()>0)
 		{
@@ -285,6 +286,9 @@ public class InsertKarbar {
 		}
 		if(db.isOpen()) {
 			db.close();
+		}
+		if(!cursors.isClosed()) {
+			cursors.close();
 		}
 //		SyncMessage syncMessage=new SyncMessage(this.activity, karbarCode,LastMessageCode);
 //		syncMessage.AsyncExecute();

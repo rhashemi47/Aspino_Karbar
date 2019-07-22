@@ -165,6 +165,13 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 		}
+
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
+		if(db.isOpen()) {
+			db.close();
+		}
 	}
 //
 //	btnIncreseCredit=(Button)findViewById(R.id.btnIncresCredit);
@@ -336,11 +343,15 @@ protected void onCreate(Bundle savedInstanceState) {
 		tvUserName.setText(tvUserName.getText() + "کاربر مهمان");
 	}
 
-	coursors.close();
+
+
+	if(!coursors.isClosed()) {
+		coursors.close();
+	}
 	if(db.isOpen()) {
 		db.close();
 	}
-	db=dbh.getReadableDatabase();
+	try { if(!db.isOpen()) { try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}}}	catch (Exception ex){	 db = dbh.getReadableDatabase();}
 	coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
 	if (coursors.getCount() > 0) {
 		coursors.moveToNext();
@@ -359,10 +370,13 @@ protected void onCreate(Bundle savedInstanceState) {
 			tvCredits.setText("0");
 		}
 	}
+
+	if(!coursors.isClosed()) {
+		coursors.close();
+	}
 	if(db.isOpen()) {
 		db.close();
 	}
-	coursors.close();
 
 }
 @Override
@@ -409,17 +423,47 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 							c.moveToNext();
 							SyncProfile profile = new SyncProfile(Credit.this, c.getString(c.getColumnIndex("karbarCode")));
 							profile.AsyncExecute();
+
+							if(!c.isClosed()) {
+								c.close();
+							}
+							if(db.isOpen()) {
+								db.close();
+							}
+						}
+
+						if(!c.isClosed()) {
+							c.close();
+						}
+						if(db.isOpen()) {
+							db.close();
 						}
 					} else {
 						LoadActivity(Profile.class, "karbarCode", karbarCode);
 					}
+					if(!coursors.isClosed()) {
+						coursors.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 				}
 				else {
+					if(!coursors.isClosed()) {
+						coursors.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity(Login.class,"karbarCode","0");
+				}
+
+				if(!coursors.isClosed()) {
+					coursors.close();
 				}
 				if(db.isOpen()) {
 					db.close();
-				};
+				}
 				break;
 
 			case R.id.wallet:
@@ -431,6 +475,10 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				}
 				else {
 					LoadActivity(Login.class,"karbarCode","0");
+				}
+
+				if(!c.isClosed()) {
+					c.close();
 				}
 				if(db.isOpen()) {
 					db.close();
@@ -446,7 +494,21 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 							"LEFT JOIN " +
 							"Servicesdetails ON " +
 							"Servicesdetails.code=OrdersService.ServiceDetaileCode";
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+				}
+
+				if(!c.isClosed()) {
+					c.close();
+				}
+				if(db.isOpen()) {
+					db.close();
 				}
 				break;
 
@@ -456,6 +518,9 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 				if (c.getCount() > 0) {
 					c.moveToNext();
 					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+				}
+				if(!c.isClosed()) {
+					c.close();
 				}
 				if(db.isOpen()) {
 					db.close();
@@ -473,6 +538,10 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					c.moveToNext();
 
 					LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+				}
+
+				if(!c.isClosed()) {
+					c.close();
 				}
 				if(db.isOpen()) {
 					db.close();

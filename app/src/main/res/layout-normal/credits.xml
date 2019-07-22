@@ -12,7 +12,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/LinearMinCredit"
-        android:layout_below="@+id/appbar"
         android:background="#fff">
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +38,7 @@
             android:layout_height="wrap_content"
             android:text="@string/RecentCredit"
             android:layout_marginRight="10dp"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textColor="#fff"
             android:layout_gravity="center"
             android:gravity="center"
@@ -73,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="لطفا یکی از مبالغ زیر را انتخاب یا مبلغ دلخواه خود را وارد نمایید و سپس مبلغ نهایی را پرداخت نمایید و اعتبار کیف پول خود را افزایش دهید ."
-                android:textSize="18dp"
+                android:textSize="16sp"
                 android:textColor="#000000"/>
             <EditText
                 android:id="@+id/etCurrencyInsertCredit"

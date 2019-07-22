@@ -12,7 +12,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:id="@+id/LinearMinCredit"
-        android:layout_below="@+id/appbar"
         android:background="#fff">
     <LinearLayout
         android:layout_width="match_parent"

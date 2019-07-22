@@ -14,8 +14,8 @@
         android:gravity="center">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewContactLogo"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
             android:gravity="center" />
     </LinearLayout>
@@ -72,10 +72,10 @@
     <TextView
         android:id="@+id/textViewUnreadCount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
-        android:padding="5dp"
+        android:layout_height="45dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
+        android:padding="10dp"
         android:textColor="#fff"
         android:layout_gravity="center"
         android:gravity="center"
@@ -86,11 +86,11 @@
     <Button
         android:id="@+id/buttonInvite"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:text="@string/Detail_Hamyar"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="35dp"
         android:padding="5dp"
         android:textSize="16sp"
         android:background="@drawable/rounded_bottom_detail_hamyar"/>

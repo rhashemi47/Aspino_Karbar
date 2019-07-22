@@ -20,7 +20,7 @@
             android:layout_margin="10dp"
             android:lineSpacingExtra="4dp"
             android:text="آیا کد تخفیف دارید ؟"
-            android:textSize="25dp"
+            android:textSize="26sp"
             android:textColor="#333333"
             android:textAlignment="center"/>
         <ImageView
@@ -51,8 +51,8 @@
                 android:id="@+id/etOffCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
                 android:background="@drawable/rounded_edittext_with_border"
                 android:ems="2"
                 android:gravity="center"
@@ -86,14 +86,13 @@
             android:text="برای اطلاع از کد های تخفیف ، آسپینو رو در شبکه های اجتماعی دنبال کنید"
             android:textAlignment="center"
             android:textColor="#333333"
-            android:textSize="20dp" />
+            android:textSize="18sp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/LinearsecondOff">
+        android:layout_alignParentBottom="true">
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"

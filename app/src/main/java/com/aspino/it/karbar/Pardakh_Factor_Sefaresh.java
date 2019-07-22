@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,9 @@ public class Pardakh_Factor_Sefaresh extends AppCompatActivity {
 	private int REQUEST_CODE_ASK_PERMISSIONS=123;
 	private String HamyarCode;
 	private String RequestCode="0";
+	private LinearLayout LinearVisit;
+	private LinearLayout LinearStartService;
+	private LinearLayout LinearFinishService;
 
 	@Override
 	protected void attachBaseContext(Context newBase) {
@@ -80,6 +84,9 @@ protected void onCreate(Bundle savedInstanceState) {
 	tvContetnDiscountService=(TextView) findViewById(R.id.tvContetnDiscountService);
 	tvContetnFinalCurrency=(TextView) findViewById(R.id.tvContetnFinalCurrency);
 	btnCachFactor=(Button) findViewById(R.id.btnCachFactor);
+	LinearVisit = (LinearLayout) findViewById(R.id.LinearVisit);
+	LinearStartService = (LinearLayout) findViewById(R.id.LinearStartService);
+	LinearFinishService = (LinearLayout) findViewById(R.id.LinearFinishService);
 	dbh=new DatabaseHelper(getApplicationContext());
 	try {
 
@@ -106,11 +113,18 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	catch (Exception e)
 	{
-		db=dbh.getReadableDatabase();
+
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		Cursor cursor = db.rawQuery("SELECT * FROM login",null);
 		for(int i=0;i<cursor.getCount();i++){
 			cursor.moveToNext();
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
+		}
+		if(!cursor.isClosed()) {
+			cursor.close();
+		}
+		if(db.isOpen()) {
+			db.close();
 		}
 	}
 	try
@@ -122,7 +136,8 @@ protected void onCreate(Bundle savedInstanceState) {
 	{
 		OrderCode="0";
 	}
-	db=dbh.getReadableDatabase();
+
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 	final Cursor coursors;
 	Cursor cursor;
 	String Query="SELECT OrdersService.*,Servicesdetails.name,address.name adname FROM OrdersService " +
@@ -144,10 +159,13 @@ protected void onCreate(Bundle savedInstanceState) {
 		tvContentAddress.setText(coursors.getString(coursors.getColumnIndex("adname")));
 		tvCodeService.setText(coursors.getString(coursors.getColumnIndex("Code_OrdersService")));
 	}
-	if(!coursors.isClosed())
-	{
+	if(!coursors.isClosed()) {
 		coursors.close();
 	}
+	if(db.isOpen()) {
+		db.close();
+	}
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 	Query="SELECT Hamyar.*,InfoHamyar.* FROM Hamyar " +
 			"LEFT JOIN " +
 			"InfoHamyar ON " +
@@ -168,7 +186,8 @@ protected void onCreate(Bundle savedInstanceState) {
 		db.close();
 	}
 	Query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
-	db=dbh.getReadableDatabase();
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+
 	cursor = db.rawQuery(Query, null);
 	if(cursor.getCount()>0){
 		cursor.moveToNext();
@@ -210,15 +229,23 @@ protected void onCreate(Bundle savedInstanceState) {
 		@Override
 		public void onClick(View v) {
 		String	Query = "SELECT * FROM UserServicesHamyarRequest WHERE BsUserServicesCode='" + OrderCode + "'";
-		db=dbh.getReadableDatabase();
+			try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+
 		Cursor	cursor = db.rawQuery(Query, null);
 			if(cursor.getCount()>0){
 				cursor.moveToNext();
 				Confirm=cursor.getString(cursor.getColumnIndex("ConfirmSecond"));
 			}
+			if(!cursor.isClosed()) {
+				cursor.close();
+			}
+			if(db.isOpen()) {
+				db.close();
+			}
 			if(Confirm.compareTo("1")==0)
 			{
-				db=dbh.getReadableDatabase();
+
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				String query="SELECT * FROM AmountCredit";
 				Cursor cursor1=db.rawQuery(query,null);
 				if(cursor1.getCount()>0)
@@ -238,9 +265,23 @@ protected void onCreate(Bundle savedInstanceState) {
 					{
 						Toast.makeText(Pardakh_Factor_Sefaresh.this,"لطفا حساب خود را شارژ فرمایید!",Toast.LENGTH_LONG).show();
 					}
+
+					if(!cursor1.isClosed()) {
+						cursor1.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 				}
 				else
 				{
+					try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+					if(!cursor1.isClosed()) {
+						cursor1.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					Toast.makeText(Pardakh_Factor_Sefaresh.this,"لطفا حساب خود را شارژ فرمایید!",Toast.LENGTH_LONG).show();
 				}
 			}
@@ -249,16 +290,22 @@ protected void onCreate(Bundle savedInstanceState) {
 				alert_final_factor(FinalCurrency);
 				//Toast.makeText(Pardakh_Factor_Sefaresh.this,"ابتدا باید هزینه نهایی را تایید فرمایید!",Toast.LENGTH_LONG).show();
 			}
-			if(db.isOpen())
-			{
-				db.close();
-			}
-			if(!coursors.isClosed())
-			{
-				coursors.close();
-			}
 		}
 	});
+	//*************************Visible Or Invisible************************************
+	if(tvDateAndTimeVisitService.getText().length() <= 0)
+	{
+		LinearVisit.setVisibility(View.GONE);
+	}
+	if(tvStartService.getText().length() <= 0)
+	{
+		LinearStartService.setVisibility(View.GONE);
+	}
+	if(tvFinishService.getText().length() <= 0)
+	{
+		LinearFinishService.setVisibility(View.GONE);
+	}
+	//*********************************************************************************
 }
 @Override
 public boolean onKeyDown( int keyCode, KeyEvent event )  {

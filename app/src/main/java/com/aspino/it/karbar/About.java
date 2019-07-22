@@ -205,12 +205,18 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 								SyncProfile profile = new SyncProfile(About.this, c.getString(c.getColumnIndex("karbarCode")));
 								profile.AsyncExecute();
 							}
+							if(!c.isClosed()) {
+								c.close();
+							}
 						} else {
 							LoadActivity(Profile.class, "karbarCode", karbarCode);
 						}
 					}
 					else {
 						LoadActivity(Login.class,"karbarCode","0");
+					}
+					if(!coursors.isClosed()) {
+						coursors.close();
 					}
 					if(db.isOpen()) {
 						db.close();
@@ -230,8 +236,14 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					if (c.getCount() > 0) {
 						c.moveToNext();
 						LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+						if(!c.isClosed()) {
+							c.close();
+						}
 					}
 					else {
+						if(!c.isClosed()) {
+							c.close();
+						}
 						LoadActivity(Login.class,"karbarCode","0");
 					}
 					if(db.isOpen()) {
@@ -255,7 +267,13 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 								"LEFT JOIN " +
 								"Servicesdetails ON " +
 								"Servicesdetails.code=OrdersService.ServiceDetaileCode";
+						if(!c.isClosed()) {
+							c.close();
+						}
 						LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+					}
+					if(!c.isClosed()) {
+						c.close();
 					}
 					break;
 
@@ -272,8 +290,13 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 
 					c = db.rawQuery("SELECT * FROM login", null);
 					if (c.getCount() > 0) {
-						c.moveToNext();
+						if(!c.isClosed()) {
+							c.close();
+						}
 						LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+					}
+					if(!c.isClosed()) {
+						c.close();
 					}
 					if(db.isOpen()) {
 						db.close();
@@ -298,8 +321,13 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 					c = db.rawQuery("SELECT * FROM login", null);
 					if (c.getCount() > 0) {
 						c.moveToNext();
-
 						LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+						if(!c.isClosed()) {
+							c.close();
+						}
+					}
+					if(!c.isClosed()) {
+						c.close();
 					}
 					if(db.isOpen()) {
 						db.close();

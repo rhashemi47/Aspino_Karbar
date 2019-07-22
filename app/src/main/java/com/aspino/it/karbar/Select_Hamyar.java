@@ -123,11 +123,18 @@ protected void onCreate(final Bundle savedInstanceState) {
 		karbarCode = getIntent().getStringExtra("karbarCode").toString();
 
 	} catch (Exception e) {
-		db=dbh.getReadableDatabase();
+
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		Cursor cursor = db.rawQuery("SELECT * FROM login", null);
 		for (int i = 0; i < cursor.getCount(); i++) {
 			cursor.moveToNext();
 			karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
+		}
+		if(!cursor.isClosed()) {
+			cursor.close();
+		}
+		if(db.isOpen()) {
+			db.close();
 		}
 	}
 	try
@@ -138,7 +145,8 @@ protected void onCreate(final Bundle savedInstanceState) {
 	{
 		OrderCode="0";
 	}
-	db=dbh.getReadableDatabase();
+
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 	Cursor coursors;
 	coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name,address.AddressText FROM OrdersService  " +
 			"LEFT JOIN Servicesdetails " +
@@ -180,11 +188,15 @@ protected void onCreate(final Bundle savedInstanceState) {
 			map.put("CodeHamyarRequest",C.getString(C.getColumnIndex("ReqCode")));
 			valuse.add(map);
 		}
+		if(!C.isClosed()) {
+			C.close();
+		}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
 		if(db.isOpen()) {
 			db.close();
 		}
-		C.close();
-		coursors.close();
 		AdapterInfoHamyar dataAdapter=new AdapterInfoHamyar(Select_Hamyar.this,valuse);
 		RecylcLstHamyar.setAdapter(dataAdapter);
 	}

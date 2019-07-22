@@ -13,7 +13,8 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:name=".FontMain"
-        tools:replace="android:allowBackup,android:label">
+        tools:replace="android:allowBackup,android:label"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name="com.aspino.it.karbar.Splash"
             android:label="@string/Logo_name"

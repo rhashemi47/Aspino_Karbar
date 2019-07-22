@@ -171,6 +171,10 @@ public class Map extends AppCompatActivity {
 
                 karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
             }
+
+            if(!coursors.isClosed()) {
+                coursors.close();
+            }
             if(db.isOpen()) {
                 db.close();
             }
@@ -210,10 +214,20 @@ public class Map extends AppCompatActivity {
                 {
                     StrError="نامی دلخواه برای آدرس محل وارد نمایید!"+"\n";
                 }
-                db=dbh.getReadableDatabase();
+
+                if(db.isOpen()) {
+                    db.close();
+                }
+                try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                 Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE Name='"+StrnameAddress+"'",null);
                 if(cursorAddress.getCount()>0) {
                     StrError="نام آدرس تکراری است!"+"\n";
+                }
+                if(!cursorAddress.isClosed()) {
+                    cursorAddress.close();
+                }
+                if(db.isOpen()) {
+                    db.close();
                 }
                 if(StrError.length()==0 || StrError.compareTo("")==0)
                 {
@@ -246,6 +260,7 @@ public class Map extends AppCompatActivity {
                 {
                     Toast.makeText(Map.this,StrError,Toast.LENGTH_LONG).show();
                 }
+
                 if(db.isOpen()) {
                     db.close();
                 }
@@ -424,6 +439,10 @@ public class Map extends AppCompatActivity {
                     if (latStr.compareTo("0")!=0 && lonStr.compareTo("0")!=0) {
                         point = new LatLng(lat, lon);
                     }
+                }
+
+                if(!coursors.isClosed()) {
+                    coursors.close();
                 }
                 if(db.isOpen()) {
                     db.close();

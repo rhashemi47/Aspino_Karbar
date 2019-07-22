@@ -58,7 +58,8 @@ public class Fragment_Service_Done extends Fragment {
 
             throw sqle;
         }
-        db=dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+
         Cursor coursors;
         coursors = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name,address.AddressText FROM OrdersService  " +
                 "LEFT JOIN Servicesdetails " +
@@ -135,6 +136,9 @@ public class Fragment_Service_Done extends Fragment {
 //            map.put("NameHamyar",coursors.getString(coursors.getColumnIndex("NameHamyar")));
 
             valuse.add(map);
+        }
+        if(!coursors.isClosed()) {
+            coursors.close();
         }
         if(db.isOpen()) {
             db.close();

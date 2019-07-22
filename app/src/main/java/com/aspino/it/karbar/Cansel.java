@@ -57,6 +57,12 @@ protected void onCreate(Bundle savedInstanceState) {
 
 			karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 		}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
+		if(db.isOpen()) {
+			db.close();
+		}
 	}
 //	//Typeface FontMitra = Typeface.createFromAsset(getAssets(), "font/vazir.ttf");//set font for page
 	tvcansel=(TextView)findViewById(R.id.tvTextCansel);

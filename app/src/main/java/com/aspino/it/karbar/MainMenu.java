@@ -179,9 +179,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             if (cursor.getCount() > 0) {
                 cursor.moveToNext();
                 karbarCode = cursor.getString(cursor.getColumnIndex("karbarCode"));
-                if(db.isOpen()) {
-                    db.close();
-                }
+            }
+            if(!cursor.isClosed()) {
+                cursor.close();
+            }
+            if(db.isOpen()) {
+                db.close();
             }
             if (karbarCode.compareTo("0") == 0) {
                 LoadActivity(Login.class, "karbarCode", "0");
@@ -228,6 +231,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         if (coursors.getCount() > 0) {
             countMessage = String.valueOf(coursors.getCount());
         }
+
+        if(!coursors.isClosed()) {
+            coursors.close();
+        }
         if(db.isOpen()) {
             db.close();
         }
@@ -235,6 +242,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         final Cursor cursor = db.rawQuery("SELECT * FROM OrdersService WHERE Status ='1'", null);
         if (cursor.getCount() > 0) {
             countOrder = String.valueOf(cursor.getCount());
+        }
+
+        if(!cursor.isClosed()) {
+            cursor.close();
         }
         if(db.isOpen()) {
             db.close();
@@ -258,6 +269,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     cursor.moveToNext();
                     dialContactPhone(cursor.getString(cursor.getColumnIndex("PhoneNumber")));
                 }
+
+                if(!cursor.isClosed()) {
+                    cursor.close();
+                }
                 if(db.isOpen()) {
                     db.close();
                 }
@@ -278,6 +293,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 map.put("name", cursor1.getString(cursor1.getColumnIndex("servicename")));
                 map.put("Code", cursor1.getString(cursor1.getColumnIndex("code")));
                 valuse.add(map);
+            }
+
+            if(!cursor.isClosed()) {
+                cursor.close();
             }
             if(db.isOpen()) {
                 db.close();
@@ -310,6 +329,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                         map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
                         valuse.add(map);
                     }
+
+                    if(!cursor.isClosed()) {
+                        cursor.close();
+                    }
                     if(db.isOpen()) {
                         db.close();
                     }
@@ -328,6 +351,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                         map.put("name", cursor.getString(cursor.getColumnIndex("name")));
                         map.put("Code", cursor.getString(cursor.getColumnIndex("code")));
                         valuse.add(map);
+                    }
+
+                    if(!cursor.isClosed()) {
+                        cursor.close();
                     }
                     if(db.isOpen()) {
                         db.close();
@@ -368,7 +395,13 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 bpm[j] = convertToBitmap(coursors.getString(coursors.getColumnIndex("Pic")));
                 link[j] = coursors.getString(coursors.getColumnIndex("Link"));
             }
-            if(db.isOpen()) {                                            db.close();                                        }
+
+            if(!coursors.isClosed()) {
+                coursors.close();
+            }
+            if(db.isOpen()) {
+                db.close();
+            }
             int i = 0;
             while (i < bpm.length) {
                 imageView = new ImageView(getApplicationContext());
@@ -406,6 +439,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             viewFlipper.setVisibility(View.VISIBLE);
         }
         coursors.close();
+
         try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
         coursors = db.rawQuery("SELECT * FROM Profile", null);
         if (coursors.getCount() > 0) {
@@ -462,7 +496,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         if(db.isOpen()) {
             db.close();
         }
-        db=dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+
         coursors = db.rawQuery("SELECT * FROM AmountCredit", null);
         if (coursors.getCount() > 0) {
             coursors.moveToNext();
@@ -481,10 +516,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 tvCredits.setText("0");
             }
         }
+        if(!coursors.isClosed()) {
+            coursors.close();
+        }
         if(db.isOpen()) {
             db.close();
         }
-        coursors.close();
 //*******************************************************************************************************************
 //        try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 //        Cursor cursor2 = db.rawQuery("SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
@@ -1041,16 +1078,46 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                             c.moveToNext();
                             SyncProfile profile = new SyncProfile(MainMenu.this, c.getString(c.getColumnIndex("karbarCode")));
                             profile.AsyncExecute();
+                            if(!c.isClosed()) {
+                                c.close();
+                            }
+                            if(db.isOpen()) {
+                                db.close();
+                            }
+                        }
+                        if(!c.isClosed()) {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
                         }
                     } else {
+
+                        if(!coursors.isClosed()) {
+                            coursors.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                         LoadActivity(Profile.class, "karbarCode", karbarCode);
+                    }
+
+                    if(!coursors.isClosed()) {
+                        coursors.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
                     }
                 }
                 else {
+
+                    if(!coursors.isClosed()) {
+                        coursors.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     LoadActivity(Login.class,"karbarCode","0");
-                }
-                if(db.isOpen()) {
-                    db.close();
                 }
                 break;
 
@@ -1060,12 +1127,23 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 if (c.getCount() > 0) {
                     c.moveToNext();
                     LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+
+                    if(!c.isClosed()) {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                 }
                 else {
+                    try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+                    if(!c.isClosed()) {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     LoadActivity(Login.class,"karbarCode","0");
-                }
-                if(db.isOpen()) {
-                    db.close();
                 }
                 break;
             case R.id.Order:
@@ -1077,8 +1155,20 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     QueryCustom = "SELECT OrdersService.*,Servicesdetails.name FROM OrdersService " +
                             "LEFT JOIN " +
                             "Servicesdetails ON " +
-                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";
+                            "Servicesdetails.code=OrdersService.ServiceDetaileCode";try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+                    if(!c.isClosed()) {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+                }
+                if(!c.isClosed()) {
+                    c.close();
+                }
+                if(db.isOpen()) {
+                    db.close();
                 }
                 break;
 
@@ -1087,7 +1177,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
+                    if(!c.isClosed()) {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                }
+                if(!c.isClosed()) {
+                    c.close();
                 }
                 if(db.isOpen()) {
                     db.close();
@@ -1103,8 +1202,16 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 c = db.rawQuery("SELECT * FROM login", null);
                 if (c.getCount() > 0) {
                     c.moveToNext();
-
+                    if(!c.isClosed()) {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
                     LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+                }
+                if(!c.isClosed()) {
+                    c.close();
                 }
                 if(db.isOpen()) {
                     db.close();
@@ -1260,6 +1367,10 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                     if (cursorPhone.getCount() > 0) {
                         cursorPhone.moveToNext();
                         dialContactPhone(cursorPhone.getString(cursorPhone.getColumnIndex("PhoneNumber")));
+                    }
+
+                    if(!cursorPhone.isClosed()) {
+                        cursorPhone.close();
                     }
                     if(db.isOpen()) {
                         db.close();

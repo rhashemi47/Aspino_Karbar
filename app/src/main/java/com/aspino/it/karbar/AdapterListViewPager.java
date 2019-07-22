@@ -81,7 +81,7 @@ public class AdapterListViewPager extends BaseAdapter {
 //            holder.tvAddresService.setTypeface(faceh);
             //********************************************
             holder.tvTitleService.setTextSize(16);
-            holder.tvStatusService.setTextSize(8);
+            holder.tvStatusService.setTextSize(16);
             holder.tvDateAndTimeService.setTextSize(16);
             holder.tvAddresService.setTextSize(16);
             holder.tvNameHamyar.setTextSize(16);
@@ -98,14 +98,17 @@ public class AdapterListViewPager extends BaseAdapter {
         String NameHamyar = map.get("NameHamyar");
         if(Status.compareTo("0")!=0)
         {
-            holder.LinearStatusService.setBackgroundColor(Color.parseColor("#12b44f"));
+//            holder.LinearStatusService.setBackgroundColor(Color.parseColor("#12b44f"));
+            holder.LinearStatusService.setBackgroundResource(R.drawable.rounded_head_accept);
             holder.tvStatusService.setText("تایید شده");
             if(Status.compareTo("5")==0)
             holder.LinearMain.setOnClickListener(ItemOnclickPardakht);
         }
         else
         {
-            holder.LinearStatusService.setBackgroundColor(Color.parseColor("#f0ba51"));
+//            holder.LinearStatusService.setBackgroundColor(Color.parseColor("#f0ba51"));
+            holder.LinearStatusService.setBackgroundResource(R.drawable.rounded_head_select_hamyar);
+            holder.tvStatusService.setTextSize(10);
             holder.tvStatusService.setText("انتخاب متخصص");
             holder.LinearMain.setOnClickListener(ItemOnclickSelectHamyar);
         }

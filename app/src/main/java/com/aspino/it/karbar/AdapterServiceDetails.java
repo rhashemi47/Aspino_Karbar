@@ -100,7 +100,7 @@ public class AdapterServiceDetails extends BaseAdapter {
 
             throw sqle;
         }
-        db=dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}}}	catch (Exception ex){	 db = dbh.getReadableDatabase();}
         Cursor cursor = db.rawQuery("SELECT * FROM servicesdetails WHERE code='"+code+"'",null);
         if(cursor.getCount()>0)
         {
@@ -116,10 +116,22 @@ public class AdapterServiceDetails extends BaseAdapter {
                 holder.txtValues.setTag(cursor.getString(cursor.getColumnIndex("code")));
                 holder.imgValues.setTag(cursor.getString(cursor.getColumnIndex("code")));
             }
+            if(!cursor.isClosed()) {
+                cursor.close();
+            }
+            if(db.isOpen()) {
+                db.close();
+            }
 
         }
         else
         {
+            if(!cursor.isClosed()) {
+                cursor.close();
+            }
+            if(db.isOpen()) {
+                db.close();
+            }
             holder.imgValues.setImageResource(R.drawable.empty_icon);
         }
         holder.txtValues.setOnClickListener(TextViewItemOnclick);

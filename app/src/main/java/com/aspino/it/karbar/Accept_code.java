@@ -164,7 +164,7 @@ public class Accept_code extends Activity {
 			@Override
 			public void onClick(View v) {
 				String query=null;
-				db=dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}}}	catch (Exception ex){	 db = dbh.getReadableDatabase();}
 				query="SELECT * FROM Profile";
 				Cursor coursors = db.rawQuery(query,null);
 				if(coursors.getCount()>0)
@@ -175,6 +175,18 @@ public class Accept_code extends Activity {
 					acceptcode.setText("");
 					SendAcceptCode sendCode=new SendAcceptCode(Accept_code.this,Mobile,check_load);
 					sendCode.AsyncExecute();
+					if(!coursors.isClosed()) {
+						coursors.close();
+					}
+					if(db.isOpen()) {
+					db.close();
+				}
+				}
+				if(!coursors.isClosed()) {
+					coursors.close();
+				}
+				if(db.isOpen()) {
+					db.close();
 				}
 
 			}
@@ -283,21 +295,6 @@ public void onPause() {
 		}
 	}
 	public void startCountAnimation() {
-//		if(countDownTimer!=null) {
-//			countDownTimer.cancel();
-//		}
-//		countDownTimer=	new CountDownTimer(59000, 0) {
-//
-//			public void onTick(long millisUntilFinished) {
-//				tvTimer.setText(String.valueOf(millisUntilFinished / 1000));
-//				tvRefreshCode.setVisibility(View.GONE);
-//			}
-//
-//			public void onFinish() {
-//				tvRefreshCode.setVisibility(View.VISIBLE);
-//			}
-//		};
-//		countDownTimer.start();
 		continue_or_stop=true;
 		if(createthread) {
 			mHandler = new Handler();

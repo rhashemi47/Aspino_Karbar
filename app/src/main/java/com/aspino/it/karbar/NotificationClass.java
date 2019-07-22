@@ -71,6 +71,9 @@ public class NotificationClass {
             karbarCode = coursors.getString(coursors.getColumnIndex("karbarCode"));
         }
 
+        if(!coursors.isClosed()) {
+            coursors.close();
+        }
         if(db.isOpen()) {
             db.close();
         }
@@ -80,7 +83,7 @@ public class NotificationClass {
             long[] v = {500, 1000};
             Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, String.valueOf(notificationID));
-            mBuilder.setSmallIcon(R.drawable.logo);
+            mBuilder.setSmallIcon(R.drawable.logo1);
             mBuilder.setContentTitle(Title);
             mBuilder.setContentText(Detils);
             mBuilder.setVibrate(v);
@@ -123,7 +126,7 @@ public class NotificationClass {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(Title)                            // required
-                    .setSmallIcon(R.drawable.logo)   // required
+                    .setSmallIcon(R.drawable.logo1)   // required
                     .setContentText(Detils) // required
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)
@@ -139,7 +142,7 @@ public class NotificationClass {
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
             builder.setContentTitle(Title)                            // required
-                    .setSmallIcon(R.drawable.logo)   // required
+                    .setSmallIcon(R.drawable.logo1)   // required
                     .setContentText(Detils) // required
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setAutoCancel(true)

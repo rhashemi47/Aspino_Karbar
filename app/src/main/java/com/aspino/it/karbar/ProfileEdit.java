@@ -90,20 +90,25 @@ public class ProfileEdit extends Activity {
 
 			throw sqle;
 		}
-			db=dbh.getReadableDatabase();
-			Cursor coursors = db.rawQuery("SELECT * FROM login",null);
-			for(int i=0;i<coursors.getCount();i++){
+
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+		Cursor coursors = db.rawQuery("SELECT * FROM login",null);
+		for(int i=0;i<coursors.getCount();i++){
 				coursors.moveToNext();
 
 				karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 //				tvTextUserMobile.setText(coursors.getString(coursors.getColumnIndex("Phone")));
 			}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
 		if(db.isOpen()) {
 			db.close();
 		}
 
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
-		db=dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+
 		coursors = db.rawQuery("SELECT * FROM Profile",null);
 		for(int i=0;i<coursors.getCount();i++){
 			coursors.moveToNext();
@@ -159,6 +164,12 @@ public class ProfileEdit extends Activity {
 //			{
 //
 //			}
+		}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
+		if(db.isOpen()) {
+			db.close();
 		}
 		etTextBthDate.setOnClickListener(new View.OnClickListener() {
 			@Override

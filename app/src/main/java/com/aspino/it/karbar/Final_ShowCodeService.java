@@ -72,6 +72,13 @@ protected void onCreate(Bundle savedInstanceState) {
 			cursor.moveToNext();
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
 		}
+
+		if(!cursor.isClosed()) {
+			cursor.close();
+		}
+		if(db.isOpen()) {
+			db.close();
+		}
 	}
 
 	try
@@ -123,17 +130,21 @@ protected void onCreate(Bundle savedInstanceState) {
 //	tvAddressFinalService.setTypeface(FontMitra);
 //	tvDateAndTimeFinalService.setTypeface(FontMitra);
 	//************************************************************************************
-	db=dbh.getReadableDatabase();
+
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 	Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE code='"+NameOrder+"'",null);
 	if(coursors.getCount()>0){
 		coursors.moveToNext();
 		NameOrder=coursors.getString(coursors.getColumnIndex("name"));
 	}
+	if(!coursors.isClosed()) {
+		coursors.close();
+	}
 	if(db.isOpen()) {
 		db.close();
 	}
 	//**********************
-	db=dbh.getReadableDatabase();
+	try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 	Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE code='"+AddressFinalService+"'",null);
 	if(cursorAddress.getCount()>0)
 	{
@@ -141,9 +152,16 @@ protected void onCreate(Bundle savedInstanceState) {
 			cursorAddress.moveToNext();
 			AddressFinalService=cursorAddress.getString(cursorAddress.getColumnIndex("AddressText"));
 		}
+		if(!cursorAddress.isClosed())
+		{
+			cursorAddress.close();
+		}
 		if(db.isOpen()) {
 			db.close();
 		}
+	}
+	if(!coursors.isClosed()) {
+		coursors.close();
 	}
 	if(db.isOpen()) {
 		db.close();
@@ -173,4 +191,5 @@ public void LoadActivity(Class<?> Cls, String VariableName, String VariableValue
 		intent.putExtra(VariableName, VariableValue);
 		this.startActivity(intent);
 	}
+
 }

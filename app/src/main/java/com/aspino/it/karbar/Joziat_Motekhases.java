@@ -103,11 +103,17 @@ protected void onCreate(Bundle savedInstanceState) {
 	}
 	catch (Exception e)
 	{
-		db=dbh.getReadableDatabase();
+		try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
 		Cursor cursor = db.rawQuery("SELECT * FROM login",null);
 		for(int i=0;i<cursor.getCount();i++){
 			cursor.moveToNext();
 			karbarCode=cursor.getString(cursor.getColumnIndex("karbarCode"));
+		}
+		if(db.isOpen()) {
+			db.close();
+		}
+		if(!cursor.isClosed()) {
+			cursor.close();
 		}
 	}
 	try

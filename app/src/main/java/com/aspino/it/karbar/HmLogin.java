@@ -239,12 +239,30 @@ public class HmLogin {
 			String Result=cursors.getString(cursors.getColumnIndex("islogin"));
 			if(Result.compareTo("0")==0)
 			{
-				db = dbh.getWritableDatabase();
+				if(db.isOpen())
+				{
+					db.close();
+				}
+
+				try { if(!db.isOpen()) { db = dbh.getWritableDatabase();}}	catch (Exception ex){	db = dbh.getWritableDatabase();	}
+
 				db.execSQL("UPDATE login SET karbarCode='"+res[0].toString()+"' , islogin = '1'");
+				if(!cursors.isClosed()) {
+					cursors.close();
+				}
+			}
+			if(db.isOpen()) {
+				db.close();
+			}
+			if(!cursors.isClosed()) {
+				cursors.close();
 			}
 		}
 		else
 		{
+			if(db.isOpen()) {
+				db.close();
+			}
 			try {
 				if (!db.isOpen()) {
 					db = dbh.getWritableDatabase();
@@ -256,14 +274,19 @@ public class HmLogin {
 			}
 			db.execSQL("DELETE FROM login");
 			String query="INSERT INTO login (karbarCode,islogin) VALUES('"+res[0].toString()+"','1')";
-			db.execSQL(query);if(db.isOpen()){db.close();}
+			db.execSQL(query);
+			if(db.isOpen()){db.close();}
 		}
-        cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
-        if(cursors.getCount()>0)
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+		cursors = db.rawQuery("SELECT ifnull(MAX(CAST (code AS INT)),0)as code FROM messages", null);
+		if(cursors.getCount()>0)
         {
-            cursors.moveToNext();
+			cursors.moveToNext();
 			LastMessageCode=cursors.getString(cursors.getColumnIndex("code"));
-        }
+		}
+		if(!cursors.isClosed()) {
+			cursors.close();
+		}
 		if(db.isOpen()) {
 			db.close();
 		}

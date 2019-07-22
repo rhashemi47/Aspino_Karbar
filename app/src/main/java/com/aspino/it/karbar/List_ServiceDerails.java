@@ -21,6 +21,7 @@
     import android.widget.Button;
     import android.widget.ImageView;
     import android.widget.ListView;
+    import android.widget.TextView;
 
     import java.io.IOException;
     import java.util.ArrayList;
@@ -45,6 +46,7 @@
         private Button btnLogout;
         private ImageView imgBackToggle;
         private ImageView imgMenu;
+        private TextView tvServiceDetail;
 
         @Override
         protected void attachBaseContext(Context newBase) {
@@ -54,6 +56,7 @@
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_menu_list_servicedetail);
+           TextView tvServiceDetail=(TextView)findViewById(R.id.tvServiceDetail);
             //****************************************************************
             Toolbar mtoolbar = (Toolbar) findViewById(R.id.toolbar_list_servicedetails);
 
@@ -127,30 +130,55 @@
                 //todo
             }
         try
-        {
-            karbarCode = getIntent().getStringExtra("karbarCode").toString();
-        }
-        catch (Exception e)
-        {
-            db=dbh.getReadableDatabase();
-            Cursor coursors = db.rawQuery("SELECT * FROM login",null);
-            for(int i=0;i<coursors.getCount();i++){
-                coursors.moveToNext();
+            {
+                karbarCode = getIntent().getStringExtra("karbarCode").toString();
+            }
+            catch (Exception e)
+            {
+                try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+                Cursor coursors = db.rawQuery("SELECT * FROM login",null);
+                for(int i=0;i<coursors.getCount();i++){
+                    coursors.moveToNext();
 
-                karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
+                    karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
+                }
+                if(!coursors.isClosed()) {
+                    coursors.close();
+                }
+                if(db.isOpen()) {
+                    db.close();
+                }
+            }
+            //***********************************************
+            try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+            Cursor coursors = db.rawQuery("SELECT * FROM services WHERE code='"+codeService+"'",null);
+            if(coursors.getCount()>0){
+                coursors.moveToNext();
+                tvServiceDetail.setText(coursors.getString(coursors.getColumnIndex("servicename")));
+            }
+            else
+            {
+                tvServiceDetail.setText("نوع سرویس");
+            }
+            if(!coursors.isClosed()) {
+                coursors.close();
             }
             if(db.isOpen()) {
                 db.close();
             }
-        }
-            db=dbh.getReadableDatabase();
-            Cursor coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE servicename='"+codeService+"'",null);
+            //***********************************************
+
+            try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
+            coursors = db.rawQuery("SELECT * FROM Servicesdetails WHERE servicename='"+codeService+"'",null);
             for(int i=0;i<coursors.getCount();i++){
                 coursors.moveToNext();
                 HashMap<String, String> map = new HashMap<String, String>();
-                map.put("name","موضوع: "+coursors.getString(coursors.getColumnIndex("name")));
+                map.put("name",coursors.getString(coursors.getColumnIndex("name")));
                 map.put("Code",coursors.getString(coursors.getColumnIndex("code")));
                 valuse.add(map);
+            }
+            if(!coursors.isClosed()) {
+                coursors.close();
             }
             if(db.isOpen()) {
                 db.close();
@@ -264,15 +292,29 @@
                                 SyncProfile profile = new SyncProfile(List_ServiceDerails.this, c.getString(c.getColumnIndex("karbarCode")));
                                 profile.AsyncExecute();
                             }
+                            if(!c.isClosed()) {
+                                c.close();
+                            }
                         } else {
                             LoadActivity(Profile.class, "karbarCode", karbarCode);
                         }
+
+                        if(!coursors.isClosed()) {
+                            coursors.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                     }
                     else {
+
+                        if(!coursors.isClosed()) {
+                            coursors.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                         LoadActivity(Login.class,"karbarCode","0");
-                    }
-                    if(db.isOpen()) {
-                        db.close();
                     }
                     break;
 
@@ -282,12 +324,23 @@
                     if (c.getCount() > 0) {
                         c.moveToNext();
                         LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+                        if(!c.isClosed())
+                        {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                     }
                     else {
+                        if(!c.isClosed())
+                        {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                         LoadActivity(Login.class,"karbarCode","0");
-                    }
-                    if(db.isOpen()) {
-                        db.close();
                     }
                     break;
                 case R.id.Order:
@@ -300,16 +353,41 @@
                                 "LEFT JOIN " +
                                 "Servicesdetails ON " +
                                 "Servicesdetails.code=OrdersService.ServiceDetaileCode";
+                        if(!c.isClosed())
+                        {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                         LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
                     }
+                    if(!c.isClosed())
+                    {
+                        c.close();
+                    }
+                    if(db.isOpen()) {
+                        db.close();
+                    }
+
                     break;
 
                 case R.id.AddresManagement:
                     try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
                     c = db.rawQuery("SELECT * FROM login", null);
                     if (c.getCount() > 0) {
-                        c.moveToNext();
+                        if(!c.isClosed())
+                        {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
                         LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
+                    }
+                    if(!c.isClosed())
+                    {
+                        c.close();
                     }
                     if(db.isOpen()) {
                         db.close();
@@ -325,8 +403,19 @@
                     c = db.rawQuery("SELECT * FROM login", null);
                     if (c.getCount() > 0) {
                         c.moveToNext();
-
                         LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+                        if(!c.isClosed())
+                        {
+                            c.close();
+                        }
+                        if(db.isOpen()) {
+                            db.close();
+                        }
+                    }
+
+                    if(!c.isClosed())
+                    {
+                        c.close();
                     }
                     if(db.isOpen()) {
                         db.close();

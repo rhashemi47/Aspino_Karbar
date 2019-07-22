@@ -81,8 +81,12 @@
 
                 karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
             }
+
             if(db.isOpen()) {
                 db.close();
+            }
+            if(!coursors.isClosed()) {
+                coursors.close();
             }
         }
             try {
@@ -107,7 +111,7 @@
 //            AdapterUpdateAddress dataAdapter=new AdapterUpdateAddress(List_Address.this,valuse,karbarCode,backToActivity);
 //            lvAddress.setAdapter(dataAdapter);
 //        }
-            db=dbh.getReadableDatabase();
+            try { if(!db.isOpen()) { db=dbh.getReadableDatabase();}}	catch (Exception ex){	db=dbh.getReadableDatabase();	}
             Cursor cursorAddress = db.rawQuery("SELECT * FROM address WHERE Status='1'",null);
             if(cursorAddress.getCount()>0)
             {
@@ -124,6 +128,9 @@
             }
             if(db.isOpen()) {
                 db.close();
+            }
+            if(!cursorAddress.isClosed()) {
+                cursorAddress.close();
             }
             btnAdd_New_Address.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -124,7 +124,7 @@ public class AdapterGridSelectHamyar extends BaseAdapter {
 
             throw sqle;
         }
-        db=dbh.getReadableDatabase();
+        try { if(!db.isOpen()) { try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}}}	catch (Exception ex){	 db = dbh.getReadableDatabase();}
         Cursor cursor = db.rawQuery("SELECT * FROM services WHERE code='"+code+"'",null);
         if(cursor.getCount()>0)
         {
@@ -136,10 +136,23 @@ public class AdapterGridSelectHamyar extends BaseAdapter {
             {
                 holder.imageViewContactLogo.setImageResource(R.drawable.job);
             }
+            if(!cursor.isClosed()) {
+            cursor.close();
+            }
+            if(db.isOpen()) {
+                db.close();
+            }
 
         }
         else
         {
+
+            if(!cursor.isClosed()) {
+                cursor.close();
+            }
+            if(db.isOpen()) {
+                db.close();
+            }
             holder.imageViewContactLogo.setImageResource(R.drawable.job);
         }
 //        holder.txtValues.setOnClickListener(TextViewItemOnclick);

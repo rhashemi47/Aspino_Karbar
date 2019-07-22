@@ -27,6 +27,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layoutDirection="rtl"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp">
             <ImageView
                 android:id="@+id/imgMenu"
@@ -42,7 +44,7 @@
                 android:textColor="#fff"
                 android:text="@string/peigiri"
                 android:layout_marginRight="30dp"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:fontFamily="@font/vazir"
                 android:layout_weight="1"/>
             <ImageView

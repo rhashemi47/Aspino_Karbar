@@ -103,6 +103,7 @@ public class AdapterSelectAddress extends BaseAdapter {
     private OnClickListener ItemOnclick = new OnClickListener() {
         @Override
         public void onClick(View v) {
+
             dbh=new DatabaseHelper(activity.getApplicationContext());
             try {
 

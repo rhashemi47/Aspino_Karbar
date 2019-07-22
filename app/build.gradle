@@ -6,8 +6,8 @@ android {
         applicationId 'com.aspino.it.karbar'
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -28,6 +28,12 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/ASL2.0'
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -63,4 +69,5 @@ dependencies {
         exclude module:'org.apache.httpcomponents:httpclient'
     }
     implementation 'com.kovachcode:timePickerWithSeconds:1.0.1'
+    implementation 'com.android.support:multidex:1.0.3'
 }

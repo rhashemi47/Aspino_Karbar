@@ -141,20 +141,25 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 
 			throw sqle;
 		}
-			db=dbh.getReadableDatabase();
-			Cursor coursors = db.rawQuery("SELECT * FROM login",null);
-			for(int i=0;i<coursors.getCount();i++){
+
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+		Cursor coursors = db.rawQuery("SELECT * FROM login",null);
+		for(int i=0;i<coursors.getCount();i++){
 				coursors.moveToNext();
 
 				karbarCode=coursors.getString(coursors.getColumnIndex("karbarCode"));
 				tvTextUserMobile.setText(coursors.getString(coursors.getColumnIndex("Phone")));
 			}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
 		if(db.isOpen()) {
 			db.close();
 		}
 
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.useravatar);
-		db=dbh.getReadableDatabase();
+
+		try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 		coursors = db.rawQuery("SELECT * FROM Profile",null);
 		for(int i=0;i<coursors.getCount();i++){
 			coursors.moveToNext();
@@ -169,6 +174,12 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 			{
 
 			}
+		}
+		if(!coursors.isClosed()) {
+			coursors.close();
+		}
+		if(db.isOpen()) {
+			db.close();
 		}
 		try
 		{
@@ -188,12 +199,16 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 		tvTextCallSupport.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				db=dbh.getReadableDatabase();
+				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
+
 				Cursor cursor = db.rawQuery("SELECT * FROM Supportphone",null);
 				if(cursor.getCount()>0)
 				{
 					cursor.moveToNext();
 					dialContactPhone(cursor.getString(cursor.getColumnIndex("PhoneNumber")));
+				}
+				if(!cursor.isClosed()) {
+					cursor.close();
 				}
 				if(db.isOpen()) {
 					db.close();
@@ -374,7 +389,13 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 						cursorPhone.moveToNext();
 						dialContactPhone(cursorPhone.getString(cursorPhone.getColumnIndex("PhoneNumber")));
 					}
-					if(db.isOpen()) {                                            db.close();                                        }
+
+					if(!cursorPhone.isClosed()) {
+						cursorPhone.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 				} else {
 					// Permission Denied
 					Toast.makeText(Profile.this, "مجوز تماس از طریق برنامه لغو شده برای بر قراری تماس از درون برنامه باید مجوز دسترسی تماس را فعال نمایید.", Toast.LENGTH_LONG)
@@ -465,11 +486,32 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 							SyncProfile profile = new SyncProfile(Profile.this, c.getString(c.getColumnIndex("karbarCode")));
 							profile.AsyncExecute();
 						}
+
+						if(!c.isClosed()) {
+							c.close();
+						}
+						if(db.isOpen()) {
+							db.close();
+						}
 					} else {
 						LoadActivity(Profile.class, "karbarCode", karbarCode);
 					}
+
+					if(!coursors.isClosed()) {
+						coursors.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 				}
 				else {
+
+					if(!coursors.isClosed()) {
+						coursors.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity(Login.class,"karbarCode","0");
 				}
 				if(db.isOpen()) {
@@ -483,12 +525,23 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				if (c.getCount() > 0) {
 					c.moveToNext();
 					LoadActivity(Credit.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 				}
 				else {
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity(Login.class,"karbarCode","0");
-				}
-				if(db.isOpen()) {
-					db.close();
 				}
 				break;
 			case R.id.Order:
@@ -501,7 +554,21 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 							"LEFT JOIN " +
 							"Servicesdetails ON " +
 							"Servicesdetails.code=OrdersService.ServiceDetaileCode";
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity2(Paigiri.class, "karbarCode", karbarCode, "QueryCustom", QueryCustom);
+				}
+
+				if(!c.isClosed()) {
+					c.close();
+				}
+				if(db.isOpen()) {
+					db.close();
 				}
 				break;
 
@@ -509,10 +576,22 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				try { if(!db.isOpen()) { db = dbh.getReadableDatabase();}}	catch (Exception ex){	db = dbh.getReadableDatabase();	}
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
-					c.moveToNext();
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
 					LoadActivity2(List_Address.class,"karbarCode",karbarCode,"nameActivity","MainMenu");
 				}
-				if(db.isOpen()) {                                            db.close();                                        }
+
+				if(!c.isClosed()) {
+					c.close();
+				}
+				if(db.isOpen()) {
+					db.close();
+				}
 				break;
 
 			case R.id.Invite_friends:
@@ -524,8 +603,19 @@ public class Profile extends Activity implements NavigationView.OnNavigationItem
 				c = db.rawQuery("SELECT * FROM login", null);
 				if (c.getCount() > 0) {
 					c.moveToNext();
-
 					LoadActivity(About.class, "karbarCode", c.getString(c.getColumnIndex("karbarCode")));
+
+					if(!c.isClosed()) {
+						c.close();
+					}
+					if(db.isOpen()) {
+						db.close();
+					}
+
+				}
+
+				if(!c.isClosed()) {
+					c.close();
 				}
 				if(db.isOpen()) {
 					db.close();

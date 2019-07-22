@@ -1,11 +1,20 @@
 package  com.aspino.it.karbar;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.os.AsyncTask;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.ksoap2.SoapEnvelope;
@@ -595,11 +604,12 @@ public class SyncInsertUserServices {
 		if(db.isOpen()) {                                            db.close();                                        }
 		//Toast.makeText(activity, "درخواست ثبت شد.", Toast.LENGTH_LONG).show();
 		String mergDateAndTime=StartYear+"/"+StartMonth+"/"+StartDay+" - "+StartHour+":"+StartMinute;
-		LoadActivity(Final_ShowCodeService.class, "karbarCode", pUserCode,
-				"CodeServiceFinal",WsResponse,
-				"NameOrder",ServiceDetaileCode,
-				"AddressFinalService",AddressCode,
-				"DateAndTimeFinalService",mergDateAndTime);
+//		LoadActivity(Final_ShowCodeService.class, "karbarCode", pUserCode,
+//				"CodeServiceFinal",WsResponse,
+//				"NameOrder",ServiceDetaileCode,
+//				"AddressFinalService",AddressCode,
+//				"DateAndTimeFinalService",mergDateAndTime);
+		alert_final_factor(WsResponse,ServiceDetaileCode,AddressCode,mergDateAndTime);
     }
 	public void LoadActivity(Class<?> Cls,
 							 String VariableName1, String VariableValue1,
@@ -616,6 +626,51 @@ public class SyncInsertUserServices {
 		intent.putExtra(VariableName5, VariableValue5);
 		activity.startActivity(intent);
 	}
-
+	public  void alert_final_factor(String CodeServiceFinal,
+									String NameOrder,
+									String AddressFinalService,
+									String DateAndTimeFinalService)
+	{
+		LayoutInflater li = LayoutInflater.from(activity);
+		View promptsView = li.inflate(R.layout.final_save_order, null);
+		AlertDialog.Builder alertbox = new AlertDialog.Builder(activity);
+		//set view
+		alertbox.setView(promptsView);
+		ImageView imgOK = (ImageView) promptsView.findViewById(R.id.imgOK);
+		TextView tvCodeServiceFinal = (TextView) promptsView.findViewById(R.id.tvCodeServiceFinal);
+		TextView tvNameOrder = (TextView) promptsView.findViewById(R.id.tvNameOrder);
+		TextView tvAddressFinalService = (TextView) promptsView.findViewById(R.id.tvAddressFinalService);
+		TextView tvDateAndTimeFinalService = (TextView) promptsView.findViewById(R.id.tvDateAndTimeFinalService);
+		//*********************************************
+		tvCodeServiceFinal.setText(CodeServiceFinal);
+		tvNameOrder.setText(NameOrder);
+		tvAddressFinalService.setText(AddressFinalService);
+		tvDateAndTimeFinalService.setText(DateAndTimeFinalService);
+		// create alert dialog
+		final AlertDialog alertDialog = alertbox.create();
+		imgOK.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				LoadActivity2(MainMenu.class, "karbarCode", pUserCode);
+			}
+		});
+		alertDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+			@Override
+			public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+				if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    LoadActivity2(MainMenu.class, "karbarCode", pUserCode);
+				}
+				return false;
+			}
+		});
+		// show it
+		alertDialog.show();
+	}
+	public void LoadActivity2(Class<?> Cls, String VariableName, String VariableValue)
+	{
+		Intent intent = new Intent(this.activity,Cls);
+		intent.putExtra(VariableName, VariableValue);
+		activity.startActivity(intent);
+	}
 }
 

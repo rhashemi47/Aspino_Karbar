@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/LinearAddress"
+    android:background="@color/mdtp_transparent"
     android:layoutDirection="rtl">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#acacac">
+        android:background="@drawable/rounded_top_select_address">
         <TextView
             android:id="@+id/txtTitleAddress"
             android:layout_width="match_parent"
@@ -30,6 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
+        android:background="@drawable/rounded_bottom_select_address"
         android:layout_marginTop="5dp">
         <ImageView
             android:layout_width="55dp"

@@ -30,7 +30,7 @@
         android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:gravity="right"
-                android:fontFamily="@font/vazir_medium"
+                android:fontFamily="@font/vazir_bold"
                 android:layout_marginRight="40dp"/>
             <ImageView
                 android:layout_width="20dp"
@@ -55,7 +55,7 @@
             android:background="#a3a2a2"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center"
@@ -74,7 +74,7 @@
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center"
@@ -98,7 +98,7 @@
             android:layout_marginTop="2dp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center">

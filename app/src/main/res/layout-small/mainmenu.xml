@@ -81,7 +81,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@drawable/logo1"
+                android:src="@drawable/logo_center"
                 android:layout_marginBottom="20dp"/>
         </LinearLayout>
         <LinearLayout
